@@ -1,0 +1,707 @@
+from pathlib import Path
+
+html = """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soheil Aghayani | Resume</title>
+  <meta name="description" content="Personal resume website with parallax and scroll animations." />
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.10);
+      --text: #e9eefc;
+      --muted: rgba(233,238,252,0.72);
+      --line: rgba(233,238,252,0.14);
+      --accent: #6ea8ff;
+      --shadow: 0 18px 44px rgba(0,0,0,0.38);
+      --radius: 18px;
+      --wrap: 1100px;
+      --hero-image: none; /* Replace with: url('assets/hero.jpg') */
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 900px at 12% 12%, rgba(110,168,255,0.16), rgba(0,0,0,0) 58%),
+                  radial-gradient(900px 700px at 86% 28%, rgba(110,168,255,0.10), rgba(0,0,0,0) 62%),
+                  var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ color: var(--accent); }
+    p{ margin: 0.65rem 0; }
+    h1,h2,h3{ margin: 0.2rem 0; letter-spacing: -0.02em; }
+    ul{ margin: 0.6rem 0; padding-left: 1.2rem; }
+    li{ margin: 0.35rem 0; }
+
+    .wrap{
+      width: min(var(--wrap), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .skip{
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(15,22,35,0.92);
+      box-shadow: var(--shadow);
+    }
+    .skip:focus{ left: 14px; z-index: 20; }
+
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,23,0.55);
+      border-bottom: 1px solid rgba(233,238,252,0.10);
+    }
+    .nav-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      gap: 12px;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(110,168,255,0.14);
+    }
+    .links{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,238,252,0.12);
+      background: rgba(255,255,255,0.02);
+      font-size: 0.92rem;
+      color: var(--muted);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(110,168,255,0.32);
+      background: rgba(110,168,255,0.08);
+      color: var(--text);
+    }
+
+    .hero{
+      position: relative;
+      min-height: calc(100vh - 54px);
+      display: grid;
+      align-items: center;
+      padding: 56px 0 42px;
+      isolation: isolate;
+    }
+
+    .hero-bg{
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(180deg, rgba(11,15,23,0.35), rgba(11,15,23,0.85)),
+        var(--hero-image);
+      background-size: cover;
+      background-position: center;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+    }
+
+    .hero-layers{
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .layer{
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(0px);
+      opacity: 0.95;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+    .layer.one{
+      width: 520px;
+      height: 520px;
+      left: -120px;
+      top: 14%;
+      background: radial-gradient(circle at 30% 30%, rgba(110,168,255,0.42), rgba(110,168,255,0.00) 62%);
+    }
+    .layer.two{
+      width: 620px;
+      height: 620px;
+      right: -180px;
+      top: 8%;
+      background: radial-gradient(circle at 40% 40%, rgba(110,168,255,0.28), rgba(110,168,255,0.00) 64%);
+    }
+    .layer.three{
+      width: 720px;
+      height: 720px;
+      left: 22%;
+      bottom: -360px;
+      background: radial-gradient(circle at 50% 50%, rgba(110,168,255,0.18), rgba(110,168,255,0.00) 64%);
+    }
+
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card{
+      padding: 22px 20px;
+    }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .kicker span{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,238,252,0.12);
+      background: rgba(255,255,255,0.02);
+    }
+    .title{
+      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      line-height: 1.12;
+      margin-top: 6px;
+    }
+    .subtitle{
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 62ch;
+    }
+
+    .hero-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(110,168,255,0.35);
+      background: rgba(110,168,255,0.16);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(110,168,255,0.22);
+      border-color: rgba(110,168,255,0.55);
+    }
+    .btn-ghost{
+      border: 1px solid rgba(233,238,252,0.14);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(110,168,255,0.32);
+    }
+
+    .stats{
+      padding: 18px 18px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .stat{
+      border: 1px solid rgba(233,238,252,0.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 14px 14px;
+    }
+    .stat .num{
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .stat .lbl{
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 0.95rem;
+    }
+
+    .main{
+      padding: 18px 0 54px;
+    }
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .section{
+      padding: 18px 18px;
+    }
+    .section-head{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .section-head h2{
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .item{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(233,238,252,0.10);
+      background: rgba(255,255,255,0.02);
+      margin-top: 10px;
+    }
+    .item-head{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .item h3{
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .tags{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,238,252,0.12);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer{
+      padding: 22px 0 40px;
+      border-top: 1px solid rgba(233,238,252,0.10);
+      color: var(--muted);
+    }
+    .footer-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+      transition: opacity 600ms ease, transform 600ms ease;
+      will-change: transform, opacity;
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translate3d(0,0,0);
+    }
+
+    /* Parallax targets */
+    [data-parallax]{
+      transform: translate3d(0,0,0);
+      will-change: transform;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .hero{ min-height: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html:focus-within{ scroll-behavior: auto; }
+      .reveal{ transition: none; }
+      .pill, .btn{ transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Soheil Aghayani</span>
+      </div>
+
+      <div class="links" aria-label="Site links">
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#education">Education</a>
+        <a class="pill" href="#experience">Experience</a>
+        <a class="pill" href="#research">Research</a>
+        <a class="pill" href="#skills">Skills</a>
+        <a class="pill" href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-bg" data-parallax data-speed="0.18" aria-hidden="true"></div>
+
+    <div class="hero-layers" aria-hidden="true">
+      <div class="layer one" data-parallax data-speed="0.10"></div>
+      <div class="layer two" data-parallax data-speed="0.14"></div>
+      <div class="layer three" data-parallax data-speed="0.08"></div>
+    </div>
+
+    <div class="wrap hero-grid">
+      <section class="card hero-card reveal">
+        <div class="kicker">
+          <span>Resume</span>
+          <span>Parallax</span>
+          <span>Scroll animations</span>
+        </div>
+
+        <h1 class="title">Environmental Engineering. Solid Waste Management.</h1>
+        <p class="subtitle">
+          Replace this text with your summary. Keep it short. Focus on outcomes, tools, and research topics.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#contact">Contact</a>
+          <a class="btn btn-ghost" href="#experience">View experience</a>
+          <a class="btn btn-ghost" href="assets/Soheil_Aghayani_CV.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+        </div>
+
+        <div class="tags" aria-label="Highlights">
+          <span class="tag">LCA</span>
+          <span class="tag">LandGEM</span>
+          <span class="tag">SimaPro</span>
+          <span class="tag">Python</span>
+          <span class="tag">HSE</span>
+        </div>
+      </section>
+
+      <aside class="card stats reveal">
+        <div class="stat" data-parallax data-speed="0.06">
+          <div class="num">M.Sc.</div>
+          <div class="lbl">University of Tehran</div>
+        </div>
+        <div class="stat" data-parallax data-speed="0.09">
+          <div class="num">Waste</div>
+          <div class="lbl">Solid waste management focus</div>
+        </div>
+        <div class="stat" data-parallax data-speed="0.12">
+          <div class="num">2025</div>
+          <div class="lbl">Publications and submissions</div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="main" id="content">
+    <div class="wrap grid">
+
+      <section id="about" class="card section reveal">
+        <div class="section-head">
+          <h2>About</h2>
+          <span class="meta">One paragraph</span>
+        </div>
+        <p>
+          Write a clear profile statement. Mention domain focus, methods, tools, and measurable outputs.
+        </p>
+        <div class="item">
+          <div class="item-head">
+            <h3>Core interests</h3>
+            <span class="meta">Edit freely</span>
+          </div>
+          <ul>
+            <li>Solid waste management systems</li>
+            <li>Life cycle assessment workflows</li>
+            <li>Waste to energy and emissions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="education" class="card section reveal">
+        <div class="section-head">
+          <h2>Education</h2>
+          <span class="meta">Timeline</span>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>University of Tehran</h3>
+            <span class="meta">Aug 2022 to Present</span>
+          </div>
+          <p class="meta">M.Sc., Environmental Engineering, Solid Waste Management</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Shahed University</h3>
+            <span class="meta">Aug 2018 to Jul 2022</span>
+          </div>
+          <p class="meta">B.Sc., Civil Engineering</p>
+        </div>
+      </section>
+
+      <section id="experience" class="card section reveal">
+        <div class="section-head">
+          <h2>Experience</h2>
+          <span class="meta">Selected</span>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Technical Expert, Arvin Sarouj Pay</h3>
+            <span class="meta">Mar 2024 to Oct 2025</span>
+          </div>
+          <ul>
+            <li>HSE checklist management and site reporting</li>
+            <li>Safety training for workers and subcontractors</li>
+            <li>R and D support for energy efficient building work</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Technical Expert, Sedna</h3>
+            <span class="meta">May 2022 to Apr 2024</span>
+          </div>
+          <ul>
+            <li>Construction supervision for an industrial facility</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="research" class="card section reveal">
+        <div class="section-head">
+          <h2>Research</h2>
+          <span class="meta">Thesis and papers</span>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Master’s thesis</h3>
+            <span class="meta">In progress</span>
+          </div>
+          <p class="meta">Biofuel production from waste cooking oil via transesterification.</p>
+          <div class="tags">
+            <span class="tag">Catalysis</span>
+            <span class="tag">Waste to energy</span>
+            <span class="tag">Circular economy</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Selected publications</h3>
+            <span class="meta">2025</span>
+          </div>
+          <ul>
+            <li>Assessment of landfill gas production using LandGEM</li>
+            <li>Assessment of biomass resources in Iran and worldwide</li>
+            <li>Siting a waste transfer station to reduce pollution</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="skills" class="card section reveal">
+        <div class="section-head">
+          <h2>Skills</h2>
+          <span class="meta">Tools and methods</span>
+        </div>
+
+        <div class="tags">
+          <span class="tag">SimaPro</span>
+          <span class="tag">LandGEM</span>
+          <span class="tag">Python</span>
+          <span class="tag">ChemDraw</span>
+          <span class="tag">LCA</span>
+          <span class="tag">HSE</span>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>Languages</h3>
+            <span class="meta">Scores</span>
+          </div>
+          <ul>
+            <li>English, IELTS 7.0</li>
+            <li>German, ÖSD A2.1</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="card section reveal">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <span class="meta">Links</span>
+        </div>
+
+        <div class="item" data-parallax data-speed="0.07">
+          <div class="item-head">
+            <h3>Email</h3>
+            <span class="meta"><a href="mailto:soheil.aghayani@ut.ac.ir">soheil.aghayani@ut.ac.ir</a></span>
+          </div>
+        </div>
+
+        <div class="item" data-parallax data-speed="0.10">
+          <div class="item-head">
+            <h3>Phone</h3>
+            <span class="meta"><a href="tel:+989120543587">+98 912 054 3587</a></span>
+          </div>
+        </div>
+
+        <div class="item" data-parallax data-speed="0.13">
+          <div class="item-head">
+            <h3>LinkedIn</h3>
+            <span class="meta"><a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noreferrer">linkedin.com/in/AgSeyl</a></span>
+          </div>
+        </div>
+
+        <p class="meta">
+          Asset notes. Put images in an assets folder. Replace --hero-image in :root. Replace the PDF link path if needed.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>© <span id="y"></span> Soheil Aghayani</div>
+      <div>Built on GitHub Pages</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // Smooth anchor scrolling
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener("click", function(e){
+          var id = a.getAttribute("href");
+          if(!id || id.length < 2) return;
+          var target = document.querySelector(id);
+          if(!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.pushState(null, "", id);
+        });
+      });
+
+      // Reveal on scroll
+      var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.10 });
+
+      revealEls.forEach(function(el){ io.observe(el); });
+
+      // Parallax: translateY based on scroll
+      var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if(reduceMotion) return;
+
+      var latestY = window.scrollY || 0;
+      var ticking = false;
+
+      function update(){
+        ticking = false;
+        var y = latestY;
+        for(var i=0;i<parallaxEls.length;i++){
+          var el = parallaxEls[i];
+          var speed = parseFloat(el.getAttribute("data-speed") || "0.10");
+          var rect = el.getBoundingClientRect();
+          var viewportMid = window.innerHeight * 0.5;
+          var elMid = rect.top + rect.height * 0.5;
+          var delta = (elMid - viewportMid);
+          var translate = (y * speed) - (delta * speed * 0.35);
+          el.style.transform = "translate3d(0," + (translate * -0.12).toFixed(2) + "px,0)";
+        }
+      }
+
+      function onScroll(){
+        latestY = window.scrollY || 0;
+        if(ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
+"""
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+
+str(path)
