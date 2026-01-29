@@ -2,375 +2,494 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name | Resume</title>
-  <meta name="description" content="Personal resume website with parallax and scroll animations." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Soheil Aghayani | Portfolio</title>
+  <meta name="description" content="Soheil Aghayani. Environmental Engineering, Solid Waste Management. Research, publications, experience." />
+  <meta name="theme-color" content="#0b1022" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,700,0,0&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --bg: #0b0f17;
-      --panel: rgba(255,255,255,0.06);
-      --text: #e9eefc;
-      --muted: rgba(233,238,252,0.72);
-      --line: rgba(233,238,252,0.14);
-      --accent: #6ea8ff;
-      --shadow: 0 18px 44px rgba(0,0,0,0.38);
-      --radius: 18px;
-      --wrap: 1100px;
+      --bg0:#060913;
+      --bg1:#0b1022;
+      --ink:rgba(235,240,255,0.96);
+      --muted:rgba(235,240,255,0.70);
+      --line:rgba(235,240,255,0.14);
+      --glass:rgba(255,255,255,0.06);
+      --glass2:rgba(255,255,255,0.10);
+      --shadow:0 26px 70px rgba(0,0,0,0.46);
+      --radius:22px;
+      --wrap:1120px;
 
-      /* Optional hero image. Put hero.jpg inside /assets. */
-      --hero-image: none; /* Example: url('assets/hero.jpg') */
+      --a1:#6ea8ff;
+      --a2:#9b7bff;
+      --ok:#3ddc97;
+      --warn:#ffcc66;
+
+      --hero-img:url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=2400&q=80");
+      --waste-img:url("https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=2400&q=80");
+      --city-img:url("https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=2400&q=80");
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      color: var(--text);
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans","Liberation Sans",sans-serif;
+      color:var(--ink);
       background:
-        radial-gradient(1200px 900px at 12% 12%, rgba(110,168,255,0.16), rgba(0,0,0,0) 58%),
-        radial-gradient(900px 700px at 86% 28%, rgba(110,168,255,0.10), rgba(0,0,0,0) 62%),
-        var(--bg);
-      line-height: 1.6;
-      overflow-x: hidden;
+        radial-gradient(1400px 1000px at 12% 12%, rgba(110,168,255,0.18), rgba(0,0,0,0) 60%),
+        radial-gradient(1000px 760px at 86% 22%, rgba(155,123,255,0.16), rgba(0,0,0,0) 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ color: var(--accent); }
-    p{ margin: 0.65rem 0; }
-    h1,h2,h3{ margin: 0.2rem 0; letter-spacing: -0.02em; }
-    ul{ margin: 0.6rem 0; padding-left: 1.2rem; }
-    li{ margin: 0.35rem 0; }
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--a1)}
+    p{margin:0.7rem 0}
+    h1,h2,h3{margin:0;letter-spacing:-0.03em}
+    ul{margin:0.6rem 0;padding-left:1.15rem}
+    li{margin:0.35rem 0}
 
-    .wrap{
-      width: min(var(--wrap), calc(100% - 40px));
-      margin: 0 auto;
+    .wrap{width:min(var(--wrap), calc(100% - 40px));margin:0 auto}
+
+    .msr{
+      font-family:"Material Symbols Rounded";
+      font-weight:700;
+      font-style:normal;
+      font-size:22px;
+      line-height:1;
+      display:inline-block;
+      vertical-align:middle;
+      user-select:none;
     }
 
     .skip{
-      position: absolute;
-      left: -999px;
-      top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(15,22,35,0.92);
-      box-shadow: var(--shadow);
+      position:absolute;
+      left:-999px;
+      top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(12,16,32,0.92);
+      box-shadow:var(--shadow);
+      z-index:99;
     }
-    .skip:focus{ left: 14px; z-index: 20; }
+    .skip:focus{left:14px}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:80;
+      backdrop-filter:blur(12px);
+      background:rgba(6,9,19,0.55);
+      border-bottom:1px solid rgba(235,240,255,0.10);
+    }
+
+    .progress{
+      height:2px;
+      background:rgba(235,240,255,0.10);
+    }
+    .progress>div{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--a1),var(--a2));
+      transform-origin:left center;
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      white-space:nowrap;
+    }
+    .brand-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--a1),var(--a2));
+      box-shadow:0 0 0 7px rgba(110,168,255,0.12);
+    }
 
     .nav{
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,23,0.55);
-      border-bottom: 1px solid rgba(233,238,252,0.10);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:flex-end;
     }
-    .nav-inner{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 0;
-      gap: 12px;
+    .nav a{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(235,240,255,0.12);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      font-size:0.92rem;
+      font-weight:800;
+      letter-spacing:-0.01em;
+      transition:transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
     }
-    .brand{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .nav a:hover{
+      transform:translateY(-1px);
+      border-color:rgba(110,168,255,0.36);
+      background:rgba(110,168,255,0.10);
+      color:var(--ink);
     }
-    .dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(110,168,255,0.14);
-    }
-    .links{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: flex-end;
-    }
-    .pill{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(233,238,252,0.12);
-      background: rgba(255,255,255,0.02);
-      font-size: 0.92rem;
-      color: var(--muted);
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
-    }
-    .pill:hover{
-      transform: translateY(-1px);
-      border-color: rgba(110,168,255,0.32);
-      background: rgba(110,168,255,0.08);
-      color: var(--text);
+    .nav a.active{
+      border-color:rgba(110,168,255,0.58);
+      background:rgba(110,168,255,0.18);
+      color:var(--ink);
     }
 
     .hero{
-      position: relative;
-      min-height: calc(100vh - 54px);
-      display: grid;
-      align-items: center;
-      padding: 56px 0 42px;
-      isolation: isolate;
+      position:relative;
+      padding:56px 0 28px;
+      min-height:calc(100vh - 58px);
+      display:grid;
+      align-items:center;
+      isolation:isolate;
     }
 
     .hero-bg{
-      position: absolute;
-      inset: 0;
-      z-index: -2;
+      position:absolute;
+      inset:0;
+      z-index:-4;
       background-image:
-        linear-gradient(180deg, rgba(11,15,23,0.35), rgba(11,15,23,0.85)),
-        var(--hero-image);
-      background-size: cover;
-      background-position: center;
-      transform: translate3d(0,0,0);
-      will-change: transform;
+        linear-gradient(180deg, rgba(6,9,19,0.30), rgba(6,9,19,0.88)),
+        var(--hero-img);
+      background-size:cover;
+      background-position:center;
+      transform:translate3d(0,0,0);
+      will-change:transform;
     }
 
-    .hero-layers{
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
+    .hero-texture{
+      position:absolute;
+      inset:0;
+      z-index:-3;
+      opacity:0.14;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.20), rgba(0,0,0,0) 38%),
+        radial-gradient(circle at 88% 24%, rgba(255,255,255,0.14), rgba(0,0,0,0) 44%),
+        radial-gradient(circle at 50% 90%, rgba(255,255,255,0.10), rgba(0,0,0,0) 50%);
+      mix-blend-mode:overlay;
     }
-    .layer{
-      position: absolute;
-      border-radius: 999px;
-      opacity: 0.95;
-      mix-blend-mode: screen;
-      will-change: transform;
+
+    .orbs{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      overflow:hidden;
     }
-    .layer.one{
-      width: 520px;
-      height: 520px;
-      left: -120px;
-      top: 14%;
-      background: radial-gradient(circle at 30% 30%, rgba(110,168,255,0.42), rgba(110,168,255,0.00) 62%);
+    .orb{
+      position:absolute;
+      border-radius:999px;
+      mix-blend-mode:screen;
+      opacity:0.95;
+      will-change:transform;
     }
-    .layer.two{
-      width: 620px;
-      height: 620px;
-      right: -180px;
-      top: 8%;
-      background: radial-gradient(circle at 40% 40%, rgba(110,168,255,0.28), rgba(110,168,255,0.00) 64%);
+    .orb.one{
+      width:560px;height:560px;left:-180px;top:8%;
+      background:radial-gradient(circle at 35% 35%, rgba(110,168,255,0.50), rgba(110,168,255,0.00) 64%);
     }
-    .layer.three{
-      width: 720px;
-      height: 720px;
-      left: 22%;
-      bottom: -360px;
-      background: radial-gradient(circle at 50% 50%, rgba(110,168,255,0.18), rgba(110,168,255,0.00) 64%);
+    .orb.two{
+      width:680px;height:680px;right:-240px;top:6%;
+      background:radial-gradient(circle at 45% 45%, rgba(155,123,255,0.36), rgba(155,123,255,0.00) 66%);
+    }
+    .orb.three{
+      width:760px;height:760px;left:22%;bottom:-420px;
+      background:radial-gradient(circle at 50% 50%, rgba(110,168,255,0.18), rgba(110,168,255,0.00) 68%);
     }
 
     .hero-grid{
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
+      display:grid;
+      grid-template-columns:1.15fr 0.85fr;
+      gap:18px;
+      align-items:stretch;
     }
 
     .card{
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border:1px solid var(--line);
+      background:var(--glass);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
-    .hero-card{
-      padding: 22px 20px;
+    .spotlight{
+      position:relative;
+      overflow:hidden;
     }
-    .kicker{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
+    .spotlight::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:radial-gradient(420px 320px at var(--mx,50%) var(--my,30%),
+        rgba(110,168,255,0.24),
+        rgba(155,123,255,0.14) 42%,
+        rgba(0,0,0,0) 70%);
+      opacity:0;
+      transition:opacity 180ms ease;
+      pointer-events:none;
     }
-    .kicker span{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(233,238,252,0.12);
-      background: rgba(255,255,255,0.02);
-    }
-    .title{
-      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-      line-height: 1.12;
-      margin-top: 6px;
-    }
-    .subtitle{
-      font-size: 1.05rem;
-      color: var(--muted);
-      margin-top: 10px;
-      max-width: 62ch;
+    .spotlight:hover::before{opacity:1}
+
+    .hero-main{padding:22px 20px}
+    .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(235,240,255,0.14);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      font-weight:900;
+      font-size:0.88rem;
+      letter-spacing:-0.01em;
     }
 
-    .hero-actions{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
+    .h1{
+      font-size:clamp(2.3rem,3.8vw,3.4rem);
+      line-height:1.06;
+      letter-spacing:-0.04em;
     }
+    .sub{margin-top:10px;color:var(--muted);font-size:1.05rem;max-width:68ch}
+
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
     .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(110,168,255,0.35);
-      background: rgba(110,168,255,0.16);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(110,168,255,0.38);
+      background:rgba(110,168,255,0.16);
+      font-weight:900;
+      letter-spacing:-0.01em;
+      transition:transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      user-select:none;
     }
     .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(110,168,255,0.22);
-      border-color: rgba(110,168,255,0.55);
+      transform:translateY(-1px);
+      background:rgba(110,168,255,0.22);
+      border-color:rgba(110,168,255,0.60);
     }
-    .btn-ghost{
-      border: 1px solid rgba(233,238,252,0.14);
-      background: rgba(255,255,255,0.02);
-      color: var(--text);
+    .btn.ghost{
+      border-color:rgba(235,240,255,0.14);
+      background:rgba(255,255,255,0.02);
     }
-    .btn-ghost:hover{
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(110,168,255,0.32);
+    .btn.ghost:hover{
+      border-color:rgba(110,168,255,0.34);
+      background:rgba(255,255,255,0.05);
     }
 
-    .stats{
-      padding: 18px 18px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(235,240,255,0.12);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      font-size:0.92rem;
+      font-weight:700;
     }
+    .chip[role="button"]{cursor:pointer}
+    .chip .msr{font-size:18px}
+
+    .hero-side{
+      padding:18px 18px;
+      display:grid;
+      gap:12px;
+      align-content:start;
+    }
+
     .stat{
-      border: 1px solid rgba(233,238,252,0.12);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      padding: 14px 14px;
+      border:1px solid rgba(235,240,255,0.12);
+      border-radius:18px;
+      background:rgba(255,255,255,0.03);
+      padding:14px 14px;
+      will-change:transform;
     }
-    .stat .num{
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .stat .lbl{
-      color: var(--muted);
-      margin-top: 4px;
-      font-size: 0.95rem;
-    }
+    .stat-top{display:flex;align-items:center;gap:10px}
+    .stat-top .msr{font-size:20px;color:rgba(235,240,255,0.92)}
+    .stat .k{font-weight:900;letter-spacing:-0.02em;font-size:1.05rem}
+    .stat .v{margin-top:6px;color:var(--muted);font-size:0.96rem}
 
-    .main{
-      padding: 18px 0 54px;
-    }
+    .main{padding:18px 0 56px}
     .grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:start;
     }
 
-    .section{
-      padding: 18px 18px;
+    .section{padding:18px 18px}
+    .head{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
     }
-    .section-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
+    .head h2{
+      font-size:1.12rem;
+      letter-spacing:-0.02em;
     }
-    .section-head h2{
-      font-size: 1.15rem;
-      letter-spacing: -0.01em;
-    }
-    .meta{
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+    .meta{color:var(--muted);font-size:0.95rem;font-weight:700}
 
     .item{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(233,238,252,0.10);
-      background: rgba(255,255,255,0.02);
-      margin-top: 10px;
+      margin-top:10px;
+      padding:12px 12px;
+      border-radius:18px;
+      border:1px solid rgba(235,240,255,0.10);
+      background:rgba(255,255,255,0.02);
     }
-    .item-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+    .item-top{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
-    .item h3{
-      font-size: 1.05rem;
-      margin: 0;
+    .item h3{font-size:1.02rem;letter-spacing:-0.01em}
+
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(235,240,255,0.12);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      font-size:0.90rem;
+      font-weight:800;
+      letter-spacing:-0.01em;
+    }
+    .pill.ok{border-color:rgba(61,220,151,0.28);background:rgba(61,220,151,0.08);color:rgba(235,240,255,0.88)}
+    .pill.warn{border-color:rgba(255,204,102,0.28);background:rgba(255,204,102,0.08);color:rgba(235,240,255,0.88)}
+
+    .pub{display:grid;gap:10px;margin-top:10px}
+    .pub .p{
+      padding:12px 12px;
+      border-radius:18px;
+      border:1px solid rgba(235,240,255,0.10);
+      background:rgba(255,255,255,0.02);
+    }
+    .pub .t{font-weight:900;letter-spacing:-0.01em}
+    .pub .m{margin-top:6px;color:var(--muted);font-size:0.95rem}
+
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .fbtn{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(235,240,255,0.14);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:-0.01em;
+      cursor:pointer;
+      transition:transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .fbtn:hover{
+      transform:translateY(-1px);
+      border-color:rgba(110,168,255,0.30);
+      background:rgba(110,168,255,0.10);
+      color:var(--ink);
+    }
+    .fbtn.active{
+      border-color:rgba(110,168,255,0.58);
+      background:rgba(110,168,255,0.18);
+      color:var(--ink);
     }
 
-    .tags{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
+    .backdrop{
+      position:relative;
+      overflow:hidden;
     }
-    .tag{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(233,238,252,0.12);
-      background: rgba(255,255,255,0.02);
-      color: var(--muted);
-      font-size: 0.92rem;
+    .backdrop::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      opacity:0.18;
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.60)),
+        var(--img);
+      background-size:cover;
+      background-position:center;
+      transform:translate3d(0,0,0);
+      will-change:transform;
+    }
+
+    details{
+      margin-top:10px;
+      border:1px solid rgba(235,240,255,0.10);
+      background:rgba(255,255,255,0.02);
+      border-radius:18px;
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color:rgba(235,240,255,0.92);
+      letter-spacing:-0.01em;
     }
 
     .footer{
-      padding: 22px 0 40px;
-      border-top: 1px solid rgba(233,238,252,0.10);
-      color: var(--muted);
+      border-top:1px solid rgba(235,240,255,0.10);
+      padding:22px 0 42px;
+      color:var(--muted);
     }
     .footer-inner{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-weight:800;
+      letter-spacing:-0.01em;
     }
 
     .reveal{
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-      transition: opacity 600ms ease, transform 600ms ease;
-      will-change: transform, opacity;
+      opacity:0;
+      transform:translate3d(0,16px,0);
+      transition:opacity 650ms ease, transform 650ms ease;
+      will-change:transform,opacity;
     }
     .reveal.in{
-      opacity: 1;
-      transform: translate3d(0,0,0);
+      opacity:1;
+      transform:translate3d(0,0,0);
     }
 
-    [data-parallax]{
-      transform: translate3d(0,0,0);
-      will-change: transform;
+    [data-parallax]{transform:translate3d(0,0,0);will-change:transform}
+
+    .tilt{transform-style:preserve-3d;will-change:transform}
+
+    @media (max-width:940px){
+      .hero{min-height:auto}
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .nav{display:none}
     }
 
-    @media (max-width: 920px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .grid{ grid-template-columns: 1fr; }
-      .hero{ min-height: auto; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      html:focus-within{ scroll-behavior: auto; }
-      .reveal{ transition: none; }
-      .pill, .btn{ transition: none; }
+    @media (prefers-reduced-motion:reduce){
+      .reveal{transition:none}
+      .btn,.nav a,.fbtn{transition:none}
     }
   </style>
 </head>
@@ -378,72 +497,87 @@
 <body>
   <a class="skip" href="#content">Skip to content</a>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
+  <div class="topbar">
+    <div class="progress"><div id="progressBar"></div></div>
+    <div class="wrap topbar-inner">
       <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Your Name</span>
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Soheil Aghayani</span>
       </div>
 
-      <div class="links" aria-label="Site links">
-        <a class="pill" href="#about">About</a>
-        <a class="pill" href="#education">Education</a>
-        <a class="pill" href="#experience">Experience</a>
-        <a class="pill" href="#projects">Projects</a>
-        <a class="pill" href="#skills">Skills</a>
-        <a class="pill" href="#contact">Contact</a>
-      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#skills">Skills</a>
+        <a href="#volunteer">Volunteer</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </nav>
+  </div>
 
   <header class="hero" id="top">
     <div class="hero-bg" data-parallax data-speed="0.18" aria-hidden="true"></div>
+    <div class="hero-texture" aria-hidden="true"></div>
 
-    <div class="hero-layers" aria-hidden="true">
-      <div class="layer one" data-parallax data-speed="0.10"></div>
-      <div class="layer two" data-parallax data-speed="0.14"></div>
-      <div class="layer three" data-parallax data-speed="0.08"></div>
+    <div class="orbs" aria-hidden="true">
+      <div class="orb one" data-parallax data-speed="0.10" data-mouse="0.20"></div>
+      <div class="orb two" data-parallax data-speed="0.14" data-mouse="0.26"></div>
+      <div class="orb three" data-parallax data-speed="0.08" data-mouse="0.18"></div>
     </div>
 
     <div class="wrap hero-grid">
-      <section class="card hero-card reveal">
-        <div class="kicker">
-          <span>Resume</span>
-          <span>Parallax</span>
-          <span>Scroll animations</span>
+      <section class="card spotlight hero-main reveal tilt" data-tilt>
+        <div class="badge-row">
+          <span class="badge"><span class="msr" aria-hidden="true">eco</span> Environmental Engineering</span>
+          <span class="badge"><span class="msr" aria-hidden="true">recycling</span> Solid Waste Management</span>
+          <span class="badge"><span class="msr" aria-hidden="true">science</span> Research</span>
         </div>
 
-        <h1 class="title">Your headline goes here.</h1>
-        <p class="subtitle">
-          Replace this with a short summary. Add tools, topics, and outcomes.
+        <h1 class="h1">Environmental Engineer focused on solid waste systems and life cycle assessment.</h1>
+        <p class="sub">
+          M.Sc. candidate at the University of Tehran. Work across waste management, emissions, and waste to energy topics.
         </p>
 
-        <div class="hero-actions">
-          <a class="btn" href="#contact">Contact</a>
-          <a class="btn btn-ghost" href="#experience">View experience</a>
-          <a class="btn btn-ghost" href="assets/cv.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+        <div class="cta-row">
+          <a class="btn" href="#contact"><span class="msr" aria-hidden="true">mail</span> Contact</a>
+          <a class="btn ghost" href="#publications"><span class="msr" aria-hidden="true">library_books</span> Publications</a>
+          <a class="btn ghost" href="assets/Soheil_Aghayani_CV.pdf" target="_blank" rel="noreferrer"><span class="msr" aria-hidden="true">picture_as_pdf</span> PDF CV</a>
         </div>
 
-        <div class="tags" aria-label="Highlights">
-          <span class="tag">LCA</span>
-          <span class="tag">Python</span>
-          <span class="tag">Research</span>
-          <span class="tag">HSE</span>
+        <div class="chips" aria-label="Quick links">
+          <span class="chip" id="copyEmail" role="button" tabindex="0" aria-label="Copy email">
+            <span class="msr" aria-hidden="true">alternate_email</span>
+            soheil.aghayani@ut.ac.ir
+          </span>
+          <a class="chip" href="tel:+989120543587">
+            <span class="msr" aria-hidden="true">call</span>
+            +98 912 054 3587
+          </a>
+          <a class="chip" href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noreferrer">
+            <span class="msr" aria-hidden="true">link</span>
+            linkedin.com/in/AgSeyl
+          </a>
+          <span class="chip"><span class="msr" aria-hidden="true">location_on</span> Tehran, Iran</span>
         </div>
       </section>
 
-      <aside class="card stats reveal">
+      <aside class="card hero-side reveal">
         <div class="stat" data-parallax data-speed="0.06">
-          <div class="num">M.Sc.</div>
-          <div class="lbl">University name</div>
+          <div class="stat-top"><span class="msr" aria-hidden="true">school</span><div class="k">M.Sc.</div></div>
+          <div class="v">University of Tehran, Environmental Engineering, Solid Waste Management. Aug 2022 to Present.</div>
         </div>
+
         <div class="stat" data-parallax data-speed="0.09">
-          <div class="num">Focus</div>
-          <div class="lbl">Your specialty</div>
+          <div class="stat-top"><span class="msr" aria-hidden="true">factory</span><div class="k">Industry</div></div>
+          <div class="v">HSE checklists, safety training, energy efficient building R and D support.</div>
         </div>
+
         <div class="stat" data-parallax data-speed="0.12">
-          <div class="num">2026</div>
-          <div class="lbl">Latest highlight</div>
+          <div class="stat-top"><span class="msr" aria-hidden="true">terminal</span><div class="k">Tools</div></div>
+          <div class="v">SimaPro, LandGEM, Python, ChemDraw. LCA workflows and emissions estimation.</div>
         </div>
       </aside>
     </div>
@@ -452,162 +586,297 @@
   <main class="main" id="content">
     <div class="wrap grid">
 
-      <section id="about" class="card section reveal">
-        <div class="section-head">
-          <h2>About</h2>
-          <span class="meta">One paragraph</span>
+      <section id="about" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">person</span> About</h2>
+          <div class="meta">Profile</div>
         </div>
+
         <p>
-          Write a clear profile statement. Mention domain focus, methods, tools, and measurable outputs.
+          Environmental engineering graduate researcher with a focus on solid waste management, LCA workflows, and applied waste to energy evaluations.
         </p>
+
         <div class="item">
-          <div class="item-head">
-            <h3>Core interests</h3>
-            <span class="meta">Edit freely</span>
+          <div class="item-top">
+            <h3>Research interests</h3>
+            <div class="meta">Focus</div>
           </div>
           <ul>
-            <li>Topic one</li>
-            <li>Topic two</li>
-            <li>Topic three</li>
+            <li>Practical and innovative solutions for environmental challenges in waste management</li>
+            <li>Software tools for LCA, OpenLCA learning, SimaPro proficiency growth</li>
+            <li>International conferences and exhibitions for knowledge and networking</li>
+            <li>Creative design and visual presentation</li>
+            <li>Science and technology applications in real world scenarios</li>
           </ul>
         </div>
       </section>
 
-      <section id="education" class="card section reveal">
-        <div class="section-head">
-          <h2>Education</h2>
-          <span class="meta">Timeline</span>
+      <section id="education" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">school</span> Education</h2>
+          <div class="meta">Timeline</div>
         </div>
 
         <div class="item">
-          <div class="item-head">
-            <h3>School name</h3>
-            <span class="meta">Start to End</span>
+          <div class="item-top">
+            <h3>University of Tehran</h3>
+            <div class="meta">Aug 2022 to Present</div>
           </div>
-          <p class="meta">Degree, Field</p>
+          <div class="meta">Master of Science, Environmental School, Environmental Engineering, Solid Waste Management</div>
+          <div class="pill-row">
+            <span class="pill ok">GPA 3.81 out of 4.00</span>
+            <span class="pill">19.06</span>
+          </div>
         </div>
 
         <div class="item">
-          <div class="item-head">
-            <h3>School name</h3>
-            <span class="meta">Start to End</span>
+          <div class="item-top">
+            <h3>Shahed University</h3>
+            <div class="meta">Aug 2018 to Jul 2022</div>
           </div>
-          <p class="meta">Degree, Field</p>
+          <div class="meta">Bachelor of Science, Engineering School, Civil Engineering</div>
+          <div class="pill-row">
+            <span class="pill">GPA 2.93 out of 4.00</span>
+            <span class="pill">14.65</span>
+          </div>
         </div>
       </section>
 
-      <section id="experience" class="card section reveal">
-        <div class="section-head">
-          <h2>Experience</h2>
-          <span class="meta">Selected</span>
+      <section id="experience" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">work</span> Experience</h2>
+          <div class="meta">Industry</div>
         </div>
 
         <div class="item">
-          <div class="item-head">
-            <h3>Role, Company</h3>
-            <span class="meta">Start to End</span>
+          <div class="item-top">
+            <h3>Technical Expert, Arvin Sarouj Pay</h3>
+            <div class="meta">Mar 2024 to Oct 2025, Tehran</div>
           </div>
           <ul>
-            <li>Impact bullet one</li>
-            <li>Impact bullet two</li>
-            <li>Impact bullet three</li>
+            <li>HSE checklist ownership and worker training delivery</li>
+            <li>R and D support for energy efficient building design</li>
           </ul>
         </div>
 
         <div class="item">
-          <div class="item-head">
-            <h3>Role, Company</h3>
-            <span class="meta">Start to End</span>
+          <div class="item-top">
+            <h3>Technical Expert, Sedna</h3>
+            <div class="meta">May 2022 to Apr 2024, Tehran</div>
           </div>
           <ul>
-            <li>Impact bullet one</li>
+            <li>Construction supervision for a factory manufacturing electronic thermal devices</li>
           </ul>
         </div>
       </section>
 
-      <section id="projects" class="card section reveal">
-        <div class="section-head">
-          <h2>Projects</h2>
-          <span class="meta">Work and research</span>
+      <section id="research" class="card spotlight section reveal tilt backdrop" data-tilt style="--img:var(--waste-img)">
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">biotech</span> Research</h2>
+          <div class="meta">Thesis</div>
         </div>
 
         <div class="item">
-          <div class="item-head">
-            <h3>Project title</h3>
-            <span class="meta">Year</span>
+          <div class="item-top">
+            <h3>Master’s thesis</h3>
+            <div class="meta">In progress</div>
           </div>
-          <p class="meta">One line outcome.</p>
-          <div class="tags">
-            <span class="tag">Keyword</span>
-            <span class="tag">Keyword</span>
-            <span class="tag">Keyword</span>
+          <div class="meta">
+            Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells.
+          </div>
+          <div class="pill-row">
+            <span class="pill ok">TRL 4</span>
+            <span class="pill">Transesterification</span>
+            <span class="pill">Waste derived catalyst</span>
+            <span class="pill">Circular economy</span>
           </div>
         </div>
 
-        <div class="item">
-          <div class="item-head">
-            <h3>Project title</h3>
-            <span class="meta">Year</span>
+        <details>
+          <summary>Supervisors</summary>
+          <div class="item">
+            <div class="meta">R. Samie Zafraghandi, r_samiee@ut.ac.ir</div>
+            <div class="meta">M. Baghdadi, m.baghdadi@ut.ac.ir</div>
           </div>
-          <p class="meta">One line outcome.</p>
-        </div>
+        </details>
       </section>
 
-      <section id="skills" class="card section reveal">
-        <div class="section-head">
-          <h2>Skills</h2>
-          <span class="meta">Tools and methods</span>
+      <section id="publications" class="card spotlight section reveal tilt backdrop" data-tilt style="--img:var(--city-img)">
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">library_books</span> Publications</h2>
+          <div class="meta">Journals</div>
         </div>
 
-        <div class="tags">
-          <span class="tag">Tool</span>
-          <span class="tag">Tool</span>
-          <span class="tag">Method</span>
-          <span class="tag">Domain</span>
+        <div class="filters" role="group" aria-label="Publication filters">
+          <button class="fbtn active" data-filter="all" type="button">All</button>
+          <button class="fbtn" data-filter="published" type="button">Published</button>
+          <button class="fbtn" data-filter="review" type="button">Under review</button>
+        </div>
+
+        <div class="pub" id="pubList">
+          <div class="p" data-status="review">
+            <div class="t">Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model: A Comprehensive Analysis</div>
+            <div class="m">Submitted to Advances in Environmental Technology Journal. Under review. 2025.</div>
+            <div class="pill-row">
+              <span class="pill warn">Under review</span>
+              <span class="pill">LandGEM</span>
+              <span class="pill">Landfill gas</span>
+            </div>
+          </div>
+
+          <div class="p" data-status="published">
+            <div class="t">Assessment of Biomass Resources in Iran and Worldwide: Diversity Analysis in Rural Areas with a Focus on Municipal Solid Waste and Livestock Manure</div>
+            <div class="m">Submitted to Pollution Journal. Published. 2025.</div>
+            <div class="pill-row">
+              <span class="pill ok">Published</span>
+              <span class="pill">Biomass</span>
+              <span class="pill">MSW</span>
+              <span class="pill">Manure</span>
+            </div>
+          </div>
+
+          <div class="p" data-status="published">
+            <div class="t">Siting a Waste Transfer Station in District 6 of Karaj Municipality to Reduce Pollution</div>
+            <div class="m">Submitted to Pollution Journal. Published. 2025.</div>
+            <div class="pill-row">
+              <span class="pill ok">Published</span>
+              <span class="pill">Facility siting</span>
+              <span class="pill">Urban pollution</span>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary>Conference papers</summary>
+          <div class="item">
+            <ul>
+              <li>A Review of Biofuel Production from Biomass by Transesterification. Second National Conference on the Future and Sustainability of the Environment. Tehran, Iran. 2025.</li>
+              <li>Management of Pharmaceutical Wastes. Second National Conference on the Future and Sustainability of the Environment. Tehran, Iran. 2025.</li>
+              <li>Assessment of Pollutants in the Textile Industry. First National Conference on the Future and Sustainability of the Environment. Tehran, Iran. 2024.</li>
+              <li>A Review of Pollutants in the Steel Industry and Methods for Their Reduction and Disposal. First National Conference on the Future and Sustainability of the Environment. Tehran, Iran. 2024.</li>
+              <li>Facade design studies and reviews. Conferences in Bangkok and Tehran. 2023.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <section id="skills" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">handyman</span> Skills</h2>
+          <div class="meta">Tools and languages</div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">SimaPro</span>
+          <span class="pill">LandGEM</span>
+          <span class="pill">Python</span>
+          <span class="pill">ChemDraw</span>
+          <span class="pill">LCA</span>
+          <span class="pill">OpenLCA</span>
         </div>
 
         <div class="item">
-          <div class="item-head">
+          <div class="item-top">
             <h3>Languages</h3>
-            <span class="meta">Scores</span>
+            <div class="meta">Scores</div>
           </div>
           <ul>
-            <li>English</li>
-            <li>German</li>
+            <li>English, 7.0</li>
+            <li>German, ÖSD Certificate A2.1</li>
           </ul>
         </div>
+
+        <details>
+          <summary>Specialized courses and workshops</summary>
+          <div class="item">
+            <ul>
+              <li>Life Cycle Assessment, 35 hours, University of Michigan, Verified by Coursera</li>
+              <li>Sustainable Regional Principles, Planning and Transportation, 7 hours, Johns Hopkins University, Verified by Coursera</li>
+              <li>COP29 sessions, Nov 2024, Baku, Azerbaijan. Circular economy, energy efficiency, methane, carbon markets</li>
+              <li>Waste Management Workshop in Sports Complexes, 3 hours, Nov 2024, Olympic Academy, Tehran</li>
+              <li>LCA Training Course, 4 hours, Nov 2024, Iranian Society of Waste Engineering and Management, Tehran</li>
+              <li>Training Course on Industrial and Hazardous Waste Management in the Oil Industry, 4 hours, Aug 2024</li>
+              <li>Introduction to Waste Coding Methods, 4 hours, Mar 2024</li>
+            </ul>
+          </div>
+        </details>
       </section>
 
-      <section id="contact" class="card section reveal">
-        <div class="section-head">
-          <h2>Contact</h2>
-          <span class="meta">Links</span>
+      <section id="volunteer" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">diversity_3</span> Volunteer</h2>
+          <div class="meta">Community</div>
+        </div>
+
+        <div class="item">
+          <div class="item-top">
+            <h3>Administrative Coordinator, IRISWA</h3>
+            <div class="meta">Tehran</div>
+          </div>
+          <ul>
+            <li>Member registration processes and document archives</li>
+            <li>Promotional materials, posters and brochures</li>
+            <li>Guidance and support during events</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-top">
+            <h3>Volunteer Coordinator, Waste Management Winter School</h3>
+            <div class="meta">Tehran</div>
+          </div>
+          <ul>
+            <li>Course coordination and session logistics</li>
+            <li>Instructor support and participant guidance</li>
+            <li>Attendance lists and participant support</li>
+          </ul>
+        </div>
+
+        <details>
+          <summary>References</summary>
+          <div class="item">
+            <div class="meta"><b>Dr. Rodabeh Samiee Zafraghandi</b>, Assistant Professor, University of Tehran. r_samiee@ut.ac.ir</div>
+            <div class="meta"><b>Dr. Maryam Pazoki</b>, Assistant Professor, University of Tehran. mpazoki@ut.ac.ir</div>
+            <div class="meta"><b>Dr. Majid Baghdadi</b>, Assistant Professor, University of Tehran. m.baghdadi@ut.ac.ir</div>
+            <div class="meta"><b>Dr. Saeed Gitypor</b>, Professor, University of Tehran. gitipour@ut.ac.ir</div>
+          </div>
+        </details>
+      </section>
+
+      <section id="contact" class="card spotlight section reveal tilt" data-tilt>
+        <div class="head">
+          <h2><span class="msr" aria-hidden="true">mail</span> Contact</h2>
+          <div class="meta">Links</div>
         </div>
 
         <div class="item" data-parallax data-speed="0.07">
-          <div class="item-head">
+          <div class="item-top">
             <h3>Email</h3>
-            <span class="meta"><a href="mailto:you@email.com">you@email.com</a></span>
+            <div class="meta"><a href="mailto:soheil.aghayani@ut.ac.ir">soheil.aghayani@ut.ac.ir</a></div>
           </div>
         </div>
 
         <div class="item" data-parallax data-speed="0.10">
-          <div class="item-head">
+          <div class="item-top">
             <h3>Phone</h3>
-            <span class="meta"><a href="tel:+0000000000">+00 000 000 0000</a></span>
+            <div class="meta"><a href="tel:+989120543587">+98 912 054 3587</a></div>
           </div>
         </div>
 
         <div class="item" data-parallax data-speed="0.13">
-          <div class="item-head">
+          <div class="item-top">
             <h3>LinkedIn</h3>
-            <span class="meta"><a href="https://linkedin.com" target="_blank" rel="noreferrer">linkedin.com/in/your-handle</a></span>
+            <div class="meta"><a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noreferrer">linkedin.com/in/AgSeyl</a></div>
           </div>
         </div>
 
-        <p class="meta">
-          Assets. Create /assets. Put hero.jpg and cv.pdf there. Set --hero-image at the top.
-        </p>
+        <details>
+          <summary>Assets</summary>
+          <div class="item">
+            <div class="meta">Put your PDF at assets/Soheil_Aghayani_CV.pdf</div>
+            <div class="meta">Optional hero image. Replace --hero-img in :root</div>
+          </div>
+        </details>
       </section>
 
     </div>
@@ -615,72 +884,161 @@
 
   <footer class="footer">
     <div class="wrap footer-inner">
-      <div>© <span id="y"></span> Your Name</div>
+      <div>© <span id="year"></span> Soheil Aghayani</div>
       <div>Built on GitHub Pages</div>
     </div>
   </footer>
 
   <script>
-    (function(){
-      document.getElementById("y").textContent = new Date().getFullYear();
+    ;(() => {
+      const yearEl = document.getElementById("year")
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear())
 
-      document.querySelectorAll('a[href^="#"]').forEach(function(a){
-        a.addEventListener("click", function(e){
-          var id = a.getAttribute("href");
-          if(!id || id.length < 2) return;
-          var target = document.querySelector(id);
-          if(!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.pushState(null, "", id);
-        });
-      });
+      const progress = document.getElementById("progressBar")
+      const updateProgress = () => {
+        const h = document.documentElement
+        const top = h.scrollTop || document.body.scrollTop || 0
+        const max = (h.scrollHeight || 1) - h.clientHeight
+        const pct = max > 0 ? (top / max) * 100 : 0
+        if (progress) progress.style.width = pct.toFixed(2) + "%"
+      }
 
-      var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
-          }
-        });
-      }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.10 });
+      document.addEventListener("click", e => {
+        const a = e.target.closest('a[href^="#"]')
+        if (!a) return
+        const id = a.getAttribute("href")
+        if (!id || id.length < 2) return
+        const t = document.querySelector(id)
+        if (!t) return
+        e.preventDefault()
+        t.scrollIntoView({ behavior: "smooth", block: "start" })
+        history.pushState(null, "", id)
+      })
 
-      revealEls.forEach(function(el){ io.observe(el); });
+      const revealEls = [...document.querySelectorAll(".reveal")]
+      const io = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add("in")
+          io.unobserve(entry.target)
+        }
+      }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.10 })
+      for (const el of revealEls) io.observe(el)
 
-      var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if(reduceMotion) return;
+      const parallaxEls = [...document.querySelectorAll("[data-parallax]")]
+      const reduced = matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches
+      let latestY = window.scrollY || 0
+      let ticking = false
 
-      var latestY = window.scrollY || 0;
-      var ticking = false;
-
-      function update(){
-        ticking = false;
-        var y = latestY;
-        for(var i=0;i<parallaxEls.length;i++){
-          var el = parallaxEls[i];
-          var speed = parseFloat(el.getAttribute("data-speed") || "0.10");
-          var rect = el.getBoundingClientRect();
-          var viewportMid = window.innerHeight * 0.5;
-          var elMid = rect.top + rect.height * 0.5;
-          var delta = (elMid - viewportMid);
-          var translate = (y * speed) - (delta * speed * 0.35);
-          el.style.transform = "translate3d(0," + (translate * -0.12).toFixed(2) + "px,0)";
+      const parallaxUpdate = () => {
+        ticking = false
+        const y = latestY
+        for (const el of parallaxEls) {
+          const speed = parseFloat(el.getAttribute("data-speed") || "0.10")
+          const rect = el.getBoundingClientRect()
+          const mid = rect.top + rect.height * 0.5
+          const viewMid = window.innerHeight * 0.5
+          const delta = mid - viewMid
+          const translate = (y * speed) - (delta * speed * 0.30)
+          el.style.transform = `translate3d(0,${(translate * -0.12).toFixed(2)}px,0)`
         }
       }
 
-      function onScroll(){
-        latestY = window.scrollY || 0;
-        if(ticking) return;
-        ticking = true;
-        requestAnimationFrame(update);
+      const onScroll = () => {
+        latestY = window.scrollY || 0
+        updateProgress()
+        if (reduced) return
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(parallaxUpdate)
       }
 
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      onScroll();
-    })();
+      addEventListener("scroll", onScroll, { passive: true })
+      addEventListener("resize", onScroll)
+      updateProgress()
+      if (!reduced) parallaxUpdate()
+
+      const mouseEls = [...document.querySelectorAll("[data-mouse]")]
+      const onMove = ev => {
+        if (reduced) return
+        const cx = (ev.clientX / innerWidth) - 0.5
+        const cy = (ev.clientY / innerHeight) - 0.5
+        for (const el of mouseEls) {
+          const m = parseFloat(el.getAttribute("data-mouse") || "0.20")
+          const x = (cx * 22 * m).toFixed(2)
+          const y = (cy * 22 * m).toFixed(2)
+          el.style.transform = `translate3d(${x}px,${y}px,0)`
+        }
+      }
+      addEventListener("mousemove", onMove, { passive: true })
+
+      const spots = [...document.querySelectorAll(".spotlight")]
+      for (const card of spots) {
+        card.addEventListener("pointermove", e => {
+          const r = card.getBoundingClientRect()
+          const mx = ((e.clientX - r.left) / r.width) * 100
+          const my = ((e.clientY - r.top) / r.height) * 100
+          card.style.setProperty("--mx", `${mx.toFixed(2)}%`)
+          card.style.setProperty("--my", `${my.toFixed(2)}%`)
+        })
+      }
+
+      const tiltCards = [...document.querySelectorAll("[data-tilt]")]
+      for (const card of tiltCards) {
+        card.addEventListener("pointermove", e => {
+          if (reduced) return
+          const r = card.getBoundingClientRect()
+          const px = (e.clientX - r.left) / r.width
+          const py = (e.clientY - r.top) / r.height
+          const rx = ((py - 0.5) * -8).toFixed(2)
+          const ry = ((px - 0.5) * 10).toFixed(2)
+          card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`
+        })
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "none"
+        })
+      }
+
+      const filterBtns = [...document.querySelectorAll(".fbtn")]
+      const pubList = document.getElementById("pubList")
+      const setFilter = key => {
+        for (const b of filterBtns) b.classList.toggle("active", (b.getAttribute("data-filter") || "all") === key)
+        if (!pubList) return
+        const items = [...pubList.querySelectorAll("[data-status]")]
+        for (const it of items) {
+          const s = it.getAttribute("data-status")
+          const show = (key === "all") || (key === s)
+          it.style.display = show ? "" : "none"
+        }
+      }
+      for (const b of filterBtns) b.addEventListener("click", () => setFilter(b.getAttribute("data-filter") || "all"))
+
+      const emailChip = document.getElementById("copyEmail")
+      const copyEmail = async () => {
+        const txt = "soheil.aghayani@ut.ac.ir"
+        if (!navigator.clipboard) return
+        await navigator.clipboard.writeText(txt)
+        emailChip.textContent = "Email copied"
+        setTimeout(() => { emailChip.textContent = txt }, 900)
+      }
+      if (emailChip) {
+        emailChip.addEventListener("click", copyEmail)
+        emailChip.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") copyEmail()
+        })
+      }
+
+      const navLinks = [...document.querySelectorAll(".nav a")]
+      const sections = navLinks.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean)
+      const navIO = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const id = `#${entry.target.id}`
+          for (const a of navLinks) a.classList.toggle("active", a.getAttribute("href") === id)
+        }
+      }, { root: null, rootMargin: "-20% 0px -70% 0px", threshold: 0.01 })
+      for (const s of sections) navIO.observe(s)
+    })()
   </script>
 </body>
 </html>
