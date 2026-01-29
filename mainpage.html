@@ -1,18 +1,15 @@
-from pathlib import Path
-
-html = """<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soheil Aghayani | Resume</title>
+  <title>Your Name | Resume</title>
   <meta name="description" content="Personal resume website with parallax and scroll animations." />
 
   <style>
     :root{
       --bg: #0b0f17;
       --panel: rgba(255,255,255,0.06);
-      --panel-2: rgba(255,255,255,0.10);
       --text: #e9eefc;
       --muted: rgba(233,238,252,0.72);
       --line: rgba(233,238,252,0.14);
@@ -20,7 +17,9 @@ html = """<!doctype html>
       --shadow: 0 18px 44px rgba(0,0,0,0.38);
       --radius: 18px;
       --wrap: 1100px;
-      --hero-image: none; /* Replace with: url('assets/hero.jpg') */
+
+      /* Optional hero image. Put hero.jpg inside /assets. */
+      --hero-image: none; /* Example: url('assets/hero.jpg') */
     }
 
     *{ box-sizing: border-box; }
@@ -29,9 +28,10 @@ html = """<!doctype html>
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
       color: var(--text);
-      background: radial-gradient(1200px 900px at 12% 12%, rgba(110,168,255,0.16), rgba(0,0,0,0) 58%),
-                  radial-gradient(900px 700px at 86% 28%, rgba(110,168,255,0.10), rgba(0,0,0,0) 62%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 900px at 12% 12%, rgba(110,168,255,0.16), rgba(0,0,0,0) 58%),
+        radial-gradient(900px 700px at 86% 28%, rgba(110,168,255,0.10), rgba(0,0,0,0) 62%),
+        var(--bg);
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -143,7 +143,6 @@ html = """<!doctype html>
     .layer{
       position: absolute;
       border-radius: 999px;
-      filter: blur(0px);
       opacity: 0.95;
       mix-blend-mode: screen;
       will-change: transform;
@@ -346,7 +345,6 @@ html = """<!doctype html>
       flex-wrap: wrap;
     }
 
-    /* Scroll reveal */
     .reveal{
       opacity: 0;
       transform: translate3d(0, 16px, 0);
@@ -358,13 +356,11 @@ html = """<!doctype html>
       transform: translate3d(0,0,0);
     }
 
-    /* Parallax targets */
     [data-parallax]{
       transform: translate3d(0,0,0);
       will-change: transform;
     }
 
-    /* Responsive */
     @media (max-width: 920px){
       .hero-grid{ grid-template-columns: 1fr; }
       .grid{ grid-template-columns: 1fr; }
@@ -386,14 +382,14 @@ html = """<!doctype html>
     <div class="wrap nav-inner">
       <div class="brand">
         <span class="dot" aria-hidden="true"></span>
-        <span>Soheil Aghayani</span>
+        <span>Your Name</span>
       </div>
 
       <div class="links" aria-label="Site links">
         <a class="pill" href="#about">About</a>
         <a class="pill" href="#education">Education</a>
         <a class="pill" href="#experience">Experience</a>
-        <a class="pill" href="#research">Research</a>
+        <a class="pill" href="#projects">Projects</a>
         <a class="pill" href="#skills">Skills</a>
         <a class="pill" href="#contact">Contact</a>
       </div>
@@ -417,22 +413,21 @@ html = """<!doctype html>
           <span>Scroll animations</span>
         </div>
 
-        <h1 class="title">Environmental Engineering. Solid Waste Management.</h1>
+        <h1 class="title">Your headline goes here.</h1>
         <p class="subtitle">
-          Replace this text with your summary. Keep it short. Focus on outcomes, tools, and research topics.
+          Replace this with a short summary. Add tools, topics, and outcomes.
         </p>
 
         <div class="hero-actions">
           <a class="btn" href="#contact">Contact</a>
           <a class="btn btn-ghost" href="#experience">View experience</a>
-          <a class="btn btn-ghost" href="assets/Soheil_Aghayani_CV.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+          <a class="btn btn-ghost" href="assets/cv.pdf" target="_blank" rel="noreferrer">Download PDF</a>
         </div>
 
         <div class="tags" aria-label="Highlights">
           <span class="tag">LCA</span>
-          <span class="tag">LandGEM</span>
-          <span class="tag">SimaPro</span>
           <span class="tag">Python</span>
+          <span class="tag">Research</span>
           <span class="tag">HSE</span>
         </div>
       </section>
@@ -440,15 +435,15 @@ html = """<!doctype html>
       <aside class="card stats reveal">
         <div class="stat" data-parallax data-speed="0.06">
           <div class="num">M.Sc.</div>
-          <div class="lbl">University of Tehran</div>
+          <div class="lbl">University name</div>
         </div>
         <div class="stat" data-parallax data-speed="0.09">
-          <div class="num">Waste</div>
-          <div class="lbl">Solid waste management focus</div>
+          <div class="num">Focus</div>
+          <div class="lbl">Your specialty</div>
         </div>
         <div class="stat" data-parallax data-speed="0.12">
-          <div class="num">2025</div>
-          <div class="lbl">Publications and submissions</div>
+          <div class="num">2026</div>
+          <div class="lbl">Latest highlight</div>
         </div>
       </aside>
     </div>
@@ -471,9 +466,9 @@ html = """<!doctype html>
             <span class="meta">Edit freely</span>
           </div>
           <ul>
-            <li>Solid waste management systems</li>
-            <li>Life cycle assessment workflows</li>
-            <li>Waste to energy and emissions</li>
+            <li>Topic one</li>
+            <li>Topic two</li>
+            <li>Topic three</li>
           </ul>
         </div>
       </section>
@@ -486,18 +481,18 @@ html = """<!doctype html>
 
         <div class="item">
           <div class="item-head">
-            <h3>University of Tehran</h3>
-            <span class="meta">Aug 2022 to Present</span>
+            <h3>School name</h3>
+            <span class="meta">Start to End</span>
           </div>
-          <p class="meta">M.Sc., Environmental Engineering, Solid Waste Management</p>
+          <p class="meta">Degree, Field</p>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>Shahed University</h3>
-            <span class="meta">Aug 2018 to Jul 2022</span>
+            <h3>School name</h3>
+            <span class="meta">Start to End</span>
           </div>
-          <p class="meta">B.Sc., Civil Engineering</p>
+          <p class="meta">Degree, Field</p>
         </div>
       </section>
 
@@ -509,56 +504,52 @@ html = """<!doctype html>
 
         <div class="item">
           <div class="item-head">
-            <h3>Technical Expert, Arvin Sarouj Pay</h3>
-            <span class="meta">Mar 2024 to Oct 2025</span>
+            <h3>Role, Company</h3>
+            <span class="meta">Start to End</span>
           </div>
           <ul>
-            <li>HSE checklist management and site reporting</li>
-            <li>Safety training for workers and subcontractors</li>
-            <li>R and D support for energy efficient building work</li>
+            <li>Impact bullet one</li>
+            <li>Impact bullet two</li>
+            <li>Impact bullet three</li>
           </ul>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>Technical Expert, Sedna</h3>
-            <span class="meta">May 2022 to Apr 2024</span>
+            <h3>Role, Company</h3>
+            <span class="meta">Start to End</span>
           </div>
           <ul>
-            <li>Construction supervision for an industrial facility</li>
+            <li>Impact bullet one</li>
           </ul>
         </div>
       </section>
 
-      <section id="research" class="card section reveal">
+      <section id="projects" class="card section reveal">
         <div class="section-head">
-          <h2>Research</h2>
-          <span class="meta">Thesis and papers</span>
+          <h2>Projects</h2>
+          <span class="meta">Work and research</span>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>Master’s thesis</h3>
-            <span class="meta">In progress</span>
+            <h3>Project title</h3>
+            <span class="meta">Year</span>
           </div>
-          <p class="meta">Biofuel production from waste cooking oil via transesterification.</p>
+          <p class="meta">One line outcome.</p>
           <div class="tags">
-            <span class="tag">Catalysis</span>
-            <span class="tag">Waste to energy</span>
-            <span class="tag">Circular economy</span>
+            <span class="tag">Keyword</span>
+            <span class="tag">Keyword</span>
+            <span class="tag">Keyword</span>
           </div>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>Selected publications</h3>
-            <span class="meta">2025</span>
+            <h3>Project title</h3>
+            <span class="meta">Year</span>
           </div>
-          <ul>
-            <li>Assessment of landfill gas production using LandGEM</li>
-            <li>Assessment of biomass resources in Iran and worldwide</li>
-            <li>Siting a waste transfer station to reduce pollution</li>
-          </ul>
+          <p class="meta">One line outcome.</p>
         </div>
       </section>
 
@@ -569,12 +560,10 @@ html = """<!doctype html>
         </div>
 
         <div class="tags">
-          <span class="tag">SimaPro</span>
-          <span class="tag">LandGEM</span>
-          <span class="tag">Python</span>
-          <span class="tag">ChemDraw</span>
-          <span class="tag">LCA</span>
-          <span class="tag">HSE</span>
+          <span class="tag">Tool</span>
+          <span class="tag">Tool</span>
+          <span class="tag">Method</span>
+          <span class="tag">Domain</span>
         </div>
 
         <div class="item">
@@ -583,8 +572,8 @@ html = """<!doctype html>
             <span class="meta">Scores</span>
           </div>
           <ul>
-            <li>English, IELTS 7.0</li>
-            <li>German, ÖSD A2.1</li>
+            <li>English</li>
+            <li>German</li>
           </ul>
         </div>
       </section>
@@ -598,26 +587,26 @@ html = """<!doctype html>
         <div class="item" data-parallax data-speed="0.07">
           <div class="item-head">
             <h3>Email</h3>
-            <span class="meta"><a href="mailto:soheil.aghayani@ut.ac.ir">soheil.aghayani@ut.ac.ir</a></span>
+            <span class="meta"><a href="mailto:you@email.com">you@email.com</a></span>
           </div>
         </div>
 
         <div class="item" data-parallax data-speed="0.10">
           <div class="item-head">
             <h3>Phone</h3>
-            <span class="meta"><a href="tel:+989120543587">+98 912 054 3587</a></span>
+            <span class="meta"><a href="tel:+0000000000">+00 000 000 0000</a></span>
           </div>
         </div>
 
         <div class="item" data-parallax data-speed="0.13">
           <div class="item-head">
             <h3>LinkedIn</h3>
-            <span class="meta"><a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noreferrer">linkedin.com/in/AgSeyl</a></span>
+            <span class="meta"><a href="https://linkedin.com" target="_blank" rel="noreferrer">linkedin.com/in/your-handle</a></span>
           </div>
         </div>
 
         <p class="meta">
-          Asset notes. Put images in an assets folder. Replace --hero-image in :root. Replace the PDF link path if needed.
+          Assets. Create /assets. Put hero.jpg and cv.pdf there. Set --hero-image at the top.
         </p>
       </section>
 
@@ -626,7 +615,7 @@ html = """<!doctype html>
 
   <footer class="footer">
     <div class="wrap footer-inner">
-      <div>© <span id="y"></span> Soheil Aghayani</div>
+      <div>© <span id="y"></span> Your Name</div>
       <div>Built on GitHub Pages</div>
     </div>
   </footer>
@@ -635,7 +624,6 @@ html = """<!doctype html>
     (function(){
       document.getElementById("y").textContent = new Date().getFullYear();
 
-      // Smooth anchor scrolling
       document.querySelectorAll('a[href^="#"]').forEach(function(a){
         a.addEventListener("click", function(e){
           var id = a.getAttribute("href");
@@ -648,7 +636,6 @@ html = """<!doctype html>
         });
       });
 
-      // Reveal on scroll
       var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
@@ -661,9 +648,7 @@ html = """<!doctype html>
 
       revealEls.forEach(function(el){ io.observe(el); });
 
-      // Parallax: translateY based on scroll
       var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
-
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if(reduceMotion) return;
 
@@ -699,9 +684,3 @@ html = """<!doctype html>
   </script>
 </body>
 </html>
-"""
-
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-
-str(path)
