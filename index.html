@@ -411,27 +411,258 @@
 
     <div class="container">
 
-        <h2 class="section-title"><span class="material-symbols-rounded">school</span> Education</h2>
+<style>
+    /* SECTION CONTAINER */
+    #education {
+        padding: 80px 20px;
+        position: relative;
+        max-width: 1100px; 
+        margin: 0 auto;
+    }
+    
+    /* HEADER STYLES */
+    .section-header {
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center;
+        margin-bottom: 60px;
+        opacity: 1; 
+        transform: translateY(20px);
+        transition: all 0.8s ease;
+        width: 100%;
+    }
+    .section-header.visible { opacity: 1; transform: translateY(0); }
+
+    .section-title {
+        font-size: clamp(2rem, 5vw, 2.5rem); 
+        color: #fff;
+        font-weight: 800; 
+        display: inline-flex;
+        align-items: center;
+        gap: 15px; 
+        line-height: 1;
+    }
+
+    .section-title .material-symbols-rounded {
+        font-size: 2.5rem; 
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+    }
+
+    /* TIMELINE CONTAINER */
+    .timeline {
+        max-width: 800px;
+        margin: 0 auto; 
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 10px;
+        height: 100%;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--primary), transparent);
+        box-shadow: 0 0 10px var(--primary);
+        opacity: 0.3;
+    }
+
+    /* TIMELINE ITEM */
+    .timeline-item {
+        position: relative;
+        margin-bottom: 50px;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+    .timeline-dot {
+        position: absolute;
+        left: -40px;
+        top: 0;
+        width: 14px;
+        height: 14px;
+        background: var(--bg-dark);
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--primary);
+        z-index: 2;
+        margin-top: 10px; /* Aligns closer to the degree title */
+    }
+
+    /* GLASS CARD STYLE */
+    .edu-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 30px;
+        transition: 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .edu-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(45, 212, 191, 0.3);
+        transform: translateY(-3px);
+    }
+
+    /* TYPOGRAPHY */
+    .edu-degree {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+    
+    .edu-school {
+        font-size: 1rem;
+        color: var(--secondary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; /* Allows date to wrap on very small screens */
+        gap: 8px;
+        font-weight: 500;
+    }
+
+    /* SUBTLE DATE STYLE */
+    .edu-time {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 400;
+        opacity: 0.7;
+        display: flex;
+        align-items: center;
+    }
+    .edu-time::before {
+        content: '•';
+        margin-right: 8px;
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* TAGS & BADGES */
+    .edu-meta { margin-bottom: 20px; }
+    
+    .gpa-badge {
+        display: inline-block;
+        background: rgba(45, 212, 191, 0.1);
+        color: var(--primary);
+        padding: 5px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .focus-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        display: block;
+    }
+    .focus-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .f-tag {
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 768px) {
+        #education { padding: 60px 20px; }
+        .section-header { justify-content: flex-start; margin-bottom: 40px; }
+        .timeline { padding-left: 30px; margin: 0; }
+        .timeline::before { left: 0px; }
+        .timeline-dot { left: -36px; width: 12px; height: 12px; margin-top: 8px; }
+        .edu-card { padding: 20px; }
+    }
+</style>
+
+<div id="education">
+    <div class="section-header reveal-on-scroll">
+        <h2 class="section-title">
+            <span class="material-symbols-rounded">school</span> 
+            Education History
+        </h2>
+    </div>
+
+    <div class="timeline">
         
-        <div class="edu-item">
-            <span class="material-symbols-rounded edu-icon">history_edu</span>
-            <div>
-                <h3>Master of Science, Environmental Engineering</h3>
-                <p class="role">University of Tehran</p>
-                <p style="color: var(--text-muted);">GPA: 3.81 / 4.00 (19.06) | 2022 - Present</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Focus: Solid Waste Management, Biofuel Production</p>
+        <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-dot"></div>
+            <div class="edu-card">
+                <div class="edu-degree">Master of Science, Env. Engineering</div>
+                
+                <div class="edu-school">
+                    <span class="material-symbols-rounded" style="font-size: 1.1em;">account_balance</span>
+                    University of Tehran
+                    <span class="edu-time">2022 - Present</span>
+                </div>
+                
+                <div class="edu-meta">
+                    <span class="gpa-badge">GPA: 3.81 / 4.00 (19.06)</span>
+                </div>
+
+                <div class="edu-focus">
+                    <span class="focus-label">Research Focus</span>
+                    <div class="focus-tags">
+                        <span class="f-tag">Solid Waste Management</span>
+                        <span class="f-tag">Biofuel Production</span>
+                        <span class="f-tag">SimaPro</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="edu-item">
-            <span class="material-symbols-rounded edu-icon">architecture</span>
-            <div>
-                <h3>Bachelor of Science, Civil Engineering</h3>
-                <p class="role">Shahed University</p>
-                <p style="color: var(--text-muted);">GPA: 2.93 / 4.00 | 2018 - 2022</p>
+        <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-dot" style="border-color: var(--secondary); box-shadow: 0 0 10px var(--secondary);"></div>
+            <div class="edu-card">
+                <div class="edu-degree">Bachelor of Science, Civil Engineering</div>
+                
+                <div class="edu-school">
+                    <span class="material-symbols-rounded" style="font-size: 1.1em;">architecture</span>
+                    Shahed University
+                    <span class="edu-time">2018 - 2022</span>
+                </div>
+                
+                <div class="edu-meta">
+                    <span class="gpa-badge" style="color: var(--secondary); background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.2);">GPA: 2.93 / 4.00</span>
+                </div>
             </div>
         </div>
 
+    </div>
+</div>
+
+<script>
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+        observer.observe(el);
+    });
+</script>
+        
+        
         <h2 class="section-title"><span class="material-symbols-rounded">work</span> Professional Experience</h2>
         <div class="grid">
             
@@ -737,65 +968,379 @@
         }
     </style>
 
-    <h3 style="color: var(--text-main); margin: 50px 0 30px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
-        <span class="material-symbols-rounded" style="color: var(--accent);">school</span> Professional Training
-    </h3>
+<style>
+    /* SECTION CONTAINER */
+    #training {
+        padding: 40px 20px 100px; /* Adjusted padding */
+        position: relative;
+        max-width: 1100px; 
+        margin: 0 auto;
+    }
 
-    <div class="training-grid">
+    /* GRID LAYOUT */
+    .training-grid {
+        display: grid;
+        /* Auto-fit creates responsive columns (min 300px wide) */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
 
-        <div class="training-card">
-            <div class="training-icon">
-                <span class="material-symbols-rounded">recycling</span>
-            </div>
-            <div>
-                <h4 style="font-size: 1rem; margin-bottom: 4px; color: #fff;">Life Cycle Assessment</h4>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Iranian Society of Waste Eng. <br> Nov 2024</span>
-            </div>
-        </div>
+    /* GLASS CARD STYLE */
+    .training-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        transition: all 0.3s ease;
+        opacity: 0; /* For animation */
+        transform: translateY(20px);
+    }
 
-        <div class="training-card">
-            <div class="training-icon">
-                <span class="material-symbols-rounded">sports_soccer</span>
-            </div>
-            <div>
-                <h4 style="font-size: 1rem; margin-bottom: 4px; color: #fff;">Waste Mgmt in Sports</h4>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Olympic Academy <br> Nov 2024</span>
-            </div>
-        </div>
+    /* Hover Effect */
+    .training-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(45, 212, 191, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    }
 
-        <div class="training-card">
-            <div class="training-icon">
-                <span class="material-symbols-rounded">event</span>
-            </div>
-            <div>
-                <h4 style="font-size: 1rem; margin-bottom: 4px; color: #fff;">Nat. Conf. on Environment</h4>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">University of Tehran <br> Oct 2024</span>
-            </div>
-        </div>
+    /* CARD ICON (Standardized) */
+    .training-icon-box {
+        width: 60px;
+        height: 60px;
+        background: rgba(45, 212, 191, 0.1); /* Subtle Teal BG */
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        flex-shrink: 0; /* Prevents shrinking */
+    }
 
-        <div class="training-card">
-            <div class="training-icon">
-                <span class="material-symbols-rounded">oil_barrel</span>
-            </div>
-            <div>
-                <h4 style="font-size: 1rem; margin-bottom: 4px; color: #fff;">Hazardous Waste (Oil)</h4>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Iranian Society of Waste Eng. <br> Aug 2024</span>
-            </div>
-        </div>
+    .training-icon-box .material-symbols-rounded {
+        font-size: 2rem;
+        color: var(--primary);
+    }
 
-        <div class="training-card">
-            <div class="training-icon">
-                <span class="material-symbols-rounded">qr_code</span>
-            </div>
-            <div>
-                <h4 style="font-size: 1rem; margin-bottom: 4px; color: #fff;">Waste Coding Methods</h4>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Iranian Society of Waste Eng. <br> Mar 2024</span>
-            </div>
-        </div>
+    /* TEXT CONTENT */
+    .training-content h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 5px;
+        line-height: 1.3;
+    }
 
+    .training-org {
+        font-size: 0.9rem;
+        color: var(--secondary); /* Accent color for Organization */
+        margin-bottom: 2px;
+        display: block;
+    }
+
+    .training-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        opacity: 0.8;
+    }
+
+    /* ANIMATION DELAYS (Staggered effect) */
+    .training-card.visible { opacity: 1; transform: translateY(0); }
     
+    /* Mobile Adjustment */
+    @media (max-width: 768px) {
+        .training-grid { grid-template-columns: 1fr; }
+        .training-card { padding: 20px; }
+    }
+</style>
 
+    <style>
+    #training {
+        /* 1. FORCE LEFT ALIGNMENT FOR THE SECTION */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Aligns Header to Left */
+        
+        padding: 40px 20px 80px;
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        overflow: visible; /* Prevents cutting off side cards */
+    }
+
+    /* --- HEADER STYLES --- */
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        width: 100%;
+        /* No auto margins here, stays left */
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        color: #fff;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        line-height: 1;
+    }
+
+    .section-title .material-symbols-rounded {
+        font-size: 2.5rem;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+    }
+
+    /* --- CAROUSEL CONTAINER --- */
+    .carousel-container {
+        /* 2. CENTER ONLY THE CAROUSEL */
+        align-self: center; 
+        
+        position: relative;
+        width: 100%;
+        max-width: 800px; /* Wider container to catch side cards */
+        height: 380px;
+        perspective: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    /* --- CARD STYLES --- */
+    .t-card {
+        position: absolute;
+        width: 280px;
+        height: 320px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transform-style: preserve-3d;
+        cursor: pointer;
+        
+        /* Ensure they are visible by default */
+        opacity: 1; 
+    }
+
+    /* --- POSITIONS (TIGHTER & BRIGHTER) --- */
+
+    /* 1. CENTER CARD (Front) */
+    .t-card.center {
+        z-index: 10;
+        transform: translateX(0) scale(1.1) translateZ(100px);
+        border-color: var(--primary);
+        box-shadow: 0 0 50px rgba(45, 212, 191, 0.15);
+        background: rgba(25, 35, 55, 1);
+        opacity: 1 !important;
+    }
+    
+    /* 2. RIGHT CARD (Visible Side) */
+    .t-card.right {
+        z-index: 5;
+        /* Tight spread (180px) ensures it stays on screen */
+        transform: translateX(180px) scale(0.9) translateZ(0px) rotateY(-15deg);
+        opacity: 0.8 !important; /* High visibility */
+        filter: brightness(0.7);
+    }
+    .t-card.right:hover { opacity: 1 !important; filter: brightness(1); }
+
+    /* 3. LEFT CARD (Visible Side) */
+    .t-card.left {
+        z-index: 5;
+        /* Tight spread (-180px) ensures it stays on screen */
+        transform: translateX(-180px) scale(0.9) translateZ(0px) rotateY(15deg);
+        opacity: 0.8 !important; /* High visibility */
+        filter: brightness(0.7);
+    }
+    .t-card.left:hover { opacity: 1 !important; filter: brightness(1); }
+
+    /* 4. BACK CARDS (Waiting Stack) */
+    .t-card.back {
+        z-index: 1;
+        transform: translateX(0) scale(0.8) translateZ(-100px);
+        opacity: 0.4 !important; /* Visible as a "stack" behind */
+        pointer-events: none;
+    }
+
+    /* CONTENT */
+    .tc-icon {
+        width: 55px; height: 55px;
+        background: rgba(45, 212, 191, 0.1);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.8rem;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+    }
+    .tc-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+    .tc-org { font-size: 0.85rem; color: var(--secondary); margin-bottom: 5px; font-weight: 500; }
+    .tc-date { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; }
+
+    .nav-hint {
+        align-self: center; /* Center the hint text */
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        opacity: 0.5;
+    }
+
+    /* MOBILE ADJUSTMENT */
+    @media (max-width: 768px) {
+        .t-card { width: 240px; height: 280px; padding: 20px; }
+        /* Even tighter for phones */
+        .t-card.left { transform: translateX(-140px) scale(0.9) translateZ(-40px) rotateY(10deg); }
+        .t-card.right { transform: translateX(140px) scale(0.9) translateZ(-40px) rotateY(-10deg); }
+    }
+
+    @keyframes floatY {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 calc(var(--float) * -1); }
+}
+
+.t-card.float {
+  --float: 8px;
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.t-card.center.float {
+  --float: 10px;
+  animation-duration: 5.5s;
+}
+
+.t-card.left.float,
+.t-card.right.float {
+  --float: 6px;
+  animation-duration: 6.5s;
+}
+
+.t-card.back.float {
+  --float: 3px;
+  animation-duration: 8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-card.float { animation: none; }
+}
+
+</style>
+
+<div id="training">
+    <div class="section-header reveal-on-scroll">
+        <h2 class="section-title">
+            <span class="material-symbols-rounded">verified_user</span> 
+            Professional Training
+        </h2>
+    </div>
+
+    <div class="carousel-container" id="carouselStage">
+        
+        <div class="t-card center float" onclick="selectCard(0)">
+            <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
+            <div class="tc-title">Life Cycle Assessment</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Nov 2024</div>
         </div>
+
+        <div class="t-card right float" onclick="selectCard(1)">
+            <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
+            <div class="tc-title">Waste Mgmt in Sports</div>
+            <div class="tc-org">Olympic Academy</div>
+            <div class="tc-date">Nov 2024</div>
+        </div>
+
+        <div class="t-card back float" onclick="selectCard(2)">
+            <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
+            <div class="tc-title">Nat. Conf. on Environment</div>
+            <div class="tc-org">University of Tehran</div>
+            <div class="tc-date">Oct 2024</div>
+        </div>
+
+        <div class="t-card back float" onclick="selectCard(3)">
+            <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
+            <div class="tc-title">Hazardous Waste (Oil)</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Aug 2024</div>
+        </div>
+
+        <div class="t-card left float" onclick="selectCard(4)">
+            <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
+            <div class="tc-title">Waste Coding Methods</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Mar 2024</div>
+        </div>
+
+    </div>
+
+    <div class="nav-hint">
+        <span class="material-symbols-rounded" style="vertical-align: middle; font-size: 1rem;">touch_app</span> Click stack or swipe to view
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll('.t-card');
+        const totalCards = cards.length;
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            cards.forEach((card, index) => {
+                card.classList.remove('center', 'left', 'right', 'back');
+                
+                // Active Card
+                if (index === currentIndex) {
+                    card.classList.add('center');
+                } 
+                // Next Card (Right)
+                else if (index === (currentIndex + 1) % totalCards) {
+                    card.classList.add('right');
+                } 
+                // Previous Card (Left)
+                else if (index === (currentIndex - 1 + totalCards) % totalCards) {
+                    card.classList.add('left');
+                } 
+                // Others (Back)
+                else {
+                    card.classList.add('back');
+                }
+            });
+        }
+
+        // Global Select Function
+        window.selectCard = function(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+        
+        // Touch Swipe Logic
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const stage = document.getElementById('carouselStage');
+
+        stage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        stage.addEventListener('touchend', e => { 
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) { currentIndex = (currentIndex + 1) % totalCards; updateCarousel(); }
+            if (touchEndX > touchStartX + 50) { currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); }
+        }, {passive: true});
+
+        // Initialize
+        updateCarousel();
+    });
+</script>
 
         <h2 class="section-title"><span class="material-symbols-rounded">terminal</span> Computer Skills</h2>
         
