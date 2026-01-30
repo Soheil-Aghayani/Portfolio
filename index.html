@@ -405,6 +405,256 @@
             .hello-world::before, .hello-world::after{ animation: none; }
         }
 
+
+        /* notes UI, mac-style popup window inside the terminal */
+        .notes-wrap{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 46px;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            background: rgba(2,6,23,0.62);
+            backdrop-filter: blur(10px);
+            z-index: 8;
+        }
+        .notes-wrap.open{ display: flex; }
+
+        .notes-win{
+            position: relative;
+            width: min(860px, calc(100% - 22px));
+            height: min(560px, calc(100% - 22px));
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(17,24,39,0.92);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.65);
+            display: grid;
+            grid-template-rows: 46px 1fr;
+            animation: notesPop 160ms ease-out;
+            transform: translate3d(0,0,0);
+        }
+        .notes-win.max{
+            width: min(1100px, calc(100% - 14px));
+            height: calc(100% - 14px);
+        }
+
+        @keyframes notesPop{
+            from{ opacity: 0; transform: translateY(10px) scale(0.985); }
+            to{ opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .notes-top{
+            height: 46px;
+            display: grid;
+            grid-template-columns: 120px 1fr 120px;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+        }
+        .notes-dots{
+            display: flex;
+            gap: 8px;
+            padding-left: 8px;
+            align-items: center;
+        }
+        .notes-dot{
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 0;
+            cursor: pointer;
+            opacity: 0.92;
+        }
+        .notes-dot.red{ background: #ff5f57; }
+        .notes-dot.green{ background: #28c840; }
+
+        .notes-top-title{
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(226,232,240,0.85);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+        .notes-top-actions{
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 6px;
+        }
+
+        .notes-add{
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notes-add:active{ transform: scale(0.98); }
+
+        .notes-body{
+            position: relative;
+            overflow: auto;
+            padding: 14px;
+        }
+        .notes-hint{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+        }
+        .notes-list{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .note-item{
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(15,23,42,0.55);
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 96px;
+            position: relative;
+        }
+        .note-top{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .note-name{
+            font-weight: 800;
+            color: rgba(226,232,240,0.92);
+            font-size: 0.98rem;
+            line-height: 1.2;
+        }
+        .note-badges{
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .note-badge{
+            font-size: 0.72rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(148,163,184,0.95);
+            background: rgba(2,6,23,0.35);
+            white-space: nowrap;
+        }
+        .note-del{
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.85);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .note-desc{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+        .note-link{
+            color: rgba(45,212,191,0.95);
+            text-decoration: none;
+            font-size: 0.88rem;
+            word-break: break-all;
+        }
+        .note-link:hover{ text-decoration: underline; }
+
+        .notes-modal{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 46px;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2,6,23,0.62);
+            padding: 14px;
+        }
+        .notes-modal.open{ display: flex; }
+        .notes-modal-card{
+            width: min(560px, 100%);
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(15,23,42,0.90);
+            border-radius: 14px;
+            padding: 14px;
+        }
+        .notes-modal-title{
+            font-weight: 900;
+            color: rgba(226,232,240,0.92);
+            margin-bottom: 10px;
+        }
+        .notes-form{
+            display: grid;
+            gap: 8px;
+        }
+        .notes-label{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.85rem;
+        }
+        .notes-input, .notes-textarea{
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(2,6,23,0.45);
+            color: rgba(226,232,240,0.92);
+            padding: 10px 12px;
+            outline: none;
+        }
+        .notes-input:focus, .notes-textarea:focus{
+            border-color: rgba(45,212,191,0.55);
+            box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
+        }
+        .notes-textarea{ resize: vertical; min-height: 110px; }
+        .notes-form-actions{
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+        .notes-btn2{
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+        }
+        .notes-btn2:active{ transform: scale(0.99); }
+        .notes-btn2.primary{
+            border-color: rgba(45,212,191,0.40);
+            background: rgba(45,212,191,0.10);
+        }
+        .notes-msg{
+            min-height: 18px;
+            color: rgba(248,113,113,0.95);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 720px){
+            .notes-list{ grid-template-columns: 1fr; }
+        }
+
+
 </style>
 </head>
 <body>
@@ -983,7 +1233,7 @@
             
             <li class="pub-item">
                 <div class="pub-title">
-                    <a href="https://scholar.google.com/scholar?cluster=14778076808093148126&hl=en&oi=scholarr" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                    <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
                         Assessment of Biomass Resources in Iran and Worldwide
                         <span class="material-symbols-rounded" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
                     </a>
@@ -997,7 +1247,7 @@
 
             <li class="pub-item">
                 <div class="pub-title">
-                    <a href="https://www.researchgate.net/profile/Soheil-Aghayani/publication/395712434_Siting_a_Waste_Transfer_Station_in_District_6_of_Karaj_Municipality_to_Reduce_Pollution/links/68d1108580f365331ac0ae00/Siting-a-Waste-Transfer-Station-in-District-6-of-Karaj-Municipality-to-Reduce-Pollution.pdf" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                    <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
                         Siting a Waste Transfer Station in District 6 of Karaj Municipality
                         <span class="material-symbols-rounded" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
                     </a>
@@ -2689,7 +2939,66 @@
       </div>
     </div>
 
-    <div class="os-term-in">
+    
+    <div id="notesWrap" class="notes-wrap" aria-hidden="true">
+      <div id="notesWin" class="notes-win" role="dialog" aria-modal="true" aria-label="Notes">
+        <div class="notes-top">
+          <div class="notes-dots" aria-hidden="true">
+            <button class="notes-dot red" id="notesClose" type="button" aria-label="Close notes"></button>
+            <button class="notes-dot green" id="notesMax" type="button" aria-label="Maximize notes"></button>
+          </div>
+          <div class="notes-top-title">Notes</div>
+          <div class="notes-top-actions">
+            <button class="notes-add" id="notesAddBtn" type="button" aria-label="Add note">
+              <span class="material-symbols-rounded">add</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="notes-body">
+          <div class="notes-hint">Local notes are stored in your browser. Run "notes export" to publish via notes.json.</div>
+          <div id="notesList" class="notes-list"></div>
+        </div>
+
+        <div id="notesAuth" class="notes-modal" aria-hidden="true">
+          <div class="notes-modal-card">
+            <div class="notes-modal-title">Admin login</div>
+            <div class="notes-form">
+              <label class="notes-label" for="notesUser">Username</label>
+              <input id="notesUser" class="notes-input" autocomplete="username" />
+              <label class="notes-label" for="notesPass">Password</label>
+              <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" />
+              <div class="notes-form-actions">
+                <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
+                <button id="notesAuthGo" class="notes-btn2 primary" type="button">Login</button>
+              </div>
+              <div id="notesAuthMsg" class="notes-msg"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="notesEditor" class="notes-modal" aria-hidden="true">
+          <div class="notes-modal-card">
+            <div class="notes-modal-title">New note</div>
+            <div class="notes-form">
+              <label class="notes-label" for="noteName">Name</label>
+              <input id="noteName" class="notes-input" maxlength="80" />
+              <label class="notes-label" for="noteDesc">Description</label>
+              <textarea id="noteDesc" class="notes-textarea" rows="4" maxlength="280"></textarea>
+              <label class="notes-label" for="noteLink">Link</label>
+              <input id="noteLink" class="notes-input" placeholder="https://..." />
+              <div class="notes-form-actions">
+                <button id="notesEditCancel" class="notes-btn2" type="button">Cancel</button>
+                <button id="notesSave" class="notes-btn2 primary" type="button">Save</button>
+              </div>
+              <div id="notesEditMsg" class="notes-msg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="os-term-in">
       <div class="os-term-prompt" id="osPrompt">soheil@macbook:~$</div>
       <input id="osTermInput" class="os-term-input" autocomplete="off" spellcheck="false" />
     </div>
@@ -2794,6 +3103,7 @@
     const term = document.getElementById('osTerm');
     const out = document.getElementById('osTermOut');
     const input = document.getElementById('osTermInput');
+    const promptEl = document.getElementById('osPrompt');
     const dotClose = document.getElementById('osDotClose');
     const dotMin = document.getElementById('osDotMin');
     const dotMax = document.getElementById('osDotMax');
@@ -2803,6 +3113,28 @@
     const snakeScoreEl = document.getElementById('snakeScore');
     const snakeRestart = document.getElementById('snakeRestart');
     const snakeClose = document.getElementById('snakeClose');
+
+    const notesWrap = document.getElementById('notesWrap');
+    const notesWin = document.getElementById('notesWin');
+    const notesListEl = document.getElementById('notesList');
+    const notesAddBtn = document.getElementById('notesAddBtn');
+    const notesClose = document.getElementById('notesClose');
+    const notesMax = document.getElementById('notesMax');
+
+    const notesAuth = document.getElementById('notesAuth');
+    const notesUser = document.getElementById('notesUser');
+    const notesPass = document.getElementById('notesPass');
+    const notesAuthGo = document.getElementById('notesAuthGo');
+    const notesAuthCancel = document.getElementById('notesAuthCancel');
+    const notesAuthMsg = document.getElementById('notesAuthMsg');
+
+    const notesEditor = document.getElementById('notesEditor');
+    const noteName = document.getElementById('noteName');
+    const noteDesc = document.getElementById('noteDesc');
+    const noteLink = document.getElementById('noteLink');
+    const notesSave = document.getElementById('notesSave');
+    const notesEditCancel = document.getElementById('notesEditCancel');
+    const notesEditMsg = document.getElementById('notesEditMsg');
 
     if (!term || !out || !input) return;
 
@@ -2820,6 +3152,13 @@
     let mode = null; // null | "bj" | "snake"
     let bj = null;
     let lastGame = null;
+
+    let cwd = '~';
+    function setPrompt(){
+      if (!promptEl) return;
+      promptEl.textContent = 'soheil@macbook:' + cwd + '$';
+    }
+    setPrompt();
 
     function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
@@ -2858,8 +3197,11 @@
       term.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       stopSnake();
+      closeNotes();
       mode = null;
       bj = null;
+      cwd = '~';
+      setPrompt();
     }
 
     function isOpen(){ return term.classList.contains('open'); }
@@ -2869,6 +3211,7 @@
       printing = true;
       out.innerHTML = '';
       stopSnake();
+      closeNotes(true);
       mode = null;
       bj = null;
 
@@ -2882,6 +3225,8 @@
       await typeLine("Type 'help' to see available commands.", 'os-dim', 55);
       addLine('', '');
       printing = false;
+
+      loadNotesPublic();
     }
 
     async function cmdHelp(){
@@ -2889,8 +3234,12 @@
       await typeLine('- bio: Personal introduction', 'os-dim', 65);
       await typeLine('- thesis: Research topic', 'os-dim', 65);
       await typeLine('- skills: Technical stack', 'os-dim', 65);
+      await typeLine('- contact: Contact links', 'os-dim', 65);
+      await typeLine('- resume: Open resume link', 'os-dim', 65);
+      await typeLine('- notes: Notes manager', 'os-dim', 65);
+      await typeLine('- cd: Change directory', 'os-dim', 65);
       await typeLine('- play: Games', 'os-dim', 65);
-      await typeLine('- clear: Wipe console', 'os-dim', 65);
+      await typeLine('- clear: Wipe console (cls, clean)', 'os-dim', 65);
       await typeLine('- exit: Close terminal', 'os-dim', 65);
     }
 
@@ -2917,6 +3266,318 @@
       await typeLine('LinkedIn: ' + CONTACTS.linkedin, 'os-dim', 65);
       await typeLine('Telegram: ' + CONTACTS.telegram, 'os-dim', 65);
       await typeLine('Resume: ' + CONTACTS.resume, 'os-dim', 65);
+    }
+
+    function safeUrl(u){
+      const s = String(u || '').trim();
+      if (!s) return '';
+      if (s.startsWith('http://') || s.startsWith('https://')) return s;
+      if (s.startsWith('mailto:') || s.startsWith('tel:')) return s;
+      return '';
+    }
+
+    // Notes, localStorage plus optional notes.json for public display
+    const NOTES_LOCAL_KEY = 'soheil_notes_local_v1';
+    const NOTES_AUTH_KEY = 'soheil_notes_auth_v1';
+    const NOTES_PUBLIC_URL = new URL('notes.json', window.location.href).href;
+
+    let notesPublic = [];
+    let notesLocal = readLocalNotes();
+    let notesLoadedPublic = false;
+
+    function uid(){
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return 'n_' + Date.now() + '_' + Math.random().toString(16).slice(2);
+    }
+
+    function readLocalNotes(){
+      try {
+        const raw = localStorage.getItem(NOTES_LOCAL_KEY);
+        const arr = JSON.parse(raw || '[]');
+        if (!Array.isArray(arr)) return [];
+        return arr.filter(x => x && typeof x === 'object');
+      } catch {
+        return [];
+      }
+    }
+
+    function writeLocalNotes(arr){
+      notesLocal = Array.isArray(arr) ? arr : [];
+      try { localStorage.setItem(NOTES_LOCAL_KEY, JSON.stringify(notesLocal)); } catch {}
+      renderNotes();
+    }
+
+    async function loadNotesPublic(){
+      if (notesLoadedPublic) return;
+      notesLoadedPublic = true;
+      try {
+        const res = await fetch(NOTES_PUBLIC_URL, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          notesPublic = data.filter(x => x && typeof x === 'object');
+          renderNotes();
+        }
+      } catch {
+        // ignore
+      }
+    }
+
+    function isNotesAuthed(){
+      return sessionStorage.getItem(NOTES_AUTH_KEY) === '1';
+    }
+
+    function setNotesAuthed(v){
+      if (v) sessionStorage.setItem(NOTES_AUTH_KEY, '1');
+      else sessionStorage.removeItem(NOTES_AUTH_KEY);
+      renderNotes();
+    }
+
+    function openNotes(){
+      if (!notesWrap) return;
+      notesWrap.classList.add('open');
+      notesWrap.setAttribute('aria-hidden', 'false');
+      if (notesWin) notesWin.classList.remove('max');
+      renderNotes();
+      setTimeout(() => { if (notesAddBtn) notesAddBtn.focus(); }, 0);
+    }
+
+    function closeNotes(silent){
+      if (!notesWrap) return;
+      notesWrap.classList.remove('open');
+      notesWrap.setAttribute('aria-hidden', 'true');
+      if (notesWin) notesWin.classList.remove('max');
+      closeNotesAuth(true);
+      closeNotesEditor(true);
+      if (!silent) input.focus();
+    }
+
+    function toggleNotesMax(){
+      if (!notesWin) return;
+      notesWin.classList.toggle('max');
+    }
+
+    function openNotesAuth(){
+      if (!notesAuth) return;
+      if (notesAuthMsg) notesAuthMsg.textContent = '';
+      if (notesUser) notesUser.value = '';
+      if (notesPass) notesPass.value = '';
+      notesAuth.classList.add('open');
+      notesAuth.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { if (notesUser) notesUser.focus(); }, 0);
+    }
+
+    function closeNotesAuth(silent){
+      if (!notesAuth) return;
+      notesAuth.classList.remove('open');
+      notesAuth.setAttribute('aria-hidden', 'true');
+      if (!silent) input.focus();
+    }
+
+    function openNotesEditor(){
+      if (!notesEditor) return;
+      if (notesEditMsg) notesEditMsg.textContent = '';
+      if (noteName) noteName.value = '';
+      if (noteDesc) noteDesc.value = '';
+      if (noteLink) noteLink.value = '';
+      notesEditor.classList.add('open');
+      notesEditor.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { if (noteName) noteName.focus(); }, 0);
+    }
+
+    function closeNotesEditor(silent){
+      if (!notesEditor) return;
+      notesEditor.classList.remove('open');
+      notesEditor.setAttribute('aria-hidden', 'true');
+      if (!silent) input.focus();
+    }
+
+    function renderNotes(){
+      if (!notesListEl) return;
+
+      notesListEl.innerHTML = '';
+      const list = [];
+
+      for (const n of notesPublic) list.push({ ...n, _src: 'public' });
+      for (const n of notesLocal) list.push({ ...n, _src: 'local' });
+
+      list.sort((a,b) => (b.ts || 0) - (a.ts || 0));
+
+      if (list.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'note-item';
+        empty.textContent = 'No notes yet.';
+        notesListEl.appendChild(empty);
+        return;
+      }
+
+      for (const n of list) {
+        const item = document.createElement('div');
+        item.className = 'note-item';
+
+        const top = document.createElement('div');
+        top.className = 'note-top';
+
+        const left = document.createElement('div');
+
+        const name = document.createElement('div');
+        name.className = 'note-name';
+        name.textContent = String(n.name || 'Untitled');
+        left.appendChild(name);
+
+        top.appendChild(left);
+
+        const badges = document.createElement('div');
+        badges.className = 'note-badges';
+
+        const badge = document.createElement('div');
+        badge.className = 'note-badge';
+        badge.textContent = n._src === 'public' ? 'public' : 'local';
+        badges.appendChild(badge);
+
+        if (n._src === 'local' && isNotesAuthed()) {
+          const del = document.createElement('button');
+          del.className = 'note-del';
+          del.type = 'button';
+          del.setAttribute('aria-label', 'Delete note');
+          del.innerHTML = '<span class="material-symbols-rounded">delete</span>';
+          del.addEventListener('click', () => {
+            const id = String(n.id || '');
+            const next = notesLocal.filter(x => String(x.id || '') !== id);
+            writeLocalNotes(next);
+          });
+          badges.appendChild(del);
+        }
+
+        top.appendChild(badges);
+
+        const desc = document.createElement('div');
+        desc.className = 'note-desc';
+        desc.textContent = String(n.desc || '');
+
+        const link = document.createElement('a');
+        link.className = 'note-link';
+        const u = safeUrl(n.link);
+        link.href = u || '#';
+        link.target = u ? '_blank' : '_self';
+        link.rel = 'noopener noreferrer';
+        link.textContent = u ? u : '';
+
+        item.appendChild(top);
+        item.appendChild(desc);
+        if (u) item.appendChild(link);
+
+        notesListEl.appendChild(item);
+      }
+    }
+
+    async function notesExport(){
+      const payload = notesLocal.map(n => ({
+        id: n.id,
+        name: String(n.name || ''),
+        desc: String(n.desc || ''),
+        link: String(n.link || ''),
+        ts: n.ts || Date.now()
+      }));
+
+      const jsonText = JSON.stringify(payload, null, 2);
+
+      await typeLine('Exported local notes JSON. Paste into notes.json in your repo root.', 'os-ok', 70);
+
+      // Print a small preview to terminal
+      const preview = jsonText.split('\n').slice(0, 40);
+      for (const line of preview) addLine(line, 'os-dim');
+      if (jsonText.split('\n').length > 40) addLine('... (truncated)', 'os-dim');
+
+      try {
+        await navigator.clipboard.writeText(jsonText);
+        await typeLine('Copied full JSON to clipboard.', 'os-ok', 70);
+      } catch {
+        await typeLine('Clipboard copy failed. Use the terminal output preview and export again after enabling clipboard.', 'os-warn', 70);
+      }
+    }
+
+    async function cmdNotes(args){
+      const sub = (args[0] || '').toLowerCase();
+
+      if (!sub) {
+        openNotes();
+        await typeLine('Notes opened. Use "notes export" to publish.', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'help') {
+        await typeLine('Notes commands:', 'os-dim', 70);
+        await typeLine('- notes: open UI', 'os-dim', 70);
+        await typeLine('- notes list: list notes in terminal', 'os-dim', 70);
+        await typeLine('- notes export: copy local notes as JSON', 'os-dim', 70);
+        await typeLine('- notes add: add a local note (admin)', 'os-dim', 70);
+        await typeLine('- notes clear: delete all local notes (admin)', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'list' || sub === 'ls') {
+        const list = [];
+        for (const n of notesPublic) list.push({ ...n, _src: 'public' });
+        for (const n of notesLocal) list.push({ ...n, _src: 'local' });
+        list.sort((a,b) => (b.ts || 0) - (a.ts || 0));
+
+        if (list.length === 0) { await typeLine('No notes.', 'os-warn', 70); return; }
+
+        let i = 1;
+        for (const n of list.slice(0, 25)) {
+          const u = safeUrl(n.link);
+          const name = String(n.name || 'Untitled');
+          const tag = n._src === 'public' ? 'public' : 'local';
+          await typeLine('[' + i + '] ' + name + '  (' + tag + ')' + (u ? ('  ' + u) : ''), 'os-dim', 80);
+          i += 1;
+        }
+        if (list.length > 25) await typeLine('... more notes exist', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'export') {
+        await notesExport();
+        return;
+      }
+
+      if (sub === 'add') {
+        openNotes();
+        if (!isNotesAuthed()) openNotesAuth();
+        else openNotesEditor();
+        return;
+      }
+
+      if (sub === 'clear') {
+        if (!isNotesAuthed()) { await typeLine('Admin required. Open notes UI and login.', 'os-warn', 70); return; }
+        writeLocalNotes([]);
+        await typeLine('Local notes cleared.', 'os-ok', 70);
+        return;
+      }
+
+      await typeLine('Unknown notes command. Try "notes help".', 'os-warn', 70);
+    }
+
+    async function cmdCd(args){
+      const t = (args[0] || '').trim();
+      let next = t;
+
+      if (!next) next = '~';
+      if (next === 'home') next = '~';
+      if (next === '/') next = '~';
+      if (next === 'notes' || next === '/notes') next = '/notes';
+      if (next === 'games' || next === '/games') next = '/games';
+
+      if (next !== '~' && next !== '/notes' && next !== '/games') {
+        await typeLine('cd: no such directory: ' + t, 'os-bad', 70);
+        return;
+      }
+
+      cwd = next;
+      setPrompt();
+
+      if (cwd === '/notes') openNotes();
+      if (cwd === '/games') await typeLine('Games: try "play" or "play snake" or "play bj".', 'os-dim', 70);
     }
 
     function buildDeck(){
@@ -2985,7 +3646,7 @@
       bj.done = true;
       await showBjState(true);
       await typeLine(msg, cls || 'os-ok', 70);
-      addLine('Type again to replay.', 'os-dim');
+      addLine('Type "again" to replay.', 'os-dim');
       mode = null;
       bj = null;
     }
@@ -3064,11 +3725,9 @@
 
       const s = snake.size;
 
-      // food
       ctx.fillStyle = 'rgba(96,165,250,0.95)';
       ctx.fillRect(snake.food.x * s, snake.food.y * s, s, s);
 
-      // body
       for (let i = 0; i < snake.body.length; i++){
         const p = snake.body[i];
         ctx.fillStyle = i === 0 ? 'rgba(45,212,191,0.95)' : 'rgba(226,232,240,0.75)';
@@ -3078,7 +3737,6 @@
 
     function setSnakeDir(dx, dy){
       if (!snake || !snake.alive) return;
-      // prevent reverse
       if (snake.dir.x === -dx && snake.dir.y === -dy) return;
       snake.nextDir = {x:dx,y:dy};
     }
@@ -3092,14 +3750,12 @@
       const nx = head.x + snake.dir.x;
       const ny = head.y + snake.dir.y;
 
-      // wall collision
       if (nx < 0 || ny < 0 || nx >= snake.cols || ny >= snake.rows) {
         snake.alive = false;
         onSnakeEnd();
         return;
       }
 
-      // self collision
       if (snake.body.some((p, idx) => idx !== 0 && p.x === nx && p.y === ny)) {
         snake.alive = false;
         onSnakeEnd();
@@ -3156,6 +3812,7 @@
         await typeLine('Games:', 'os-dim', 70);
         await typeLine('- blackjack  (play bj)', 'os-dim', 70);
         await typeLine('- snake', 'os-dim', 70);
+        await typeLine('Use "again" to replay last game.', 'os-dim', 70);
         return;
       }
 
@@ -3176,7 +3833,8 @@
       const cmdRaw = String(raw || '').trim();
       if (!cmdRaw) return;
 
-      addLine('soheil@macbook:~$ ' + cmdRaw, 'os-dim');
+      const prefix = (promptEl ? promptEl.textContent : 'soheil@macbook:~$');
+      addLine(prefix + ' ' + cmdRaw, 'os-dim');
 
       if (printing) return;
       printing = true;
@@ -3214,14 +3872,17 @@
         return;
       }
 
-      if (main === 'clear' || main === 'cls' || main === 'clean') { out.innerHTML = ''; stopSnake(); mode = null; bj = null; printing = false; return; }
+      if (main === 'cd') { await cmdCd(rest); printing = false; return; }
+
+      if (main === 'notes') { await cmdNotes(rest); printing = false; return; }
+
+      if (main === 'clear' || main === 'cls' || main === 'clean') { out.innerHTML = ''; stopSnake(); closeNotes(true); mode = null; bj = null; printing = false; return; }
 
       if (main === 'exit' || main === 'quit') { printing = false; closeTerm(); return; }
 
       if (main === 'bio') { await cmdBio(); printing = false; return; }
       if (main === 'thesis') { await cmdThesis(); printing = false; return; }
       if (main === 'skills') { await cmdSkills(); printing = false; return; }
-
       if (main === 'contact') { await cmdContact(); printing = false; return; }
 
       if (main === 'resume') { window.open(CONTACTS.resume, '_blank', 'noopener,noreferrer'); await typeLine('Opening resume.', 'os-ok', 70); printing = false; return; }
@@ -3235,7 +3896,64 @@
       printing = false;
     }
 
-    // Wire UI
+    // Notes UI wiring
+    if (notesWrap) notesWrap.addEventListener('click', (e) => {
+      if (e.target === notesWrap) closeNotes();
+    });
+
+    if (notesClose) notesClose.addEventListener('click', () => closeNotes());
+
+    if (notesMax) notesMax.addEventListener('click', () => toggleNotesMax());
+
+    if (notesAddBtn) notesAddBtn.addEventListener('click', () => {
+      openNotes();
+      if (isNotesAuthed()) openNotesEditor();
+      else openNotesAuth();
+    });
+
+    function doAuth(){
+      const u = String(notesUser ? notesUser.value : '').trim();
+      const p = String(notesPass ? notesPass.value : '');
+      if (u === 'agseyl' && p === 'Silver_seyl2021') {
+        setNotesAuthed(true);
+        closeNotesAuth(true);
+        openNotesEditor();
+        return true;
+      }
+      if (notesAuthMsg) notesAuthMsg.textContent = 'Invalid credentials.';
+      return false;
+    }
+
+    if (notesAuthGo) notesAuthGo.addEventListener('click', doAuth);
+
+    if (notesAuthCancel) notesAuthCancel.addEventListener('click', () => closeNotesAuth());
+
+    if (notesPass) notesPass.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doAuth();
+    });
+
+    if (notesEditCancel) notesEditCancel.addEventListener('click', () => closeNotesEditor());
+
+    if (notesSave) notesSave.addEventListener('click', async () => {
+      if (!isNotesAuthed()) { if (notesEditMsg) notesEditMsg.textContent = 'Admin required.'; return; }
+
+      const name = String(noteName ? noteName.value : '').trim();
+      const desc = String(noteDesc ? noteDesc.value : '').trim();
+      const link = String(noteLink ? noteLink.value : '').trim();
+
+      if (!name) { if (notesEditMsg) notesEditMsg.textContent = 'Name is required.'; return; }
+      if (link && !safeUrl(link)) { if (notesEditMsg) notesEditMsg.textContent = 'Link must start with https:// or http://'; return; }
+
+      const next = notesLocal.slice();
+      next.push({ id: uid(), name, desc, link, ts: Date.now() });
+      writeLocalNotes(next);
+
+      closeNotesEditor(true);
+      await typeLine('Note saved locally. Run "notes export" to publish.', 'os-ok', 70);
+      input.focus();
+    });
+
+    // Wire terminal UI
     if (hw) {
       hw.addEventListener('click', openTerm);
       hw.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openTerm(); });
@@ -3244,7 +3962,6 @@
     if (dotClose) dotClose.addEventListener('click', closeTerm);
 
     if (dotMin) dotMin.addEventListener('click', () => {
-      // simple minimize: fade output area
       out.style.display = (out.style.display === 'none') ? '' : 'none';
       input.focus();
     });
@@ -3267,6 +3984,10 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen()) {
+        if (notesAuth && notesAuth.classList.contains('open')) { closeNotesAuth(); return; }
+        if (notesEditor && notesEditor.classList.contains('open')) { closeNotesEditor(); return; }
+        if (notesWrap && notesWrap.classList.contains('open')) { closeNotes(); return; }
+
         if (mode === 'snake') {
           stopSnake();
           mode = null;
