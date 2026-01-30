@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soheil Aghayani | Portfolio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+    <link rel="apple-touch-icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <style>
@@ -154,7 +156,256 @@
             h1 { font-size: 3rem; }
             .card .date { position: relative; top: auto; right: auto; display: block; margin-bottom: 10px; }
         }
-    </style>
+    
+
+        html { scroll-behavior: smooth; }
+
+        /* Section fade-in on entry */
+        .fade-section{
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+        .fade-section.in{ opacity: 1; }
+
+        /* Hello_World hint animation */
+        .hello-world {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding: 0; /* Set to 0 since there's no box to contain */
+            border-radius: 999px;
+            border: none;      /* Box removed */
+            background: none;  /* Box removed */
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        .hello-world::after{
+            content: "";
+            width: 10px;
+            height: 2px;
+            border-radius: 10px;
+            background: var(--primary);
+            box-shadow: 0 0 16px rgba(45,212,191,0.45);
+            animation: hwBlink 1.05s steps(2,end) infinite;
+        }
+        .hello-world::before{
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border-radius: 999px;
+            background: radial-gradient(120px 40px at 30% 50%, rgba(45,212,191,0.18), rgba(0,0,0,0) 70%);
+            opacity: 0.35;
+            filter: blur(8px);
+            animation: hwPulse 2.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes hwBlink{ 50%{ opacity: 0; } }
+        @keyframes hwPulse{
+            0%,100%{ transform: translateY(0); opacity: 0.30; }
+            50%{ transform: translateY(-2px); opacity: 0.55; }
+        }
+
+        /* macOS terminal overlay */
+        .os-term{
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2,6,23,0.72);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+        }
+        .os-term.open{ display: flex; }
+
+        .os-term-win{
+            width: min(980px, calc(100% - 22px));
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(17,24,39,0.92);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.65);
+        }
+
+        .os-term-top{
+            height: 46px;
+            display: grid;
+            grid-template-columns: 120px 1fr 120px;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .os-dots{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .os-dot{
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            display: inline-block;
+            opacity: 0.95;
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12);
+        }
+        .os-dot.red{ background: #ff5f57; }
+        .os-dot.yellow{ background: #febc2e; }
+        .os-dot.green{ background: #28c840; }
+
+        .os-term-title{
+            text-align: center;
+            font-size: 0.92rem;
+            color: rgba(226,232,240,0.85);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+
+        .os-term-hint{
+            text-align: right;
+            font-size: 0.82rem;
+            color: rgba(148,163,184,0.85);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            user-select: none;
+        }
+
+        .os-term-out{
+            height: min(520px, 62vh);
+            padding: 14px 14px 0;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.96rem;
+            line-height: 1.55;
+            color: rgba(226,232,240,0.92);
+        }
+
+        .os-term-in{
+            display: flex;
+            gap: 10px;
+            padding: 12px 14px 14px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        }
+
+        .os-term-prompt{
+            color: rgba(45,212,191,0.95);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .os-term-input{
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: transparent;
+            color: rgba(248,250,252,0.95);
+            font-family: inherit;
+            font-size: 0.98rem;
+        }
+
+        .os-line{ margin: 6px 0; white-space: pre-wrap; }
+        .os-dim{ color: rgba(148,163,184,0.92); }
+        .os-ok{ color: rgba(45,212,191,0.95); }
+        .os-warn{ color: rgba(96,165,250,0.95); }
+        .os-bad{ color: rgba(248,113,113,0.95); }
+
+        /* snake UI, runs as an overlay inside the terminal window */
+        .snake-wrap{
+            display: none;
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            top: 58px;
+            bottom: 62px;
+            z-index: 6;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(2,6,23,0.88);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 12px;
+        }
+        .snake-wrap.open{ display: block; }
+        .snake-head{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .snake-title{
+            font-weight: 900;
+            color: rgba(226,232,240,0.92);
+        }
+        .snake-close{
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.88);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .snake-row{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .snake-canvas{
+            width: 360px;
+            height: 360px;
+            background: rgba(2,6,23,0.55);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            touch-action: none;
+        }
+        .snake-controls{
+            display: grid;
+            grid-template-columns: 52px 52px 52px;
+            grid-template-rows: 52px 52px 52px;
+            gap: 8px;
+            align-content: start;
+        }
+        .snake-btn{
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .snake-btn:active{ transform: scale(0.98); }
+        .snake-meta{
+            min-width: 220px;
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 520px){
+            .snake-canvas{ width: 300px; height: 300px; }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .hello-world::before, .hello-world::after{ animation: none; }
+        }
+
+</style>
 </head>
 <body>
 
@@ -323,7 +574,7 @@
     </div>
 
     <div class="hero-card">
-        <span class="hero-greeting">> Hello_World</span>
+        <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" aria-label="Open terminal">> Hello_World</span>
         
         <h1>Soheil Aghayani</h1>
         
@@ -338,7 +589,7 @@
         </p>
 
         <div class="hero-actions-container">
-            <a href="mailto:soheil.aghavani@ut.ac.ir" class="btn-hero-primary">
+            <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
                 Get in Touch <span class="material-symbols-rounded" style="font-size: 1.2rem; margin-left: 8px;">send</span>
             </a>
 
@@ -426,7 +677,7 @@
         justify-content: flex-start; 
         align-items: center;
         margin-bottom: 60px;
-        opacity: 1; 
+        opacity: 0; 
         transform: translateY(20px);
         transition: all 0.8s ease;
         width: 100%;
@@ -706,22 +957,22 @@
                 <span class="role" style="color: var(--primary);">Master's Thesis</span>
                 <span class="badge badge-pub" style="border-color: var(--primary); color: var(--primary);">TRL: 4 (Lab Validated)</span>
             </div>
-            <h3 style="margin-top: 10px;">Biofuel Production from Waste Cooking Oil</h3>
+            <h3 style="margin-top: 10px;">Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells</h3>
             <p style="color: var(--text-main); font-weight: 500; margin-bottom: 5px;">
-                Through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells.
+                Waste cooking oil converted to biofuel via transesterification using a seashell-derived catalyst, designed for practical circular economy impact.
             </p>
             <p style="font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                 <span style="color: var(--secondary);">Supervisors:</span>
                 
                 <span>R. Samie Zafraghandi</span>
-                <a href="mailto:r_samiee@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
+                <a href="mailto:soheil.aghayani@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
                     <span class="material-symbols-rounded" style="font-size: 1.1rem;">mail</span>
                 </a>
                 
                 <span style="margin: 0 5px;">|</span>
                 
                 <span>M. Baghdadi</span>
-                <a href="mailto:m.baghdadi@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
+                <a href="mailto:soheil.aghayani@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
                     <span class="material-symbols-rounded" style="font-size: 1.1rem;">mail</span>
                 </a>
             </p>
@@ -1206,40 +1457,24 @@
         .t-card.right { transform: translateX(140px) scale(0.9) translateZ(-40px) rotateY(-10deg); }
     }
 
-    @keyframes floatY {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 calc(var(--float) * -1); }
-}
+    /* Gentle float, does not override the carousel transforms */
+    @keyframes tcFloat {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 calc(var(--float) * -1); }
+    }
 
-.t-card.float {
-  --float: 8px;
-  animation: floatY 6s ease-in-out infinite;
-}
-
-.t-card.center.float {
-  --float: 10px;
-  animation-duration: 5.5s;
-}
-
-.t-card.left.float,
-.t-card.right.float {
-  --float: 6px;
-  animation-duration: 6.5s;
-}
-
-.t-card.back.float {
-  --float: 3px;
-  animation-duration: 8s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .t-card.float { animation: none; }
-}
-
+    .t-card.float {
+        --float: 8px;
+        animation: tcFloat 6s ease-in-out infinite;
+    }
+    .t-card.center.float { --float: 10px; animation-duration: 5.4s; }
+    .t-card.left.float,
+    .t-card.right.float { --float: 7px; animation-duration: 6.4s; }
+    .t-card.back.float { --float: 4px; animation-duration: 8s; }
 </style>
 
 <div id="training">
-    <div class="section-header reveal-on-scroll">
+    <div class="section-header">
         <h2 class="section-title">
             <span class="material-symbols-rounded">verified_user</span> 
             Professional Training
@@ -1248,35 +1483,35 @@
 
     <div class="carousel-container" id="carouselStage">
         
-        <div class="t-card center float" onclick="selectCard(0)">
+        <div class="t-card center" onclick="selectCard(0)">
             <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
             <div class="tc-title">Life Cycle Assessment</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Nov 2024</div>
         </div>
 
-        <div class="t-card right float" onclick="selectCard(1)">
+        <div class="t-card right" onclick="selectCard(1)">
             <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
             <div class="tc-title">Waste Mgmt in Sports</div>
             <div class="tc-org">Olympic Academy</div>
             <div class="tc-date">Nov 2024</div>
         </div>
 
-        <div class="t-card back float" onclick="selectCard(2)">
+        <div class="t-card back" onclick="selectCard(2)">
             <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
             <div class="tc-title">Nat. Conf. on Environment</div>
             <div class="tc-org">University of Tehran</div>
             <div class="tc-date">Oct 2024</div>
         </div>
 
-        <div class="t-card back float" onclick="selectCard(3)">
+        <div class="t-card back" onclick="selectCard(3)">
             <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
             <div class="tc-title">Hazardous Waste (Oil)</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Aug 2024</div>
         </div>
 
-        <div class="t-card left float" onclick="selectCard(4)">
+        <div class="t-card left" onclick="selectCard(4)">
             <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
             <div class="tc-title">Waste Coding Methods</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
@@ -1293,6 +1528,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll('.t-card');
+        cards.forEach(c => c.classList.add('float'));
         const totalCards = cards.length;
         let currentIndex = 0;
 
@@ -1422,6 +1658,26 @@
                 <p style="font-size: 0.85rem; color: var(--text-muted);">Molecular Structures</p>
             </div>
 
+        </div>
+
+        
+        <h2 class="section-title"><span class="material-symbols-rounded">language</span> Language Skills</h2>
+        <div class="grid">
+            <div class="card reveal-on-scroll">
+                <h3 style="display:flex;align-items:center;gap:10px;">
+                    <span class="material-symbols-rounded" style="color: var(--primary);">translate</span>
+                    English
+                </h3>
+                <p style="color: var(--text-muted); margin-top: 10px;">Overall score: <b style="color:#fff;">7.0</b></p>
+            </div>
+
+            <div class="card reveal-on-scroll">
+                <h3 style="display:flex;align-items:center;gap:10px;">
+                    <span class="material-symbols-rounded" style="color: var(--primary);">translate</span>
+                    German
+                </h3>
+                <p style="color: var(--text-muted); margin-top: 10px;">ÖSD Certificate: <b style="color:#fff;">A2.1</b></p>
+            </div>
         </div>
 
         <h2 class="section-title"><span class="material-symbols-rounded">volunteer_activism</span> Volunteer Experience</h2>
@@ -2287,7 +2543,7 @@
     }
 </style>
 
-<footer>
+<footer id="contact">
     <div class="firefly ff-1"></div>
     <div class="firefly ff-2"></div>
     <div class="firefly ff-3"></div>
@@ -2316,8 +2572,9 @@
             <div class="footer-links">
                 <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="f-link">LinkedIn</a>
                 <a href="https://t.me/AgSeyl" target="_blank" class="f-link">Telegram</a>
-                <a href="mailto:soheil.aghavani@ut.ac.ir" class="f-link">Email</a>
-                <a href="Soheil_Aghayani_CV.pdf" target="_blank" class="f-link">Resume</a>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" class="f-link">Email</a>
+                <a href="tel:+989120543587" class="f-link">Phone</a>
+                <a href="https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing" target="_blank" class="f-link">Resume</a>
             </div>
         </div>
     </div>
@@ -2385,6 +2642,61 @@
 </div>
 </footer>
 
+
+<div id="osTerm" class="os-term" aria-hidden="true">
+  <div class="os-term-win" role="dialog" aria-modal="true" aria-label="Terminal">
+    <div class="os-term-top">
+      <div class="os-dots" aria-hidden="true">
+        <button class="os-dot red" id="osDotClose" type="button" aria-label="Close"></button>
+        <button class="os-dot yellow" id="osDotMin" type="button" aria-label="Minimize"></button>
+        <button class="os-dot green" id="osDotMax" type="button" aria-label="Fullscreen"></button>
+      </div>
+      <div class="os-term-title">soh  zsh  v.73</div>
+    </div>
+
+    <div id="osTermOut" class="os-term-out"></div>
+
+    <div id="snakeWrap" class="snake-wrap" aria-hidden="true">
+      <div class="snake-head">
+        <div class="snake-title">Snake</div>
+        <button class="snake-close" id="snakeClose" type="button" aria-label="Close snake">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+      </div>
+
+      <div class="snake-row">
+        <canvas id="snakeCanvas" class="snake-canvas" width="360" height="360"></canvas>
+
+        <div class="snake-controls" aria-label="Snake controls">
+          <div></div>
+          <button class="snake-btn" data-dir="up" type="button"><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
+          <div></div>
+
+          <button class="snake-btn" data-dir="left" type="button"><span class="material-symbols-rounded">keyboard_arrow_left</span></button>
+          <button class="snake-btn" data-dir="down" type="button"><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
+          <button class="snake-btn" data-dir="right" type="button"><span class="material-symbols-rounded">keyboard_arrow_right</span></button>
+
+          <div></div>
+          <button class="snake-btn" id="snakeRestart" type="button"><span class="material-symbols-rounded">replay</span></button>
+          <div></div>
+        </div>
+
+        <div class="snake-meta">
+          <div style="margin-top: 6px;">Use arrow keys. On mobile use buttons.</div>
+          <div style="margin-top: 6px;">Esc or the close button exits snake.</div>
+          <div style="margin-top: 6px;">Score: <span id="snakeScore" style="color:#fff;">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="os-term-in">
+      <div class="os-term-prompt" id="osPrompt">soheil@macbook:~$</div>
+      <input id="osTermInput" class="os-term-input" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+</div>
+
+
 <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     function updateTehranTime() {
@@ -2409,6 +2721,621 @@
             spotlight.style.setProperty('--y', `${y}%`);
         });
     </script>
+
+
+<script>
+(function () {
+  function setupSectionHeaders() {
+    const headers = Array.from(document.querySelectorAll('.section-header'));
+    if (!headers.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    }, { threshold: 0.15 });
+
+    headers.forEach(h => obs.observe(h));
+  }
+
+  // Fade in sections on entry, without touching the Professional Training internal animations.
+  function setupFade() {
+    const fadeObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('in');
+        fadeObserver.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+
+    function mark(el){
+      if (!el) return;
+      el.classList.add('fade-section');
+      fadeObserver.observe(el);
+    }
+
+    // Fade hero card and footer
+    mark(document.querySelector('.hero-card'));
+    mark(document.querySelector('footer'));
+
+    // Fade education and training containers
+    mark(document.getElementById('education'));
+    mark(document.getElementById('training'));
+
+    // Wrap direct section blocks in .container (excluding education and training) for clean fade
+    const container = document.querySelector('.container');
+    if (!container) return;
+
+    const titles = Array.from(container.querySelectorAll(':scope > h2.section-title'));
+    for (const t of titles) {
+      const wrap = document.createElement('section');
+      wrap.className = 'fade-section';
+
+      container.insertBefore(wrap, t);
+
+      let node = t;
+      while (node && !(node.nodeType === 1 && node.matches(':scope > h2.section-title') && node !== t)) {
+        const next = node.nextSibling;
+        wrap.appendChild(node);
+        node = next;
+        if (!node) break;
+        if (node.nodeType === 1 && node.matches('h2.section-title') && container === node.parentElement) break;
+      }
+
+      fadeObserver.observe(wrap);
+    }
+  }
+
+  // macOS terminal overlay with typewriter output, blackjack, snake
+  function setupTerminal() {
+    const hw = document.getElementById('helloWorld');
+    const term = document.getElementById('osTerm');
+    const out = document.getElementById('osTermOut');
+    const input = document.getElementById('osTermInput');
+    const dotClose = document.getElementById('osDotClose');
+    const dotMin = document.getElementById('osDotMin');
+    const dotMax = document.getElementById('osDotMax');
+
+    const snakeWrap = document.getElementById('snakeWrap');
+    const snakeCanvas = document.getElementById('snakeCanvas');
+    const snakeScoreEl = document.getElementById('snakeScore');
+    const snakeRestart = document.getElementById('snakeRestart');
+    const snakeClose = document.getElementById('snakeClose');
+
+    if (!term || !out || !input) return;
+
+    const CONTACTS = {
+      email: 'soheil.aghayani@ut.ac.ir',
+      phone: '+989120543587',
+      linkedin: 'https://linkedin.com/in/AgSeyl',
+      telegram: 'https://t.me/AgSeyl',
+      resume: 'https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing'
+    };
+
+    const THESIS = 'Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells';
+
+    let printing = false;
+    let mode = null; // null | "bj" | "snake"
+    let bj = null;
+    let lastGame = null;
+
+    function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+    function addLine(text, cls){
+      const div = document.createElement('div');
+      div.className = 'os-line' + (cls ? ' ' + cls : '');
+      div.textContent = text;
+      out.appendChild(div);
+      out.scrollTop = out.scrollHeight;
+      return div;
+    }
+
+    async function typeLine(text, cls, cps){
+      const line = addLine('', cls);
+      const s = String(text ?? '');
+      const speed = Math.max(10, Math.min(140, cps || 50));
+      const delay = Math.round(1000 / speed);
+      for (let i = 0; i < s.length; i++) {
+        line.textContent += s[i];
+        if (i % 2 === 0) out.scrollTop = out.scrollHeight;
+        await sleep(delay);
+      }
+    }
+
+    function openTerm(){
+      term.classList.add('open');
+      term.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      input.focus();
+      boot();
+    }
+
+    function closeTerm(){
+      term.classList.remove('open');
+      term.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      stopSnake();
+      mode = null;
+      bj = null;
+    }
+
+    function isOpen(){ return term.classList.contains('open'); }
+
+    async function boot(){
+      if (printing) return;
+      printing = true;
+      out.innerHTML = '';
+      stopSnake();
+      mode = null;
+      bj = null;
+
+      const now = new Date();
+      const stamp = now.toLocaleString([], { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
+      await typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 70);
+      await sleep(120);
+      await typeLine('Welcome to Soheil_OS. Built for sustainable engineering and clean code.', 'os-ok', 52);
+      await sleep(120);
+      await typeLine("Type 'help' to see available commands.", 'os-dim', 55);
+      addLine('', '');
+      printing = false;
+    }
+
+    async function cmdHelp(){
+      await typeLine('Available commands:', 'os-dim', 65);
+      await typeLine('- bio: Personal introduction', 'os-dim', 65);
+      await typeLine('- thesis: Research topic', 'os-dim', 65);
+      await typeLine('- skills: Technical stack', 'os-dim', 65);
+      await typeLine('- play: Games', 'os-dim', 65);
+      await typeLine('- clear: Wipe console', 'os-dim', 65);
+      await typeLine('- exit: Close terminal', 'os-dim', 65);
+    }
+
+    async function cmdBio(){
+      await typeLine('Bio', 'os-warn', 80);
+      await typeLine('Environmental Engineering. Solid Waste Management. LCA and emissions modeling.', 'os-dim', 55);
+      await typeLine('I build workflows that turn complex data into decisions.', 'os-dim', 55);
+    }
+
+    async function cmdThesis(){
+      await typeLine('Thesis', 'os-warn', 80);
+      await typeLine(THESIS, 'os-dim', 52);
+    }
+
+    async function cmdSkills(){
+      await typeLine('Skills', 'os-warn', 80);
+      await typeLine('SimaPro, LandGEM, Python, ChemDraw, OpenLCA, LCA workflows.', 'os-dim', 55);
+    }
+
+    async function cmdContact(){
+      await typeLine('Contacts', 'os-warn', 80);
+      await typeLine('Email: ' + CONTACTS.email, 'os-dim', 65);
+      await typeLine('Phone: ' + CONTACTS.phone, 'os-dim', 65);
+      await typeLine('LinkedIn: ' + CONTACTS.linkedin, 'os-dim', 65);
+      await typeLine('Telegram: ' + CONTACTS.telegram, 'os-dim', 65);
+      await typeLine('Resume: ' + CONTACTS.resume, 'os-dim', 65);
+    }
+
+    function buildDeck(){
+      const suits = ['♠','♥','♦','♣'];
+      const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+      const deck = [];
+      for (const s of suits) for (const r of ranks) deck.push({ r, s });
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = deck[i]; deck[i] = deck[j]; deck[j] = t;
+      }
+      return deck;
+    }
+
+    function cardValue(card){
+      if (card.r === 'A') return 11;
+      if (card.r === 'K' || card.r === 'Q' || card.r === 'J') return 10;
+      return parseInt(card.r, 10);
+    }
+
+    function handValue(hand){
+      let total = 0;
+      let aces = 0;
+      for (const c of hand) {
+        total += cardValue(c);
+        if (c.r === 'A') aces += 1;
+      }
+      while (total > 21 && aces > 0) {
+        total -= 10;
+        aces -= 1;
+      }
+      return total;
+    }
+
+    function fmtHand(hand){
+      return hand.map(c => c.r + c.s).join(' ');
+    }
+
+    async function startBlackjack(){
+      mode = 'bj';
+      lastGame = 'bj';
+      bj = { deck: buildDeck(), player: [], dealer: [], done: false };
+
+      bj.player.push(bj.deck.pop(), bj.deck.pop());
+      bj.dealer.push(bj.deck.pop(), bj.deck.pop());
+
+      await typeLine('Blackjack', 'os-warn', 80);
+      await typeLine('Commands: hit, stand, exit', 'os-dim', 70);
+
+      await showBjState(false);
+      const v = handValue(bj.player);
+      if (v === 21) {
+        await endBlackjack('Blackjack. You win.', 'os-ok');
+      }
+    }
+
+    async function showBjState(revealDealer){
+      const pVal = handValue(bj.player);
+      const dVal = handValue(bj.dealer);
+      const dealerShown = revealDealer ? fmtHand(bj.dealer) : (bj.dealer[0].r + bj.dealer[0].s + ' ??');
+      await typeLine('Dealer: ' + dealerShown + (revealDealer ? ('  (' + dVal + ')') : ''), 'os-dim', 70);
+      await typeLine('You:    ' + fmtHand(bj.player) + '  (' + pVal + ')', 'os-dim', 70);
+    }
+
+    async function endBlackjack(msg, cls){
+      bj.done = true;
+      await showBjState(true);
+      await typeLine(msg, cls || 'os-ok', 70);
+      addLine('Type again to replay.', 'os-dim');
+      mode = null;
+      bj = null;
+    }
+
+    async function bjHit(){
+      if (!bj || bj.done) return;
+      bj.player.push(bj.deck.pop());
+      const v = handValue(bj.player);
+      await showBjState(false);
+      if (v > 21) {
+        await endBlackjack('Bust. Dealer wins.', 'os-bad');
+      } else if (v === 21) {
+        await bjStand();
+      }
+    }
+
+    async function bjStand(){
+      if (!bj || bj.done) return;
+
+      while (handValue(bj.dealer) < 17) bj.dealer.push(bj.deck.pop());
+
+      const p = handValue(bj.player);
+      const d = handValue(bj.dealer);
+
+      if (d > 21) return endBlackjack('Dealer bust. You win.', 'os-ok');
+      if (p > d) return endBlackjack('You win.', 'os-ok');
+      if (p < d) return endBlackjack('Dealer wins.', 'os-bad');
+      return endBlackjack('Push. Draw.', 'os-warn');
+    }
+
+    // Snake game (canvas)
+    let snakeTimer = null;
+    let snake = null;
+
+    function snakeReset(){
+      const size = 18;
+      const w = snakeCanvas ? snakeCanvas.width : 360;
+      const h = snakeCanvas ? snakeCanvas.height : 360;
+      const cols = Math.floor(w / size);
+      const rows = Math.floor(h / size);
+
+      snake = {
+        size, cols, rows,
+        dir: {x:1,y:0},
+        nextDir: {x:1,y:0},
+        body: [{x: Math.floor(cols/2), y: Math.floor(rows/2)}],
+        food: null,
+        score: 0,
+        alive: true
+      };
+
+      placeFood();
+      drawSnake();
+      if (snakeScoreEl) snakeScoreEl.textContent = '0';
+    }
+
+    function placeFood(){
+      if (!snake) return;
+      while (true) {
+        const fx = Math.floor(Math.random() * snake.cols);
+        const fy = Math.floor(Math.random() * snake.rows);
+        const hit = snake.body.some(p => p.x === fx && p.y === fy);
+        if (!hit) { snake.food = {x:fx,y:fy}; return; }
+      }
+    }
+
+    function drawSnake(){
+      if (!snakeCanvas || !snake) return;
+      const ctx = snakeCanvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.clearRect(0,0,snakeCanvas.width,snakeCanvas.height);
+
+      ctx.fillStyle = 'rgba(2,6,23,0.55)';
+      ctx.fillRect(0,0,snakeCanvas.width,snakeCanvas.height);
+
+      const s = snake.size;
+
+      // food
+      ctx.fillStyle = 'rgba(96,165,250,0.95)';
+      ctx.fillRect(snake.food.x * s, snake.food.y * s, s, s);
+
+      // body
+      for (let i = 0; i < snake.body.length; i++){
+        const p = snake.body[i];
+        ctx.fillStyle = i === 0 ? 'rgba(45,212,191,0.95)' : 'rgba(226,232,240,0.75)';
+        ctx.fillRect(p.x * s, p.y * s, s, s);
+      }
+    }
+
+    function setSnakeDir(dx, dy){
+      if (!snake || !snake.alive) return;
+      // prevent reverse
+      if (snake.dir.x === -dx && snake.dir.y === -dy) return;
+      snake.nextDir = {x:dx,y:dy};
+    }
+
+    function snakeTick(){
+      if (!snake || !snake.alive) return;
+
+      snake.dir = snake.nextDir;
+
+      const head = snake.body[0];
+      const nx = head.x + snake.dir.x;
+      const ny = head.y + snake.dir.y;
+
+      // wall collision
+      if (nx < 0 || ny < 0 || nx >= snake.cols || ny >= snake.rows) {
+        snake.alive = false;
+        onSnakeEnd();
+        return;
+      }
+
+      // self collision
+      if (snake.body.some((p, idx) => idx !== 0 && p.x === nx && p.y === ny)) {
+        snake.alive = false;
+        onSnakeEnd();
+        return;
+      }
+
+      snake.body.unshift({x:nx,y:ny});
+
+      if (nx === snake.food.x && ny === snake.food.y) {
+        snake.score += 1;
+        if (snakeScoreEl) snakeScoreEl.textContent = String(snake.score);
+        placeFood();
+      } else {
+        snake.body.pop();
+      }
+
+      drawSnake();
+    }
+
+    function onSnakeEnd(){
+      if (snakeTimer) { clearInterval(snakeTimer); snakeTimer = null; }
+      addLine('Snake ended. Score: ' + (snake ? snake.score : 0), 'os-warn');
+      addLine('Press Esc or use the close button.', 'os-dim');
+    }
+
+    function startSnake(){
+      mode = 'snake';
+      lastGame = 'snake';
+      if (!snakeWrap) return;
+
+      snakeWrap.classList.add('open');
+      snakeWrap.setAttribute('aria-hidden', 'false');
+
+      snakeReset();
+
+      if (snakeTimer) clearInterval(snakeTimer);
+      snakeTimer = setInterval(snakeTick, 120);
+
+      addLine('Snake started. Arrow keys or buttons.', 'os-warn');
+      addLine('Esc or close button exits snake.', 'os-dim');
+    }
+
+    function stopSnake(){
+      if (!snakeWrap) return;
+      snakeWrap.classList.remove('open');
+      snakeWrap.setAttribute('aria-hidden', 'true');
+      if (snakeTimer) { clearInterval(snakeTimer); snakeTimer = null; }
+      snake = null;
+    }
+
+    async function cmdPlay(args){
+      const g = (args[0] || '').toLowerCase();
+      if (!g) {
+        await typeLine('Games:', 'os-dim', 70);
+        await typeLine('- blackjack  (play bj)', 'os-dim', 70);
+        await typeLine('- snake', 'os-dim', 70);
+        return;
+      }
+
+      if (g === 'blackjack' || g === 'bj') {
+        await startBlackjack();
+        return;
+      }
+
+      if (g === 'snake') {
+        startSnake();
+        return;
+      }
+
+      await typeLine('Game not found.', 'os-bad', 70);
+    }
+
+    async function run(raw){
+      const cmdRaw = String(raw || '').trim();
+      if (!cmdRaw) return;
+
+      addLine('soheil@macbook:~$ ' + cmdRaw, 'os-dim');
+
+      if (printing) return;
+      printing = true;
+
+      // Game modes
+      if (mode === 'bj') {
+        const v = cmdRaw.toLowerCase();
+        if (v === 'exit' || v === 'quit') { await typeLine('Exited game.', 'os-ok', 70); mode = null; bj = null; printing = false; return; }
+        if (v === 'hit' || v === 'h') { await bjHit(); printing = false; return; }
+        if (v === 'stand' || v === 's') { await bjStand(); printing = false; return; }
+        await typeLine('Use: hit, stand, exit', 'os-warn', 70);
+        printing = false;
+        return;
+      }
+
+      if (mode === 'snake') {
+        const v = cmdRaw.toLowerCase();
+        if (v === 'exit' || v === 'quit') { stopSnake(); mode = null; await typeLine('Exited snake.', 'os-ok', 70); printing = false; return; }
+        await typeLine('Use arrow keys or buttons. Esc closes.', 'os-dim', 70);
+        printing = false;
+        return;
+      }
+
+      const parts = cmdRaw.split(/\s+/);
+      const main = (parts[0] || '').toLowerCase();
+      const rest = parts.slice(1);
+
+      if (main === 'help' || main === '?') { await cmdHelp(); printing = false; return; }
+
+      if (main === 'again' || main === 'r' || main === 'restart') {
+        if (lastGame === 'bj') { await startBlackjack(); printing = false; return; }
+        if (lastGame === 'snake') { startSnake(); printing = false; return; }
+        await typeLine('No previous game.', 'os-warn', 70);
+        printing = false;
+        return;
+      }
+
+      if (main === 'clear' || main === 'cls' || main === 'clean') { out.innerHTML = ''; stopSnake(); mode = null; bj = null; printing = false; return; }
+
+      if (main === 'exit' || main === 'quit') { printing = false; closeTerm(); return; }
+
+      if (main === 'bio') { await cmdBio(); printing = false; return; }
+      if (main === 'thesis') { await cmdThesis(); printing = false; return; }
+      if (main === 'skills') { await cmdSkills(); printing = false; return; }
+
+      if (main === 'contact') { await cmdContact(); printing = false; return; }
+
+      if (main === 'resume') { window.open(CONTACTS.resume, '_blank', 'noopener,noreferrer'); await typeLine('Opening resume.', 'os-ok', 70); printing = false; return; }
+
+      if (main === 'bj' || main === 'blackjack') { await startBlackjack(); printing = false; return; }
+      if (main === 'snake') { startSnake(); printing = false; return; }
+
+      if (main === 'play') { await cmdPlay(rest); printing = false; return; }
+
+      await typeLine("Unknown command. Try help.", 'os-warn', 70);
+      printing = false;
+    }
+
+    // Wire UI
+    if (hw) {
+      hw.addEventListener('click', openTerm);
+      hw.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openTerm(); });
+    }
+
+    if (dotClose) dotClose.addEventListener('click', closeTerm);
+
+    if (dotMin) dotMin.addEventListener('click', () => {
+      // simple minimize: fade output area
+      out.style.display = (out.style.display === 'none') ? '' : 'none';
+      input.focus();
+    });
+
+    if (dotMax) dotMax.addEventListener('click', () => {
+      const win = term.querySelector('.os-term-win');
+      if (!win) return;
+      win.classList.toggle('maxed');
+      if (win.classList.contains('maxed')) {
+        win.style.width = 'min(1200px, calc(100% - 14px))';
+      } else {
+        win.style.width = '';
+      }
+      input.focus();
+    });
+
+    term.addEventListener('click', (e) => {
+      if (e.target === term) closeTerm();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        if (mode === 'snake') {
+          stopSnake();
+          mode = null;
+          addLine('Exited snake.', 'os-ok');
+          input.focus();
+          return;
+        }
+        closeTerm();
+        return;
+      }
+
+      if (mode === 'snake') {
+        if (e.key === 'ArrowUp') setSnakeDir(0,-1);
+        if (e.key === 'ArrowDown') setSnakeDir(0,1);
+        if (e.key === 'ArrowLeft') setSnakeDir(-1,0);
+        if (e.key === 'ArrowRight') setSnakeDir(1,0);
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const v = input.value;
+      input.value = '';
+      run(v);
+    });
+
+    if (snakeWrap) {
+      snakeWrap.addEventListener('click', () => input.focus());
+    }
+
+    if (snakeClose) {
+      snakeClose.addEventListener('click', () => {
+        if (mode !== 'snake') { stopSnake(); input.focus(); return; }
+        stopSnake();
+        mode = null;
+        addLine('Exited snake.', 'os-ok');
+        input.focus();
+      });
+    }
+
+    document.querySelectorAll('.snake-btn[data-dir]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const d = btn.getAttribute('data-dir');
+        if (d === 'up') setSnakeDir(0,-1);
+        if (d === 'down') setSnakeDir(0,1);
+        if (d === 'left') setSnakeDir(-1,0);
+        if (d === 'right') setSnakeDir(1,0);
+        input.focus();
+      });
+    });
+
+    if (snakeRestart) {
+      snakeRestart.addEventListener('click', () => {
+        if (mode !== 'snake') return;
+        snakeReset();
+        if (snakeTimer) clearInterval(snakeTimer);
+        snakeTimer = setInterval(snakeTick, 120);
+        input.focus();
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setupSectionHeaders();
+    setupFade();
+    setupTerminal();
+  });
+})();
+</script>
 
 </body>
 </html>
