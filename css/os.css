@@ -104,19 +104,21 @@
 /* Traffic Lights */
 .os-dots, .notes-dots {
     display: flex;
-    gap: 10px;
+    gap: 8px; /* Slightly tighter like real macOS */
     align-items: center;
+    padding-left: 8px;
 }
 .os-dot, .notes-dot {
     width: 12px;
     height: 12px;
-    border-radius: 999px;
+    border-radius: 50%;
     border: 0;
     padding: 0;
     cursor: pointer;
-    display: inline-block;
-    opacity: 0.95;
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12);
+    display: block; /* Ensure visibility */
+    opacity: 1;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
 }
 .os-dot.red, .notes-dot.red { background: #ff5f57; }
 .os-dot.yellow, .notes-dot.yellow { background: #febc2e; }
@@ -460,13 +462,17 @@
 .game-icon-img {
     width: 64px;
     height: 64px;
-    border-radius: 12px;
-    background: var(--primary);
+    border-radius: 14px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #0f172a;
-    font-size: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.game-icon-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .game-icon-name {
     font-weight: 600;

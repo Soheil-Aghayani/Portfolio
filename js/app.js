@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Register Game Center
         // We need to initialize the launcher
-        const launcher = new GameLauncher('appWin'); // We will create this ID in HTML
+        const launcher = new GameLauncher('appBody');
         launcher.render();
 
         window.OS.register('games', 'appWrap', 'appWin', {
