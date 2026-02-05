@@ -1,0 +1,545 @@
+/* --- Hello World Button / Trigger --- */
+.hello-world {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 0;
+    border-radius: 999px;
+    border: none;
+    background: none;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+.hello-world::after{
+    content: "";
+    width: 10px;
+    height: 2px;
+    border-radius: 10px;
+    background: var(--primary);
+    box-shadow: 0 0 16px rgba(45,212,191,0.45);
+    animation: hwBlink 1.05s steps(2,end) infinite;
+}
+.hello-world::before{
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 999px;
+    background: radial-gradient(120px 40px at 30% 50%, rgba(45,212,191,0.18), rgba(0,0,0,0) 70%);
+    opacity: 0.35;
+    filter: blur(8px);
+    animation: hwPulse 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes hwBlink{ 50%{ opacity: 0; } }
+@keyframes hwPulse{
+    0%,100%{ transform: translateY(0); opacity: 0.30; }
+    50%{ transform: translateY(-2px); opacity: 0.55; }
+}
+
+/* --- OS WINDOW SYSTEM --- */
+
+/* Wrapper for full screen overlays (Terminal, Notes, Games) */
+.os-term, .notes-wrap, .app-wrap {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2,6,23,0.72);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+.os-term.open, .notes-wrap.open, .app-wrap.open { display: flex; }
+
+/* Generic Window Style */
+.os-term-win, .notes-win, .app-win {
+    width: min(980px, calc(100% - 22px));
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(17,24,39,0.92);
+    box-shadow: 0 35px 100px rgba(0,0,0,0.65);
+}
+.notes-win {
+    width: min(860px, calc(100% - 22px));
+    height: min(560px, calc(100% - 22px));
+    display: grid;
+    grid-template-rows: 46px 1fr;
+    animation: notesPop 160ms ease-out;
+    transform: translate3d(0,0,0);
+}
+.app-win {
+    width: min(800px, calc(100% - 22px));
+    height: min(600px, calc(100% - 22px));
+    display: grid;
+    grid-template-rows: 46px 1fr;
+    animation: notesPop 160ms ease-out;
+}
+
+.os-term-win.maxed, .notes-win.max, .app-win.max {
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
+}
+
+@keyframes notesPop{
+    from{ opacity: 0; transform: translateY(10px) scale(0.985); }
+    to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Window Top Bar */
+.os-term-top, .notes-top, .app-top {
+    height: 46px;
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+}
+
+/* Traffic Lights */
+.os-dots, .notes-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.os-dot, .notes-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    opacity: 0.95;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12);
+}
+.os-dot.red, .notes-dot.red { background: #ff5f57; }
+.os-dot.yellow, .notes-dot.yellow { background: #febc2e; }
+.os-dot.green, .notes-dot.green { background: #28c840; }
+
+/* Window Titles */
+.os-term-title, .notes-top-title, .app-title {
+    text-align: center;
+    font-size: 0.92rem;
+    color: rgba(226,232,240,0.85);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    user-select: none;
+}
+
+/* TERMINAL SPECIFIC */
+.os-term-hint{
+    text-align: right;
+    font-size: 0.82rem;
+    color: rgba(148,163,184,0.85);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    user-select: none;
+}
+.os-term-out{
+    height: min(520px, 62vh);
+    padding: 14px 14px 0;
+    overflow: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    color: rgba(226,232,240,0.92);
+}
+.os-term-in{
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+.os-term-prompt{
+    color: rgba(45,212,191,0.95);
+    font-weight: 800;
+    white-space: nowrap;
+}
+.os-term-input{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: rgba(248,250,252,0.95);
+    font-family: inherit;
+    font-size: 0.98rem;
+}
+.os-line{ margin: 6px 0; white-space: pre-wrap; }
+.os-dim{ color: rgba(148,163,184,0.92); }
+.os-ok{ color: rgba(45,212,191,0.95); }
+.os-warn{ color: rgba(96,165,250,0.95); }
+.os-bad{ color: rgba(248,113,113,0.95); }
+
+/* SNAKE UI (Legacy Overlay Style - keeping for compatibility if run in terminal) */
+.snake-wrap{
+    display: none;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 58px;
+    bottom: 62px;
+    z-index: 6;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.88);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 12px;
+}
+.snake-wrap.open{ display: block; }
+.snake-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.snake-title{
+    font-weight: 900;
+    color: rgba(226,232,240,0.92);
+}
+.snake-close{
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    color: rgba(226,232,240,0.88);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.snake-row{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.snake-canvas{
+    width: 360px;
+    height: 360px;
+    background: rgba(2,6,23,0.55);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    touch-action: none;
+}
+.snake-controls{
+    display: grid;
+    grid-template-columns: 52px 52px 52px;
+    grid-template-rows: 52px 52px 52px;
+    gap: 8px;
+    align-content: start;
+}
+.snake-btn{
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    color: rgba(226,232,240,0.92);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.snake-btn:active{ transform: scale(0.98); }
+.snake-meta{
+    min-width: 220px;
+    color: rgba(148,163,184,0.92);
+    font-size: 0.88rem;
+}
+@media (max-width: 520px){
+    .snake-canvas{ width: 300px; height: 300px; }
+}
+
+/* NOTES UI */
+.notes-top-actions{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 6px;
+}
+.notes-add{
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    color: rgba(226,232,240,0.92);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.notes-add:active{ transform: scale(0.98); }
+.notes-body{
+    position: relative;
+    overflow: auto;
+    padding: 14px;
+}
+.notes-hint{
+    color: rgba(148,163,184,0.92);
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+}
+.notes-list{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-content: start;
+}
+.note-item{
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(15,23,42,0.55);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 96px;
+    position: relative;
+}
+.note-top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.note-name{
+    font-weight: 800;
+    color: rgba(226,232,240,0.92);
+    font-size: 0.98rem;
+    line-height: 1.2;
+}
+.note-badges{
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+.note-badge{
+    font-size: 0.72rem;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(148,163,184,0.95);
+    background: rgba(2,6,23,0.35);
+    white-space: nowrap;
+}
+.note-del{
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    color: rgba(226,232,240,0.85);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.note-desc{
+    color: rgba(148,163,184,0.92);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 10px;
+}
+.note-link{
+    color: rgba(45,212,191,0.95);
+    text-decoration: none;
+    font-size: 0.88rem;
+    word-break: break-all;
+}
+.note-link:hover{ text-decoration: underline; }
+
+/* Modal / Dialogs inside Notes */
+.notes-modal{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2,6,23,0.62);
+    padding: 14px;
+}
+.notes-modal.open{ display: flex; }
+.notes-modal-card{
+    width: min(560px, 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(15,23,42,0.90);
+    border-radius: 14px;
+    padding: 14px;
+}
+.notes-modal-title{
+    font-weight: 900;
+    color: rgba(226,232,240,0.92);
+    margin-bottom: 10px;
+}
+.notes-form{
+    display: grid;
+    gap: 8px;
+}
+.notes-label{
+    color: rgba(148,163,184,0.92);
+    font-size: 0.85rem;
+}
+.notes-input, .notes-textarea{
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,6,23,0.45);
+    color: rgba(226,232,240,0.92);
+    padding: 10px 12px;
+    outline: none;
+}
+.notes-input:focus, .notes-textarea:focus{
+    border-color: rgba(45,212,191,0.55);
+    box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
+}
+.notes-textarea{ resize: vertical; min-height: 110px; }
+.notes-form-actions{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+.notes-btn2{
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: rgba(226,232,240,0.92);
+    cursor: pointer;
+}
+.notes-btn2:active{ transform: scale(0.99); }
+.notes-btn2.primary{
+    border-color: rgba(45,212,191,0.40);
+    background: rgba(45,212,191,0.10);
+}
+.notes-msg{
+    min-height: 18px;
+    color: rgba(248,113,113,0.95);
+    font-size: 0.85rem;
+}
+@media (max-width: 720px){
+    .notes-list{ grid-template-columns: 1fr; }
+}
+
+/* --- GAME LAUNCHER UI --- */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    align-items: start;
+}
+
+.game-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+.game-icon:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+.game-icon-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a;
+    font-size: 2rem;
+}
+.game-icon-name {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+.app-body {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.game-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f172a;
+}
+.game-back-btn {
+    margin-right: auto;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+.game-back-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
+
+/* In-App Game UI overrides */
+.in-app-game-canvas {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.blackjack-table {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+.bj-row {
+    margin-bottom: 20px;
+    min-height: 80px;
+}
+.bj-cards {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+.bj-card {
+    width: 50px;
+    height: 70px;
+    background: #fff;
+    color: #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.bj-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
