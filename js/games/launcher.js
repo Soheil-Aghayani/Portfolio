@@ -6,9 +6,19 @@ export class GameLauncher {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.games = [
-            { id: 'snake', name: 'Snake', icon: 'all_inclusive' },
-            { id: 'blackjack', name: 'Blackjack', icon: 'style' }
+            {
+                id: 'snake',
+                name: 'Snake',
+                img: 'https://s8.uupload.ir/files/snake_q7dz.png'
+            },
+            {
+                id: 'blackjack',
+                name: 'Blackjack',
+                img: 'https://s8.uupload.ir/files/selfcontrol_macos_bigsur_icon_189760_prq.png'
+            }
         ];
+        // Default icon for unknown games: https://s8.uupload.ir/files/xcode_alt_macos_bigsur_icon_189542_ih5w.png
+
         this.activeGame = null;
     }
 
@@ -19,7 +29,7 @@ export class GameLauncher {
                     ${this.games.map(g => `
                         <div class="game-icon" data-id="${g.id}" role="button" tabindex="0">
                             <div class="game-icon-img">
-                                <span class="material-symbols-rounded">${g.icon}</span>
+                                <img src="${g.img}" alt="${g.name}" draggable="false" />
                             </div>
                             <span class="game-icon-name">${g.name}</span>
                         </div>
@@ -44,7 +54,6 @@ export class GameLauncher {
         stage.innerHTML = ''; // clear previous
 
         // Add Back Button logic handled by Window header or internal back button
-        // Let's add a small internal back button for better UX
         const backBtn = document.createElement('button');
         backBtn.className = 'game-back-btn';
         backBtn.innerHTML = '<span class="material-symbols-rounded">arrow_back</span> Back';
