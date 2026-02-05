@@ -17,7 +17,6 @@ export class GameLauncher {
                 img: 'https://s8.uupload.ir/files/selfcontrol_macos_bigsur_icon_189760_prq.png'
             }
         ];
-        // Default icon for unknown games: https://s8.uupload.ir/files/xcode_alt_macos_bigsur_icon_189542_ih5w.png
 
         this.activeGame = null;
     }
@@ -83,6 +82,7 @@ export class GameLauncher {
         content.style.alignItems = 'center';
         content.style.justifyContent = 'center';
         content.style.width = '100%';
+        content.style.position = 'relative'; // Ensure overlay works if needed
         gameWrap.appendChild(content);
 
         if (id === 'snake') {
@@ -92,6 +92,7 @@ export class GameLauncher {
             canvas.className = 'in-app-game-canvas';
             content.appendChild(canvas);
 
+            // Snake now handles restart internally via clicks/keys
             this.activeGame = new SnakeGame(canvas, {
                 onEnd: (score) => {
                     // console.log("Game Over", score);
