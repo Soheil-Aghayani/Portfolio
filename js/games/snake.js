@@ -11,9 +11,13 @@ export class SnakeGame {
         this.snake = null;
         this.timer = null;
         this.isPaused = false;
+        this.gameOverState = false;
 
         this.handleInput = this.handleInput.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
         this.resize();
+        this.canvas.addEventListener('click', this.handleClick);
     }
 
     resize() {
@@ -25,6 +29,7 @@ export class SnakeGame {
 
     start() {
         this.resize();
+        this.gameOverState = false;
         this.snake = {
             dir: {x:1, y:0},
             nextDir: {x:1, y:0},
@@ -40,19 +45,34 @@ export class SnakeGame {
         if (this.timer) clearInterval(this.timer);
         this.timer = setInterval(() => this.tick(), 120);
 
-        // Attach input listeners
+        // Ensure we don't duplicate listeners
+        window.removeEventListener('keydown', this.handleInput);
         window.addEventListener('keydown', this.handleInput);
 
         if (this.callbacks.onStart) this.callbacks.onStart();
     }
 
     stop() {
+        // Full cleanup (called when leaving game)
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
         window.removeEventListener('keydown', this.handleInput);
     }
 
+    pause() {
+        // Just stop the loop, keep listeners for restart
+        if (this.timer) clearInterval(this.timer);
+        this.timer = null;
+    }
+
     handleInput(e) {
+        if (this.gameOverState) {
+            if (e.key === ' ' || e.key === 'Enter') {
+                this.start();
+            }
+            return;
+        }
+
         if (!this.snake || !this.snake.alive) return;
 
         switch(e.key) {
@@ -60,6 +80,12 @@ export class SnakeGame {
             case 'ArrowDown': this.setDir(0, 1); break;
             case 'ArrowLeft': this.setDir(-1, 0); break;
             case 'ArrowRight': this.setDir(1, 0); break;
+        }
+    }
+
+    handleClick() {
+        if (this.gameOverState) {
+            this.start();
         }
     }
 
@@ -130,16 +156,38 @@ export class SnakeGame {
         }
 
         // Body
-        for (let i = 0; i < this.snake.body.length; i++) {
-            const p = this.snake.body[i];
-            this.ctx.fillStyle = i === 0 ? 'rgba(45,212,191,0.95)' : 'rgba(226,232,240,0.75)';
-            this.ctx.fillRect(p.x * s, p.y * s, s, s);
+        if (this.snake && this.snake.body) {
+            for (let i = 0; i < this.snake.body.length; i++) {
+                const p = this.snake.body[i];
+                this.ctx.fillStyle = i === 0 ? 'rgba(45,212,191,0.95)' : 'rgba(226,232,240,0.75)';
+                this.ctx.fillRect(p.x * s, p.y * s, s, s);
+            }
+        }
+
+        // Game Over Overlay
+        if (this.gameOverState) {
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = 'bold 24px monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 20);
+
+            this.ctx.font = '16px monospace';
+            this.ctx.fillStyle = '#cbd5e1';
+            this.ctx.fillText(`Score: ${this.snake.score}`, this.canvas.width / 2, this.canvas.height / 2 + 10);
+
+            this.ctx.fillStyle = '#2dd4bf';
+            this.ctx.fillText('Click or Press Enter to Restart', this.canvas.width / 2, this.canvas.height / 2 + 40);
         }
     }
 
     gameOver() {
         this.snake.alive = false;
-        this.stop();
+        this.gameOverState = true;
+        this.pause(); // Call pause instead of stop to keep listeners
+        this.draw(); // Draw final state with overlay
         if (this.callbacks.onEnd) this.callbacks.onEnd(this.snake.score);
     }
 }

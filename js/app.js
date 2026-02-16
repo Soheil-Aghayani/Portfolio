@@ -26,8 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
         launcher.render();
 
         window.OS.register('games', 'appWrap', 'appWin', {
-            onOpen: () => {
-                launcher.showMenu();
+            onOpen: (gameId) => {
+                if (gameId) {
+                    launcher.launch(gameId);
+                } else {
+                    launcher.showMenu();
+                }
             }
         });
     }

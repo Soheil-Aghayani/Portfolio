@@ -170,7 +170,7 @@
     background: transparent;
     color: rgba(248,250,252,0.95);
     font-family: inherit;
-    font-size: 0.98rem;
+    font-size: 1rem; /* Prevent zoom on mobile */
 }
 .os-line{ margin: 6px 0; white-space: pre-wrap; }
 .os-dim{ color: rgba(148,163,184,0.92); }
@@ -232,11 +232,19 @@
     touch-action: none;
 }
 .snake-controls{
-    display: grid;
+    display: none; /* Hidden by default on desktop if keyboard is primary */
     grid-template-columns: 52px 52px 52px;
     grid-template-rows: 52px 52px 52px;
     gap: 8px;
     align-content: start;
+}
+@media (hover: none) and (pointer: coarse) {
+    /* Show on touch devices */
+    .snake-controls { display: grid; }
+}
+/* Also show on small screens just in case */
+@media (max-width: 768px) {
+    .snake-controls { display: grid; }
 }
 .snake-btn{
     width: 52px;
@@ -514,6 +522,9 @@
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 8px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    background-color: rgba(2,6,23,0.55); /* Ensure background matches game */
+    max-width: 100%;
+    max-height: 100%;
 }
 .blackjack-table {
     padding: 20px;

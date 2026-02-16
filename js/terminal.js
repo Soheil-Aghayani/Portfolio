@@ -103,8 +103,22 @@ class Terminal {
                 break;
             case 'play':
             case 'games':
-                if (window.OS) window.OS.open('games');
-                await this.typeLine('Launching Game Center...', 'os-dim');
+                if (args.length > 0) {
+                    const gameName = args[0].toLowerCase();
+                    if (gameName === 'snake') {
+                        if (window.OS) window.OS.open('games', 'snake');
+                        await this.typeLine('Launching Snake...', 'os-dim');
+                    } else if (gameName === 'blackjack' || gameName === 'bj') {
+                        if (window.OS) window.OS.open('games', 'blackjack');
+                        await this.typeLine('Launching Blackjack...', 'os-dim');
+                    } else {
+                        await this.typeLine(`Game not found: ${gameName}`, 'os-bad');
+                        await this.typeLine('Available: snake, blackjack', 'os-dim');
+                    }
+                } else {
+                    if (window.OS) window.OS.open('games');
+                    await this.typeLine('Launching Game Center...', 'os-dim');
+                }
                 break;
             case 'cd':
                 await this.cmdCd(args);
@@ -128,7 +142,9 @@ class Terminal {
         await this.typeLine('- contact: Contact links', 'os-dim', speed);
         await this.typeLine('- resume: Open resume link', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
-        await this.typeLine('- play: Open Game Center', 'os-dim', speed);
+        await this.typeLine('- play: Games', 'os-dim', speed);
+        await this.typeLine('  -- snake', 'os-dim', speed);
+        await this.typeLine('  -- black jack', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);
     }
