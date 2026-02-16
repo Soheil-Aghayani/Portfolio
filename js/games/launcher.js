@@ -52,12 +52,6 @@ export class GameLauncher {
         stage.style.display = 'flex';
         stage.innerHTML = ''; // clear previous
 
-        // Add Back Button logic handled by Window header or internal back button
-        const backBtn = document.createElement('button');
-        backBtn.className = 'game-back-btn';
-        backBtn.innerHTML = '<span class="material-symbols-rounded">arrow_back</span> Back';
-        backBtn.onclick = () => this.showMenu();
-
         // Wrapper for game
         const gameWrap = document.createElement('div');
         gameWrap.style.width = '100%';
@@ -69,13 +63,6 @@ export class GameLauncher {
 
         stage.appendChild(gameWrap);
 
-        // Inject Back Button at top of game wrap
-        const topBar = document.createElement('div');
-        topBar.style.width = '100%';
-        topBar.style.padding = '10px';
-        topBar.appendChild(backBtn);
-        gameWrap.appendChild(topBar);
-
         const content = document.createElement('div');
         content.style.flex = '1';
         content.style.display = 'flex';
@@ -86,6 +73,19 @@ export class GameLauncher {
         gameWrap.appendChild(content);
 
         if (id === 'snake') {
+            // High Score Board
+            const savedHighScore = localStorage.getItem('snake_high_score') || 0;
+
+            const scoreBoard = document.createElement('div');
+            scoreBoard.className = 'snake-scoreboard';
+            scoreBoard.innerHTML = `
+                <div class="snake-score-item">SCORE <span id="snakeScore">0</span></div>
+                <div class="snake-score-item">HIGH SCORE <span id="snakeHighScore">${savedHighScore}</span></div>
+            `;
+
+            // Insert ScoreBoard before content
+            gameWrap.insertBefore(scoreBoard, content);
+
             // Container for Canvas + Controls
             const snakeContainer = document.createElement('div');
             snakeContainer.style.display = 'flex';
@@ -97,6 +97,16 @@ export class GameLauncher {
             canvas.width = 360;
             canvas.height = 360;
             canvas.className = 'in-app-game-canvas';
+
+            // Restart Button
+            const restartBtn = document.createElement('button');
+            restartBtn.className = 'snake-restart-btn';
+            restartBtn.textContent = 'Play Again';
+            restartBtn.style.display = 'none'; // Hidden by default
+            restartBtn.onclick = () => {
+                restartBtn.style.display = 'none';
+                this.activeGame.start();
+            };
 
             // Mobile Controls
             const controls = document.createElement('div');
@@ -111,12 +121,30 @@ export class GameLauncher {
             `;
 
             snakeContainer.appendChild(canvas);
+            snakeContainer.appendChild(restartBtn);
             snakeContainer.appendChild(controls);
             content.appendChild(snakeContainer);
 
             this.activeGame = new SnakeGame(canvas, {
+                onScore: (score) => {
+                    document.getElementById('snakeScore').textContent = score;
+                    const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('snake_high_score', score);
+                        document.getElementById('snakeHighScore').textContent = score;
+                    }
+                },
+                onStart: () => {
+                    document.getElementById('snakeScore').textContent = 0;
+                    restartBtn.style.display = 'none';
+                },
                 onEnd: (score) => {
-                    // console.log("Game Over", score);
+                    restartBtn.style.display = 'block';
+                    const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('snake_high_score', score);
+                        document.getElementById('snakeHighScore').textContent = score;
+                    }
                 }
             });
 
