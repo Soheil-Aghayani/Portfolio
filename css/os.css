@@ -232,11 +232,19 @@
     touch-action: none;
 }
 .snake-controls{
-    display: grid;
+    display: none; /* Hidden by default on desktop if keyboard is primary */
     grid-template-columns: 52px 52px 52px;
     grid-template-rows: 52px 52px 52px;
     gap: 8px;
     align-content: start;
+}
+@media (hover: none) and (pointer: coarse) {
+    /* Show on touch devices */
+    .snake-controls { display: grid; }
+}
+/* Also show on small screens just in case */
+@media (max-width: 768px) {
+    .snake-controls { display: grid; }
 }
 .snake-btn{
     width: 52px;
