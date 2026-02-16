@@ -170,7 +170,7 @@
     background: transparent;
     color: rgba(248,250,252,0.95);
     font-family: inherit;
-    font-size: 0.98rem;
+    font-size: 1rem; /* Prevent zoom on mobile */
 }
 .os-line{ margin: 6px 0; white-space: pre-wrap; }
 .os-dim{ color: rgba(148,163,184,0.92); }

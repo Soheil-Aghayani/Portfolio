@@ -45,16 +45,24 @@ export class SnakeGame {
         if (this.timer) clearInterval(this.timer);
         this.timer = setInterval(() => this.tick(), 120);
 
-        // Attach input listeners
+        // Ensure we don't duplicate listeners
+        window.removeEventListener('keydown', this.handleInput);
         window.addEventListener('keydown', this.handleInput);
 
         if (this.callbacks.onStart) this.callbacks.onStart();
     }
 
     stop() {
+        // Full cleanup (called when leaving game)
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
         window.removeEventListener('keydown', this.handleInput);
+    }
+
+    pause() {
+        // Just stop the loop, keep listeners for restart
+        if (this.timer) clearInterval(this.timer);
+        this.timer = null;
     }
 
     handleInput(e) {
@@ -178,7 +186,7 @@ export class SnakeGame {
     gameOver() {
         this.snake.alive = false;
         this.gameOverState = true;
-        this.stop();
+        this.pause(); // Call pause instead of stop to keep listeners
         this.draw(); // Draw final state with overlay
         if (this.callbacks.onEnd) this.callbacks.onEnd(this.snake.score);
     }

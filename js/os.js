@@ -46,7 +46,7 @@ class WindowManager {
         if (minBtn) minBtn.addEventListener('click', () => this.minimize(id));
     }
 
-    open(id) {
+    open(id, ...args) {
         const app = this.apps[id];
         if (!app) return;
 
@@ -62,7 +62,7 @@ class WindowManager {
 
         document.body.style.overflow = 'hidden'; // Lock scroll
 
-        if (app.options.onOpen) app.options.onOpen();
+        if (app.options.onOpen) app.options.onOpen(...args);
     }
 
     close(id) {
