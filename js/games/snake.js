@@ -166,20 +166,16 @@ export class SnakeGame {
 
         // Game Over Overlay
         if (this.gameOverState) {
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-            this.ctx.fillStyle = '#fff';
-            this.ctx.font = 'bold 24px monospace';
+            this.ctx.fillStyle = '#ef4444'; // Red color for Game Over
+            this.ctx.font = '800 32px "Courier New", monospace';
             this.ctx.textAlign = 'center';
-            this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 20);
-
-            this.ctx.font = '16px monospace';
-            this.ctx.fillStyle = '#cbd5e1';
-            this.ctx.fillText(`Score: ${this.snake.score}`, this.canvas.width / 2, this.canvas.height / 2 + 10);
-
-            this.ctx.fillStyle = '#2dd4bf';
-            this.ctx.fillText('Click or Press Enter to Restart', this.canvas.width / 2, this.canvas.height / 2 + 40);
+            this.ctx.shadowColor = 'rgba(239, 68, 68, 0.5)';
+            this.ctx.shadowBlur = 10;
+            this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2);
+            this.ctx.shadowBlur = 0;
         }
     }
 

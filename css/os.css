@@ -560,3 +560,51 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+/* SNAKE UI UPDATES */
+.snake-scoreboard {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 360px; /* Match canvas width */
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+.snake-score-item {
+    font-family: 'Courier New', monospace;
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(45,212,191,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.snake-score-item span {
+    color: #fff;
+    margin-left: 5px;
+}
+
+.snake-restart-btn {
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(45,212,191,0.4);
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+}
+.snake-restart-btn:hover {
+    transform: translateY(-2px);
+    background: #5eead4;
+    box-shadow: 0 0 25px rgba(45,212,191,0.6);
+}
+.snake-restart-btn:active {
+    transform: translateY(0);
+}
