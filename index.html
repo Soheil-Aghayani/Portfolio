@@ -1,0 +1,4062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soheil Aghayani | Portfolio</title>
+    
+        <link rel="icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+    <link rel="apple-touch-icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-dark: #0f172a;
+            --primary: #2dd4bf;    /* Teal/Cyan */
+            --secondary: #60a5fa;  /* Blue */
+            --accent: #a78bfa;     /* Purple */
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: default; /* Native Mouse */
+        }
+
+        /* --- SPOTLIGHT BACKGROUND EFFECT --- */
+        /* A subtle glow that follows the mouse behind everything */
+        .spotlight {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(45, 212, 191, 0.07), transparent 40%);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+        /* --- HERO SECTION --- */
+        header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
+
+        .btn {
+            padding: 15px 40px;
+            background: var(--text-main);
+            color: var(--bg-dark);
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        /* --- SECTION HEADERS --- */
+        .section-title {
+            font-size: 2.5rem;
+            margin: 80px 0 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--primary);
+        }
+        .section-title::after {
+            content: ''; flex: 1; height: 1px; background: var(--glass-border);
+        }
+
+        /* --- CARDS (Projects/Experience) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .card .role { color: var(--secondary); font-size: 0.9rem; margin-bottom: 15px; display: block; font-weight: 600; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        .card .date { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; position: absolute; top: 30px; right: 30px; }
+
+        /* --- EDUCATION SPECIFIC --- */
+        .edu-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, var(--glass), transparent);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 3px solid var(--primary);
+        }
+        .edu-icon { font-size: 2.5rem; color: var(--primary); }
+
+        /* --- PUBLICATIONS LIST --- */
+        .pub-list { list-style: none; }
+        .pub-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            transition: 0.2s;
+        }
+        .pub-item:hover { background: var(--glass); padding-left: 30px; }
+        .pub-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 5px; color: #e2e8f0; }
+        .pub-meta { font-size: 0.9rem; color: var(--text-muted); }
+        .badge { 
+            font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; margin-left: 10px; 
+            border: 1px solid var(--glass-border);
+        }
+        .badge-pub { color: var(--primary); border-color: var(--primary); }
+        .badge-sub { color: var(--accent); border-color: var(--accent); }
+
+        /* --- FOOTER --- */
+        footer { padding: 50px 0; text-align: center; color: var(--text-muted); margin-top: 80px; border-top: 1px solid var(--glass-border); }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .card .date { position: relative; top: auto; right: auto; display: block; margin-bottom: 10px; }
+        }
+    
+
+        html { scroll-behavior: smooth; }
+
+        /* Section fade-in on entry */
+        .fade-section{
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+        .fade-section.in{ opacity: 1; }
+
+        /* Hello_World hint animation */
+        .hello-world {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding: 0; /* Set to 0 since there's no box to contain */
+            border-radius: 999px;
+            border: none;      /* Box removed */
+            background: none;  /* Box removed */
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        .hello-world::after{
+            content: "";
+            width: 10px;
+            height: 2px;
+            border-radius: 10px;
+            background: var(--primary);
+            box-shadow: 0 0 16px rgba(45,212,191,0.45);
+            animation: hwBlink 1.05s steps(2,end) infinite;
+        }
+        .hello-world::before{
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border-radius: 999px;
+            background: radial-gradient(120px 40px at 30% 50%, rgba(45,212,191,0.18), rgba(0,0,0,0) 70%);
+            opacity: 0.35;
+            filter: blur(8px);
+            animation: hwPulse 2.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes hwBlink{ 50%{ opacity: 0; } }
+        @keyframes hwPulse{
+            0%,100%{ transform: translateY(0); opacity: 0.30; }
+            50%{ transform: translateY(-2px); opacity: 0.55; }
+        }
+
+        /* macOS terminal overlay */
+        .os-term{
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2,6,23,0.72);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+        }
+        .os-term.open{ display: flex; }
+
+        .os-term-win{
+            width: min(980px, calc(100% - 22px));
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(17,24,39,0.92);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.65);
+        }
+
+        .os-term-top{
+            height: 46px;
+            display: grid;
+            grid-template-columns: 120px 1fr 120px;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .os-dots{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .os-dot{
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            display: inline-block;
+            opacity: 0.95;
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,0.12);
+        }
+        .os-dot.red{ background: #ff5f57; }
+        .os-dot.yellow{ background: #febc2e; }
+        .os-dot.green{ background: #28c840; }
+
+        .os-term-title{
+            text-align: center;
+            font-size: 0.92rem;
+            color: rgba(226,232,240,0.85);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+
+        .os-term-hint{
+            text-align: right;
+            font-size: 0.82rem;
+            color: rgba(148,163,184,0.85);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            user-select: none;
+        }
+
+        .os-term-out{
+            height: min(520px, 62vh);
+            padding: 14px 14px 0;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.96rem;
+            line-height: 1.55;
+            color: rgba(226,232,240,0.92);
+        }
+
+        .os-term-in{
+            display: flex;
+            gap: 10px;
+            padding: 12px 14px 14px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        }
+
+        .os-term-prompt{
+            color: rgba(45,212,191,0.95);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .os-term-input{
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: transparent;
+            color: rgba(248,250,252,0.95);
+            font-family: inherit;
+            font-size: 0.98rem;
+        }
+
+        .os-line{ margin: 6px 0; white-space: pre-wrap; }
+        .os-dim{ color: rgba(148,163,184,0.92); }
+        .os-ok{ color: rgba(45,212,191,0.95); }
+        .os-warn{ color: rgba(96,165,250,0.95); }
+        .os-bad{ color: rgba(248,113,113,0.95); }
+
+        /* snake UI, runs as an overlay inside the terminal window */
+        .snake-wrap{
+            display: none;
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            top: 58px;
+            bottom: 62px;
+            z-index: 6;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(2,6,23,0.88);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 12px;
+        }
+        .snake-wrap.open{ display: block; }
+        .snake-head{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .snake-title{
+            font-weight: 900;
+            color: rgba(226,232,240,0.92);
+        }
+        .snake-close{
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.88);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .snake-row{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .snake-canvas{
+            width: 360px;
+            height: 360px;
+            background: rgba(2,6,23,0.55);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            touch-action: none;
+        }
+        .snake-controls{
+            display: grid;
+            grid-template-columns: 52px 52px 52px;
+            grid-template-rows: 52px 52px 52px;
+            gap: 8px;
+            align-content: start;
+        }
+        .snake-btn{
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .snake-btn:active{ transform: scale(0.98); }
+        .snake-meta{
+            min-width: 220px;
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 520px){
+            .snake-canvas{ width: 300px; height: 300px; }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .hello-world::before, .hello-world::after{ animation: none; }
+        }
+
+
+        /* notes UI, mac-style popup window inside the terminal */
+        .notes-wrap{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 46px;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            background: rgba(2,6,23,0.62);
+            backdrop-filter: blur(10px);
+            z-index: 8;
+        }
+        .notes-wrap.open{ display: flex; }
+
+        .notes-win{
+            position: relative;
+            width: min(860px, calc(100% - 22px));
+            height: min(560px, calc(100% - 22px));
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(17,24,39,0.92);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.65);
+            display: grid;
+            grid-template-rows: 46px 1fr;
+            animation: notesPop 160ms ease-out;
+            transform: translate3d(0,0,0);
+        }
+        .notes-win.max{
+            width: min(1100px, calc(100% - 14px));
+            height: calc(100% - 14px);
+        }
+
+        @keyframes notesPop{
+            from{ opacity: 0; transform: translateY(10px) scale(0.985); }
+            to{ opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .notes-top{
+            height: 46px;
+            display: grid;
+            grid-template-columns: 120px 1fr 120px;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+        }
+        .notes-dots{
+            display: flex;
+            gap: 8px;
+            padding-left: 8px;
+            align-items: center;
+        }
+        .notes-dot{
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 0;
+            cursor: pointer;
+            opacity: 0.92;
+        }
+        .notes-dot.red{ background: #ff5f57; }
+        .notes-dot.green{ background: #28c840; }
+
+        .notes-top-title{
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(226,232,240,0.85);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+        .notes-top-actions{
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 6px;
+        }
+
+        .notes-add{
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notes-add:active{ transform: scale(0.98); }
+
+        .notes-body{
+            position: relative;
+            overflow: auto;
+            padding: 14px;
+        }
+        .notes-hint{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+        }
+        .notes-list{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .note-item{
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(15,23,42,0.55);
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 96px;
+            position: relative;
+        }
+        .note-top{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .note-name{
+            font-weight: 800;
+            color: rgba(226,232,240,0.92);
+            font-size: 0.98rem;
+            line-height: 1.2;
+        }
+        .note-badges{
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .note-badge{
+            font-size: 0.72rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(148,163,184,0.95);
+            background: rgba(2,6,23,0.35);
+            white-space: nowrap;
+        }
+        .note-del{
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.85);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .note-desc{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.88rem;
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+        .note-link{
+            color: rgba(45,212,191,0.95);
+            text-decoration: none;
+            font-size: 0.88rem;
+            word-break: break-all;
+        }
+        .note-link:hover{ text-decoration: underline; }
+
+        .notes-modal{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 46px;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2,6,23,0.62);
+            padding: 14px;
+        }
+        .notes-modal.open{ display: flex; }
+        .notes-modal-card{
+            width: min(560px, 100%);
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(15,23,42,0.90);
+            border-radius: 14px;
+            padding: 14px;
+        }
+        .notes-modal-title{
+            font-weight: 900;
+            color: rgba(226,232,240,0.92);
+            margin-bottom: 10px;
+        }
+        .notes-form{
+            display: grid;
+            gap: 8px;
+        }
+        .notes-label{
+            color: rgba(148,163,184,0.92);
+            font-size: 0.85rem;
+        }
+        .notes-input, .notes-textarea{
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(2,6,23,0.45);
+            color: rgba(226,232,240,0.92);
+            padding: 10px 12px;
+            outline: none;
+        }
+        .notes-input:focus, .notes-textarea:focus{
+            border-color: rgba(45,212,191,0.55);
+            box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
+        }
+        .notes-textarea{ resize: vertical; min-height: 110px; }
+        .notes-form-actions{
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+        .notes-btn2{
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: rgba(226,232,240,0.92);
+            cursor: pointer;
+        }
+        .notes-btn2:active{ transform: scale(0.99); }
+        .notes-btn2.primary{
+            border-color: rgba(45,212,191,0.40);
+            background: rgba(45,212,191,0.10);
+        }
+        .notes-msg{
+            min-height: 18px;
+            color: rgba(248,113,113,0.95);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 720px){
+            .notes-list{ grid-template-columns: 1fr; }
+        }
+
+
+</style>
+</head>
+<body>
+
+    <div class="spotlight"></div>
+
+<style>
+    /* --- DESKTOP & GLOBAL STYLES --- */
+    header {
+        position: relative;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: transparent; 
+        overflow: hidden; 
+    }
+
+    /* 1. AURORA BACKGROUND */
+    .aurora-bg {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -1;
+        background: transparent;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
+    .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent 70%); animation-delay: 0s; }
+    .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary), transparent 70%); animation-delay: -5s; }
+    .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.3; animation: floatBlob 15s infinite alternate-reverse; }
+    @keyframes floatBlob { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.1); } }
+
+    /* 2. THE SOCIAL DOCK (DESKTOP DEFAULT) */
+    .social-dock {
+        position: fixed; 
+        left: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        z-index: 100; 
+    }
+    .social-dock::before { content: ''; position: absolute; left: 50%; top: -60px; width: 1px; height: 50px; background: linear-gradient(to top, var(--glass-border), transparent); }
+    .social-dock::after { content: ''; position: absolute; left: 50%; bottom: -60px; width: 1px; height: 50px; background: linear-gradient(to bottom, var(--glass-border), transparent); }
+
+    .dock-link { color: var(--text-muted); font-size: 1.4rem; transition: all 0.3s; opacity: 0.7; }
+    .dock-link:hover { opacity: 1; transform: scale(1.2) translateX(5px); }
+    .dock-link.linkedin:hover { color: var(--secondary); }
+    .dock-link.telegram:hover { color: var(--primary); }
+
+    /* 3. HERO CARD */
+    .hero-card {
+        position: relative;
+        z-index: 2;
+        background: rgba(15, 23, 42, 0.3);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 30px;
+        padding: 60px 40px;
+        text-align: center;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        animation: heroFadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s;
+    }
+
+    .hero-greeting { font-family: 'Courier New', monospace; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+
+    h1 {
+        font-size: clamp(3rem, 6vw, 6rem);
+        font-weight: 800;
+        line-height: 1.3; 
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -2px;
+    }
+
+    .hero-roles { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px; min-height: 1.5em; display: flex; justify-content: center; align-items: center; }
+    .typing-text { color: var(--secondary); font-weight: 600; border-right: 2px solid var(--primary); padding-right: 5px; white-space: nowrap; overflow: hidden; animation: blinkCursor 0.75s step-end infinite; margin-left: 8px; }
+
+    .hero-desc { color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+    /* 4. BUTTONS & ACTIONS CONTAINER */
+    .hero-actions-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .btn-hero-primary {
+        background: var(--text-main); color: var(--bg-dark); padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s;
+        text-decoration: none !important; border-bottom: none; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn-hero-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); text-decoration: none; }
+
+    .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.6; animation: bounce 2s infinite; z-index: 3; }
+
+    @keyframes heroFadeIn { to { opacity: 1; } }
+    @keyframes blinkCursor { 50% { border-color: transparent; } }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform:translateY(0) translateX(-50%);} 40% {transform:translateY(-10px) translateX(-50%);} 60% {transform:translateY(-5px) translateX(-50%);} }
+    
+    /* --- MOBILE OVERRIDES --- */
+    @media (max-width: 768px) {
+        .social-dock { display: none; }
+        .hero-card { width: 100%; padding: 30px 15px; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .hero-roles { font-size: 1.1rem; flex-direction: column; gap: 5px; margin-bottom: 20px; }
+        .typing-text { margin-left: 0; }
+        .hero-desc { font-size: 0.9rem; margin-bottom: 30px; }
+        .btn-hero-primary { width: 100%; padding: 14px 0; }
+
+        /* Show Social Icons INSIDE the card on mobile */
+        .mobile-socials {
+            display: flex !important;
+            gap: 25px;
+            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* CLEAN ICONS (No Bubbles) */
+        .mobile-social-icon {
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .mobile-social-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+        .mobile-social-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .mobile-social-icon.linkedin:hover { color: var(--secondary); }
+        .mobile-social-icon.telegram:hover { color: var(--primary); }
+    }
+
+    /* Hide Mobile Socials on Desktop */
+    .mobile-socials { display: none; }
+</style>
+
+<header>
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <div class="social-dock">
+        <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="dock-link linkedin" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+        <a href="https://t.me/AgSeyl" target="_blank" class="dock-link telegram" title="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0-12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+    </div>
+
+    <div class="hero-card">
+        <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" aria-label="Open terminal">> Hello_World</span>
+        
+        <h1>Soheil Aghayani</h1>
+        
+        <div class="hero-roles">
+            <span>I am <span id="article-text">an</span></span>
+            <span class="typing-text" id="role-typer"></span>
+        </div>
+
+        <p class="hero-desc">
+            Bridging the gap between <b>Environmental Science</b> and <b>Advanced Programming</b>. 
+            Transforming complex data into sustainable solutions with Python & SimaPro.
+        </p>
+
+        <div class="hero-actions-container">
+            <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
+                Get in Touch <span class="material-symbols-rounded" style="font-size: 1.2rem; margin-left: 8px;">send</span>
+            </a>
+
+            <div class="mobile-socials">
+                <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="mobile-social-icon linkedin">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://t.me/AgSeyl" target="_blank" class="mobile-social-icon telegram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0-12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-down">
+        <span>Scroll to Explore</span>
+        <span class="material-symbols-rounded">keyboard_arrow_down</span>
+    </div>
+
+    <script>
+        const roles = [
+            { article: "an", label: "Environmental Engineer" },
+            { article: "a", label: "Python Developer" },
+            { article: "a", label: "Published Researcher" },
+            { article: "a", label: "Data Analyst" }
+        ];
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        const typeSpeed = 100;
+        const deleteSpeed = 50;
+        const pauseTime = 2000;
+        
+        const typeElement = document.getElementById('role-typer');
+        const articleElement = document.getElementById('article-text');
+
+        articleElement.textContent = roles[0].article;
+
+        function typeLoop() {
+            const currentData = roles[roleIndex];
+            
+            if (isDeleting) {
+                typeElement.textContent = currentData.label.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeElement.textContent = currentData.label.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let currentSpeed = isDeleting ? deleteSpeed : typeSpeed;
+
+            if (!isDeleting && charIndex === currentData.label.length) {
+                currentSpeed = pauseTime;
+                isDeleting = true;
+            } 
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                articleElement.textContent = roles[roleIndex].article;
+            }
+
+            setTimeout(typeLoop, currentSpeed);
+        }
+
+        typeLoop();
+    </script>
+</header>
+
+    <div class="container">
+
+<style>
+    /* SECTION CONTAINER */
+    #education {
+        padding: 80px 20px;
+        position: relative;
+        max-width: 1100px; 
+        margin: 0 auto;
+    }
+    
+    /* HEADER STYLES */
+    .section-header {
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center;
+        margin-bottom: 60px;
+        opacity: 0; 
+        transform: translateY(20px);
+        transition: all 0.8s ease;
+        width: 100%;
+    }
+    .section-header.visible { opacity: 1; transform: translateY(0); }
+
+    .section-title {
+        font-size: clamp(2rem, 5vw, 2.5rem); 
+        color: #fff;
+        font-weight: 800; 
+        display: inline-flex;
+        align-items: center;
+        gap: 15px; 
+        line-height: 1;
+    }
+
+    .section-title .material-symbols-rounded {
+        font-size: 2.5rem; 
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+    }
+
+    /* TIMELINE CONTAINER */
+    .timeline {
+        max-width: 800px;
+        margin: 0 auto; 
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 10px;
+        height: 100%;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--primary), transparent);
+        box-shadow: 0 0 10px var(--primary);
+        opacity: 0.3;
+    }
+
+    /* TIMELINE ITEM */
+    .timeline-item {
+        position: relative;
+        margin-bottom: 50px;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+    .timeline-dot {
+        position: absolute;
+        left: -40px;
+        top: 0;
+        width: 14px;
+        height: 14px;
+        background: var(--bg-dark);
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--primary);
+        z-index: 2;
+        margin-top: 10px; /* Aligns closer to the degree title */
+    }
+
+    /* GLASS CARD STYLE */
+    .edu-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 30px;
+        transition: 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .edu-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(45, 212, 191, 0.3);
+        transform: translateY(-3px);
+    }
+
+    /* TYPOGRAPHY */
+    .edu-degree {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+    
+    .edu-school {
+        font-size: 1rem;
+        color: var(--secondary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; /* Allows date to wrap on very small screens */
+        gap: 8px;
+        font-weight: 500;
+    }
+
+    /* SUBTLE DATE STYLE */
+    .edu-time {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 400;
+        opacity: 0.7;
+        display: flex;
+        align-items: center;
+    }
+    .edu-time::before {
+        content: '•';
+        margin-right: 8px;
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* TAGS & BADGES */
+    .edu-meta { margin-bottom: 20px; }
+    
+    .gpa-badge {
+        display: inline-block;
+        background: rgba(45, 212, 191, 0.1);
+        color: var(--primary);
+        padding: 5px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .focus-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        display: block;
+    }
+    .focus-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .f-tag {
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 768px) {
+        #education { padding: 60px 20px; }
+        .section-header { justify-content: flex-start; margin-bottom: 40px; }
+        .timeline { padding-left: 30px; margin: 0; }
+        .timeline::before { left: 0px; }
+        .timeline-dot { left: -36px; width: 12px; height: 12px; margin-top: 8px; }
+        .edu-card { padding: 20px; }
+    }
+</style>
+
+<div id="education">
+    <div class="section-header reveal-on-scroll">
+        <h2 class="section-title">
+            <span class="material-symbols-rounded">school</span> 
+            Education History
+        </h2>
+    </div>
+
+    <div class="timeline">
+        
+        <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-dot"></div>
+            <div class="edu-card">
+                <div class="edu-degree">Master of Science, Env. Engineering</div>
+                
+                <div class="edu-school">
+                    <span class="material-symbols-rounded" style="font-size: 1.1em;">account_balance</span>
+                    University of Tehran
+                    <span class="edu-time">2022 - Present</span>
+                </div>
+                
+                <div class="edu-meta">
+                    <span class="gpa-badge">GPA: 3.81 / 4.00 (19.06)</span>
+                </div>
+
+                <div class="edu-focus">
+                    <span class="focus-label">Research Focus</span>
+                    <div class="focus-tags">
+                        <span class="f-tag">Solid Waste Management</span>
+                        <span class="f-tag">Biofuel Production</span>
+                        <span class="f-tag">SimaPro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-dot" style="border-color: var(--secondary); box-shadow: 0 0 10px var(--secondary);"></div>
+            <div class="edu-card">
+                <div class="edu-degree">Bachelor of Science, Civil Engineering</div>
+                
+                <div class="edu-school">
+                    <span class="material-symbols-rounded" style="font-size: 1.1em;">architecture</span>
+                    Shahed University
+                    <span class="edu-time">2018 - 2022</span>
+                </div>
+                
+                <div class="edu-meta">
+                    <span class="gpa-badge" style="color: var(--secondary); background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.2);">GPA: 2.93 / 4.00</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+        observer.observe(el);
+    });
+</script>
+        
+        
+        <h2 class="section-title"><span class="material-symbols-rounded">work</span> Professional Experience</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <span class="date">Mar 2024 - Oct 2025</span>
+                <h3>Technical Expert</h3>
+                <span class="role">Arvin Sarouj Pay, Tehran</span>
+                
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                        Responsible for HSE checklists and providing safety training to construction workers.
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                        Contributed to the R&D department in designing energy-efficient buildings.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="date">May 2022 - Apr 2024</span>
+                <h3>Technical Expert</h3>
+                <span class="role">Sedna, Tehran</span>
+                
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                        Supervised the construction process of a factory for manufacturing electronic thermal devices.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+<h2 class="section-title"><span class="material-symbols-rounded">science</span> Research & Publications</h2>
+
+        <div class="card" style="margin-bottom: 40px; border-color: var(--primary);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+                <span class="role" style="color: var(--primary);">Master's Thesis</span>
+                <span class="badge badge-pub" style="border-color: var(--primary); color: var(--primary);">TRL: 4 (Lab Validated)</span>
+            </div>
+            <h3 style="margin-top: 10px;">Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells</h3>
+            <p style="color: var(--text-main); font-weight: 500; margin-bottom: 5px;">
+                Waste cooking oil converted to biofuel via transesterification using a seashell-derived catalyst, designed for practical circular economy impact.
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+                <span style="color: var(--secondary);">Supervisors:</span>
+                
+                <span>R. Samie Zafraghandi</span>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
+                    <span class="material-symbols-rounded" style="font-size: 1.1rem;">mail</span>
+                </a>
+                
+                <span style="margin: 0 5px;">|</span>
+                
+                <span>M. Baghdadi</span>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
+                    <span class="material-symbols-rounded" style="font-size: 1.1rem;">mail</span>
+                </a>
+            </p>
+        </div>
+
+        <h3 style="color: var(--text-main); margin: 30px 0 20px; font-size: 1.5rem;">Journal Papers</h3>
+        <ul class="pub-list">
+            
+            <li class="pub-item">
+                <div class="pub-title">
+                    <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        Assessment of Biomass Resources in Iran and Worldwide
+                        <span class="material-symbols-rounded" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
+                    </a>
+                    <span class="badge badge-pub">Published</span>
+                </div>
+                <div class="pub-meta">
+                    Aghayani, S., Pazoki, M., Bavandpor, A., Mollasalehi, A. (2025) <br>
+                    <em>Pollution Journal (Diversity Analysis in Rural Areas with a Focus on MSW)</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">
+                    <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        Siting a Waste Transfer Station in District 6 of Karaj Municipality
+                        <span class="material-symbols-rounded" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
+                    </a>
+                    <span class="badge badge-pub">Published</span>
+                </div>
+                <div class="pub-meta">
+                    Samiei Zafragandi, R., & Aghayani, S. (2025) <br>
+                    <em>Pollution Journal</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">
+                    Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
+                    <span class="badge badge-sub">Under Review</span>
+                </div>
+                <div class="pub-meta">
+                    Mollasalehi, A., Aghayani, S., Pazoki, M., Borji, S. (2025) <br>
+                    <em>Submitted to Advances in Environmental Technology Journal</em>
+                </div>
+            </li>
+        </ul>
+
+        <h3 style="color: var(--text-main); margin: 50px 0 20px; font-size: 1.5rem;">Conference Papers</h3>
+        <ul class="pub-list">
+            
+            <li class="pub-item">
+                <div class="pub-title">A Review of Biofuel Production from Biomass by Transesterification</div>
+                <div class="pub-meta">
+                    Aghayani, S., et al. (2025) | <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Management of Pharmaceutical Wastes: Disposal Methods & Strategies</div>
+                <div class="pub-meta">
+                    Molasalehi, A., Samiee Zafragandi, R., Aghayani, S. (2025) | <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Assessment of Pollutants in the Textile Industry</div>
+                <div class="pub-meta">
+                    Samiee Zafragandi, R., Aghayani, S., et al. (2024) | <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Pollutants in the Steel Industry: Reduction & Disposal Methods</div>
+                <div class="pub-meta">
+                    Samiee Zafragandi, R., Molasalehi, A., & Aghayani, S. (2024) | <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Examining the Art and Science of Facade Design</div>
+                <div class="pub-meta">
+                    Abbasnezhad, N., & Aghayani, S. (2023) | <em>8th Int. Conference on Research in Science and Engineering, Bangkok, Thailand</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Investigating the Art and Science of Facade Design</div>
+                <div class="pub-meta">
+                    Abbasnezhad, N., & Aghayani, S. (2023a) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">A Review of the Future of Building Facades and Their Features</div>
+                <div class="pub-meta">
+                    Abbasnezhad, N., & Aghayani, S. (2023b) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                </div>
+            </li>
+
+            <li class="pub-item">
+                <div class="pub-title">Installation Methods of Building Facades and Their Challenges</div>
+                <div class="pub-meta">
+                    Abbasnezhad, N., & Aghayani, S. (2023c) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                </div>
+            </li>
+        </ul>
+
+        <style>
+            /* This makes the scrollbar dark and thin to match your theme */
+            .custom-scroll::-webkit-scrollbar {
+                width: 8px;
+            }
+            .custom-scroll::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 4px;
+            }
+            .custom-scroll::-webkit-scrollbar-thumb {
+                background: rgba(45, 212, 191, 0.3); /* Your Primary Color (Low Opacity) */
+                border-radius: 4px;
+            }
+            .custom-scroll::-webkit-scrollbar-thumb:hover {
+                background: rgba(45, 212, 191, 0.6);
+            }
+        </style>
+
+        <h2 class="section-title"><span class="material-symbols-rounded">verified_user</span> Certifications & Continuous Learning</h2>
+
+        <div class="grid" style="margin-bottom: 50px;">
+            
+            <div class="card" style="border-left: 4px solid var(--secondary);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span class="role" style="color: var(--secondary);">University of Michigan</span>
+                    <span class="badge badge-sub">35 Hours</span>
+                </div>
+                <h3>Life Cycle Assessment</h3>
+                <p style="margin-bottom: 20px;">Mastered LCA methodology and SimaPro tools. Verified by Coursera.</p>
+                <a href="https://coursera.org/verify/TSN51X42BCZR" target="_blank" class="btn" style="padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff;">
+                    Verify Credential <span class="material-symbols-rounded" style="font-size: 14px; vertical-align: middle;">open_in_new</span>
+                </a>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--secondary);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span class="role" style="color: var(--secondary);">Johns Hopkins University</span>
+                    <span class="badge badge-sub">7 Hours</span>
+                </div>
+                <h3>Sustainable Regional Principles</h3>
+                <p style="margin-bottom: 20px;">Planning and Transportation systems for sustainable development.</p>
+                <a href="https://www.coursera.org/account/accomplishments/verify/97ENWJ7STLNH" target="_blank" class="btn" style="padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff;">
+                    Verify Credential <span class="material-symbols-rounded" style="font-size: 14px; vertical-align: middle;">open_in_new</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 50px; padding: 0; overflow: hidden; border: 1px solid var(--primary);">
+            <div style="padding: 20px; background: rgba(16, 185, 129, 0.1); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 10px;">
+                <span class="material-symbols-rounded" style="color: var(--primary); font-size: 2rem;">public</span>
+                <div>
+                    <h3 style="margin: 0; font-size: 1.2rem; color: #fff;">COP29 Summit Delegation</h3>
+                    <span style="font-size: 0.9rem; color: var(--primary);">Baku, Azerbaijan | Nov 2024</span>
+                </div>
+            </div>
+            
+            <div class="custom-scroll" style="padding: 20px; max-height: 250px; overflow-y: auto; background: rgba(0,0,0,0.3);">
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> People-Centered Transition to a Circular Economy</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Think Global, Act Local: Reducing Food Loss</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Materials to Systems: Scaling Finance for Energy Efficiency</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Renewables and Natural Gas Partnership</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Global Methane Pledge Ministerial</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Enhancing NDCs 3.0: Carbon Markets</li>
+                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Industrial Policy, Trade, and Decarbonization</li>
+                </ul>
+            </div>
+        </div>
+
+    <style>
+        /* --- SECTION SPECIFIC CSS --- */
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            perspective: 1000px; /* Adds 3D depth perception */
+        }
+
+        .training-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--accent); /* Accent color stripe */
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+            
+            /* Entrance Animation */
+            opacity: 0; 
+            animation: cardEntrance 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Interaction */
+        .training-card:hover {
+            transform: translateX(10px) translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+
+        /* Icon Styling & Animation */
+        .training-icon {
+            width: 50px; height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .training-card:hover .training-icon {
+            transform: scale(1.2) rotate(15deg);
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* Staggered Delay (Cascading entrance) */
+        .training-card:nth-child(1) { animation-delay: 0.1s; }
+        .training-card:nth-child(2) { animation-delay: 0.2s; }
+        .training-card:nth-child(3) { animation-delay: 0.3s; }
+        .training-card:nth-child(4) { animation-delay: 0.4s; }
+        .training-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+<style>
+    /* SECTION CONTAINER */
+    #training {
+        padding: 40px 20px 100px; /* Adjusted padding */
+        position: relative;
+        max-width: 1100px; 
+        margin: 0 auto;
+    }
+
+    /* GRID LAYOUT */
+    .training-grid {
+        display: grid;
+        /* Auto-fit creates responsive columns (min 300px wide) */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    /* GLASS CARD STYLE */
+    .training-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        transition: all 0.3s ease;
+        opacity: 0; /* For animation */
+        transform: translateY(20px);
+    }
+
+    /* Hover Effect */
+    .training-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(45, 212, 191, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* CARD ICON (Standardized) */
+    .training-icon-box {
+        width: 60px;
+        height: 60px;
+        background: rgba(45, 212, 191, 0.1); /* Subtle Teal BG */
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        flex-shrink: 0; /* Prevents shrinking */
+    }
+
+    .training-icon-box .material-symbols-rounded {
+        font-size: 2rem;
+        color: var(--primary);
+    }
+
+    /* TEXT CONTENT */
+    .training-content h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 5px;
+        line-height: 1.3;
+    }
+
+    .training-org {
+        font-size: 0.9rem;
+        color: var(--secondary); /* Accent color for Organization */
+        margin-bottom: 2px;
+        display: block;
+    }
+
+    .training-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        opacity: 0.8;
+    }
+
+    /* ANIMATION DELAYS (Staggered effect) */
+    .training-card.visible { opacity: 1; transform: translateY(0); }
+    
+    /* Mobile Adjustment */
+    @media (max-width: 768px) {
+        .training-grid { grid-template-columns: 1fr; }
+        .training-card { padding: 20px; }
+    }
+</style>
+
+    <style>
+    #training {
+        /* 1. FORCE LEFT ALIGNMENT FOR THE SECTION */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Aligns Header to Left */
+        
+        padding: 40px 20px 80px;
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        overflow: visible; /* Prevents cutting off side cards */
+    }
+
+    /* --- HEADER STYLES --- */
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        width: 100%;
+        /* No auto margins here, stays left */
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        color: #fff;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        line-height: 1;
+    }
+
+    .section-title .material-symbols-rounded {
+        font-size: 2.5rem;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+    }
+
+    /* --- CAROUSEL CONTAINER --- */
+    .carousel-container {
+        /* 2. CENTER ONLY THE CAROUSEL */
+        align-self: center; 
+        
+        position: relative;
+        width: 100%;
+        max-width: 800px; /* Wider container to catch side cards */
+        height: 380px;
+        perspective: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    /* --- CARD STYLES --- */
+    .t-card {
+        position: absolute;
+        width: 280px;
+        height: 320px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transform-style: preserve-3d;
+        cursor: pointer;
+        
+        /* Ensure they are visible by default */
+        opacity: 1; 
+    }
+
+    /* --- POSITIONS (TIGHTER & BRIGHTER) --- */
+
+    /* 1. CENTER CARD (Front) */
+    .t-card.center {
+        z-index: 10;
+        transform: translateX(0) scale(1.1) translateZ(100px);
+        border-color: var(--primary);
+        box-shadow: 0 0 50px rgba(45, 212, 191, 0.15);
+        background: rgba(25, 35, 55, 1);
+        opacity: 1 !important;
+    }
+    
+    /* 2. RIGHT CARD (Visible Side) */
+    .t-card.right {
+        z-index: 5;
+        /* Tight spread (180px) ensures it stays on screen */
+        transform: translateX(180px) scale(0.9) translateZ(0px) rotateY(-15deg);
+        opacity: 0.8 !important; /* High visibility */
+        filter: brightness(0.7);
+    }
+    .t-card.right:hover { opacity: 1 !important; filter: brightness(1); }
+
+    /* 3. LEFT CARD (Visible Side) */
+    .t-card.left {
+        z-index: 5;
+        /* Tight spread (-180px) ensures it stays on screen */
+        transform: translateX(-180px) scale(0.9) translateZ(0px) rotateY(15deg);
+        opacity: 0.8 !important; /* High visibility */
+        filter: brightness(0.7);
+    }
+    .t-card.left:hover { opacity: 1 !important; filter: brightness(1); }
+
+    /* 4. BACK CARDS (Waiting Stack) */
+    .t-card.back {
+        z-index: 1;
+        transform: translateX(0) scale(0.8) translateZ(-100px);
+        opacity: 0.4 !important; /* Visible as a "stack" behind */
+        pointer-events: none;
+    }
+
+    /* CONTENT */
+    .tc-icon {
+        width: 55px; height: 55px;
+        background: rgba(45, 212, 191, 0.1);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.8rem;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+    }
+    .tc-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+    .tc-org { font-size: 0.85rem; color: var(--secondary); margin-bottom: 5px; font-weight: 500; }
+    .tc-date { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; }
+
+    .nav-hint {
+        align-self: center; /* Center the hint text */
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        opacity: 0.5;
+    }
+
+    /* MOBILE ADJUSTMENT */
+    @media (max-width: 768px) {
+        .t-card { width: 240px; height: 280px; padding: 20px; }
+        /* Even tighter for phones */
+        .t-card.left { transform: translateX(-140px) scale(0.9) translateZ(-40px) rotateY(10deg); }
+        .t-card.right { transform: translateX(140px) scale(0.9) translateZ(-40px) rotateY(-10deg); }
+    }
+
+    /* Gentle float, does not override the carousel transforms */
+    @keyframes tcFloat {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 calc(var(--float) * -1); }
+    }
+
+    .t-card.float {
+        --float: 8px;
+        animation: tcFloat 6s ease-in-out infinite;
+    }
+    .t-card.center.float { --float: 10px; animation-duration: 5.4s; }
+    .t-card.left.float,
+    .t-card.right.float { --float: 7px; animation-duration: 6.4s; }
+    .t-card.back.float { --float: 4px; animation-duration: 8s; }
+</style>
+
+<div id="training">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="material-symbols-rounded">verified_user</span> 
+            Professional Training
+        </h2>
+    </div>
+
+    <div class="carousel-container" id="carouselStage">
+        
+        <div class="t-card center" onclick="selectCard(0)">
+            <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
+            <div class="tc-title">Life Cycle Assessment</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Nov 2024</div>
+        </div>
+
+        <div class="t-card right" onclick="selectCard(1)">
+            <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
+            <div class="tc-title">Waste Mgmt in Sports</div>
+            <div class="tc-org">Olympic Academy</div>
+            <div class="tc-date">Nov 2024</div>
+        </div>
+
+        <div class="t-card back" onclick="selectCard(2)">
+            <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
+            <div class="tc-title">Nat. Conf. on Environment</div>
+            <div class="tc-org">University of Tehran</div>
+            <div class="tc-date">Oct 2024</div>
+        </div>
+
+        <div class="t-card back" onclick="selectCard(3)">
+            <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
+            <div class="tc-title">Hazardous Waste (Oil)</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Aug 2024</div>
+        </div>
+
+        <div class="t-card left" onclick="selectCard(4)">
+            <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
+            <div class="tc-title">Waste Coding Methods</div>
+            <div class="tc-org">Iranian Society of Waste Eng.</div>
+            <div class="tc-date">Mar 2024</div>
+        </div>
+
+    </div>
+
+    <div class="nav-hint">
+        <span class="material-symbols-rounded" style="vertical-align: middle; font-size: 1rem;">touch_app</span> Click stack or swipe to view
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll('.t-card');
+        cards.forEach(c => c.classList.add('float'));
+        const totalCards = cards.length;
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            cards.forEach((card, index) => {
+                card.classList.remove('center', 'left', 'right', 'back');
+                
+                // Active Card
+                if (index === currentIndex) {
+                    card.classList.add('center');
+                } 
+                // Next Card (Right)
+                else if (index === (currentIndex + 1) % totalCards) {
+                    card.classList.add('right');
+                } 
+                // Previous Card (Left)
+                else if (index === (currentIndex - 1 + totalCards) % totalCards) {
+                    card.classList.add('left');
+                } 
+                // Others (Back)
+                else {
+                    card.classList.add('back');
+                }
+            });
+        }
+
+        // Global Select Function
+        window.selectCard = function(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+        
+        // Touch Swipe Logic
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const stage = document.getElementById('carouselStage');
+
+        stage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        stage.addEventListener('touchend', e => { 
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) { currentIndex = (currentIndex + 1) % totalCards; updateCarousel(); }
+            if (touchEndX > touchStartX + 50) { currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); }
+        }, {passive: true});
+
+        // Initialize
+        updateCarousel();
+    });
+</script>
+
+        <h2 class="section-title"><span class="material-symbols-rounded">terminal</span> Computer Skills</h2>
+        
+        <style>
+            /* Specific Styles for Skill Cards */
+            .skill-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin-bottom: 60px;
+            }
+
+            .skill-card {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                padding: 30px 20px;
+                text-align: center;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* The Glow Effect on Hover */
+            .skill-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            /* Icon Styling */
+            .skill-icon {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                transition: transform 0.4s;
+                display: inline-block;
+            }
+
+            .skill-card:hover .skill-icon {
+                transform: scale(1.2) rotate(10deg);
+            }
+
+            /* Individual Colors for Skills */
+            .skill-simapro:hover { border-color: #4ade80; box-shadow: 0 10px 30px rgba(74, 222, 128, 0.2); }
+            .skill-simapro .skill-icon { color: #4ade80; }
+
+            .skill-landgem:hover { border-color: #f472b6; box-shadow: 0 10px 30px rgba(244, 114, 182, 0.2); }
+            .skill-landgem .skill-icon { color: #f472b6; }
+
+            .skill-python:hover { border-color: #38bdf8; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2); }
+            .skill-python .skill-icon { color: #38bdf8; }
+
+            .skill-chemdraw:hover { border-color: #a78bfa; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.2); }
+            .skill-chemdraw .skill-icon { color: #a78bfa; }
+        </style>
+
+        <div class="skill-grid">
+            
+            <div class="skill-card skill-simapro">
+                <span class="material-symbols-rounded skill-icon">eco</span>
+                <h3>SimaPro</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">LCA Modeling</p>
+            </div>
+
+            <div class="skill-card skill-landgem">
+                <span class="material-symbols-rounded skill-icon">bar_chart</span>
+                <h3>LandGEM</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Landfill Gas Emission</p>
+            </div>
+
+            <div class="skill-card skill-python">
+                <span class="material-symbols-rounded skill-icon">code</span>
+                <h3>Python</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Automation & Scripts</p>
+            </div>
+
+            <div class="skill-card skill-chemdraw">
+                <span class="material-symbols-rounded skill-icon">science</span>
+                <h3>ChemDraw</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Molecular Structures</p>
+            </div>
+
+        </div>
+
+        
+        <h2 class="section-title"><span class="material-symbols-rounded">language</span> Language Skills</h2>
+        <div class="grid">
+            <div class="card reveal-on-scroll">
+                <h3 style="display:flex;align-items:center;gap:10px;">
+                    <span class="material-symbols-rounded" style="color: var(--primary);">translate</span>
+                    English
+                </h3>
+                <p style="color: var(--text-muted); margin-top: 10px;">Overall score: <b style="color:#fff;">7.0</b></p>
+            </div>
+
+            <div class="card reveal-on-scroll">
+                <h3 style="display:flex;align-items:center;gap:10px;">
+                    <span class="material-symbols-rounded" style="color: var(--primary);">translate</span>
+                    German
+                </h3>
+                <p style="color: var(--text-muted); margin-top: 10px;">ÖSD Certificate: <b style="color:#fff;">A2.1</b></p>
+            </div>
+        </div>
+
+        <h2 class="section-title"><span class="material-symbols-rounded">volunteer_activism</span> Volunteer Experience</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <h3>Administrative Coordinator</h3>
+                <span class="role">Iranian Society of Waste Engineering and Management (IRISWA)</span>
+                
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Managed member registration processes and maintained document archives.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Designed promotional materials such as posters and brochures for events.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Provided guidance and support to members and participants during events.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Volunteer Coordinator</h3>
+                <span class="role">Waste Management Winter School, Tehran</span>
+                
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Organized and coordinated courses, ensuring smooth execution of sessions.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Assisted instructors with logistics and provided necessary guidance.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Managed attendance lists and supported participants throughout the program.</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+<style>
+    /* --- FOOTER CONTAINER --- */
+    footer {
+        position: relative;
+        background: linear-gradient(to top, #020617 0%, #0f172a 100%);
+        padding: 80px 20px 40px;
+        overflow: hidden;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: 100px;
+    }
+
+    /* 1. PROCEDURAL GRASS LAYER (The "Floor") */
+    .footer-floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: var(--primary);
+        box-shadow: 0 0 50px var(--primary);
+        opacity: 0.1;
+    }
+
+    /* 2. FIREFLIES ANIMATION */
+    .firefly {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--primary);
+        opacity: 0;
+        animation: fly 15s infinite ease-in-out;
+    }
+    .ff-1 { top: 60%; left: 20%; animation-delay: 0s; }
+    .ff-2 { top: 40%; left: 80%; animation-delay: 2s; }
+    .ff-3 { top: 70%; left: 50%; animation-delay: 4s; }
+
+    @keyframes fly {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        25% { opacity: 0.8; }
+        50% { transform: translate(50px, -50px); opacity: 0.4; }
+        75% { transform: translate(-20px, -20px); opacity: 0.6; }
+    }
+
+    /* 3. CONTENT LAYOUT */
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Left Side: Identity */
+    .footer-brand h2 {
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+    }
+    .footer-tagline {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 400px;
+    }
+
+    /* Right Side: Eco-Stats & Info */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: right;
+    }
+
+    .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(45, 212, 191, 0.1);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: var(--primary);
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .f-link {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        position: relative;
+    }
+    .f-link:hover { color: var(--secondary); }
+    .f-link::after {
+        content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--secondary); transition: 0.3s;
+    }
+    .f-link:hover::after { width: 100%; }
+
+    /* 4. COPYRIGHT BAR */
+    .copyright {
+        text-align: center;
+        margin-top: 60px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.8rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .footer-content { grid-template-columns: 1fr; text-align: center; }
+        .footer-info { align-items: center; text-align: center; }
+        .footer-tagline { margin: 0 auto; }
+    }
+</style>
+
+<style>
+    /* --- FOOTER CONTAINER --- */
+    footer {
+        position: relative;
+        background: linear-gradient(to top, #020617 0%, #0f172a 100%);
+        padding: 80px 20px 40px;
+        overflow: hidden;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: 100px;
+    }
+
+    /* 1. LIVING HORIZON (The "Floor") */
+    .footer-floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary);
+        box-shadow: 0 0 60px 20px var(--primary); /* Massive glow */
+        opacity: 0.6;
+        animation: breathe 8s infinite alternate;
+    }
+
+    @keyframes breathe {
+        0% { opacity: 0.4; box-shadow: 0 0 40px 10px var(--primary); }
+        100% { opacity: 0.7; box-shadow: 0 0 70px 25px var(--primary); }
+    }
+
+    /* 2. FIREFLIES ANIMATION */
+    .firefly {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #4ade80; /* Brighter Green */
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4ade80;
+        opacity: 0;
+        animation: fly 15s infinite ease-in-out;
+    }
+    .ff-1 { top: 60%; left: 20%; animation-duration: 12s; animation-delay: 0s; }
+    .ff-2 { top: 40%; left: 80%; animation-duration: 18s; animation-delay: 2s; }
+    .ff-3 { top: 70%; left: 50%; animation-duration: 10s; animation-delay: 4s; }
+    .ff-4 { top: 30%; left: 30%; animation-duration: 20s; animation-delay: 1s; }
+
+    @keyframes fly {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        20% { opacity: 0.8; }
+        50% { transform: translate(60px, -40px); opacity: 0.4; }
+        80% { opacity: 0.6; }
+    }
+
+    /* 3. CONTENT LAYOUT */
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr; /* More space for left text */
+        gap: 40px;
+        position: relative;
+        z-index: 2;
+        align-items: center;
+    }
+
+    /* Left Side: Identity */
+    .footer-brand h2 {
+        font-size: 2.5rem;
+        background: linear-gradient(to right, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+    }
+    .footer-tagline {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 450px;
+    }
+
+    /* Right Side: Eco-Stats & Info */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: right;
+    }
+
+    /* Glass Eco Badge */
+    .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(45, 212, 191, 0.05);
+        border: 1px solid rgba(45, 212, 191, 0.3);
+        padding: 10px 20px;
+        border-radius: 50px;
+        color: var(--primary);
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.1);
+        transition: 0.3s;
+    }
+    .eco-badge:hover {
+        background: rgba(45, 212, 191, 0.1);
+        box-shadow: 0 0 30px rgba(45, 212, 191, 0.2);
+        transform: translateY(-2px);
+    }
+
+    /* Links - NO UNDERLINES */
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 25px;
+    }
+    .f-link {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        text-decoration: none; /* Removed Underline */
+        position: relative;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    /* The "Jaw Dropping" Hover Effect */
+    .f-link:hover {
+        color: var(--secondary);
+        text-shadow: 0 0 15px rgba(96, 165, 250, 0.8); /* Glowing Text */
+        transform: translateY(-3px); /* Slight Lift */
+    }
+
+    /* 4. COPYRIGHT BAR */
+    .copyright {
+        text-align: center;
+        margin-top: 80px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.8rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .footer-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+        .footer-info { align-items: center; text-align: center; }
+        .footer-tagline { margin: 0 auto; font-size: 1rem; }
+        .footer-links { justify-content: center; gap: 20px; }
+        .eco-badge { width: fit-content; }
+    }
+</style>
+
+<style>
+    /* --- FOOTER CONTAINER --- */
+    footer {
+        position: relative;
+        /* Matches your body bg, then darkens */
+        background: linear-gradient(to bottom, var(--bg-dark) 0%, #020617 100%);
+        padding: 100px 20px 40px;
+        overflow: hidden;
+        margin-top: 0; /* Removed gap */
+        
+        /* THE FIX: Fades the top edge so there is no hard line */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+    }
+
+    /* 1. LIVING HORIZON (The "Floor") */
+    .footer-floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+        box-shadow: 0 0 80px 30px var(--primary); /* Massive ambient glow */
+        opacity: 0.5;
+        animation: breathe 8s infinite alternate;
+    }
+
+    @keyframes breathe {
+        0% { opacity: 0.3; box-shadow: 0 0 50px 10px var(--primary); }
+        100% { opacity: 0.6; box-shadow: 0 0 90px 30px var(--primary); }
+    }
+
+    /* 2. FIREFLIES ANIMATION */
+    .firefly {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4ade80;
+        opacity: 0;
+        animation: fly 15s infinite ease-in-out;
+    }
+    .ff-1 { top: 60%; left: 20%; animation-duration: 12s; animation-delay: 0s; }
+    .ff-2 { top: 40%; left: 80%; animation-duration: 18s; animation-delay: 2s; }
+    .ff-3 { top: 70%; left: 50%; animation-duration: 10s; animation-delay: 4s; }
+
+    @keyframes fly {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        20% { opacity: 0.8; }
+        50% { transform: translate(60px, -40px); opacity: 0.4; }
+        80% { opacity: 0.6; }
+    }
+
+    /* 3. CONTENT LAYOUT (Strict Alignment) */
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Ensures top alignment */
+        position: relative;
+        z-index: 2;
+        gap: 40px;
+    }
+
+    /* LEFT SIDE: Brand (Strict Left Align) */
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Forces left alignment */
+        text-align: left;
+        max-width: 500px;
+    }
+
+    .footer-brand h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+        line-height: 1;
+        /* Subtle Gradient Text */
+        background: linear-gradient(to right, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .footer-tagline {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+        opacity: 0.8;
+    }
+
+    /* RIGHT SIDE: Info (Strict Right Align) */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Forces right alignment */
+        text-align: right;
+    }
+
+    /* Glass Eco Badge */
+    .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(45, 212, 191, 0.05);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        padding: 8px 20px;
+        border-radius: 50px;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        backdrop-filter: blur(5px);
+        transition: 0.3s;
+    }
+    .eco-badge:hover {
+        background: rgba(45, 212, 191, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+    }
+
+    /* Links - NO UNDERLINES */
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 10px;
+    }
+    .f-link {
+        color: var(--text-muted);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .f-link:hover {
+        color: var(--secondary);
+        text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+        transform: translateY(-3px);
+    }
+
+    /* 4. COPYRIGHT BAR */
+    .copyright {
+        text-align: center;
+        margin-top: 100px;
+        color: rgba(255, 255, 255, 0.15);
+        font-size: 0.85rem;
+    }
+
+    /* --- MOBILE RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 50px;
+        }
+
+        .footer-brand {
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-brand h2 { font-size: 2.5rem; }
+
+        .footer-info {
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+    }
+</style>
+
+<style>
+    /* --- FOOTER CONTAINER --- */
+    footer {
+        position: relative;
+        background: linear-gradient(to bottom, var(--bg-dark) 0%, #020617 100%);
+        padding: 100px 20px 40px;
+        overflow: hidden;
+        margin-top: 0;
+        
+        /* Fades the top edge so there is no hard line */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+    }
+
+    /* 1. LIVING HORIZON */
+    .footer-floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+        box-shadow: 0 0 80px 30px var(--primary);
+        opacity: 0.5;
+        animation: breathe 8s infinite alternate;
+    }
+
+    @keyframes breathe {
+        0% { opacity: 0.3; box-shadow: 0 0 50px 10px var(--primary); }
+        100% { opacity: 0.6; box-shadow: 0 0 90px 30px var(--primary); }
+    }
+
+    /* 2. FIREFLIES */
+    .firefly {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4ade80;
+        opacity: 0;
+        animation: fly 15s infinite ease-in-out;
+    }
+    .ff-1 { top: 60%; left: 20%; animation-duration: 12s; animation-delay: 0s; }
+    .ff-2 { top: 40%; left: 80%; animation-duration: 18s; animation-delay: 2s; }
+    .ff-3 { top: 70%; left: 50%; animation-duration: 10s; animation-delay: 4s; }
+
+    @keyframes fly {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        20% { opacity: 0.8; }
+        50% { transform: translate(60px, -40px); opacity: 0.4; }
+        80% { opacity: 0.6; }
+    }
+
+    /* 3. CONTENT LAYOUT */
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Ensures top alignment */
+        position: relative;
+        z-index: 2;
+        gap: 40px;
+    }
+
+    /* LEFT SIDE: Brand */
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Strict Left Align */
+        text-align: left;
+        max-width: 500px;
+    }
+
+    .footer-brand h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 5px;
+        letter-spacing: -1px;
+        
+        /* --- FIXED CROP ISSUE --- */
+        line-height: 1.2; 
+        padding-bottom: 10px; 
+        /* ------------------------ */
+
+        background: linear-gradient(to right, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .footer-tagline {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+        opacity: 0.8;
+        text-align: left; /* Ensure text aligns left */
+    }
+
+    /* RIGHT SIDE: Info */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Strict Right Align */
+        text-align: right;
+    }
+
+    /* Glass Eco Badge */
+    .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(45, 212, 191, 0.05);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        padding: 8px 20px;
+        border-radius: 50px;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        backdrop-filter: blur(5px);
+        transition: 0.3s;
+    }
+    .eco-badge:hover {
+        background: rgba(45, 212, 191, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+    }
+
+    /* Links */
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 10px;
+    }
+    .f-link {
+        color: var(--text-muted);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    .f-link:hover {
+        color: var(--secondary);
+        text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+        transform: translateY(-3px);
+    }
+
+    /* 4. COPYRIGHT BAR */
+    .copyright {
+        text-align: center;
+        margin-top: 100px;
+        color: rgba(255, 255, 255, 0.15);
+        font-size: 0.85rem;
+    }
+
+    /* --- MOBILE RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 50px;
+        }
+        .footer-brand { align-items: center; text-align: center; }
+        .footer-tagline { text-align: center; }
+        .footer-brand h2 { font-size: 2.5rem; }
+        .footer-info { align-items: center; text-align: center; }
+        .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
+</style>
+
+<style>
+    /* --- FOOTER CONTAINER --- */
+    footer {
+        position: relative;
+        background: linear-gradient(to bottom, var(--bg-dark) 0%, #020617 100%);
+        padding: 100px 20px 40px;
+        overflow: hidden;
+        margin-top: 0;
+        
+        /* Fades the top edge so there is no hard line */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+    }
+
+    /* 1. LIVING HORIZON */
+    .footer-floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+        box-shadow: 0 0 80px 30px var(--primary);
+        opacity: 0.5;
+        animation: breathe 8s infinite alternate;
+    }
+
+    @keyframes breathe {
+        0% { opacity: 0.3; box-shadow: 0 0 50px 10px var(--primary); }
+        100% { opacity: 0.6; box-shadow: 0 0 90px 30px var(--primary); }
+    }
+
+    /* 2. FIREFLIES */
+    .firefly {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4ade80;
+        opacity: 0;
+        animation: fly 15s infinite ease-in-out;
+    }
+    .ff-1 { top: 60%; left: 20%; animation-duration: 12s; animation-delay: 0s; }
+    .ff-2 { top: 40%; left: 80%; animation-duration: 18s; animation-delay: 2s; }
+    .ff-3 { top: 70%; left: 50%; animation-duration: 10s; animation-delay: 4s; }
+
+    @keyframes fly {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        20% { opacity: 0.8; }
+        50% { transform: translate(60px, -40px); opacity: 0.4; }
+        80% { opacity: 0.6; }
+    }
+
+    /* 3. CONTENT LAYOUT */
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Ensures top alignment */
+        position: relative;
+        z-index: 2;
+        gap: 40px;
+    }
+
+    /* LEFT SIDE: Brand */
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Strict Left Align */
+        text-align: left;
+        max-width: 500px;
+    }
+
+    .footer-brand h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 5px;
+        letter-spacing: -1px;
+        
+        /* --- FIXED CROP ISSUE --- */
+        line-height: 1.2; 
+        padding-bottom: 10px; 
+        /* ------------------------ */
+
+        background: linear-gradient(to right, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .footer-tagline {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+        opacity: 0.8;
+        text-align: left; /* Ensure text aligns left */
+    }
+
+    /* RIGHT SIDE: Info */
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Strict Right Align */
+        text-align: right;
+    }
+
+    /* Glass Eco Badge */
+    .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(45, 212, 191, 0.05);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        padding: 8px 20px;
+        border-radius: 50px;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        backdrop-filter: blur(5px);
+        transition: 0.3s;
+    }
+    .eco-badge:hover {
+        background: rgba(45, 212, 191, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+    }
+
+    /* Links */
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 10px;
+    }
+    .f-link {
+        color: var(--text-muted);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    .f-link:hover {
+        color: var(--secondary);
+        text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+        transform: translateY(-3px);
+    }
+
+    /* 4. COPYRIGHT BAR */
+    .copyright {
+        text-align: center;
+        margin-top: 100px;
+        color: rgba(255, 255, 255, 0.15);
+        font-size: 0.85rem;
+    }
+
+    /* --- MOBILE RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 50px;
+        }
+        .footer-brand { align-items: center; text-align: center; }
+        .footer-tagline { text-align: center; }
+        .footer-brand h2 { font-size: 2.5rem; }
+        .footer-info { align-items: center; text-align: center; }
+        .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
+</style>
+
+<footer id="contact">
+    <div class="firefly ff-1"></div>
+    <div class="firefly ff-2"></div>
+    <div class="firefly ff-3"></div>
+    <div class="footer-floor"></div>
+
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h2>Soheil Aghayani</h2>
+            <p class="footer-tagline">
+                Coding for a cleaner planet. <br>
+                Merging environmental engineering with advanced logic.
+            </p>
+        </div>
+
+        <div class="footer-info">
+            <div class="eco-badge">
+                <span class="material-symbols-rounded">eco</span>
+                <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
+            </div>
+            
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-family: monospace;">
+                <span class="material-symbols-rounded" style="font-size: 16px; vertical-align: middle; color: var(--secondary); margin-right: 5px;">schedule</span>
+                Tehran Time: <span id="local-time" style="color: #fff;">--:--</span>
+            </p>
+
+            <div class="footer-links">
+                <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="f-link">LinkedIn</a>
+                <a href="https://t.me/AgSeyl" target="_blank" class="f-link">Telegram</a>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" class="f-link">Email</a>
+                <a href="tel:+989120543587" class="f-link">Phone</a>
+                <a href="https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing" target="_blank" class="f-link">Resume</a>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .copyright {
+        text-align: center;
+        margin-top: 100px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: var(--text-muted); /* Base color */
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    /* THE SHIMMER TEXT WRAPPER */
+    .shimmer-text {
+        background: linear-gradient(
+            110deg, 
+            var(--text-muted) 45%, 
+            #ffffff 50%, 
+            var(--text-muted) 55%
+        );
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        
+        /* SLOWER ANIMATION (8 seconds) */
+        animation: moonShimmer 8s linear infinite;
+    }
+
+    /* THE CALM HEARTBEAT */
+    .heart-beat {
+        display: inline-block;
+        color: var(--primary);
+        -webkit-text-fill-color: var(--primary); /* Ensures heart stays Teal */
+        /* SLOWER PULSE (3 seconds) */
+        animation: calmHeart 3s ease-in-out infinite;
+        vertical-align: middle;
+        margin: 0 2px;
+    }
+
+    /* Keyframes for the Gentle Shimmer */
+    @keyframes moonShimmer {
+        0% { background-position: 100% 0; }
+        100% { background-position: -150% 0; }
+    }
+
+    /* Keyframes for the Calm Pulse */
+    @keyframes calmHeart {
+        0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 0 transparent); }
+        50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 5px var(--primary)); }
+    }
+</style>
+
+<div class="copyright">
+    <span class="shimmer-text">
+        &copy; <span id="year"></span> Soheil Aghayani. Engineered for a sustainable future. Built with <span class="heart-beat">♥</span> and code.
+    </span>
+</div>
+</footer>
+
+
+<div id="osTerm" class="os-term" aria-hidden="true">
+  <div class="os-term-win" role="dialog" aria-modal="true" aria-label="Terminal">
+    <div class="os-term-top">
+      <div class="os-dots" aria-hidden="true">
+        <button class="os-dot red" id="osDotClose" type="button" aria-label="Close"></button>
+        <button class="os-dot yellow" id="osDotMin" type="button" aria-label="Minimize"></button>
+        <button class="os-dot green" id="osDotMax" type="button" aria-label="Fullscreen"></button>
+      </div>
+      <div class="os-term-title">soh  zsh  v.73</div>
+    </div>
+
+    <div id="osTermOut" class="os-term-out"></div>
+
+    <div id="snakeWrap" class="snake-wrap" aria-hidden="true">
+      <div class="snake-head">
+        <div class="snake-title">Snake</div>
+        <button class="snake-close" id="snakeClose" type="button" aria-label="Close snake">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+      </div>
+
+      <div class="snake-row">
+        <canvas id="snakeCanvas" class="snake-canvas" width="360" height="360"></canvas>
+
+        <div class="snake-controls" aria-label="Snake controls">
+          <div></div>
+          <button class="snake-btn" data-dir="up" type="button"><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
+          <div></div>
+
+          <button class="snake-btn" data-dir="left" type="button"><span class="material-symbols-rounded">keyboard_arrow_left</span></button>
+          <button class="snake-btn" data-dir="down" type="button"><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
+          <button class="snake-btn" data-dir="right" type="button"><span class="material-symbols-rounded">keyboard_arrow_right</span></button>
+
+          <div></div>
+          <button class="snake-btn" id="snakeRestart" type="button"><span class="material-symbols-rounded">replay</span></button>
+          <div></div>
+        </div>
+
+        <div class="snake-meta">
+          <div style="margin-top: 6px;">Use arrow keys. On mobile use buttons.</div>
+          <div style="margin-top: 6px;">Esc or the close button exits snake.</div>
+          <div style="margin-top: 6px;">Score: <span id="snakeScore" style="color:#fff;">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div id="notesWrap" class="notes-wrap" aria-hidden="true">
+      <div id="notesWin" class="notes-win" role="dialog" aria-modal="true" aria-label="Notes">
+        <div class="notes-top">
+          <div class="notes-dots" aria-hidden="true">
+            <button class="notes-dot red" id="notesClose" type="button" aria-label="Close notes"></button>
+            <button class="notes-dot green" id="notesMax" type="button" aria-label="Maximize notes"></button>
+          </div>
+          <div class="notes-top-title">Notes</div>
+          <div class="notes-top-actions">
+            <button class="notes-add" id="notesAddBtn" type="button" aria-label="Add note">
+              <span class="material-symbols-rounded">add</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="notes-body">
+          <div class="notes-hint">Local notes are stored in your browser. Run "notes export" to publish via notes.json.</div>
+          <div id="notesList" class="notes-list"></div>
+        </div>
+
+        <div id="notesAuth" class="notes-modal" aria-hidden="true">
+          <div class="notes-modal-card">
+            <div class="notes-modal-title">Admin login</div>
+            <div class="notes-form">
+              <label class="notes-label" for="notesUser">Username</label>
+              <input id="notesUser" class="notes-input" autocomplete="username" />
+              <label class="notes-label" for="notesPass">Password</label>
+              <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" />
+              <div class="notes-form-actions">
+                <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
+                <button id="notesAuthGo" class="notes-btn2 primary" type="button">Login</button>
+              </div>
+              <div id="notesAuthMsg" class="notes-msg"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="notesEditor" class="notes-modal" aria-hidden="true">
+          <div class="notes-modal-card">
+            <div class="notes-modal-title">New note</div>
+            <div class="notes-form">
+              <label class="notes-label" for="noteName">Name</label>
+              <input id="noteName" class="notes-input" maxlength="80" />
+              <label class="notes-label" for="noteDesc">Description</label>
+              <textarea id="noteDesc" class="notes-textarea" rows="4" maxlength="280"></textarea>
+              <label class="notes-label" for="noteLink">Link</label>
+              <input id="noteLink" class="notes-input" placeholder="https://..." />
+              <div class="notes-form-actions">
+                <button id="notesEditCancel" class="notes-btn2" type="button">Cancel</button>
+                <button id="notesSave" class="notes-btn2 primary" type="button">Save</button>
+              </div>
+              <div id="notesEditMsg" class="notes-msg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="os-term-in">
+      <div class="os-term-prompt" id="osPrompt">soheil@macbook:~$</div>
+      <input id="osTermInput" class="os-term-input" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+</div>
+
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function updateTehranTime() {
+        const options = { timeZone: 'Asia/Tehran', hour: '2-digit', minute: '2-digit', hour12: false };
+        const formatter = new Intl.DateTimeFormat([], options);
+        document.getElementById('local-time').textContent = formatter.format(new Date());
+    }
+    setInterval(updateTehranTime, 1000);
+    updateTehranTime();
+</script>
+
+    <script>
+        // SPOTLIGHT EFFECT SCRIPT
+        // This moves the radial gradient background based on your mouse position
+        const spotlight = document.querySelector('.spotlight');
+        
+        window.addEventListener('mousemove', e => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            
+            spotlight.style.setProperty('--x', `${x}%`);
+            spotlight.style.setProperty('--y', `${y}%`);
+        });
+    </script>
+
+
+<script type="module">
+(function () {
+  function setupSectionHeaders() {
+    const headers = Array.from(document.querySelectorAll('.section-header'));
+    if (!headers.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    }, { threshold: 0.15 });
+
+    headers.forEach(h => obs.observe(h));
+  }
+
+  // Fade in sections on entry, without touching the Professional Training internal animations.
+  function setupFade() {
+    const fadeObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('in');
+        fadeObserver.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+
+    function mark(el){
+      if (!el) return;
+      el.classList.add('fade-section');
+      fadeObserver.observe(el);
+    }
+
+    // Fade hero card and footer
+    mark(document.querySelector('.hero-card'));
+    mark(document.querySelector('footer'));
+
+    // Fade education and training containers
+    mark(document.getElementById('education'));
+    mark(document.getElementById('training'));
+
+    // Wrap direct section blocks in .container (excluding education and training) for clean fade
+    const container = document.querySelector('.container');
+    if (!container) return;
+
+    const titles = Array.from(container.querySelectorAll(':scope > h2.section-title'));
+    for (const t of titles) {
+      const wrap = document.createElement('section');
+      wrap.className = 'fade-section';
+
+      container.insertBefore(wrap, t);
+
+      let node = t;
+      while (node && !(node.nodeType === 1 && node.matches(':scope > h2.section-title') && node !== t)) {
+        const next = node.nextSibling;
+        wrap.appendChild(node);
+        node = next;
+        if (!node) break;
+        if (node.nodeType === 1 && node.matches('h2.section-title') && container === node.parentElement) break;
+      }
+
+      fadeObserver.observe(wrap);
+    }
+  }
+
+  // macOS terminal overlay with typewriter output, blackjack, snake
+  function setupTerminal() {
+    const hw = document.getElementById('helloWorld');
+    const term = document.getElementById('osTerm');
+    const out = document.getElementById('osTermOut');
+    const input = document.getElementById('osTermInput');
+    const promptEl = document.getElementById('osPrompt');
+    const dotClose = document.getElementById('osDotClose');
+    const dotMin = document.getElementById('osDotMin');
+    const dotMax = document.getElementById('osDotMax');
+
+    const snakeWrap = document.getElementById('snakeWrap');
+    const snakeCanvas = document.getElementById('snakeCanvas');
+    const snakeScoreEl = document.getElementById('snakeScore');
+    const snakeRestart = document.getElementById('snakeRestart');
+    const snakeClose = document.getElementById('snakeClose');
+
+    const notesWrap = document.getElementById('notesWrap');
+    const notesWin = document.getElementById('notesWin');
+    const notesListEl = document.getElementById('notesList');
+    const notesAddBtn = document.getElementById('notesAddBtn');
+    const notesClose = document.getElementById('notesClose');
+    const notesMax = document.getElementById('notesMax');
+
+    const notesAuth = document.getElementById('notesAuth');
+    const notesUser = document.getElementById('notesUser');
+    const notesPass = document.getElementById('notesPass');
+    const notesAuthGo = document.getElementById('notesAuthGo');
+    const notesAuthCancel = document.getElementById('notesAuthCancel');
+    const notesAuthMsg = document.getElementById('notesAuthMsg');
+
+    const notesEditor = document.getElementById('notesEditor');
+    const noteName = document.getElementById('noteName');
+    const noteDesc = document.getElementById('noteDesc');
+    const noteLink = document.getElementById('noteLink');
+    const notesSave = document.getElementById('notesSave');
+    const notesEditCancel = document.getElementById('notesEditCancel');
+    const notesEditMsg = document.getElementById('notesEditMsg');
+
+    if (!term || !out || !input) return;
+
+    const CONTACTS = {
+      email: 'soheil.aghayani@ut.ac.ir',
+      phone: '+989120543587',
+      linkedin: 'https://linkedin.com/in/AgSeyl',
+      telegram: 'https://t.me/AgSeyl',
+      resume: 'https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing'
+    };
+
+    const THESIS = 'Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells';
+
+    let printing = false;
+    let mode = null; // null | "bj" | "snake"
+    let bj = null;
+    let lastGame = null;
+
+    let cwd = '~';
+    function setPrompt(){
+      if (!promptEl) return;
+      promptEl.textContent = 'soheil@macbook:' + cwd + '$';
+    }
+    setPrompt();
+
+    function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+    function addLine(text, cls){
+      const div = document.createElement('div');
+      div.className = 'os-line' + (cls ? ' ' + cls : '');
+      div.textContent = text;
+      out.appendChild(div);
+      out.scrollTop = out.scrollHeight;
+      return div;
+    }
+
+    async function typeLine(text, cls, cps){
+      const line = addLine('', cls);
+      const s = String(text ?? '');
+      const speed = Math.max(10, Math.min(140, cps || 50));
+      const delay = Math.round(1000 / speed);
+      for (let i = 0; i < s.length; i++) {
+        line.textContent += s[i];
+        if (i % 2 === 0) out.scrollTop = out.scrollHeight;
+        await sleep(delay);
+      }
+    }
+
+    function openTerm(){
+      term.classList.add('open');
+      term.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      input.focus();
+      boot();
+    }
+
+    function closeTerm(){
+      term.classList.remove('open');
+      term.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      stopSnake();
+      closeNotes();
+      mode = null;
+      bj = null;
+      cwd = '~';
+      setPrompt();
+    }
+
+    function isOpen(){ return term.classList.contains('open'); }
+
+    async function boot(){
+      if (printing) return;
+      printing = true;
+      out.innerHTML = '';
+      stopSnake();
+      closeNotes(true);
+      mode = null;
+      bj = null;
+
+      const now = new Date();
+      const stamp = now.toLocaleString([], { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
+      await typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 70);
+      await sleep(120);
+      await typeLine('Welcome to Soheil_OS. Built for sustainable engineering and clean code.', 'os-ok', 52);
+      await sleep(120);
+      await typeLine("Type 'help' to see available commands.", 'os-dim', 55);
+      addLine('', '');
+      printing = false;
+
+      loadNotesPublic();
+    }
+
+    async function cmdHelp(){
+      await typeLine('Available commands:', 'os-dim', 65);
+      await typeLine('- bio: Personal introduction', 'os-dim', 65);
+      await typeLine('- thesis: Research topic', 'os-dim', 65);
+      await typeLine('- skills: Technical stack', 'os-dim', 65);
+      await typeLine('- contact: Contact links', 'os-dim', 65);
+      await typeLine('- resume: Open resume link', 'os-dim', 65);
+      await typeLine('- notes: Notes manager', 'os-dim', 65);
+      await typeLine('- cd: Change directory', 'os-dim', 65);
+      await typeLine('- play: Games', 'os-dim', 65);
+      await typeLine('- clear: Wipe console (cls, clean)', 'os-dim', 65);
+      await typeLine('- exit: Close terminal', 'os-dim', 65);
+    }
+
+    async function cmdBio(){
+      await typeLine('Bio', 'os-warn', 80);
+      await typeLine('Environmental Engineering. Solid Waste Management. LCA and emissions modeling.', 'os-dim', 55);
+      await typeLine('I build workflows that turn complex data into decisions.', 'os-dim', 55);
+    }
+
+    async function cmdThesis(){
+      await typeLine('Thesis', 'os-warn', 80);
+      await typeLine(THESIS, 'os-dim', 52);
+    }
+
+    async function cmdSkills(){
+      await typeLine('Skills', 'os-warn', 80);
+      await typeLine('SimaPro, LandGEM, Python, ChemDraw, OpenLCA, LCA workflows.', 'os-dim', 55);
+    }
+
+    async function cmdContact(){
+      await typeLine('Contacts', 'os-warn', 80);
+      await typeLine('Email: ' + CONTACTS.email, 'os-dim', 65);
+      await typeLine('Phone: ' + CONTACTS.phone, 'os-dim', 65);
+      await typeLine('LinkedIn: ' + CONTACTS.linkedin, 'os-dim', 65);
+      await typeLine('Telegram: ' + CONTACTS.telegram, 'os-dim', 65);
+      await typeLine('Resume: ' + CONTACTS.resume, 'os-dim', 65);
+    }
+
+    function safeUrl(u){
+      const s = String(u || '').trim();
+      if (!s) return '';
+      if (s.startsWith('http://') || s.startsWith('https://')) return s;
+      if (s.startsWith('mailto:') || s.startsWith('tel:')) return s;
+      return '';
+    }
+
+    // Notes, localStorage plus optional notes.json for public display
+    const NOTES_LOCAL_KEY = 'soheil_notes_local_v1';
+    const NOTES_AUTH_KEY = 'soheil_notes_auth_v1';
+    const NOTES_PUBLIC_URL = new URL('notes.json', window.location.href).href;
+
+    let notesPublic = [];
+    let notesLocal = readLocalNotes();
+    let notesLoadedPublic = false;
+
+    function uid(){
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return 'n_' + Date.now() + '_' + Math.random().toString(16).slice(2);
+    }
+
+    function readLocalNotes(){
+      try {
+        const raw = localStorage.getItem(NOTES_LOCAL_KEY);
+        const arr = JSON.parse(raw || '[]');
+        if (!Array.isArray(arr)) return [];
+        return arr.filter(x => x && typeof x === 'object');
+      } catch {
+        return [];
+      }
+    }
+
+    function writeLocalNotes(arr){
+      notesLocal = Array.isArray(arr) ? arr : [];
+      try { localStorage.setItem(NOTES_LOCAL_KEY, JSON.stringify(notesLocal)); } catch {}
+      renderNotes();
+    }
+
+    async function loadNotesPublic(){
+      if (notesLoadedPublic) return;
+      notesLoadedPublic = true;
+      try {
+        const res = await fetch(NOTES_PUBLIC_URL, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          notesPublic = data.filter(x => x && typeof x === 'object');
+          renderNotes();
+        }
+      } catch {
+        // ignore
+      }
+    }
+
+    function isNotesAuthed(){
+      return sessionStorage.getItem(NOTES_AUTH_KEY) === '1';
+    }
+
+    function setNotesAuthed(v){
+      if (v) sessionStorage.setItem(NOTES_AUTH_KEY, '1');
+      else sessionStorage.removeItem(NOTES_AUTH_KEY);
+      renderNotes();
+    }
+
+    function openNotes(){
+      if (!notesWrap) return;
+      notesWrap.classList.add('open');
+      notesWrap.setAttribute('aria-hidden', 'false');
+      if (notesWin) notesWin.classList.remove('max');
+      renderNotes();
+      setTimeout(() => { if (notesAddBtn) notesAddBtn.focus(); }, 0);
+    }
+
+    function closeNotes(silent){
+      if (!notesWrap) return;
+      notesWrap.classList.remove('open');
+      notesWrap.setAttribute('aria-hidden', 'true');
+      if (notesWin) notesWin.classList.remove('max');
+      closeNotesAuth(true);
+      closeNotesEditor(true);
+      if (!silent) input.focus();
+    }
+
+    function toggleNotesMax(){
+      if (!notesWin) return;
+      notesWin.classList.toggle('max');
+    }
+
+    function openNotesAuth(){
+      if (!notesAuth) return;
+      if (notesAuthMsg) notesAuthMsg.textContent = '';
+      if (notesUser) notesUser.value = '';
+      if (notesPass) notesPass.value = '';
+      notesAuth.classList.add('open');
+      notesAuth.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { if (notesUser) notesUser.focus(); }, 0);
+    }
+
+    function closeNotesAuth(silent){
+      if (!notesAuth) return;
+      notesAuth.classList.remove('open');
+      notesAuth.setAttribute('aria-hidden', 'true');
+      if (!silent) input.focus();
+    }
+
+    function openNotesEditor(){
+      if (!notesEditor) return;
+      if (notesEditMsg) notesEditMsg.textContent = '';
+      if (noteName) noteName.value = '';
+      if (noteDesc) noteDesc.value = '';
+      if (noteLink) noteLink.value = '';
+      notesEditor.classList.add('open');
+      notesEditor.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { if (noteName) noteName.focus(); }, 0);
+    }
+
+    function closeNotesEditor(silent){
+      if (!notesEditor) return;
+      notesEditor.classList.remove('open');
+      notesEditor.setAttribute('aria-hidden', 'true');
+      if (!silent) input.focus();
+    }
+
+    function renderNotes(){
+      if (!notesListEl) return;
+
+      notesListEl.innerHTML = '';
+      const list = [];
+
+      for (const n of notesPublic) list.push({ ...n, _src: 'public' });
+      for (const n of notesLocal) list.push({ ...n, _src: 'local' });
+
+      list.sort((a,b) => (b.ts || 0) - (a.ts || 0));
+
+      if (list.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'note-item';
+        empty.textContent = 'No notes yet.';
+        notesListEl.appendChild(empty);
+        return;
+      }
+
+      for (const n of list) {
+        const item = document.createElement('div');
+        item.className = 'note-item';
+
+        const top = document.createElement('div');
+        top.className = 'note-top';
+
+        const left = document.createElement('div');
+
+        const name = document.createElement('div');
+        name.className = 'note-name';
+        name.textContent = String(n.name || 'Untitled');
+        left.appendChild(name);
+
+        top.appendChild(left);
+
+        const badges = document.createElement('div');
+        badges.className = 'note-badges';
+
+        const badge = document.createElement('div');
+        badge.className = 'note-badge';
+        badge.textContent = n._src === 'public' ? 'public' : 'local';
+        badges.appendChild(badge);
+
+        if (n._src === 'local' && isNotesAuthed()) {
+          const del = document.createElement('button');
+          del.className = 'note-del';
+          del.type = 'button';
+          del.setAttribute('aria-label', 'Delete note');
+          del.innerHTML = '<span class="material-symbols-rounded">delete</span>';
+          del.addEventListener('click', () => {
+            const id = String(n.id || '');
+            const next = notesLocal.filter(x => String(x.id || '') !== id);
+            writeLocalNotes(next);
+          });
+          badges.appendChild(del);
+        }
+
+        top.appendChild(badges);
+
+        const desc = document.createElement('div');
+        desc.className = 'note-desc';
+        desc.textContent = String(n.desc || '');
+
+        const link = document.createElement('a');
+        link.className = 'note-link';
+        const u = safeUrl(n.link);
+        link.href = u || '#';
+        link.target = u ? '_blank' : '_self';
+        link.rel = 'noopener noreferrer';
+        link.textContent = u ? u : '';
+
+        item.appendChild(top);
+        item.appendChild(desc);
+        if (u) item.appendChild(link);
+
+        notesListEl.appendChild(item);
+      }
+    }
+
+    async function notesExport(){
+      const payload = notesLocal.map(n => ({
+        id: n.id,
+        name: String(n.name || ''),
+        desc: String(n.desc || ''),
+        link: String(n.link || ''),
+        ts: n.ts || Date.now()
+      }));
+
+      const jsonText = JSON.stringify(payload, null, 2);
+
+      await typeLine('Exported local notes JSON. Paste into notes.json in your repo root.', 'os-ok', 70);
+
+      // Print a small preview to terminal
+      const preview = jsonText.split('\n').slice(0, 40);
+      for (const line of preview) addLine(line, 'os-dim');
+      if (jsonText.split('\n').length > 40) addLine('... (truncated)', 'os-dim');
+
+      try {
+        await navigator.clipboard.writeText(jsonText);
+        await typeLine('Copied full JSON to clipboard.', 'os-ok', 70);
+      } catch {
+        await typeLine('Clipboard copy failed. Use the terminal output preview and export again after enabling clipboard.', 'os-warn', 70);
+      }
+    }
+
+    async function cmdNotes(args){
+      const sub = (args[0] || '').toLowerCase();
+
+      if (!sub) {
+        openNotes();
+        await typeLine('Notes opened. Use "notes export" to publish.', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'help') {
+        await typeLine('Notes commands:', 'os-dim', 70);
+        await typeLine('- notes: open UI', 'os-dim', 70);
+        await typeLine('- notes list: list notes in terminal', 'os-dim', 70);
+        await typeLine('- notes export: copy local notes as JSON', 'os-dim', 70);
+        await typeLine('- notes add: add a local note (admin)', 'os-dim', 70);
+        await typeLine('- notes clear: delete all local notes (admin)', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'list' || sub === 'ls') {
+        const list = [];
+        for (const n of notesPublic) list.push({ ...n, _src: 'public' });
+        for (const n of notesLocal) list.push({ ...n, _src: 'local' });
+        list.sort((a,b) => (b.ts || 0) - (a.ts || 0));
+
+        if (list.length === 0) { await typeLine('No notes.', 'os-warn', 70); return; }
+
+        let i = 1;
+        for (const n of list.slice(0, 25)) {
+          const u = safeUrl(n.link);
+          const name = String(n.name || 'Untitled');
+          const tag = n._src === 'public' ? 'public' : 'local';
+          await typeLine('[' + i + '] ' + name + '  (' + tag + ')' + (u ? ('  ' + u) : ''), 'os-dim', 80);
+          i += 1;
+        }
+        if (list.length > 25) await typeLine('... more notes exist', 'os-dim', 70);
+        return;
+      }
+
+      if (sub === 'export') {
+        await notesExport();
+        return;
+      }
+
+      if (sub === 'add') {
+        openNotes();
+        if (!isNotesAuthed()) openNotesAuth();
+        else openNotesEditor();
+        return;
+      }
+
+      if (sub === 'clear') {
+        if (!isNotesAuthed()) { await typeLine('Admin required. Open notes UI and login.', 'os-warn', 70); return; }
+        writeLocalNotes([]);
+        await typeLine('Local notes cleared.', 'os-ok', 70);
+        return;
+      }
+
+      await typeLine('Unknown notes command. Try "notes help".', 'os-warn', 70);
+    }
+
+    async function cmdCd(args){
+      const t = (args[0] || '').trim();
+      let next = t;
+
+      if (!next) next = '~';
+      if (next === 'home') next = '~';
+      if (next === '/') next = '~';
+      if (next === 'notes' || next === '/notes') next = '/notes';
+      if (next === 'games' || next === '/games') next = '/games';
+
+      if (next !== '~' && next !== '/notes' && next !== '/games') {
+        await typeLine('cd: no such directory: ' + t, 'os-bad', 70);
+        return;
+      }
+
+      cwd = next;
+      setPrompt();
+
+      if (cwd === '/notes') openNotes();
+      if (cwd === '/games') await typeLine('Games: try "play" or "play snake" or "play bj".', 'os-dim', 70);
+    }
+
+    function buildDeck(){
+      const suits = ['♠','♥','♦','♣'];
+      const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+      const deck = [];
+      for (const s of suits) for (const r of ranks) deck.push({ r, s });
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = deck[i]; deck[i] = deck[j]; deck[j] = t;
+      }
+      return deck;
+    }
+
+    function cardValue(card){
+      if (card.r === 'A') return 11;
+      if (card.r === 'K' || card.r === 'Q' || card.r === 'J') return 10;
+      return parseInt(card.r, 10);
+    }
+
+    function handValue(hand){
+      let total = 0;
+      let aces = 0;
+      for (const c of hand) {
+        total += cardValue(c);
+        if (c.r === 'A') aces += 1;
+      }
+      while (total > 21 && aces > 0) {
+        total -= 10;
+        aces -= 1;
+      }
+      return total;
+    }
+
+    function fmtHand(hand){
+      return hand.map(c => c.r + c.s).join(' ');
+    }
+
+    async function startBlackjack(){
+      mode = 'bj';
+      lastGame = 'bj';
+      bj = { deck: buildDeck(), player: [], dealer: [], done: false };
+
+      bj.player.push(bj.deck.pop(), bj.deck.pop());
+      bj.dealer.push(bj.deck.pop(), bj.deck.pop());
+
+      await typeLine('Blackjack', 'os-warn', 80);
+      await typeLine('Commands: hit, stand, exit', 'os-dim', 70);
+
+      await showBjState(false);
+      const v = handValue(bj.player);
+      if (v === 21) {
+        await endBlackjack('Blackjack. You win.', 'os-ok');
+      }
+    }
+
+    async function showBjState(revealDealer){
+      const pVal = handValue(bj.player);
+      const dVal = handValue(bj.dealer);
+      const dealerShown = revealDealer ? fmtHand(bj.dealer) : (bj.dealer[0].r + bj.dealer[0].s + ' ??');
+      await typeLine('Dealer: ' + dealerShown + (revealDealer ? ('  (' + dVal + ')') : ''), 'os-dim', 70);
+      await typeLine('You:    ' + fmtHand(bj.player) + '  (' + pVal + ')', 'os-dim', 70);
+    }
+
+    async function endBlackjack(msg, cls){
+      bj.done = true;
+      await showBjState(true);
+      await typeLine(msg, cls || 'os-ok', 70);
+      addLine('Type "again" to replay.', 'os-dim');
+      mode = null;
+      bj = null;
+    }
+
+    async function bjHit(){
+      if (!bj || bj.done) return;
+      bj.player.push(bj.deck.pop());
+      const v = handValue(bj.player);
+      await showBjState(false);
+      if (v > 21) {
+        await endBlackjack('Bust. Dealer wins.', 'os-bad');
+      } else if (v === 21) {
+        await bjStand();
+      }
+    }
+
+    async function bjStand(){
+      if (!bj || bj.done) return;
+
+      while (handValue(bj.dealer) < 17) bj.dealer.push(bj.deck.pop());
+
+      const p = handValue(bj.player);
+      const d = handValue(bj.dealer);
+
+      if (d > 21) return endBlackjack('Dealer bust. You win.', 'os-ok');
+      if (p > d) return endBlackjack('You win.', 'os-ok');
+      if (p < d) return endBlackjack('Dealer wins.', 'os-bad');
+      return endBlackjack('Push. Draw.', 'os-warn');
+    }
+
+    // Snake game (canvas)
+    let snakeTimer = null;
+    let snake = null;
+
+    function snakeReset(){
+      const size = 18;
+      const w = snakeCanvas ? snakeCanvas.width : 360;
+      const h = snakeCanvas ? snakeCanvas.height : 360;
+      const cols = Math.floor(w / size);
+      const rows = Math.floor(h / size);
+
+      snake = {
+        size, cols, rows,
+        dir: {x:1,y:0},
+        nextDir: {x:1,y:0},
+        body: [{x: Math.floor(cols/2), y: Math.floor(rows/2)}],
+        food: null,
+        score: 0,
+        alive: true
+      };
+
+      placeFood();
+      drawSnake();
+      if (snakeScoreEl) snakeScoreEl.textContent = '0';
+    }
+
+    function placeFood(){
+      if (!snake) return;
+      while (true) {
+        const fx = Math.floor(Math.random() * snake.cols);
+        const fy = Math.floor(Math.random() * snake.rows);
+        const hit = snake.body.some(p => p.x === fx && p.y === fy);
+        if (!hit) { snake.food = {x:fx,y:fy}; return; }
+      }
+    }
+
+    function drawSnake(){
+      if (!snakeCanvas || !snake) return;
+      const ctx = snakeCanvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.clearRect(0,0,snakeCanvas.width,snakeCanvas.height);
+
+      ctx.fillStyle = 'rgba(2,6,23,0.55)';
+      ctx.fillRect(0,0,snakeCanvas.width,snakeCanvas.height);
+
+      const s = snake.size;
+
+      ctx.fillStyle = 'rgba(96,165,250,0.95)';
+      ctx.fillRect(snake.food.x * s, snake.food.y * s, s, s);
+
+      for (let i = 0; i < snake.body.length; i++){
+        const p = snake.body[i];
+        ctx.fillStyle = i === 0 ? 'rgba(45,212,191,0.95)' : 'rgba(226,232,240,0.75)';
+        ctx.fillRect(p.x * s, p.y * s, s, s);
+      }
+    }
+
+    function setSnakeDir(dx, dy){
+      if (!snake || !snake.alive) return;
+      if (snake.dir.x === -dx && snake.dir.y === -dy) return;
+      snake.nextDir = {x:dx,y:dy};
+    }
+
+    function snakeTick(){
+      if (!snake || !snake.alive) return;
+
+      snake.dir = snake.nextDir;
+
+      const head = snake.body[0];
+      const nx = head.x + snake.dir.x;
+      const ny = head.y + snake.dir.y;
+
+      if (nx < 0 || ny < 0 || nx >= snake.cols || ny >= snake.rows) {
+        snake.alive = false;
+        onSnakeEnd();
+        return;
+      }
+
+      if (snake.body.some((p, idx) => idx !== 0 && p.x === nx && p.y === ny)) {
+        snake.alive = false;
+        onSnakeEnd();
+        return;
+      }
+
+      snake.body.unshift({x:nx,y:ny});
+
+      if (nx === snake.food.x && ny === snake.food.y) {
+        snake.score += 1;
+        if (snakeScoreEl) snakeScoreEl.textContent = String(snake.score);
+        placeFood();
+      } else {
+        snake.body.pop();
+      }
+
+      drawSnake();
+    }
+
+    function onSnakeEnd(){
+      if (snakeTimer) { clearInterval(snakeTimer); snakeTimer = null; }
+      addLine('Snake ended. Score: ' + (snake ? snake.score : 0), 'os-warn');
+      addLine('Press Esc or use the close button.', 'os-dim');
+    }
+
+    function startSnake(){
+      mode = 'snake';
+      lastGame = 'snake';
+      if (!snakeWrap) return;
+
+      snakeWrap.classList.add('open');
+      snakeWrap.setAttribute('aria-hidden', 'false');
+
+      snakeReset();
+
+      if (snakeTimer) clearInterval(snakeTimer);
+      snakeTimer = setInterval(snakeTick, 120);
+
+      addLine('Snake started. Arrow keys or buttons.', 'os-warn');
+      addLine('Esc or close button exits snake.', 'os-dim');
+    }
+
+    function stopSnake(){
+      if (!snakeWrap) return;
+      snakeWrap.classList.remove('open');
+      snakeWrap.setAttribute('aria-hidden', 'true');
+      if (snakeTimer) { clearInterval(snakeTimer); snakeTimer = null; }
+      snake = null;
+    }
+
+    async function cmdPlay(args){
+      const g = (args[0] || '').toLowerCase();
+      if (!g) {
+        await typeLine('Games:', 'os-dim', 70);
+        await typeLine('- blackjack  (play bj)', 'os-dim', 70);
+        await typeLine('- snake', 'os-dim', 70);
+        await typeLine('Use "again" to replay last game.', 'os-dim', 70);
+        return;
+      }
+
+      if (g === 'blackjack' || g === 'bj') {
+        await startBlackjack();
+        return;
+      }
+
+      if (g === 'snake') {
+        startSnake();
+        return;
+      }
+
+      await typeLine('Game not found.', 'os-bad', 70);
+    }
+
+    async function run(raw){
+      const cmdRaw = String(raw || '').trim();
+      if (!cmdRaw) return;
+
+      const prefix = (promptEl ? promptEl.textContent : 'soheil@macbook:~$');
+      addLine(prefix + ' ' + cmdRaw, 'os-dim');
+
+      if (printing) return;
+      printing = true;
+
+      // Game modes
+      if (mode === 'bj') {
+        const v = cmdRaw.toLowerCase();
+        if (v === 'exit' || v === 'quit') { await typeLine('Exited game.', 'os-ok', 70); mode = null; bj = null; printing = false; return; }
+        if (v === 'hit' || v === 'h') { await bjHit(); printing = false; return; }
+        if (v === 'stand' || v === 's') { await bjStand(); printing = false; return; }
+        await typeLine('Use: hit, stand, exit', 'os-warn', 70);
+        printing = false;
+        return;
+      }
+
+      if (mode === 'snake') {
+        const v = cmdRaw.toLowerCase();
+        if (v === 'exit' || v === 'quit') { stopSnake(); mode = null; await typeLine('Exited snake.', 'os-ok', 70); printing = false; return; }
+        await typeLine('Use arrow keys or buttons. Esc closes.', 'os-dim', 70);
+        printing = false;
+        return;
+      }
+
+      const parts = cmdRaw.split(/\s+/);
+      const main = (parts[0] || '').toLowerCase();
+      const rest = parts.slice(1);
+
+      if (main === 'help' || main === '?') { await cmdHelp(); printing = false; return; }
+
+      if (main === 'again' || main === 'r' || main === 'restart') {
+        if (lastGame === 'bj') { await startBlackjack(); printing = false; return; }
+        if (lastGame === 'snake') { startSnake(); printing = false; return; }
+        await typeLine('No previous game.', 'os-warn', 70);
+        printing = false;
+        return;
+      }
+
+      if (main === 'cd') { await cmdCd(rest); printing = false; return; }
+
+      if (main === 'notes') { await cmdNotes(rest); printing = false; return; }
+
+      if (main === 'clear' || main === 'cls' || main === 'clean') { out.innerHTML = ''; stopSnake(); closeNotes(true); mode = null; bj = null; printing = false; return; }
+
+      if (main === 'exit' || main === 'quit') { printing = false; closeTerm(); return; }
+
+      if (main === 'bio') { await cmdBio(); printing = false; return; }
+      if (main === 'thesis') { await cmdThesis(); printing = false; return; }
+      if (main === 'skills') { await cmdSkills(); printing = false; return; }
+      if (main === 'contact') { await cmdContact(); printing = false; return; }
+
+      if (main === 'resume') { window.open(CONTACTS.resume, '_blank', 'noopener,noreferrer'); await typeLine('Opening resume.', 'os-ok', 70); printing = false; return; }
+
+      if (main === 'bj' || main === 'blackjack') { await startBlackjack(); printing = false; return; }
+      if (main === 'snake') { startSnake(); printing = false; return; }
+
+      if (main === 'play') { await cmdPlay(rest); printing = false; return; }
+
+      await typeLine("Unknown command. Try help.", 'os-warn', 70);
+      printing = false;
+    }
+
+    // Notes UI wiring
+    if (notesWrap) notesWrap.addEventListener('click', (e) => {
+      if (e.target === notesWrap) closeNotes();
+    });
+
+    if (notesClose) notesClose.addEventListener('click', () => closeNotes());
+
+    if (notesMax) notesMax.addEventListener('click', () => toggleNotesMax());
+
+    if (notesAddBtn) notesAddBtn.addEventListener('click', () => {
+      openNotes();
+      if (isNotesAuthed()) openNotesEditor();
+      else openNotesAuth();
+    });
+
+    function doAuth(){
+      const u = String(notesUser ? notesUser.value : '').trim();
+      const p = String(notesPass ? notesPass.value : '');
+      if (u === 'agseyl' && p === 'Silver_seyl2021') {
+        setNotesAuthed(true);
+        closeNotesAuth(true);
+        openNotesEditor();
+        return true;
+      }
+      if (notesAuthMsg) notesAuthMsg.textContent = 'Invalid credentials.';
+      return false;
+    }
+
+    if (notesAuthGo) notesAuthGo.addEventListener('click', doAuth);
+
+    if (notesAuthCancel) notesAuthCancel.addEventListener('click', () => closeNotesAuth());
+
+    if (notesPass) notesPass.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doAuth();
+    });
+
+    if (notesEditCancel) notesEditCancel.addEventListener('click', () => closeNotesEditor());
+
+    if (notesSave) notesSave.addEventListener('click', async () => {
+      if (!isNotesAuthed()) { if (notesEditMsg) notesEditMsg.textContent = 'Admin required.'; return; }
+
+      const name = String(noteName ? noteName.value : '').trim();
+      const desc = String(noteDesc ? noteDesc.value : '').trim();
+      const link = String(noteLink ? noteLink.value : '').trim();
+
+      if (!name) { if (notesEditMsg) notesEditMsg.textContent = 'Name is required.'; return; }
+      if (link && !safeUrl(link)) { if (notesEditMsg) notesEditMsg.textContent = 'Link must start with https:// or http://'; return; }
+
+      const next = notesLocal.slice();
+      next.push({ id: uid(), name, desc, link, ts: Date.now() });
+      writeLocalNotes(next);
+
+      closeNotesEditor(true);
+      await typeLine('Note saved locally. Run "notes export" to publish.', 'os-ok', 70);
+      input.focus();
+    });
+
+    // Wire terminal UI
+    if (hw) {
+      hw.addEventListener('click', openTerm);
+      hw.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openTerm(); });
+    }
+
+    if (dotClose) dotClose.addEventListener('click', closeTerm);
+
+    if (dotMin) dotMin.addEventListener('click', () => {
+      out.style.display = (out.style.display === 'none') ? '' : 'none';
+      input.focus();
+    });
+
+    if (dotMax) dotMax.addEventListener('click', () => {
+      const win = term.querySelector('.os-term-win');
+      if (!win) return;
+      win.classList.toggle('maxed');
+      if (win.classList.contains('maxed')) {
+        win.style.width = 'min(1200px, calc(100% - 14px))';
+      } else {
+        win.style.width = '';
+      }
+      input.focus();
+    });
+
+    term.addEventListener('click', (e) => {
+      if (e.target === term) closeTerm();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        if (notesAuth && notesAuth.classList.contains('open')) { closeNotesAuth(); return; }
+        if (notesEditor && notesEditor.classList.contains('open')) { closeNotesEditor(); return; }
+        if (notesWrap && notesWrap.classList.contains('open')) { closeNotes(); return; }
+
+        if (mode === 'snake') {
+          stopSnake();
+          mode = null;
+          addLine('Exited snake.', 'os-ok');
+          input.focus();
+          return;
+        }
+        closeTerm();
+        return;
+      }
+
+      if (mode === 'snake') {
+        if (e.key === 'ArrowUp') setSnakeDir(0,-1);
+        if (e.key === 'ArrowDown') setSnakeDir(0,1);
+        if (e.key === 'ArrowLeft') setSnakeDir(-1,0);
+        if (e.key === 'ArrowRight') setSnakeDir(1,0);
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const v = input.value;
+      input.value = '';
+      run(v);
+    });
+
+    if (snakeWrap) {
+      snakeWrap.addEventListener('click', () => input.focus());
+    }
+
+    if (snakeClose) {
+      snakeClose.addEventListener('click', () => {
+        if (mode !== 'snake') { stopSnake(); input.focus(); return; }
+        stopSnake();
+        mode = null;
+        addLine('Exited snake.', 'os-ok');
+        input.focus();
+      });
+    }
+
+    document.querySelectorAll('.snake-btn[data-dir]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const d = btn.getAttribute('data-dir');
+        if (d === 'up') setSnakeDir(0,-1);
+        if (d === 'down') setSnakeDir(0,1);
+        if (d === 'left') setSnakeDir(-1,0);
+        if (d === 'right') setSnakeDir(1,0);
+        input.focus();
+      });
+    });
+
+    if (snakeRestart) {
+      snakeRestart.addEventListener('click', () => {
+        if (mode !== 'snake') return;
+        snakeReset();
+        if (snakeTimer) clearInterval(snakeTimer);
+        snakeTimer = setInterval(snakeTick, 120);
+        input.focus();
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setupSectionHeaders();
+    setupFade();
+    setupTerminal();
+  });
+})();
+</script>
+
+</body>
+</html>
