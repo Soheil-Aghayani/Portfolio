@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soheil Aghayani | Portfolio</title>
     
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Soheil Aghayani | Portfolio" />
+    <meta property="og:description" content="Personal Portfolio of Soheil Aghayani" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+    <meta property="og:video" content="https://yourdomain.com/preview.mp4" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="1280" />
+    <meta property="og:video:height" content="720" />
+
         <link rel="icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
     <link rel="apple-touch-icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -1133,22 +1143,83 @@
         position: absolute;
         width: 280px;
         height: 320px;
+        perspective: 1000px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .t-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+        border-radius: 20px;
+    }
+
+    .t-card.flipped .t-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .t-card-front, .t-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 20px;
         background: rgba(15, 23, 42, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 25px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-        transform-style: preserve-3d;
-        cursor: pointer;
-        
-        /* Ensure they are visible by default */
-        opacity: 1; 
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .t-card.center .t-card-front,
+    .t-card.center .t-card-back {
+        background: rgba(25, 35, 55, 1);
+        border-color: var(--primary);
+        box-shadow: 0 0 50px rgba(45, 212, 191, 0.15);
+    }
+
+    .t-card-back {
+        transform: rotateY(180deg);
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        padding: 20px;
+        text-align: left;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+
+    .t-card-back h4 {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .t-card-back ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .t-card-back li {
+        margin-bottom: 8px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .t-card-back li span.material-symbols-rounded {
+        color: var(--primary);
+        font-size: 1rem;
+        flex-shrink: 0;
     }
 
     /* --- POSITIONS (TIGHTER & BRIGHTER) --- */
@@ -1157,9 +1228,7 @@
     .t-card.center {
         z-index: 10;
         transform: translateX(0) scale(1.1) translateZ(100px);
-        border-color: var(--primary);
-        box-shadow: 0 0 50px rgba(45, 212, 191, 0.15);
-        background: rgba(25, 35, 55, 1);
+
         opacity: 1 !important;
     }
     
@@ -1249,38 +1318,73 @@
     <div class="carousel-container" id="carouselStage">
         
         <div class="t-card center" onclick="selectCard(0)">
+            <div class="t-card-inner">
+                <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
             <div class="tc-title">Life Cycle Assessment</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Nov 2024</div>
+                        </div>
+                <div class="t-card-back">
+                    <h4>Life Cycle Assessment</h4><ul><li><span class="material-symbols-rounded">check</span> Evaluated environmental impacts of products and processes.</li><li><span class="material-symbols-rounded">check</span> Conducted comprehensive data collection and analysis.</li><li><span class="material-symbols-rounded">check</span> Developed sustainable strategies based on LCA outcomes.</li></ul>
+                </div>
+            </div>
         </div>
 
         <div class="t-card right" onclick="selectCard(1)">
+            <div class="t-card-inner">
+                <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
             <div class="tc-title">Waste Mgmt in Sports</div>
             <div class="tc-org">Olympic Academy</div>
             <div class="tc-date">Nov 2024</div>
+                        </div>
+                <div class="t-card-back">
+                    <h4>Waste Mgmt in Sports</h4><ul><li><span class="material-symbols-rounded">check</span> Designed waste reduction programs for athletic events.</li><li><span class="material-symbols-rounded">check</span> Coordinated recycling initiatives at sports facilities.</li><li><span class="material-symbols-rounded">check</span> Promoted eco-friendly practices among staff and attendees.</li></ul>
+                </div>
+            </div>
         </div>
 
         <div class="t-card back" onclick="selectCard(2)">
+            <div class="t-card-inner">
+                <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
             <div class="tc-title">Nat. Conf. on Environment</div>
             <div class="tc-org">University of Tehran</div>
             <div class="tc-date">Oct 2024</div>
+                        </div>
+                <div class="t-card-back">
+                    <h4>Nat. Conf. on Environment</h4><ul><li><span class="material-symbols-rounded">check</span> Participated in discussions on modern environmental policies.</li><li><span class="material-symbols-rounded">check</span> Networked with experts in sustainability and conservation.</li><li><span class="material-symbols-rounded">check</span> Explored innovative solutions for environmental challenges.</li></ul>
+                </div>
+            </div>
         </div>
 
         <div class="t-card back" onclick="selectCard(3)">
+            <div class="t-card-inner">
+                <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
             <div class="tc-title">Hazardous Waste (Oil)</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Aug 2024</div>
+                        </div>
+                <div class="t-card-back">
+                    <h4>Hazardous Waste (Oil)</h4><ul><li><span class="material-symbols-rounded">check</span> Studied safe handling and disposal methods for oily waste.</li><li><span class="material-symbols-rounded">check</span> Assessed regulatory compliance and safety protocols.</li><li><span class="material-symbols-rounded">check</span> Analyzed case studies on environmental impact mitigation.</li></ul>
+                </div>
+            </div>
         </div>
 
         <div class="t-card left" onclick="selectCard(4)">
+            <div class="t-card-inner">
+                <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
             <div class="tc-title">Waste Coding Methods</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Mar 2024</div>
+                        </div>
+                <div class="t-card-back">
+                    <h4>Waste Coding Methods</h4><ul><li><span class="material-symbols-rounded">check</span> Learned standardized classification systems for waste.</li><li><span class="material-symbols-rounded">check</span> Applied coding methods to improve tracking accuracy.</li><li><span class="material-symbols-rounded">check</span> Facilitated better waste management reporting.</li></ul>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -1322,8 +1426,15 @@
 
         // Global Select Function
         window.selectCard = function(index) {
-            currentIndex = index;
-            updateCarousel();
+            if (index === currentIndex) {
+                // If it's already the center card, toggle flip
+                cards[index].classList.toggle('flipped');
+            } else {
+                // Otherwise, change center card and ensure flipped is removed
+                cards.forEach(c => c.classList.remove('flipped'));
+                currentIndex = index;
+                updateCarousel();
+            }
         }
         
         // Touch Swipe Logic
@@ -1334,8 +1445,8 @@
         stage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
         stage.addEventListener('touchend', e => { 
             touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX < touchStartX - 50) { currentIndex = (currentIndex + 1) % totalCards; updateCarousel(); }
-            if (touchEndX > touchStartX + 50) { currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); }
+            if (touchEndX < touchStartX - 50) { cards.forEach(c => c.classList.remove('flipped')); currentIndex = (currentIndex + 1) % totalCards; updateCarousel(); }
+            if (touchEndX > touchStartX + 50) { cards.forEach(c => c.classList.remove('flipped')); currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); }
         }, {passive: true});
 
         // Initialize
@@ -1484,6 +1595,26 @@
                     <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
                         <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
                         <span>Managed attendance lists and supported participants throughout the program.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Volunteer Journal Assistant</h3>
+                <span class="role">International Journal of Environmental Research, Tehran, Iran</span>
+
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Assisted in initial screening of submitted manuscripts and checked adherence to journal guidelines.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Communicated with authors and reviewers regarding submission status and minor revisions.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                        <span>Helped organize and maintain the journal’s manuscript tracking records and documentation.</span>
                     </li>
                 </ul>
             </div>
