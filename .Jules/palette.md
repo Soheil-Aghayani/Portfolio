@@ -1,0 +1,3 @@
+## 2024-04-28 - Interactive elements mimicking buttons need explicit keyboard support
+**Learning:** Adding `role="button"` and `tabindex="0"` to a generic HTML element like a `<div>` or `<span>` makes it focusable and tells screen readers it is a button, but it does *not* automatically provide keyboard event handling. In `js/games/launcher.js`, the game launcher items were accessible via Tab, but pressing Enter or Space did nothing, breaking keyboard accessibility.
+**Action:** When creating custom interactive components (like `.game-icon`), always pair the `click` event listener with a `keydown` listener that checks for `Enter` and `Space` keys to mimic native `<button>` behavior.

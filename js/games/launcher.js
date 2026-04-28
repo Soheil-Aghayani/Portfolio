@@ -39,7 +39,14 @@ export class GameLauncher {
         `;
 
         this.container.querySelectorAll('.game-icon').forEach(btn => {
-            btn.addEventListener('click', () => this.launch(btn.dataset.id));
+            const launchGame = () => this.launch(btn.dataset.id);
+            btn.addEventListener('click', launchGame);
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent scrolling on Space
+                    launchGame();
+                }
+            });
         });
     }
 
