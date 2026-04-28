@@ -9,12 +9,12 @@ export class GameLauncher {
             {
                 id: 'snake',
                 name: 'Snake',
-                img: 'https://s8.uupload.ir/files/snake_q7dz.png'
+                img: 'Snake.png'
             },
             {
                 id: 'blackjack',
                 name: 'Blackjack',
-                img: 'https://s8.uupload.ir/files/selfcontrol_macos_bigsur_icon_189760_prq.png'
+                img: 'Card.png'
             }
         ];
 
