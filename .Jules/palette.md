@@ -1,3 +1,6 @@
 ## 2024-04-29 - Global Focus Management for App-like Interfaces
 **Learning:** In custom OS-like or app-like web interfaces, standard `:focus` outlines are often removed by developers to maintain a polished visual style for mouse users, inadvertently ruining keyboard accessibility. Using a global `:focus-visible` ring provides a "best of both worlds" solution, but it must be carefully excluded from elements that have their own custom focus styles (like fake terminals) to avoid clashing aesthetics.
 **Action:** Always implement a global `:focus:not(:focus-visible) { outline: none; }` and `:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }` pattern early in projects, while creating an easy opt-out mechanism (like a utility class or specific selector exclusion) for components that handle focus custom.
+## 2024-04-30 - Icon-only Buttons ARIA Labels
+**Learning:** Icon-only buttons (like delete buttons or control buttons using Material Symbols) without `aria-label` attributes are completely invisible or unhelpful to screen readers, which may just announce them as "button" or attempt to read the icon font name.
+**Action:** Always verify icon-only buttons (`<button><span class="material-symbols-rounded">icon</span></button>`) have a clear and descriptive `aria-label` attribute indicating their action (e.g., `aria-label="Delete note"`).
