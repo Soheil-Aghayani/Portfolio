@@ -1165,6 +1165,12 @@
         box-shadow: none;
     }
 
+    .t-card:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 4px;
+        border-radius: 20px;
+    }
+
     .t-card-inner {
         position: relative;
         width: 100%;
@@ -1333,7 +1339,7 @@
 
     <div class="carousel-container" id="carouselStage">
         
-        <div class="t-card center" onclick="selectCard(0)">
+        <div class="t-card center" onclick="selectCard(0)" role="button" tabindex="0" aria-label="Training card: Life Cycle Assessment">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
@@ -1347,7 +1353,7 @@
             </div>
         </div>
 
-        <div class="t-card right" onclick="selectCard(1)">
+        <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
@@ -1361,7 +1367,7 @@
             </div>
         </div>
 
-        <div class="t-card back" onclick="selectCard(2)">
+        <div class="t-card back" onclick="selectCard(2)" role="button" tabindex="0" aria-label="Training card: Nat. Conf. on Environment">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
@@ -1375,7 +1381,7 @@
             </div>
         </div>
 
-        <div class="t-card back" onclick="selectCard(3)">
+        <div class="t-card back" onclick="selectCard(3)" role="button" tabindex="0" aria-label="Training card: Hazardous Waste (Oil)">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
@@ -1389,7 +1395,7 @@
             </div>
         </div>
 
-        <div class="t-card left" onclick="selectCard(4)">
+        <div class="t-card left" onclick="selectCard(4)" role="button" tabindex="0" aria-label="Training card: Waste Coding Methods">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
@@ -1413,7 +1419,15 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll('.t-card');
-        cards.forEach(c => c.classList.add('float'));
+        cards.forEach((c, i) => {
+            c.classList.add('float');
+            c.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.selectCard(i);
+                }
+            });
+        });
         const totalCards = cards.length;
         let currentIndex = 0;
 
