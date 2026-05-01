@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         hw.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
+                if (e.key === ' ') e.preventDefault();
                 if (window.OS) window.OS.open('terminal');
             }
         });
