@@ -145,7 +145,7 @@ class NotesApp {
         ].sort((a,b) => (b.ts || 0) - (a.ts || 0));
 
         if (list.length === 0) {
-            this.listEl.innerHTML = '<div class="note-item">No notes yet.</div>';
+            this.listEl.innerHTML = '<div class="note-item" style="text-align: center; padding: 40px 20px;"><span class="material-symbols-rounded" style="font-size: 3rem; color: var(--text-muted); opacity: 0.5; margin-bottom: 10px;">note_stack</span><div style="color: var(--text-muted); margin-bottom: 5px;">No notes yet</div><div style="font-size: 0.85rem; color: var(--text-muted); opacity: 0.7;">Click the <span class="material-symbols-rounded" style="font-size: 1rem; vertical-align: middle;">add</span> button above to create one</div></div>';
             return;
         }
 
@@ -167,8 +167,10 @@ class NotesApp {
             const delBtn = div.querySelector('.note-del');
             if (delBtn) {
                 delBtn.addEventListener('click', () => {
-                    const next = this.notesLocal.filter(x => x.id !== n.id);
-                    this.writeLocalNotes(next);
+                    if (confirm('Are you sure you want to delete this note?')) {
+                        const next = this.notesLocal.filter(x => x.id !== n.id);
+                        this.writeLocalNotes(next);
+                    }
                 });
             }
             this.listEl.appendChild(div);
