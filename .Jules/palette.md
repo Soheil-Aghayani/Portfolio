@@ -10,3 +10,6 @@
 ## 2024-05-02 - Block-level Element Focus Rings
 **Learning:** When turning text elements into interactive triggers (like the `#helloWorld` span acting as a terminal toggle button), styling them as `display: block` causes keyboard focus rings (`:focus-visible`) to unexpectedly stretch across the entire width of their parent container. This looks unpolished and makes it confusing to see exactly what is focused.
 **Action:** Always verify focus ring layout on non-standard interactive elements. Use `display: inline-block` or `width: fit-content` to ensure the focus outline snaps cleanly to the bounds of the text content itself.
+## 2026-05-05 - Empty States and Destructive Actions
+**Learning:** Empty states should go beyond plain text to include helpful visual cues and clear calls to action. Additionally, destructive actions like deleting a note should be protected by a confirmation dialog to prevent accidental data loss.
+**Action:** When designing or updating components, ensure empty states are visually distinct and guide the user on what to do next. For features involving data deletion, always add a `confirm()` prompt or similar mechanism before executing the action.
