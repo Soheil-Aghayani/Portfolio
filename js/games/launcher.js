@@ -70,6 +70,23 @@ export class GameLauncher {
 
         stage.appendChild(gameWrap);
 
+        // Navigation bar
+        const navBar = document.createElement('div');
+        navBar.style.width = '100%';
+        navBar.style.padding = '10px 20px';
+        navBar.style.display = 'flex';
+        navBar.style.justifyContent = 'flex-start';
+
+        const backBtn = document.createElement('button');
+        backBtn.className = 'game-back-btn';
+        backBtn.type = 'button';
+        backBtn.setAttribute('aria-label', 'Back to Game Menu');
+        backBtn.innerHTML = '<span class="material-symbols-rounded">arrow_back</span> Back to Menu';
+        backBtn.onclick = () => this.showMenu();
+
+        navBar.appendChild(backBtn);
+        gameWrap.appendChild(navBar);
+
         const content = document.createElement('div');
         content.style.flex = '1';
         content.style.display = 'flex';
