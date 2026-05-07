@@ -13,3 +13,6 @@
 ## 2026-05-05 - Empty States and Destructive Actions
 **Learning:** Empty states should go beyond plain text to include helpful visual cues and clear calls to action. Additionally, destructive actions like deleting a note should be protected by a confirmation dialog to prevent accidental data loss.
 **Action:** When designing or updating components, ensure empty states are visually distinct and guide the user on what to do next. For features involving data deletion, always add a `confirm()` prompt or similar mechanism before executing the action.
+## 2026-05-06 - Navigational Traps in Sub-windows
+**Learning:** In single-page applications or OS-like interfaces with internal windowing systems, opening a sub-view (like a game from a launcher menu) without providing an explicit back or close action creates a "navigation trap." Users get stuck in the active view, forcing them to refresh the whole page to get back.
+**Action:** Always provide explicit, accessible "back" or "close" buttons when completely replacing the view context in an embedded app window. Ensure these buttons have an intuitive visual placement (e.g., top-left) and clear `aria-label`s.
