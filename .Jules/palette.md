@@ -19,3 +19,6 @@
 ## 2026-05-07 - Scroll Indicators as Interactive Links
 **Learning:** Visual "scroll down" indicators implemented as static text or `<div>` elements fail to meet user expectations for interactivity and provide no semantic value to screen readers or keyboard navigators. Users often attempt to click these indicators to scroll to the next section.
 **Action:** Always implement scroll indicators as interactive anchor links (`<a href="#target">`) to provide immediate utility, ensure they are focusable by keyboards, and provide context to screen readers via `aria-label`.
+## 2026-05-10 - Required Form Fields
+**Learning:** While `required` attributes enforce native validation, visual indicators (like an asterisk) without `aria-hidden="true"` can confuse screen reader users who hear "star" read out loud. Conversely, omitting `aria-required="true"` can leave users with older assistive technologies unaware that a field is mandatory until they fail submission.
+**Action:** Always pair visual required indicators (like an asterisk) with `aria-hidden="true"`, and ensure the input field itself has both `required` and `aria-required="true"` attributes.
