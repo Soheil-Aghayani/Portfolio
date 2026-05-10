@@ -2629,10 +2629,10 @@
           <div class="notes-modal-card">
             <div class="notes-modal-title">Admin login</div>
             <div class="notes-form">
-              <label class="notes-label" for="notesUser">Username</label>
-              <input id="notesUser" class="notes-input" autocomplete="username" />
-              <label class="notes-label" for="notesPass">Password</label>
-              <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" />
+              <label class="notes-label" for="notesUser">Username <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <input id="notesUser" class="notes-input" autocomplete="username" required aria-required="true" />
+              <label class="notes-label" for="notesPass">Password <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" required aria-required="true" />
               <div class="notes-form-actions">
                 <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
                 <button id="notesAuthGo" class="notes-btn2 primary" type="button">Login</button>
@@ -2646,8 +2646,8 @@
           <div class="notes-modal-card">
             <div class="notes-modal-title">New note</div>
             <div class="notes-form">
-              <label class="notes-label" for="noteName">Name</label>
-              <input id="noteName" class="notes-input" maxlength="80" />
+              <label class="notes-label" for="noteName">Name <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <input id="noteName" class="notes-input" maxlength="80" required aria-required="true" />
               <label class="notes-label" for="noteDesc">Description</label>
               <textarea id="noteDesc" class="notes-textarea" rows="4" maxlength="280"></textarea>
               <label class="notes-label" for="noteLink">Link</label>
