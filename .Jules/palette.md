@@ -16,3 +16,6 @@
 ## 2026-05-06 - Navigational Traps in Sub-windows
 **Learning:** In single-page applications or OS-like interfaces with internal windowing systems, opening a sub-view (like a game from a launcher menu) without providing an explicit back or close action creates a "navigation trap." Users get stuck in the active view, forcing them to refresh the whole page to get back.
 **Action:** Always provide explicit, accessible "back" or "close" buttons when completely replacing the view context in an embedded app window. Ensure these buttons have an intuitive visual placement (e.g., top-left) and clear `aria-label`s.
+## 2026-05-07 - Scroll Indicators as Interactive Links
+**Learning:** Visual "scroll down" indicators implemented as static text or `<div>` elements fail to meet user expectations for interactivity and provide no semantic value to screen readers or keyboard navigators. Users often attempt to click these indicators to scroll to the next section.
+**Action:** Always implement scroll indicators as interactive anchor links (`<a href="#target">`) to provide immediate utility, ensure they are focusable by keyboards, and provide context to screen readers via `aria-label`.
