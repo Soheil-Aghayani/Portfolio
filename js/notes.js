@@ -28,6 +28,9 @@ class NotesApp {
         this.editorCancel = document.getElementById('notesEditCancel');
         this.editorMsg = document.getElementById('notesEditMsg');
 
+        this.authForm = document.getElementById('notesAuthForm');
+        this.editForm = document.getElementById('notesEditForm');
+
         this.bindEvents();
         this.loadNotesPublic();
     }
@@ -40,10 +43,31 @@ class NotesApp {
             });
         }
 
-        if(this.authGo) this.authGo.addEventListener('click', () => this.doAuth());
+        if(this.authForm) {
+            this.authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.doAuth();
+            });
+        }
         if(this.authCancel) this.authCancel.addEventListener('click', () => this.closeAuth());
-        if(this.saveBtn) this.saveBtn.addEventListener('click', () => this.saveNote());
+
+        if(this.editForm) {
+            this.editForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.saveNote();
+            });
+        }
         if(this.editorCancel) this.editorCancel.addEventListener('click', () => this.closeEditor());
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (this.authModal && this.authModal.classList.contains('open')) {
+                    this.closeAuth();
+                } else if (this.editorModal && this.editorModal.classList.contains('open')) {
+                    this.closeEditor();
+                }
+            }
+        });
     }
 
     readLocalNotes() {

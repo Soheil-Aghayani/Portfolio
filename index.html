@@ -2628,24 +2628,24 @@
         <div id="notesAuth" class="notes-modal" aria-hidden="true">
           <div class="notes-modal-card">
             <div class="notes-modal-title">Admin login</div>
-            <div class="notes-form">
+            <form class="notes-form" id="notesAuthForm">
               <label class="notes-label" for="notesUser">Username <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
               <input id="notesUser" class="notes-input" autocomplete="username" required aria-required="true" />
               <label class="notes-label" for="notesPass">Password <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
               <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" required aria-required="true" />
               <div class="notes-form-actions">
                 <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
-                <button id="notesAuthGo" class="notes-btn2 primary" type="button">Login</button>
+                <button id="notesAuthGo" class="notes-btn2 primary" type="submit">Login</button>
               </div>
               <div id="notesAuthMsg" class="notes-msg"></div>
-            </div>
+            </form>
           </div>
         </div>
 
         <div id="notesEditor" class="notes-modal" aria-hidden="true">
           <div class="notes-modal-card">
             <div class="notes-modal-title">New note</div>
-            <div class="notes-form">
+            <form class="notes-form" id="notesEditForm">
               <label class="notes-label" for="noteName">Name <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
               <input id="noteName" class="notes-input" maxlength="80" required aria-required="true" />
               <label class="notes-label" for="noteDesc">Description</label>
@@ -2654,10 +2654,10 @@
               <input id="noteLink" class="notes-input" placeholder="https://..." />
               <div class="notes-form-actions">
                 <button id="notesEditCancel" class="notes-btn2" type="button">Cancel</button>
-                <button id="notesSave" class="notes-btn2 primary" type="button">Save</button>
+                <button id="notesSave" class="notes-btn2 primary" type="submit">Save</button>
               </div>
               <div id="notesEditMsg" class="notes-msg"></div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
