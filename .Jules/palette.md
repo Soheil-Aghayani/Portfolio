@@ -22,3 +22,6 @@
 ## 2026-05-10 - Required Form Fields
 **Learning:** While `required` attributes enforce native validation, visual indicators (like an asterisk) without `aria-hidden="true"` can confuse screen reader users who hear "star" read out loud. Conversely, omitting `aria-required="true"` can leave users with older assistive technologies unaware that a field is mandatory until they fail submission.
 **Action:** Always pair visual required indicators (like an asterisk) with `aria-hidden="true"`, and ensure the input field itself has both `required` and `aria-required="true"` attributes.
+## 2026-05-11 - Native Form Submission vs Div Layouts
+**Learning:** Using generic `<div class="notes-form">` elements instead of actual `<form>` tags for modal inputs breaks native submit behaviors, like pressing 'Enter' to submit, forcing users to manually click buttons. This degrades keyboard accessibility and usability.
+**Action:** Always structure data-entry areas in modals using `<form>` tags, use `<button type="submit">` for primary actions, and listen to the `submit` event (with `e.preventDefault()`) instead of clicking individual buttons.
