@@ -25,3 +25,6 @@
 ## 2026-05-11 - Native Form Submission vs Div Layouts
 **Learning:** Using generic `<div class="notes-form">` elements instead of actual `<form>` tags for modal inputs breaks native submit behaviors, like pressing 'Enter' to submit, forcing users to manually click buttons. This degrades keyboard accessibility and usability.
 **Action:** Always structure data-entry areas in modals using `<form>` tags, use `<button type="submit">` for primary actions, and listen to the `submit` event (with `e.preventDefault()`) instead of clicking individual buttons.
+## 2026-05-14 - Toggling aria-hidden on Custom Modals
+**Learning:** When building custom modals that are visually hidden by default using CSS (e.g. without `.open` class) but explicitly have `aria-hidden="true"` in the HTML, adding a class to make them visible is not enough for screen readers. The `aria-hidden` attribute will remain `true`, effectively hiding the newly opened modal from assistive technologies.
+**Action:** Always ensure that when a custom modal's visual visibility is toggled (e.g. via adding/removing an `.open` class), its `aria-hidden` attribute is simultaneously updated to `false` when opening, and `true` when closing.

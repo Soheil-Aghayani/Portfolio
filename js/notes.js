@@ -118,11 +118,13 @@ class NotesApp {
 
     openAuth() {
         this.authModal.classList.add('open');
+        this.authModal.setAttribute('aria-hidden', 'false');
         this.userIn.focus();
     }
 
     closeAuth() {
         this.authModal.classList.remove('open');
+        this.authModal.setAttribute('aria-hidden', 'true');
         this.userIn.value = '';
         this.passIn.value = '';
         this.authMsg.textContent = '';
@@ -130,11 +132,13 @@ class NotesApp {
 
     openEditor() {
         this.editorModal.classList.add('open');
+        this.editorModal.setAttribute('aria-hidden', 'false');
         this.nameIn.focus();
     }
 
     closeEditor() {
         this.editorModal.classList.remove('open');
+        this.editorModal.setAttribute('aria-hidden', 'true');
         this.nameIn.value = '';
         this.descIn.value = '';
         this.linkIn.value = '';
