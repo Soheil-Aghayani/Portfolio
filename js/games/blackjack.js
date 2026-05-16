@@ -18,7 +18,7 @@ export class BlackjackGame {
                     <h3>You <span id="bjPlayerScore"></span></h3>
                     <div id="bjPlayerCards" class="bj-cards"></div>
                 </div>
-                <div id="bjMsg" class="os-line" style="min-height: 24px; margin-bottom:10px;"></div>
+                <div id="bjMsg" class="os-line" style="min-height: 24px; margin-bottom:10px;" role="status" aria-live="polite"></div>
                 <div class="bj-controls">
                     <button id="bjHit" class="btn" style="padding: 10px 20px;">Hit</button>
                     <button id="bjStand" class="btn" style="padding: 10px 20px;">Stand</button>

@@ -28,3 +28,6 @@
 ## 2026-05-14 - Toggling aria-hidden on Custom Modals
 **Learning:** When building custom modals that are visually hidden by default using CSS (e.g. without `.open` class) but explicitly have `aria-hidden="true"` in the HTML, adding a class to make them visible is not enough for screen readers. The `aria-hidden` attribute will remain `true`, effectively hiding the newly opened modal from assistive technologies.
 **Action:** Always ensure that when a custom modal's visual visibility is toggled (e.g. via adding/removing an `.open` class), its `aria-hidden` attribute is simultaneously updated to `false` when opening, and `true` when closing.
+## 2026-05-16 - Dynamic Text Message Containers ARIA Attributes
+**Learning:** Dynamic text message containers must have appropriate ARIA attributes, such as `role="alert"` for critical errors or `role="status" aria-live="polite"` for non-interruptive updates, to ensure screen readers announce the changes automatically.
+**Action:** Always add `role="alert"` to form validation error message containers and `role="status" aria-live="polite"` to game result or generic status message containers.
