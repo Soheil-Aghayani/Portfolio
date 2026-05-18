@@ -28,3 +28,6 @@
 ## 2026-05-14 - Toggling aria-hidden on Custom Modals
 **Learning:** When building custom modals that are visually hidden by default using CSS (e.g. without `.open` class) but explicitly have `aria-hidden="true"` in the HTML, adding a class to make them visible is not enough for screen readers. The `aria-hidden` attribute will remain `true`, effectively hiding the newly opened modal from assistive technologies.
 **Action:** Always ensure that when a custom modal's visual visibility is toggled (e.g. via adding/removing an `.open` class), its `aria-hidden` attribute is simultaneously updated to `false` when opening, and `true` when closing.
+## 2026-05-18 - ARIA roles on dynamic message containers
+**Learning:** Dynamic text message containers (like error or success messages) that update their content via JavaScript without a page reload are essentially invisible to screen readers unless they have appropriate ARIA roles.
+**Action:** Always add `role="alert"` to containers for critical errors (like form validation or login failures), or `role="status" aria-live="polite"` for non-interruptive updates, to ensure screen readers announce the dynamically injected changes automatically.
