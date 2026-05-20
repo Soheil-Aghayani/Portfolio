@@ -608,3 +608,18 @@
 .snake-restart-btn:active {
     transform: translateY(0);
 }
+
+/* Fix focus rings for heavily rounded elements */
+.os-dot:focus-visible,
+.notes-dot:focus-visible {
+    border-radius: 50%;
+}
+
+.game-icon:focus-visible {
+    border-radius: 16px;
+}
+
+.notes-add:focus-visible,
+.note-del:focus-visible {
+    border-radius: 10px;
+}

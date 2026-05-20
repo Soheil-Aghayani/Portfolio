@@ -31,3 +31,10 @@
 ## 2026-05-18 - ARIA roles on dynamic message containers
 **Learning:** Dynamic text message containers (like error or success messages) that update their content via JavaScript without a page reload are essentially invisible to screen readers unless they have appropriate ARIA roles.
 **Action:** Always add `role="alert"` to containers for critical errors (like form validation or login failures), or `role="status" aria-live="polite"` for non-interruptive updates, to ensure screen readers announce the dynamically injected changes automatically.
+## 2026-05-20 - Color-only UI Controls and Tooltips
+**Learning:** Using purely color-coded buttons (like red, yellow, and green dots for OS window controls) is visually clean but fails accessibility guidelines because color alone cannot be the only visual means of conveying information. For sighted users with color blindness, these controls are ambiguous.
+**Action:** Always provide secondary visual cues for color-coded interactive elements. Adding native `title` attributes provides immediate hover tooltips to clarify the action, bridging the gap for mouse users who can't distinguish the colors.
+
+## 2026-05-20 - Custom Focus Rings on Rounded Elements
+**Learning:** When a global `:focus-visible` rule is applied with a default small `border-radius` (e.g., 4px), it visually clashes with interactive elements that have extreme rounding, such as circular buttons (`border-radius: 50%`) or highly rounded cards.
+**Action:** Always map the `:focus-visible` border-radius to match the interactive element's specific `border-radius` to ensure the focus outline wraps tightly and aesthetically around the component.
