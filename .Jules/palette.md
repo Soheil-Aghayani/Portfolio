@@ -31,3 +31,6 @@
 ## 2026-05-18 - ARIA roles on dynamic message containers
 **Learning:** Dynamic text message containers (like error or success messages) that update their content via JavaScript without a page reload are essentially invisible to screen readers unless they have appropriate ARIA roles.
 **Action:** Always add `role="alert"` to containers for critical errors (like form validation or login failures), or `role="status" aria-live="polite"` for non-interruptive updates, to ensure screen readers announce the dynamically injected changes automatically.
+## 2024-05-19 - Title Attributes for Icon-only Buttons
+**Learning:** While `aria-label` makes an icon-only or color-coded button accessible to screen readers, it does nothing for visual users who may not understand the icon or color's meaning (like the red/yellow/green OS dots). They rely on native browser tooltips provided by the `title` attribute.
+**Action:** Always ensure that icon-only or color-coded interactive elements have both an `aria-label` (for assistive tech) and a matching `title` attribute (to provide a native hover tooltip for visual users).

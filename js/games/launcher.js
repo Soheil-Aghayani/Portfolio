@@ -137,11 +137,11 @@ export class GameLauncher {
             controls.className = 'snake-controls';
             controls.innerHTML = `
                 <div></div>
-                <button class="snake-btn" data-dir="up" type="button" aria-label="Move up"><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
+                <button class="snake-btn" data-dir="up" type="button" title="Move up" aria-label="Move up"><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
                 <div></div>
-                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left"><span class="material-symbols-rounded">keyboard_arrow_left</span></button>
-                <button class="snake-btn" data-dir="down" type="button" aria-label="Move down"><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
-                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right"><span class="material-symbols-rounded">keyboard_arrow_right</span></button>
+                <button class="snake-btn" data-dir="left" type="button" title="Move left" aria-label="Move left"><span class="material-symbols-rounded">keyboard_arrow_left</span></button>
+                <button class="snake-btn" data-dir="down" type="button" title="Move down" aria-label="Move down"><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
+                <button class="snake-btn" data-dir="right" type="button" title="Move right" aria-label="Move right"><span class="material-symbols-rounded">keyboard_arrow_right</span></button>
             `;
 
             snakeContainer.appendChild(canvas);
