@@ -31,3 +31,6 @@
 ## 2026-05-18 - ARIA roles on dynamic message containers
 **Learning:** Dynamic text message containers (like error or success messages) that update their content via JavaScript without a page reload are essentially invisible to screen readers unless they have appropriate ARIA roles.
 **Action:** Always add `role="alert"` to containers for critical errors (like form validation or login failures), or `role="status" aria-live="polite"` for non-interruptive updates, to ensure screen readers announce the dynamically injected changes automatically.
+## 2026-05-19 - Tooltips for Icon-only Elements
+**Learning:** Even when icon-only buttons (like OS window controls or a delete button) are fully accessible to screen readers via `aria-label`, sighted users or those with cognitive disabilities who hover over the element may not understand its purpose without a visible tooltip.
+**Action:** Always add a native `title` attribute matching the `aria-label` to icon-only or color-coded interactive elements to provide a hover tooltip for users who cannot easily distinguish color meanings or recognize icons.
