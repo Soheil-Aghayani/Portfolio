@@ -268,7 +268,12 @@
         animation: heroFadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s;
     }
 
-    .hero-greeting { font-family: 'Courier New', monospace; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: inline-block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+    .hero-greeting { font-family: 'Courier New', monospace; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: inline-block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s ease; }
+    .hero-greeting:hover {
+        transform: translateY(-2px);
+        text-shadow: 0 0 10px rgba(45, 212, 191, 0.4);
+        color: #5eead4;
+    }
 
     h1 {
         font-size: clamp(3rem, 6vw, 6rem);
@@ -1164,6 +1169,7 @@
         background: transparent;
         border: none;
         box-shadow: none;
+        cursor: pointer;
     }
 
     .t-card:focus-visible {
@@ -1340,7 +1346,7 @@
 
     <div class="carousel-container" id="carouselStage">
         
-        <div class="t-card center" onclick="selectCard(0)" role="button" tabindex="0" aria-label="Training card: Life Cycle Assessment">
+        <div class="t-card center" onclick="selectCard(0)" role="button" tabindex="0" aria-label="Training card: Life Cycle Assessment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">recycling</span></div>
@@ -1354,7 +1360,7 @@
             </div>
         </div>
 
-        <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports">
+        <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">sports_soccer</span></div>
@@ -1368,7 +1374,7 @@
             </div>
         </div>
 
-        <div class="t-card back" onclick="selectCard(2)" role="button" tabindex="0" aria-label="Training card: Nat. Conf. on Environment">
+        <div class="t-card back" onclick="selectCard(2)" role="button" tabindex="0" aria-label="Training card: Nat. Conf. on Environment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">diversity_3</span></div>
@@ -1382,7 +1388,7 @@
             </div>
         </div>
 
-        <div class="t-card back" onclick="selectCard(3)" role="button" tabindex="0" aria-label="Training card: Hazardous Waste (Oil)">
+        <div class="t-card back" onclick="selectCard(3)" role="button" tabindex="0" aria-label="Training card: Hazardous Waste (Oil)" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">oil_barrel</span></div>
@@ -1396,7 +1402,7 @@
             </div>
         </div>
 
-        <div class="t-card left" onclick="selectCard(4)" role="button" tabindex="0" aria-label="Training card: Waste Coding Methods">
+        <div class="t-card left" onclick="selectCard(4)" role="button" tabindex="0" aria-label="Training card: Waste Coding Methods" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
             <div class="tc-icon"><span class="material-symbols-rounded">qr_code_2</span></div>
@@ -1459,10 +1465,14 @@
         window.selectCard = function(index) {
             if (index === currentIndex) {
                 // If it's already the center card, toggle flip
-                cards[index].classList.toggle('flipped');
+                const isFlipped = cards[index].classList.toggle('flipped');
+                cards[index].setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
             } else {
                 // Otherwise, change center card and ensure flipped is removed
-                cards.forEach(c => c.classList.remove('flipped'));
+                cards.forEach(c => {
+                    c.classList.remove('flipped');
+                    c.setAttribute('aria-expanded', 'false');
+                });
                 currentIndex = index;
                 updateCarousel();
             }
