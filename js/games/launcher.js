@@ -96,6 +96,9 @@ export class GameLauncher {
         content.style.position = 'relative'; // Ensure overlay works if needed
         gameWrap.appendChild(content);
 
+        // Focus the back button to maintain keyboard accessibility after menu disappears
+        setTimeout(() => backBtn.focus(), 50);
+
         if (id === 'snake') {
             // High Score Board
             const savedHighScore = localStorage.getItem('snake_high_score') || 0;

@@ -54,6 +54,9 @@ class WindowManager {
         // The CSS assumes fixed positioning covering the screen, so usually one at a time or overlay.
         // Let's keep it simple: just open.
 
+        // Store previously focused element to restore on close
+        app.previousFocus = document.activeElement;
+
         app.wrap.classList.add('open');
         app.wrap.setAttribute('aria-hidden', 'false');
         app.win.classList.remove('max'); // Reset max state on open usually
@@ -61,6 +64,10 @@ class WindowManager {
         this.activeApp = id;
 
         document.body.style.overflow = 'hidden'; // Lock scroll
+
+        // Set focus to the window itself so screen readers announce it and keyboard users are inside
+        app.win.setAttribute('tabindex', '-1');
+        app.win.focus();
 
         if (app.options.onOpen) app.options.onOpen(...args);
     }
@@ -78,6 +85,11 @@ class WindowManager {
         // Check if any other apps are open before unlocking scroll
         const anyOpen = Object.values(this.apps).some(a => a.isOpen);
         if (!anyOpen) document.body.style.overflow = '';
+
+        // Restore focus to what was active before opening
+        if (app.previousFocus && typeof app.previousFocus.focus === 'function') {
+            app.previousFocus.focus();
+        }
 
         if (app.options.onClose) app.options.onClose();
     }

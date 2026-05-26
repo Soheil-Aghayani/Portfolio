@@ -47,6 +47,10 @@ class Terminal {
         const now = new Date();
         const stamp = now.toLocaleString();
 
+        if (this.input) {
+            this.input.focus();
+        }
+
         this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 70)
             .then(() => this.sleep(120))
             .then(() => this.typeLine('Welcome to Soheil_OS v2.0. Modular & Optimized.', 'os-ok', 50))
