@@ -50,6 +50,9 @@ class WindowManager {
         const app = this.apps[id];
         if (!app) return;
 
+        // Store active element for restoring focus
+        app.previousFocus = document.activeElement;
+
         // Close others? For now, we allow stacking or just simple z-index?
         // The CSS assumes fixed positioning covering the screen, so usually one at a time or overlay.
         // Let's keep it simple: just open.
@@ -59,6 +62,10 @@ class WindowManager {
         app.win.classList.remove('max'); // Reset max state on open usually
         app.isOpen = true;
         this.activeApp = id;
+
+        // Manage focus
+        app.wrap.setAttribute('tabindex', '-1');
+        app.wrap.focus();
 
         document.body.style.overflow = 'hidden'; // Lock scroll
 
@@ -78,6 +85,11 @@ class WindowManager {
         // Check if any other apps are open before unlocking scroll
         const anyOpen = Object.values(this.apps).some(a => a.isOpen);
         if (!anyOpen) document.body.style.overflow = '';
+
+        // Restore focus
+        if (app.previousFocus) {
+            app.previousFocus.focus();
+        }
 
         if (app.options.onClose) app.options.onClose();
     }
