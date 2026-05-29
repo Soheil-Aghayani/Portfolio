@@ -2656,10 +2656,16 @@
           <div class="notes-modal-card">
             <div class="notes-modal-title">New note</div>
             <form class="notes-form" id="notesEditForm">
-              <label class="notes-label" for="noteName">Name <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
-              <input id="noteName" class="notes-input" maxlength="80" required aria-required="true" />
-              <label class="notes-label" for="noteDesc">Description</label>
-              <textarea id="noteDesc" class="notes-textarea" rows="4" maxlength="280"></textarea>
+              <div class="note-top" style="margin-bottom: 0;">
+                <label class="notes-label" for="noteName">Name <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+                <span id="noteNameCount" class="notes-label">0/80</span>
+              </div>
+              <input id="noteName" class="notes-input" maxlength="80" required aria-required="true" aria-describedby="noteNameCount" />
+              <div class="note-top" style="margin-bottom: 0;">
+                <label class="notes-label" for="noteDesc">Description</label>
+                <span id="noteDescCount" class="notes-label">0/280</span>
+              </div>
+              <textarea id="noteDesc" class="notes-textarea" rows="4" maxlength="280" aria-describedby="noteDescCount"></textarea>
               <label class="notes-label" for="noteLink">Link</label>
               <input id="noteLink" class="notes-input" placeholder="https://..." />
               <div class="notes-form-actions">

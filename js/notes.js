@@ -23,6 +23,8 @@ class NotesApp {
         this.editorModal = document.getElementById('notesEditor');
         this.nameIn = document.getElementById('noteName');
         this.descIn = document.getElementById('noteDesc');
+        this.nameCount = document.getElementById('noteNameCount');
+        this.descCount = document.getElementById('noteDescCount');
         this.linkIn = document.getElementById('noteLink');
         this.saveBtn = document.getElementById('notesSave');
         this.editorCancel = document.getElementById('notesEditCancel');
@@ -40,6 +42,18 @@ class NotesApp {
             this.addBtn.addEventListener('click', () => {
                 if (this.isAuthed()) this.openEditor();
                 else this.openAuth();
+            });
+        }
+
+        if(this.nameIn && this.nameCount) {
+            this.nameIn.addEventListener('input', () => {
+                this.nameCount.textContent = `${this.nameIn.value.length}/80`;
+            });
+        }
+
+        if(this.descIn && this.descCount) {
+            this.descIn.addEventListener('input', () => {
+                this.descCount.textContent = `${this.descIn.value.length}/280`;
             });
         }
 
@@ -133,6 +147,8 @@ class NotesApp {
     openEditor() {
         this.editorModal.classList.add('open');
         this.editorModal.setAttribute('aria-hidden', 'false');
+        if(this.nameCount) this.nameCount.textContent = `${this.nameIn.value.length}/80`;
+        if(this.descCount) this.descCount.textContent = `${this.descIn.value.length}/280`;
         this.nameIn.focus();
     }
 
@@ -143,6 +159,8 @@ class NotesApp {
         this.descIn.value = '';
         this.linkIn.value = '';
         this.editorMsg.textContent = '';
+        if(this.nameCount) this.nameCount.textContent = '0/80';
+        if(this.descCount) this.descCount.textContent = '0/280';
     }
 
     saveNote() {
