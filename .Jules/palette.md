@@ -40,3 +40,6 @@
 ## 2024-05-29 - Character Counts on maxlength Inputs
 **Learning:** Input fields and textareas with `maxlength` attributes forcefully stop user input without explanation, causing confusion. Providing a visual character count gives users context. Furthermore, visually updating the count isn't enough for screen reader users; they need context as well. Using `aria-describedby` links the input to the count. Avoid using `aria-live` on every keystroke, as this creates a spammy and frustrating experience for screen reader users.
 **Action:** Always provide a visual character count for fields with strict `maxlength` limits. Use `aria-describedby` on the input to point to the count's ID. Do not use `aria-live` on keystroke character counts.
+## 2024-05-30 - Tooltips for Icon-Only Buttons
+**Learning:** Adding `aria-label` to an icon-only button is essential for screen readers, but sighted users (who may not understand the icon) still need help. Without a standard `title` attribute or a custom tooltip, mouse users are left guessing what the button does.
+**Action:** Always provide a `title` attribute (or equivalent accessible tooltip component) matching the `aria-label` on icon-only buttons so that mouse users receive a helpful tooltip on hover.
