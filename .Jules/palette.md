@@ -43,3 +43,6 @@
 ## 2024-05-30 - Tooltips for Icon-Only Buttons
 **Learning:** Adding `aria-label` to an icon-only button is essential for screen readers, but sighted users (who may not understand the icon) still need help. Without a standard `title` attribute or a custom tooltip, mouse users are left guessing what the button does.
 **Action:** Always provide a `title` attribute (or equivalent accessible tooltip component) matching the `aria-label` on icon-only buttons so that mouse users receive a helpful tooltip on hover.
+## 2026-05-31 - Dynamic UI Element Visibility and Focus Drops
+**Learning:** When interactive elements (like game buttons such as 'Hit' or 'Stand' in Blackjack) are hidden upon state change (e.g., game over), the browser loses focus if the active element is the one being hidden. This drops keyboard users to the top of the page, causing significant disorientation and forcing them to navigate back through the entire document to continue interacting.
+**Action:** Always implement focus passing in dynamic UIs. If hiding the currently focused element, explicitly set `.focus()` on the next logical interactive element (e.g., the 'Play Again' button, or the 'Hit' button when restarting) to maintain keyboard context.
