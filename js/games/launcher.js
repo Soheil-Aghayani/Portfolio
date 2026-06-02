@@ -26,7 +26,7 @@ export class GameLauncher {
             <div class="app-body">
                 <div id="gameMenu" class="game-grid">
                     ${this.games.map(g => `
-                        <div class="game-icon" data-id="${g.id}" role="button" tabindex="0">
+                        <div class="game-icon" data-id="${g.id}" role="button" tabindex="0" aria-label="Launch ${g.name}">
                             <div class="game-icon-img">
                                 <img src="${g.img}" alt="${g.name}" draggable="false" />
                             </div>
