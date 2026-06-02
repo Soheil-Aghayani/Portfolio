@@ -46,3 +46,6 @@
 ## 2026-05-31 - Dynamic UI Element Visibility and Focus Drops
 **Learning:** When interactive elements (like game buttons such as 'Hit' or 'Stand' in Blackjack) are hidden upon state change (e.g., game over), the browser loses focus if the active element is the one being hidden. This drops keyboard users to the top of the page, causing significant disorientation and forcing them to navigate back through the entire document to continue interacting.
 **Action:** Always implement focus passing in dynamic UIs. If hiding the currently focused element, explicitly set `.focus()` on the next logical interactive element (e.g., the 'Play Again' button, or the 'Hit' button when restarting) to maintain keyboard context.
+## 2026-06-02 - Icon-Only ARIA Labels for Launching Games
+**Learning:** Adding descriptive ARIA labels to launcher icons mimicking buttons provides screen reader users with necessary context. Setting `aria-label` directly on the container with `role="button"` enhances accessibility.
+**Action:** When implementing icon-only buttons or pseudo-buttons that launch distinct applications, ensure they have an explicit `aria-label` stating their exact action (e.g., `aria-label="Launch Snake"` instead of just having `Snake` implicitly inside).
