@@ -8,6 +8,7 @@ class NotesApp {
         this.notesPublic = [];
         this.notesLocal = this.readLocalNotes();
         this.notesLoadedPublic = false;
+        this.lastFocus = null;
 
         // UI Elements
         this.listEl = document.getElementById('notesList');
@@ -131,6 +132,7 @@ class NotesApp {
     }
 
     openAuth() {
+        this.lastFocus = document.activeElement;
         this.authModal.classList.add('open');
         this.authModal.setAttribute('aria-hidden', 'false');
         this.userIn.focus();
@@ -142,9 +144,14 @@ class NotesApp {
         this.userIn.value = '';
         this.passIn.value = '';
         this.authMsg.textContent = '';
+        if (this.lastFocus) {
+            this.lastFocus.focus();
+            this.lastFocus = null;
+        }
     }
 
     openEditor() {
+        this.lastFocus = document.activeElement;
         this.editorModal.classList.add('open');
         this.editorModal.setAttribute('aria-hidden', 'false');
         if(this.nameCount) this.nameCount.textContent = `${this.nameIn.value.length}/80`;
@@ -161,6 +168,10 @@ class NotesApp {
         this.editorMsg.textContent = '';
         if(this.nameCount) this.nameCount.textContent = '0/80';
         if(this.descCount) this.descCount.textContent = '0/280';
+        if (this.lastFocus) {
+            this.lastFocus.focus();
+            this.lastFocus = null;
+        }
     }
 
     saveNote() {
