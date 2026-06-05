@@ -39,7 +39,10 @@ export class GameLauncher {
         `;
 
         this.container.querySelectorAll('.game-icon').forEach(btn => {
-            const launchGame = () => this.launch(btn.dataset.id);
+            const launchGame = () => {
+                this.lastFocusedGameIcon = btn;
+                this.launch(btn.dataset.id);
+            };
             btn.addEventListener('click', launchGame);
             btn.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -94,6 +97,8 @@ export class GameLauncher {
         content.style.justifyContent = 'center';
         content.style.width = '100%';
         content.style.position = 'relative'; // Ensure overlay works if needed
+        content.setAttribute('tabindex', '-1');
+        content.style.outline = 'none';
         gameWrap.appendChild(content);
 
         if (id === 'snake') {
@@ -130,6 +135,7 @@ export class GameLauncher {
             restartBtn.onclick = () => {
                 restartBtn.style.display = 'none';
                 this.activeGame.start();
+                content.focus();
             };
 
             // Mobile Controls
@@ -164,6 +170,7 @@ export class GameLauncher {
                 },
                 onEnd: (score) => {
                     restartBtn.style.display = 'block';
+                    restartBtn.focus();
                     const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('snake_high_score', score);
@@ -185,6 +192,7 @@ export class GameLauncher {
             });
 
             this.activeGame.start();
+            content.focus();
         }
         else if (id === 'blackjack') {
             this.activeGame = new BlackjackGame(content);
@@ -202,5 +210,9 @@ export class GameLauncher {
         const menu = this.container.querySelector('#gameMenu');
         stage.style.display = 'none';
         menu.style.display = 'grid';
+
+        if (this.lastFocusedGameIcon) {
+            this.lastFocusedGameIcon.focus();
+        }
     }
 }

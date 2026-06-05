@@ -49,3 +49,7 @@
 ## 2026-06-02 - Icon-Only ARIA Labels for Launching Games
 **Learning:** Adding descriptive ARIA labels to launcher icons mimicking buttons provides screen reader users with necessary context. Setting `aria-label` directly on the container with `role="button"` enhances accessibility.
 **Action:** When implementing icon-only buttons or pseudo-buttons that launch distinct applications, ensure they have an explicit `aria-label` stating their exact action (e.g., `aria-label="Launch Snake"` instead of just having `Snake` implicitly inside).
+
+## 2024-06-05 - Focus Context in Dynamic Views
+**Learning:** When switching views completely (e.g. going from a menu to a game), or when dynamic elements (like a "Restart" button) appear/disappear based on game state, keyboard users lose their focus context. If an element disappears while focused, the browser resets focus to the top of the body.
+**Action:** When making non-interactive containers (like game stages) programmatically focusable to manage keyboard navigation context, use `tabindex="-1"` and `outline: 'none'` to prevent unwanted visual focus rings on the wrapper. Always pass `.focus()` explicitly to the next logical interactive element when states change.
