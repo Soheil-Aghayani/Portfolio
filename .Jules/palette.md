@@ -53,3 +53,7 @@
 ## 2024-06-05 - Focus Context in Dynamic Views
 **Learning:** When switching views completely (e.g. going from a menu to a game), or when dynamic elements (like a "Restart" button) appear/disappear based on game state, keyboard users lose their focus context. If an element disappears while focused, the browser resets focus to the top of the body.
 **Action:** When making non-interactive containers (like game stages) programmatically focusable to manage keyboard navigation context, use `tabindex="-1"` and `outline: 'none'` to prevent unwanted visual focus rings on the wrapper. Always pass `.focus()` explicitly to the next logical interactive element when states change.
+
+## 2024-06-08 - Decorative Icons in Links and Buttons
+**Learning:** Using ligature-based icon fonts (like Material Symbols) inside links or buttons causes screen readers to read the raw text of the ligature (e.g., "mail" or "open in new") alongside the button's actual text or `aria-label`. This creates a confusing and redundant auditory experience for users.
+**Action:** Always add `aria-hidden="true"` to supplementary or decorative icon elements (like `<span class="material-symbols-rounded">`) when they are used alongside visible text or within elements that already have a descriptive `aria-label`.
