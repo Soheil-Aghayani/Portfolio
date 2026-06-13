@@ -84,7 +84,7 @@ export class GameLauncher {
         backBtn.className = 'game-back-btn';
         backBtn.type = 'button';
         backBtn.setAttribute('aria-label', 'Back to Game Menu');
-        backBtn.innerHTML = '<span class="material-symbols-rounded">arrow_back</span> Back to Menu';
+        backBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Back to Menu';
         backBtn.onclick = () => this.showMenu();
 
         navBar.appendChild(backBtn);
@@ -143,11 +143,11 @@ export class GameLauncher {
             controls.className = 'snake-controls';
             controls.innerHTML = `
                 <div></div>
-                <button class="snake-btn" data-dir="up" type="button" aria-label="Move up" title="Move up"><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
+                <button class="snake-btn" data-dir="up" type="button" aria-label="Move up" title="Move up"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span></button>
                 <div></div>
-                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left"><span class="material-symbols-rounded">keyboard_arrow_left</span></button>
-                <button class="snake-btn" data-dir="down" type="button" aria-label="Move down" title="Move down"><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
-                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded">keyboard_arrow_right</span></button>
+                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_left</span></button>
+                <button class="snake-btn" data-dir="down" type="button" aria-label="Move down" title="Move down"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span></button>
+                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
             `;
 
             snakeContainer.appendChild(canvas);

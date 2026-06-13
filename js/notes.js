@@ -214,7 +214,7 @@ class NotesApp {
                     <div class="note-name">${n.name || 'Untitled'}</div>
                     <div class="note-badges">
                         <span class="note-badge">${n.src}</span>
-                        ${n.src === 'local' && this.isAuthed() ? `<button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note"><span class="material-symbols-rounded">delete</span></button>` : ''}
+                        ${n.src === 'local' && this.isAuthed() ? `<button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note"><span class="material-symbols-rounded" aria-hidden="true">delete</span></button>` : ''}
                     </div>
                 </div>
                 <div class="note-desc">${n.desc || ''}</div>
