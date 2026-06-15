@@ -57,3 +57,7 @@
 ## 2024-06-08 - Decorative Icons in Links and Buttons
 **Learning:** Using ligature-based icon fonts (like Material Symbols) inside links or buttons causes screen readers to read the raw text of the ligature (e.g., "mail" or "open in new") alongside the button's actual text or `aria-label`. This creates a confusing and redundant auditory experience for users.
 **Action:** Always add `aria-hidden="true"` to supplementary or decorative icon elements (like `<span class="material-symbols-rounded">`) when they are used alongside visible text or within elements that already have a descriptive `aria-label`.
+
+## 2026-06-15 - Focus Outlines on Custom Pill-Shaped Buttons
+**Learning:** By default, standard keyboard focus outlines (`:focus-visible`) form a rectangle around elements. If a custom element uses heavy border-radii (like `999px` to make a perfect pill or capsule shape), a rectangular focus ring completely breaks the visual illusion and feels unpolished.
+**Action:** When creating fully rounded pill-shaped elements (e.g. `border-radius: 999px`), explicitly set their `:focus-visible` state to inherit or match the same `border-radius` so the outline perfectly hugs the element's shape.

@@ -12,6 +12,9 @@
     background: none;
     transition: transform 0.25s ease, color 0.25s ease;
 }
+.hello-world:focus-visible {
+    border-radius: 999px;
+}
 .hello-world::after{
     content: "";
     width: 10px;
