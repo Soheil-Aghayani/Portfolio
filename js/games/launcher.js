@@ -84,6 +84,7 @@ export class GameLauncher {
         backBtn.className = 'game-back-btn';
         backBtn.type = 'button';
         backBtn.setAttribute('aria-label', 'Back to Game Menu');
+        backBtn.setAttribute('title', 'Back to Game Menu');
         backBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Back to Menu';
         backBtn.onclick = () => this.showMenu();
 
