@@ -61,3 +61,7 @@
 ## 2026-06-15 - Focus Outlines on Custom Pill-Shaped Buttons
 **Learning:** By default, standard keyboard focus outlines (`:focus-visible`) form a rectangle around elements. If a custom element uses heavy border-radii (like `999px` to make a perfect pill or capsule shape), a rectangular focus ring completely breaks the visual illusion and feels unpolished.
 **Action:** When creating fully rounded pill-shaped elements (e.g. `border-radius: 999px`), explicitly set their `:focus-visible` state to inherit or match the same `border-radius` so the outline perfectly hugs the element's shape.
+
+## 2026-06-24 - Focus Outlines on Circular Buttons
+**Learning:** By default, standard keyboard focus outlines (`:focus-visible`) form a rectangle around elements. If a custom element is a perfect circle (like macOS-style window dots using `border-radius: 50%`), a rectangular focus ring breaks the visual consistency and looks unpolished.
+**Action:** When creating perfectly circular elements using `border-radius: 50%`, explicitly set their `:focus-visible` state to inherit or match the same `border-radius` (and include `outline` and `outline-offset`) so the outline perfectly hugs the element's circular shape.

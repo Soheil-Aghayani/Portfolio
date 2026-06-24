@@ -127,6 +127,12 @@
 .os-dot.yellow, .notes-dot.yellow { background: #febc2e; }
 .os-dot.green, .notes-dot.green { background: #28c840; }
 
+.os-dot:focus-visible, .notes-dot:focus-visible {
+    border-radius: 50%;
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
 /* Window Titles */
 .os-term-title, .notes-top-title, .app-title {
     text-align: center;
