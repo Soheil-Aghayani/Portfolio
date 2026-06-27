@@ -61,3 +61,7 @@
 ## 2026-06-15 - Focus Outlines on Custom Pill-Shaped Buttons
 **Learning:** By default, standard keyboard focus outlines (`:focus-visible`) form a rectangle around elements. If a custom element uses heavy border-radii (like `999px` to make a perfect pill or capsule shape), a rectangular focus ring completely breaks the visual illusion and feels unpolished.
 **Action:** When creating fully rounded pill-shaped elements (e.g. `border-radius: 999px`), explicitly set their `:focus-visible` state to inherit or match the same `border-radius` so the outline perfectly hugs the element's shape.
+
+## 2026-06-27 - Hover States for Interactive Buttons
+**Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
+**Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
