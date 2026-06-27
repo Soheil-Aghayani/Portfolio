@@ -260,7 +260,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
+.snake-btn:hover{ background: rgba(255,255,255,0.08); }
 .snake-btn:active{ transform: scale(0.98); }
 .snake-meta{
     min-width: 220px;
@@ -288,7 +290,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
+.notes-add:hover{ background: rgba(255,255,255,0.08); }
 .notes-add:active{ transform: scale(0.98); }
 .notes-body{
     position: relative;
@@ -352,6 +356,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
+}
+.note-del:hover{
+    background: rgba(248,113,113,0.15);
+    color: #f87171;
+    border-color: rgba(248,113,113,0.3);
 }
 .note-desc{
     color: rgba(148,163,184,0.92);
@@ -428,7 +438,9 @@
     background: rgba(255,255,255,0.04);
     color: rgba(226,232,240,0.92);
     cursor: pointer;
+    transition: all 0.2s ease;
 }
+.notes-btn2:hover{ background: rgba(255,255,255,0.08); }
 .notes-btn2:active{ transform: scale(0.99); }
 .notes-btn2.primary{
     border-color: rgba(45,212,191,0.40);
