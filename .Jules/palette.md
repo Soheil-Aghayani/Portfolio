@@ -65,3 +65,7 @@
 ## 2026-06-27 - Hover States for Interactive Buttons
 **Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
 **Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
+
+## 2026-06-29 - Hover States for Small Decorative Buttons
+**Learning:** Small, decorative interactive elements like macOS-style traffic light buttons (`.os-dot`) are often styled statically for visual polish, leaving them without hover states. This removes crucial interactivity affordance for mouse users, making it unclear that they are clickable buttons rather than just decorative UI elements.
+**Action:** Always ensure that even small, decorative button elements have a distinct hover state (such as a slight brightness filter) and transition, just like primary buttons, to confirm they are interactive.
