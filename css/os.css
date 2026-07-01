@@ -349,7 +349,7 @@
     background: rgba(2,6,23,0.35);
     white-space: nowrap;
 }
-.note-del{
+.note-del, .note-edit {
     width: 30px;
     height: 30px;
     border-radius: 10px;
@@ -362,10 +362,15 @@
     justify-content: center;
     transition: all 0.2s ease;
 }
-.note-del:hover{
+.note-del:hover {
     background: rgba(248,113,113,0.15);
     color: #f87171;
     border-color: rgba(248,113,113,0.3);
+}
+.note-edit:hover {
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--primary);
+    border-color: rgba(45, 212, 191, 0.3);
 }
 .note-desc{
     color: rgba(148,163,184,0.92);
@@ -428,7 +433,58 @@
     border-color: rgba(45,212,191,0.55);
     box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
 }
-.notes-textarea{ resize: vertical; min-height: 110px; }
+.notes-toolbar {
+    display: flex;
+    gap: 6px;
+    background: rgba(2,6,23,0.30);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 6px 10px;
+}
+.notes-tb-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: rgba(226,232,240,0.75);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+.notes-tb-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.notes-tb-btn:active {
+    transform: scale(0.95);
+}
+.notes-rich-input {
+    width: 100%;
+    min-height: 120px;
+    max-height: 240px;
+    overflow-y: auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,6,23,0.45);
+    color: rgba(226,232,240,0.92);
+    padding: 10px 12px;
+    outline: none;
+}
+.notes-rich-input:focus {
+    border-color: rgba(45,212,191,0.55);
+    box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
+}
+.notes-rich-input[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: rgba(148,163,184,0.45);
+    cursor: text;
+}
 .notes-form-actions{
     display: flex;
     gap: 10px;

@@ -9,6 +9,7 @@ class NotesApp {
         this.notesLocal = this.readLocalNotes();
         this.notesLoadedPublic = false;
         this.lastFocus = null;
+        this.editingNoteId = null;
 
         // UI Elements
         this.listEl = document.getElementById('notesList');
@@ -54,7 +55,20 @@ class NotesApp {
 
         if(this.descIn && this.descCount) {
             this.descIn.addEventListener('input', () => {
-                this.descCount.textContent = `${this.descIn.value.length}/280`;
+                this.descCount.textContent = `${this.descIn.innerText.length}/280`;
+            });
+        }
+
+        // Toolbar buttons handler
+        const tbBtns = this.editorModal?.querySelectorAll('.notes-tb-btn');
+        if (tbBtns) {
+            tbBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const cmd = btn.dataset.cmd;
+                    document.execCommand(cmd, false, null);
+                    this.descIn.focus();
+                });
             });
         }
 
@@ -155,7 +169,7 @@ class NotesApp {
         this.editorModal.classList.add('open');
         this.editorModal.setAttribute('aria-hidden', 'false');
         if(this.nameCount) this.nameCount.textContent = `${this.nameIn.value.length}/80`;
-        if(this.descCount) this.descCount.textContent = `${this.descIn.value.length}/280`;
+        if(this.descCount) this.descCount.textContent = `${this.descIn.innerText.length}/280`;
         this.nameIn.focus();
     }
 
@@ -163,11 +177,16 @@ class NotesApp {
         this.editorModal.classList.remove('open');
         this.editorModal.setAttribute('aria-hidden', 'true');
         this.nameIn.value = '';
-        this.descIn.value = '';
+        this.descIn.innerHTML = '';
         this.linkIn.value = '';
         this.editorMsg.textContent = '';
         if(this.nameCount) this.nameCount.textContent = '0/80';
         if(this.descCount) this.descCount.textContent = '0/280';
+        
+        this.editingNoteId = null;
+        const modalTitle = this.editorModal.querySelector('.notes-modal-title');
+        if (modalTitle) modalTitle.textContent = 'New note';
+
         if (this.lastFocus) {
             this.lastFocus.focus();
             this.lastFocus = null;
@@ -176,19 +195,30 @@ class NotesApp {
 
     saveNote() {
         const name = this.nameIn.value.trim();
-        const desc = this.descIn.value.trim();
+        const descHtml = this.descIn.innerHTML.trim();
+        const desc = (descHtml === '<br>' || descHtml === '<div><br></div>') ? '' : descHtml;
         const link = this.linkIn.value.trim();
 
         if (!name) { this.editorMsg.textContent = 'Name required'; return; }
 
-        const newNote = {
-            id: 'n_' + Date.now(),
-            name, desc, link,
-            ts: Date.now()
-        };
-
-        const next = [...this.notesLocal, newNote];
-        this.writeLocalNotes(next);
+        if (this.editingNoteId) {
+            const next = this.notesLocal.map(n => {
+                if (n.id === this.editingNoteId) {
+                    return { ...n, name, desc, link, ts: Date.now() };
+                }
+                return n;
+            });
+            this.writeLocalNotes(next);
+        } else {
+            const newNote = {
+                id: 'n_' + Date.now(),
+                name, desc, link,
+                ts: Date.now()
+            };
+            const next = [...this.notesLocal, newNote];
+            this.writeLocalNotes(next);
+        }
+        
         this.closeEditor();
     }
 
@@ -214,12 +244,30 @@ class NotesApp {
                     <div class="note-name">${n.name || 'Untitled'}</div>
                     <div class="note-badges">
                         <span class="note-badge">${n.src}</span>
-                        ${n.src === 'local' && this.isAuthed() ? `<button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note"><span class="material-symbols-rounded" aria-hidden="true">delete</span></button>` : ''}
+                        ${n.src === 'local' && this.isAuthed() ? `
+                            <button class="note-edit" data-id="${n.id}" aria-label="Edit note" title="Edit note"><span class="material-symbols-rounded" aria-hidden="true">edit</span></button>
+                            <button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note"><span class="material-symbols-rounded" aria-hidden="true">delete</span></button>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="note-desc">${n.desc || ''}</div>
                 ${n.link ? `<a href="${n.link}" target="_blank" class="note-link">${n.link}</a>` : ''}
             `;
+
+            const editBtn = div.querySelector('.note-edit');
+            if (editBtn) {
+                editBtn.addEventListener('click', () => {
+                    this.editingNoteId = n.id;
+                    this.nameIn.value = n.name || '';
+                    this.descIn.innerHTML = n.desc || '';
+                    this.linkIn.value = n.link || '';
+                    
+                    const modalTitle = this.editorModal.querySelector('.notes-modal-title');
+                    if (modalTitle) modalTitle.textContent = 'Edit note';
+                    
+                    this.openEditor();
+                });
+            }
 
             const delBtn = div.querySelector('.note-del');
             if (delBtn) {

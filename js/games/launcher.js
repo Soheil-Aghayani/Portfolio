@@ -9,12 +9,12 @@ export class GameLauncher {
             {
                 id: 'snake',
                 name: 'Snake',
-                img: 'Snake.png'
+                img: 'assets/Snake.png'
             },
             {
                 id: 'blackjack',
                 name: 'Blackjack',
-                img: 'Card.png'
+                img: 'assets/Card.png'
             }
         ];
 

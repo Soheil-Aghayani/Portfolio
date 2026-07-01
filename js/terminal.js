@@ -47,11 +47,11 @@ class Terminal {
         const now = new Date();
         const stamp = now.toLocaleString();
 
-        this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 70)
-            .then(() => this.sleep(120))
-            .then(() => this.typeLine('Welcome to Soheil_OS v2.0. Modular & Optimized.', 'os-ok', 50))
-            .then(() => this.sleep(100))
-            .then(() => this.typeLine("Type 'help' to see available commands.", 'os-dim', 50))
+        this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 120)
+            .then(() => this.sleep(80))
+            .then(() => this.typeLine('Welcome to Soheil_OS v2.0. Modular & Optimized.', 'os-ok', 100))
+            .then(() => this.sleep(70))
+            .then(() => this.typeLine("Type 'help' to see available commands.", 'os-dim', 100))
             .then(() => this.addLine('', ''));
     }
 
@@ -77,7 +77,7 @@ class Terminal {
                 await this.cmdBio();
                 break;
             case 'thesis':
-                await this.cmdThesis();
+                await this.cmdThesis(args);
                 break;
             case 'skills':
                 await this.cmdSkills();
@@ -98,8 +98,7 @@ class Terminal {
                 if (window.OS) window.OS.close('terminal');
                 break;
             case 'notes':
-                if (window.OS) window.OS.open('notes');
-                await this.typeLine('Launching Notes App...', 'os-dim');
+                await this.cmdNotes(args);
                 break;
             case 'play':
             case 'games':
@@ -134,7 +133,7 @@ class Terminal {
 
     // Commands implementation
     async cmdHelp() {
-        const speed = 40;
+        const speed = 100;
         await this.typeLine('Available commands:', 'os-dim', speed);
         await this.typeLine('- bio: Personal introduction', 'os-dim', speed);
         await this.typeLine('- thesis: Research topic', 'os-dim', speed);
@@ -155,9 +154,32 @@ class Terminal {
         await this.typeLine('I build workflows that turn complex data into decisions.', 'os-dim');
     }
 
-    async cmdThesis() {
+    async cmdThesis(args) {
+        const sub = (args[0] || '').trim().toLowerCase();
+
+        if (sub === 'flowchart' || sub === 'fc') {
+            const viewer = document.getElementById('flowchartViewer');
+            const btn = document.getElementById('toggleFlowchartBtn');
+            if (viewer && btn) {
+                if (viewer.style.display === 'none') {
+                    btn.click();
+                }
+                viewer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                await this.typeLine('Opening secure flowchart viewer on the page...', 'os-ok');
+            } else {
+                await this.typeLine('Flowchart viewer not found on page.', 'os-bad');
+            }
+            return;
+        }
+
         await this.typeLine('Thesis', 'os-warn');
-        await this.typeLine(this.THESIS, 'os-dim', 40);
+        await this.typeLine('My research focuses on circular economy solutions for green energy: synthesizing high-activity Calcium Oxide (CaO) catalysts from waste seashells to convert Waste Cooking Oil (WCO) into high-quality biodiesel.', 'os-dim');
+        this.addLine('', '');
+        
+        await this.typeLine('Optimal reaction parameters (9:1 methanol ratio, 3 wt.% catalyst loading, 65°C for 3 hours) yielded a 95.7% conversion rate, complying with ASTM D6751 standards. The Life Cycle Assessment (LCA) indicates up to an 86% reduction in greenhouse gas emissions compared to petroleum diesel.', 'os-dim');
+        this.addLine('', '');
+        
+        await this.typeLine('To view the detailed process flowchart, type "thesis flowchart".', 'os-warn');
     }
 
     async cmdSkills() {
@@ -192,6 +214,120 @@ class Terminal {
         this.updatePrompt();
     }
 
+    safeUrl(u) {
+        const s = String(u || '').trim();
+        if (!s) return '';
+        if (s.startsWith('http://') || s.startsWith('https://')) return s;
+        if (s.startsWith('mailto:') || s.startsWith('tel:')) return s;
+        return '';
+    }
+
+    async cmdNotes(args) {
+        const sub = (args[0] || '').toLowerCase();
+
+        if (!window.NotesApp) {
+            await this.typeLine('Notes system not initialized.', 'os-bad');
+            return;
+        }
+
+        if (!sub) {
+            if (window.OS) window.OS.open('notes');
+            await this.typeLine('Notes opened. Use "notes export" to publish.', 'os-dim');
+            return;
+        }
+
+        if (sub === 'help') {
+            await this.typeLine('Notes commands:', 'os-dim');
+            await this.typeLine('- notes: Open notes app', 'os-dim');
+            await this.typeLine('- notes list: List notes in terminal', 'os-dim');
+            await this.typeLine('- notes export: Copy local notes as JSON', 'os-dim');
+            await this.typeLine('- notes add: Create a local note (admin required)', 'os-dim');
+            await this.typeLine('- notes clear: Clear all local notes (admin required)', 'os-dim');
+            return;
+        }
+
+        if (sub === 'list' || sub === 'ls') {
+            const list = [];
+            const notesPublic = window.NotesApp.notesPublic || [];
+            const notesLocal = window.NotesApp.notesLocal || [];
+            
+            for (const n of notesPublic) list.push({ ...n, _src: 'public' });
+            for (const n of notesLocal) list.push({ ...n, _src: 'local' });
+            list.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
+            if (list.length === 0) {
+                await this.typeLine('No notes found.', 'os-warn');
+                return;
+            }
+
+            let i = 1;
+            for (const n of list.slice(0, 25)) {
+                const u = this.safeUrl(n.link);
+                const name = String(n.name || 'Untitled');
+                const tag = n._src === 'public' ? 'public' : 'local';
+                await this.typeLine(`[${i}] ${name} (${tag})${u ? ' - ' + u : ''}`, 'os-dim', 80);
+                i += 1;
+            }
+            if (list.length > 25) {
+                await this.typeLine('... more notes exist', 'os-dim');
+            }
+            return;
+        }
+
+        if (sub === 'export') {
+            const notesLocal = window.NotesApp.notesLocal || [];
+            const payload = notesLocal.map(n => ({
+                id: n.id,
+                name: String(n.name || ''),
+                desc: String(n.desc || ''),
+                link: String(n.link || ''),
+                ts: n.ts || Date.now()
+            }));
+
+            const jsonText = JSON.stringify(payload, null, 2);
+            await this.typeLine('Exported local notes JSON. Paste into notes.json in your repo root.', 'os-ok');
+
+            // Print preview
+            const preview = jsonText.split('\n').slice(0, 25);
+            for (const line of preview) {
+                this.addLine(line, 'os-dim');
+            }
+            if (jsonText.split('\n').length > 25) {
+                this.addLine('... (truncated)', 'os-dim');
+            }
+
+            try {
+                await navigator.clipboard.writeText(jsonText);
+                await this.typeLine('Copied full JSON to clipboard successfully.', 'os-ok');
+            } catch (err) {
+                await this.typeLine('Clipboard copy failed. Copy preview text manually.', 'os-warn');
+            }
+            return;
+        }
+
+        if (sub === 'add') {
+            if (window.OS) window.OS.open('notes');
+            if (!window.NotesApp.isAuthed()) {
+                window.NotesApp.openAuth();
+            } else {
+                window.NotesApp.openEditor();
+            }
+            return;
+        }
+
+        if (sub === 'clear') {
+            if (!window.NotesApp.isAuthed()) {
+                await this.typeLine('Admin credentials required. Open Notes UI and login first.', 'os-warn');
+                return;
+            }
+            window.NotesApp.writeLocalNotes([]);
+            await this.typeLine('Local notes cleared.', 'os-ok');
+            return;
+        }
+
+        await this.typeLine('Unknown notes command. Try "notes help".', 'os-warn');
+    }
+
     // Utilities
     getPrompt() {
         return `soheil@macbook:${this.cwd}$`;
@@ -214,16 +350,13 @@ class Terminal {
         return div;
     }
 
-    async typeLine(text, cls, cps = 60) {
-        const line = this.addLine('', cls);
-        const s = String(text || '');
-        const delay = Math.round(1000 / cps);
-
-        for (let i = 0; i < s.length; i++) {
-            line.textContent += s[i];
-            if (i % 3 === 0) this.out.scrollTop = this.out.scrollHeight;
-            await this.sleep(delay);
-        }
+    async typeLine(text, cls, cps = 95) {
+        const line = this.addLine(text, cls);
+        this.out.scrollTop = this.out.scrollHeight;
+        
+        // Print lines rapidly with a tiny sequential delay (e.g. 5-15ms)
+        const delay = Math.max(5, Math.round(300 / cps));
+        await this.sleep(delay);
     }
 
     sleep(ms) {

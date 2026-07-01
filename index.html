@@ -158,22 +158,356 @@
         }
         .edu-icon { font-size: 2.5rem; color: var(--primary); }
 
-        /* --- PUBLICATIONS LIST --- */
-        .pub-list { list-style: none; }
-        .pub-item {
-            padding: 20px;
-            border-bottom: 1px solid var(--glass-border);
-            transition: 0.2s;
+        /* --- DYNAMIC THEME SWITCHER WIDGET --- */
+        .theme-switcher {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s;
+            max-width: 48px;
+            max-height: 48px;
+            overflow: hidden;
         }
-        .pub-item:hover { background: var(--glass); padding-left: 30px; }
-        .pub-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 5px; color: #e2e8f0; }
-        .pub-meta { font-size: 0.9rem; color: var(--text-muted); }
-        .badge { 
-            font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; margin-left: 10px; 
-            border: 1px solid var(--glass-border);
+        .theme-switcher.expanded {
+            max-width: 280px;
+        }
+        .theme-btn.trigger {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: rgba(226, 232, 240, 0.85);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .theme-btn.trigger:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .theme-options {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transform: translateX(10px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .theme-switcher.expanded .theme-options {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+        .theme-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .theme-dot:hover {
+            transform: scale(1.15);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 10px var(--dot-color);
+        }
+        .theme-dot.active {
+            border-color: #fff;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px var(--dot-color);
+        }
+        
+        .theme-dot[data-theme="teal"] { background: linear-gradient(135deg, #2dd4bf, #60a5fa); --dot-color: #2dd4bf; }
+        .theme-dot[data-theme="forest"] { background: linear-gradient(135deg, #10b981, #34d399); --dot-color: #10b981; }
+        .theme-dot[data-theme="sunset"] { background: linear-gradient(135deg, #fb923c, #f472b6); --dot-color: #fb923c; }
+        .theme-dot[data-theme="frost"] { background: linear-gradient(135deg, #38bdf8, #818cf8); --dot-color: #38bdf8; }
+        .theme-dot[data-theme="amethyst"] { background: linear-gradient(135deg, #a78bfa, #fb7185); --dot-color: #a78bfa; }
+
+        /* --- FLOWCHART VIEWER STYLE --- */
+        .flowchart-wrap {
+            position: relative;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), inset 0 0 30px rgba(0, 0, 0, 0.2);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            transition: border-color 0.3s, box-shadow 0.3s, all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flowchart-wrap:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(45, 212, 191, 0.1);
+        }
+        #flowchartCanvas {
+            display: block;
+            max-width: 100%;
+            cursor: grab;
+            background: transparent;
+            transition: filter 0.3s ease;
+        }
+        #flowchartCanvas:active {
+            cursor: grabbing;
+        }
+        .flowchart-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: none;
+            z-index: 5;
+            letter-spacing: 0.5px;
+        }
+        .flowchart-controls {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            display: flex;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px;
+            border-radius: 30px;
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .fc-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: rgba(226, 232, 240, 0.85);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fc-btn:hover {
+            background: var(--primary);
+            color: #0f172a;
+            box-shadow: 0 0 12px var(--primary);
+        }
+        .fc-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* --- PUBLICATIONS FILTERS & LIST --- */
+        .pub-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .pub-filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .pub-filter-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        .pub-filter-btn.active {
+            background: var(--primary);
+            color: #0f172a;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+        }
+        .pub-list { list-style: none; padding: 0; margin: 0; }
+        .pub-item {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.015), transparent);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--secondary);
+            margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .pub-item:hover {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.005));
+            border-left-color: var(--primary);
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .pub-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: rgba(96, 165, 250, 0.06);
+            border-radius: 12px;
+            border: 1px solid rgba(96, 165, 250, 0.12);
+            transition: all 0.3s ease;
+        }
+        .pub-item:hover .pub-icon {
+            color: var(--primary);
+            background: rgba(45, 212, 191, 0.08);
+            border-color: rgba(45, 212, 191, 0.18);
+        }
+        .pub-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+        .pub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .pub-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            line-height: 1.4;
+            color: #f1f5f9;
+            margin: 0;
+            flex: 1;
+            min-width: 250px;
+        }
+        .pub-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .pub-title a:hover {
+            color: var(--primary);
+        }
+        .pub-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .pub-meta em {
+            color: var(--secondary);
+            font-style: italic;
+        }
+        .badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            display: inline-block;
         }
         .badge-pub { color: var(--primary); border-color: var(--primary); }
         .badge-sub { color: var(--accent); border-color: var(--accent); }
+
+        /* --- MINIMALIST MUSIC WIDGET --- */
+        .music-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+        }
+        .music-toggle-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(45, 212, 191, 0.15);
+        }
+        .music-toggle-btn:active {
+            transform: scale(0.95);
+        }
+        .music-mute-icon {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        .music-toggle-btn:hover .music-mute-icon {
+            color: var(--primary);
+        }
+        .music-wave {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 3px;
+            width: 24px;
+            height: 20px;
+        }
+        .music-wave span {
+            display: block;
+            width: 3px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            transition: height 0.08s ease; /* fast frequency updates */
+            box-shadow: 0 0 8px var(--primary);
+        }
 
         /* --- FOOTER --- */
         footer { padding: 50px 0; text-align: center; color: var(--text-muted); margin-top: 80px; border-top: 1px solid var(--glass-border); }
@@ -181,6 +515,59 @@
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             .card .date { position: relative; top: auto; right: auto; display: block; margin-bottom: 10px; }
+
+            .theme-switcher {
+                top: auto !important;
+                bottom: 20px !important;
+                right: 20px !important;
+                flex-direction: column-reverse;
+                max-width: 48px !important;
+                max-height: 48px;
+                padding: 8px;
+                border-radius: 24px;
+            }
+            .theme-switcher.expanded {
+                max-height: 280px;
+                padding-top: 14px;
+                padding-bottom: 8px;
+                max-width: 48px !important;
+            }
+            .theme-options {
+                flex-direction: column;
+                transform: translateY(10px);
+            }
+            .theme-switcher.expanded .theme-options {
+                transform: translateY(0);
+            }
+
+            .flowchart-badge {
+                display: none !important;
+            }
+            .flowchart-controls {
+                bottom: 8px !important;
+                right: 8px !important;
+                padding: 4px !important;
+                gap: 4px !important;
+            }
+            .fc-btn {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .pub-item {
+                padding: 16px;
+                gap: 12px;
+            }
+            .pub-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.6rem;
+                border-radius: 10px;
+            }
+            .pub-title {
+                font-size: 1.05rem;
+                min-width: 0;
+            }
         }
     
 
@@ -198,6 +585,20 @@
 </style>
 </head>
 <body>
+
+    <!-- Theme Switcher Widget -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <button class="theme-btn trigger" id="themeTrigger" aria-label="Open Theme Settings" title="Change Accent Theme">
+            <span class="material-symbols-rounded" aria-hidden="true">palette</span>
+        </button>
+        <div class="theme-options">
+            <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
+            <button class="theme-dot" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"></button>
+            <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
+            <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
+            <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
+        </div>
+    </div>
 
     <div class="spotlight"></div>
 
@@ -772,107 +1173,223 @@
                     <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.1rem;">mail</span>
                 </a>
             </p>
+
+            <div style="margin-top: 20px;">
+                <button type="button" class="btn-hero-primary" id="toggleFlowchartBtn" style="padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+                    <span class="material-symbols-rounded" aria-hidden="true">filter_alt</span> View Process Flowchart
+                </button>
+            </div>
+            
+            <div id="flowchartViewer" style="display: none; margin-top: 25px; position: relative;">
+                <div class="flowchart-wrap" id="flowchartWrap">
+                    <div class="flowchart-badge">
+                        <span class="material-symbols-rounded" style="font-size: 1.1rem; color: var(--primary);">info</span>
+                        Drag to Pan • Scroll to Zoom • Double-Click to Reset
+                    </div>
+                    <canvas id="flowchartCanvas" width="800" height="480"></canvas>
+                    <div class="flowchart-controls">
+                        <button type="button" class="fc-btn" id="fcToggleTheme" title="Toggle Diagram Dark Mode"><span class="material-symbols-rounded" aria-hidden="true">contrast</span></button>
+                        <button type="button" class="fc-btn" id="fcZoomIn" title="Zoom In"><span class="material-symbols-rounded" aria-hidden="true">zoom_in</span></button>
+                        <button type="button" class="fc-btn" id="fcZoomOut" title="Zoom Out"><span class="material-symbols-rounded" aria-hidden="true">zoom_out</span></button>
+                        <button type="button" class="fc-btn" id="fcReset" title="Reset View"><span class="material-symbols-rounded" aria-hidden="true">restart_alt</span></button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h3 style="color: var(--text-main); margin: 30px 0 20px; font-size: 1.5rem;">Journal Papers</h3>
-        <ul class="pub-list">
-            
-            <li class="pub-item">
-                <div class="pub-title">
-                    <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        Assessment of Biomass Resources in Iran and Worldwide
-                        <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
-                    </a>
-                    <span class="badge badge-pub">Published</span>
+        <div class="pub-filters">
+            <button class="pub-filter-btn active" data-filter="all">All (11)</button>
+            <button class="pub-filter-btn" data-filter="journal">Journal Papers (3)</button>
+            <button class="pub-filter-btn" data-filter="conference">Conference (8)</button>
+            <button class="pub-filter-btn" data-filter="lca-waste">LCA & Waste Mgmt</button>
+            <button class="pub-filter-btn" data-filter="biofuels-facades">Biofuels & Facades</button>
+        </div>
+
+        <h3 id="pub-journal-title" style="color: var(--text-main); margin: 30px 0 20px; font-size: 1.5rem;">Journal Papers</h3>
+        <ul id="pub-journal-list" class="pub-list">
+            <li class="pub-item" data-category="journal" data-tags="lca,msw,sustainability">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">menu_book</span>
                 </div>
-                <div class="pub-meta">
-                    Aghayani, S., Pazoki, M., Bavandpor, A., Mollasalehi, A. (2025) <br>
-                    <em>Pollution Journal (Diversity Analysis in Rural Areas with a Focus on MSW)</em>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">
+                            <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank">
+                                Assessment of Biomass Resources in Iran and Worldwide: Diversity Analysis in Rural Areas with a Focus on Municipal Solid Waste and Livestock Manure
+                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                            </a>
+                        </h4>
+                        <span class="badge badge-pub">Published</span>
+                    </div>
+                    <div class="pub-meta">
+                        Aghayani, S., Pazoki, M., Bavandpor, A., & Mollasalehi, A. (2026) <br>
+                        <em>Pollution Journal (Diversity Analysis in Rural Areas with a Focus on MSW)</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">
-                    <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        Siting a Waste Transfer Station in District 6 of Karaj Municipality
-                        <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; color: var(--secondary);">open_in_new</span>
-                    </a>
-                    <span class="badge badge-pub">Published</span>
+            <li class="pub-item" data-category="journal" data-tags="siting,msw">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">menu_book</span>
                 </div>
-                <div class="pub-meta">
-                    Samiei Zafragandi, R., & Aghayani, S. (2025) <br>
-                    <em>Pollution Journal</em>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">
+                            <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank">
+                                Siting a Waste Transfer Station in District 6 of Karaj Municipality
+                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                            </a>
+                        </h4>
+                        <span class="badge badge-pub">Published</span>
+                    </div>
+                    <div class="pub-meta">
+                        Samiei Zafragandi, R., & Aghayani, S. (2025) <br>
+                        <em>Pollution Journal</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">
-                    Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
-                    <span class="badge badge-sub">Under Review</span>
+            <li class="pub-item" data-category="journal" data-tags="lca,emissions,msw">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">menu_book</span>
                 </div>
-                <div class="pub-meta">
-                    Mollasalehi, A., Aghayani, S., Pazoki, M., Borji, S. (2025) <br>
-                    <em>Submitted to Advances in Environmental Technology Journal</em>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">
+                            <a href="https://aet.irost.ir/article_1686.html" target="_blank">
+                                Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
+                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                            </a>
+                        </h4>
+                        <span class="badge badge-pub">Published</span>
+                    </div>
+                    <div class="pub-meta">
+                        Mollasalehi, A., Pazoki, M., Aghayani, S., & Borji, S. (2026) <br>
+                        <em>Advances in Environmental Technology</em>
+                    </div>
                 </div>
             </li>
         </ul>
 
-        <h3 style="color: var(--text-main); margin: 50px 0 20px; font-size: 1.5rem;">Conference Papers</h3>
-        <ul class="pub-list">
-            
-            <li class="pub-item">
-                <div class="pub-title">A Review of Biofuel Production from Biomass by Transesterification</div>
-                <div class="pub-meta">
-                    Aghayani, S., et al. (2025) | <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+        <h3 id="pub-conference-title" style="color: var(--text-main); margin: 50px 0 20px; font-size: 1.5rem;">Conference Papers</h3>
+        <ul id="pub-conference-list" class="pub-list">
+            <li class="pub-item" data-category="conference" data-tags="biofuel,energy">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">A Review of Biofuel Production from Biomass by Transesterification</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Aghayani, S., et al. (2025) <br>
+                        <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Management of Pharmaceutical Wastes: Disposal Methods & Strategies</div>
-                <div class="pub-meta">
-                    Molasalehi, A., Samiee Zafragandi, R., Aghayani, S. (2025) | <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="waste">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Management of Pharmaceutical Wastes: Disposal Methods & Strategies</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Molasalehi, A., Samiee Zafragandi, R., & Aghayani, S. (2025) <br>
+                        <em>2nd National Conference on Future & Sustainability of Environment, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Assessment of Pollutants in the Textile Industry</div>
-                <div class="pub-meta">
-                    Samiee Zafragandi, R., Aghayani, S., et al. (2024) | <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="waste">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Assessment of Pollutants in the Textile Industry</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Samiee Zafragandi, R., Aghayani, S., et al. (2024) <br>
+                        <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Pollutants in the Steel Industry: Reduction & Disposal Methods</div>
-                <div class="pub-meta">
-                    Samiee Zafragandi, R., Molasalehi, A., & Aghayani, S. (2024) | <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="waste">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Pollutants in the Steel Industry: Reduction & Disposal Methods</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Samiee Zafragandi, R., Molasalehi, A., & Aghayani, S. (2024) <br>
+                        <em>1st National Conference on Future & Sustainability of Environment, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Examining the Art and Science of Facade Design</div>
-                <div class="pub-meta">
-                    Abbasnezhad, N., & Aghayani, S. (2023) | <em>8th Int. Conference on Research in Science and Engineering, Bangkok, Thailand</em>
+            <li class="pub-item" data-category="conference" data-tags="facade,engineering">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Examining the Art and Science of Facade Design</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Abbasnezhad, N., & Aghayani, S. (2023) <br>
+                        <em>8th Int. Conference on Research in Science and Engineering, Bangkok, Thailand</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Investigating the Art and Science of Facade Design</div>
-                <div class="pub-meta">
-                    Abbasnezhad, N., & Aghayani, S. (2023a) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="facade,engineering">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Investigating the Art and Science of Facade Design</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Abbasnezhad, N., & Aghayani, S. (2023a) <br>
+                        <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">A Review of the Future of Building Facades and Their Features</div>
-                <div class="pub-meta">
-                    Abbasnezhad, N., & Aghayani, S. (2023b) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="facade,engineering">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">A Review of the Future of Building Facades and Their Features</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Abbasnezhad, N., & Aghayani, S. (2023b) <br>
+                        <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                    </div>
                 </div>
             </li>
 
-            <li class="pub-item">
-                <div class="pub-title">Installation Methods of Building Facades and Their Challenges</div>
-                <div class="pub-meta">
-                    Abbasnezhad, N., & Aghayani, S. (2023c) | <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+            <li class="pub-item" data-category="conference" data-tags="facade,engineering">
+                <div class="pub-icon" aria-hidden="true">
+                    <span class="material-symbols-rounded">co_present</span>
+                </div>
+                <div class="pub-content">
+                    <div class="pub-header">
+                        <h4 class="pub-title">Installation Methods of Building Facades and Their Challenges</h4>
+                    </div>
+                    <div class="pub-meta">
+                        Abbasnezhad, N., & Aghayani, S. (2023c) <br>
+                        <em>9th Annual Int. Congress on Civil Engineering, Architecture, and Urban Development, Tehran</em>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -1170,6 +1687,7 @@
         box-shadow: none;
         cursor: pointer;
         border-radius: 20px; /* Match inner radius for natural focus outline */
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease, filter 0.6s ease;
     }
 
     .t-card:focus-visible {
@@ -1592,7 +2110,7 @@
                     <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary);">translate</span>
                     German
                 </h3>
-                <p style="color: var(--text-muted); margin-top: 10px;">ÖSD Certificate: <b style="color:#fff;">A2.1</b></p>
+                <p style="color: var(--text-muted); margin-top: 10px;">Current Level: <b style="color:#fff;">B1.1</b></p>
             </div>
         </div>
 
@@ -2771,12 +3289,542 @@
     }
   }
 
+  // Disable right-click completely
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  function initThemeSwitcher() {
+    const trigger = document.getElementById('themeTrigger');
+    const switcher = document.getElementById('themeSwitcher');
+    const dots = document.querySelectorAll('.theme-dot');
+    
+    if (!trigger || !switcher) return;
+    
+    // Toggle expand
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        switcher.classList.toggle('expanded');
+    });
+    
+    // Close when clicking outside
+    document.addEventListener('click', () => {
+        switcher.classList.remove('expanded');
+    });
+    
+    // Themes configuration
+    const themes = {
+        teal: { primary: '#2dd4bf', secondary: '#60a5fa', accent: '#3b82f6', bg: '#090d16', glass: 'rgba(15,23,42,0.45)', border: 'rgba(255,255,255,0.08)' },
+        forest: { primary: '#10b981', secondary: '#34d399', accent: '#059669', bg: '#060f0e', glass: 'rgba(12,24,20,0.45)', border: 'rgba(255,255,255,0.06)' },
+        sunset: { primary: '#fb923c', secondary: '#f472b6', accent: '#e11d48', bg: '#120b10', glass: 'rgba(24,12,20,0.45)', border: 'rgba(255,255,255,0.07)' },
+        frost: { primary: '#38bdf8', secondary: '#818cf8', accent: '#4f46e5', bg: '#0b0f19', glass: 'rgba(12,18,32,0.45)', border: 'rgba(255,255,255,0.08)' },
+        amethyst: { primary: '#a78bfa', secondary: '#fb7185', accent: '#db2777', bg: '#0e0b16', glass: 'rgba(18,12,28,0.45)', border: 'rgba(255,255,255,0.08)' }
+    };
+    
+    // Set active dot
+    const currentTheme = localStorage.getItem('theme-accent') || 'teal';
+    const activeDot = switcher.querySelector(`.theme-dot[data-theme="${currentTheme}"]`);
+    if (activeDot) activeDot.classList.add('active');
+    
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            dots.forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
+            
+            const themeName = dot.getAttribute('data-theme');
+            const theme = themes[themeName];
+            if (!theme) return;
+            
+            // Save selection
+            localStorage.setItem('theme-accent', themeName);
+            
+            // Apply variables
+            const root = document.documentElement;
+            root.style.setProperty('--primary', theme.primary);
+            root.style.setProperty('--secondary', theme.secondary);
+            root.style.setProperty('--accent', theme.accent);
+            root.style.setProperty('--bg-dark', theme.bg);
+            root.style.setProperty('--glass', theme.glass);
+            root.style.setProperty('--glass-border', theme.border);
+        });
+    });
+  }
+
+  function setupFlowchartViewer() {
+    const btn = document.getElementById('toggleFlowchartBtn');
+    const viewer = document.getElementById('flowchartViewer');
+    const canvas = document.getElementById('flowchartCanvas');
+    const zoomIn = document.getElementById('fcZoomIn');
+    const zoomOut = document.getElementById('fcZoomOut');
+    const reset = document.getElementById('fcReset');
+    const toggleTheme = document.getElementById('fcToggleTheme');
+
+    if (!btn || !viewer || !canvas) return;
+
+    let img = new Image();
+    img.src = 'assets/flowchart.webp';
+
+    let ctx = canvas.getContext('2d');
+    let transform = { x: 0, y: 0, scale: 1 };
+    let targetTransform = { x: 0, y: 0, scale: 1 };
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let imgLoaded = false;
+    let animationFrameId = null;
+    let isFilterActive = false;
+    let isBlurred = false;
+
+    img.onload = () => {
+        imgLoaded = true;
+        resizeCanvas();
+        resetView(true);
+        startAnimationLoop();
+    };
+
+    function startAnimationLoop() {
+        function update() {
+            if (!isBlurred) {
+                transform.x += (targetTransform.x - transform.x) * 0.15;
+                transform.y += (targetTransform.y - transform.y) * 0.15;
+                transform.scale += (targetTransform.scale - transform.scale) * 0.15;
+                draw();
+            }
+            animationFrameId = requestAnimationFrame(update);
+        }
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(update);
+    }
+
+    function draw() {
+        if (!imgLoaded) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.save();
+        ctx.translate(transform.x, transform.y);
+        ctx.scale(transform.scale, transform.scale);
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        ctx.restore();
+    }
+
+    function resetView(instant = false) {
+        if (!imgLoaded) return;
+        const scaleX = canvas.width / img.width;
+        const scaleY = canvas.height / img.height;
+        const finalScale = Math.min(scaleX, scaleY) * 0.92;
+        
+        const targetX = (canvas.width - img.width * finalScale) / 2;
+        const targetY = (canvas.height - img.height * finalScale) / 2;
+
+        targetTransform.scale = finalScale;
+        targetTransform.x = targetX;
+        targetTransform.y = targetY;
+
+        if (instant) {
+            transform.scale = finalScale;
+            transform.x = targetX;
+            transform.y = targetY;
+            draw();
+        }
+    }
+
+    btn.addEventListener('click', () => {
+        if (viewer.style.display === 'none') {
+            viewer.style.display = 'block';
+            btn.innerHTML = '<span class="material-symbols-rounded">filter_alt_off</span> Hide Flowchart';
+            setTimeout(() => {
+                resizeCanvas();
+                resetView(true);
+                startAnimationLoop();
+            }, 50);
+        } else {
+            viewer.style.display = 'none';
+            btn.innerHTML = '<span class="material-symbols-rounded">filter_alt</span> View Process Flowchart';
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+    });
+
+    function resizeCanvas() {
+        const parentWidth = viewer.parentElement.clientWidth - 40;
+        canvas.width = parentWidth;
+        canvas.height = Math.min(480, window.innerHeight * 0.6);
+    }
+
+    window.addEventListener('resize', () => {
+        if (viewer.style.display === 'block') {
+            resizeCanvas();
+        }
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+        if (isBlurred) return;
+        e.preventDefault();
+        isDragging = true;
+        dragStart.x = e.clientX - targetTransform.x;
+        dragStart.y = e.clientY - targetTransform.y;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging || isBlurred) return;
+        e.preventDefault();
+        targetTransform.x = e.clientX - dragStart.x;
+        targetTransform.y = e.clientY - dragStart.y;
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    canvas.addEventListener('touchstart', (e) => {
+        if (isBlurred) return;
+        if (e.touches.length === 1) {
+            isDragging = true;
+            dragStart.x = e.touches[0].clientX - targetTransform.x;
+            dragStart.y = e.touches[0].clientY - targetTransform.y;
+        }
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1 || isBlurred) return;
+        e.preventDefault();
+        targetTransform.x = e.touches[0].clientX - dragStart.x;
+        targetTransform.y = e.touches[0].clientY - dragStart.y;
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', () => { isDragging = false; });
+
+    canvas.addEventListener('wheel', (e) => {
+        if (isBlurred) return;
+        e.preventDefault();
+        const zoomIntensity = 0.08;
+        const mouseX = e.clientX - canvas.getBoundingClientRect().left;
+        const mouseY = e.clientY - canvas.getBoundingClientRect().top;
+        const wheel = e.deltaY < 0 ? 1 : -1;
+        const zoomFactor = Math.exp(wheel * zoomIntensity);
+        
+        const targetScale = Math.min(Math.max(targetTransform.scale * zoomFactor, 0.15), 4.5);
+        
+        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
+        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
+        targetTransform.scale = targetScale;
+    }, { passive: false });
+
+    canvas.addEventListener('dblclick', () => {
+        if (isBlurred) return;
+        resetView(false);
+    });
+
+    zoomIn.addEventListener('click', () => {
+        if (isBlurred) return;
+        const mouseX = canvas.width / 2;
+        const mouseY = canvas.height / 2;
+        const targetScale = Math.min(targetTransform.scale * 1.3, 4.5);
+        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
+        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
+        targetTransform.scale = targetScale;
+    });
+
+    zoomOut.addEventListener('click', () => {
+        if (isBlurred) return;
+        const mouseX = canvas.width / 2;
+        const mouseY = canvas.height / 2;
+        const targetScale = Math.max(targetTransform.scale / 1.3, 0.15);
+        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
+        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
+        targetTransform.scale = targetScale;
+    });
+
+    reset.addEventListener('click', () => {
+        if (isBlurred) return;
+        resetView(false);
+    });
+
+    if (toggleTheme) {
+        toggleTheme.addEventListener('click', () => {
+            if (isBlurred) return;
+            isFilterActive = !isFilterActive;
+            canvas.style.filter = isFilterActive 
+                ? 'invert(0.9) hue-rotate(180deg) brightness(0.95) contrast(1.15)' 
+                : 'none';
+            toggleTheme.style.color = isFilterActive ? 'var(--primary)' : '';
+        });
+    }
+
+    function lockScreen() {
+        isBlurred = true;
+        isDragging = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.99)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(248, 113, 113, 0.9)';
+        ctx.font = 'bold 18px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🔒 Protected Content (Active Window Required)', canvas.width / 2, canvas.height / 2);
+    }
+
+    function unlockScreen() {
+        isBlurred = false;
+        draw();
+    }
+
+    window.addEventListener('blur', lockScreen);
+    window.addEventListener('focus', unlockScreen);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) lockScreen();
+        else unlockScreen();
+    });
+  }
+
+  function setupPubFilters() {
+    const filters = document.querySelectorAll('.pub-filter-btn');
+    const items = document.querySelectorAll('.pub-item');
+    const journalTitle = document.getElementById('pub-journal-title');
+    const journalList = document.getElementById('pub-journal-list');
+    const conferenceTitle = document.getElementById('pub-conference-title');
+    const conferenceList = document.getElementById('pub-conference-list');
+
+    if (filters.length === 0 || items.length === 0) return;
+
+    filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filters.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+            
+            // Show/hide based on category or tag
+            items.forEach(item => {
+                const category = item.getAttribute('data-category');
+                const tags = item.getAttribute('data-tags') || '';
+                const tagList = tags.split(',');
+
+                if (filterValue === 'all') {
+                    item.style.display = 'flex';
+                } else if (filterValue === 'journal') {
+                    item.style.display = (category === 'journal') ? 'flex' : 'none';
+                } else if (filterValue === 'conference') {
+                    item.style.display = (category === 'conference') ? 'flex' : 'none';
+                } else if (filterValue === 'lca-waste') {
+                    item.style.display = (tagList.includes('lca') || tagList.includes('msw') || tagList.includes('waste')) ? 'flex' : 'none';
+                } else if (filterValue === 'biofuels-facades') {
+                    item.style.display = (tagList.includes('biofuel') || tagList.includes('facade') || tagList.includes('engineering') || tagList.includes('energy')) ? 'flex' : 'none';
+                }
+            });
+
+            // Adjust headers visibility based on items visible in each section
+            if (filterValue === 'all') {
+                if (journalTitle) journalTitle.style.display = 'block';
+                if (journalList) journalList.style.display = 'block';
+                if (conferenceTitle) conferenceTitle.style.display = 'block';
+                if (conferenceList) conferenceList.style.display = 'block';
+            } else if (filterValue === 'journal') {
+                if (journalTitle) journalTitle.style.display = 'block';
+                if (journalList) journalList.style.display = 'block';
+                if (conferenceTitle) conferenceTitle.style.display = 'none';
+                if (conferenceList) conferenceList.style.display = 'none';
+            } else if (filterValue === 'conference') {
+                if (journalTitle) journalTitle.style.display = 'none';
+                if (journalList) journalList.style.display = 'none';
+                if (conferenceTitle) conferenceTitle.style.display = 'block';
+                if (conferenceList) conferenceList.style.display = 'block';
+            } else {
+                // For custom tags, check if there's any visible item in each list
+                let visibleJournals = 0;
+                let visibleConfs = 0;
+                
+                if (journalList) {
+                    journalList.querySelectorAll('.pub-item').forEach(item => {
+                        if (item.style.display !== 'none') visibleJournals++;
+                    });
+                }
+                if (conferenceList) {
+                    conferenceList.querySelectorAll('.pub-item').forEach(item => {
+                        if (item.style.display !== 'none') visibleConfs++;
+                    });
+                }
+                
+                if (journalTitle) journalTitle.style.display = visibleJournals > 0 ? 'block' : 'none';
+                if (journalList) journalList.style.display = visibleJournals > 0 ? 'block' : 'none';
+                if (conferenceTitle) conferenceTitle.style.display = visibleConfs > 0 ? 'block' : 'none';
+                if (conferenceList) conferenceList.style.display = visibleConfs > 0 ? 'block' : 'none';
+            }
+        });
+    });
+  }
+
+  function setupMusicPlayer() {
+    const btn = document.getElementById('musicToggleBtn');
+    const muteIcon = document.getElementById('musicMuteIcon');
+    const wave = document.getElementById('musicWave');
+    const spans = wave.querySelectorAll('span');
+
+    if (!btn) return;
+
+    // Playlist tracks
+    const tracks = [
+        "assets/warm-cup-of-coffee.mp3",
+        "assets/monday-routine.mp3",
+        "assets/kyoto.mp3"
+    ];
+    let currentTrackIdx = 0;
+    
+    let audio = new Audio();
+    audio.src = tracks[currentTrackIdx];
+    audio.preload = "auto";
+    audio.load(); // Force preload
+
+    let isPlaying = false;
+    let audioCtx = null;
+    let analyser = null;
+    let dataArray = null;
+    let source = null;
+    let animFrameId = null;
+
+    audio.addEventListener('ended', () => {
+        currentTrackIdx = (currentTrackIdx + 1) % tracks.length;
+        audio.src = tracks[currentTrackIdx];
+        audio.load();
+        if (isPlaying) {
+            audio.play().catch(() => setPlayingState(false));
+        }
+    });
+
+    audio.addEventListener('error', (e) => {
+        console.error("Audio playback error encountered:", audio.error);
+    });
+
+    function initWebAudio() {
+        if (audioCtx) return;
+        
+        // Bypassing Web Audio API context rerouting when using file:// protocol.
+        // Chrome/Firefox treat local file elements as cross-origin, which permanently mutes audio elements when rerouted.
+        if (window.location.protocol === 'file:') {
+            console.warn("Bypassing Web Audio Context on file:// protocol to avoid CORS playback mute.");
+            return;
+        }
+        
+        try {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContextClass();
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 32;
+            
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+            
+            source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+        } catch (e) {
+            console.warn("Web Audio API not fully supported or blocked:", e);
+            audioCtx = null;
+            analyser = null;
+            dataArray = null;
+            source = null;
+        }
+    }
+
+    function setPlayingState(play) {
+        isPlaying = play;
+        if (play) {
+            btn.classList.add('playing');
+            muteIcon.style.display = 'none';
+            wave.style.display = 'flex';
+            startVisualizer();
+        } else {
+            btn.classList.remove('playing');
+            muteIcon.style.display = 'flex';
+            wave.style.display = 'none';
+            stopVisualizer();
+        }
+    }
+
+    function updateVisualizer() {
+        if (!isPlaying) return;
+        
+        if (analyser && dataArray) {
+            analyser.getByteFrequencyData(dataArray);
+            const bands = [
+                dataArray[1] || 0,
+                dataArray[3] || 0,
+                dataArray[5] || 0,
+                dataArray[7] || 0
+            ];
+            
+            spans.forEach((span, idx) => {
+                const val = bands[idx];
+                const height = 4 + (val / 255) * 14;
+                span.style.height = `${height}px`;
+            });
+        } else {
+            // Smoothly animate random bounce heights for local/fallback player mode
+            spans.forEach((span) => {
+                const height = 4 + Math.random() * 14;
+                span.style.height = `${height}px`;
+            });
+        }
+        
+        animFrameId = requestAnimationFrame(updateVisualizer);
+    }
+
+    function startVisualizer() {
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animFrameId = requestAnimationFrame(updateVisualizer);
+    }
+
+    function stopVisualizer() {
+        if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
+        }
+        spans.forEach(span => {
+            span.style.height = '4px';
+        });
+    }
+
+    btn.addEventListener('click', () => {
+        initWebAudio();
+        
+        if (isPlaying) {
+            audio.pause();
+            setPlayingState(false);
+        } else {
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            audio.play().then(() => {
+                setPlayingState(true);
+            }).catch(err => {
+                console.warn("Playback blocked by browser autoplay policy:", err);
+            });
+        }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     setupSectionHeaders();
     setupFade();
+    initThemeSwitcher();
+    setupFlowchartViewer();
+    setupPubFilters();
+    setupMusicPlayer();
   });
 })();
 </script>
+
+<!-- Minimalist Lo-Fi Music Widget -->
+<button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Background Music" title="Play Background Music">
+    <div class="music-mute-icon" id="musicMuteIcon">
+        <span class="material-symbols-rounded">music_off</span>
+    </div>
+    <div class="music-wave" id="musicWave" style="display: none;">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
 
 <script defer src="js/os.js"></script>
 <script defer src="js/terminal.js"></script>
