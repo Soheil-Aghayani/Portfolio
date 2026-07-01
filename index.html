@@ -162,8 +162,8 @@
         /* --- DYNAMIC THEME SWITCHER WIDGET --- */
         .theme-switcher {
             position: fixed;
-            top: 24px;
-            right: 24px;
+            bottom: 20px;
+            right: 20px;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -520,7 +520,7 @@
             .theme-switcher {
                 top: auto !important;
                 bottom: 20px !important;
-                right: 16px !important;
+                right: 20px !important;
                 flex-direction: column-reverse;
                 max-width: 48px !important;
                 width: 48px !important;
@@ -3371,7 +3371,18 @@
     if (!btn || !viewer || !canvas) return;
 
     let img = new Image();
-    img.src = 'assets/flowchart.webp';
+    
+    // Select image based on window viewport size
+    function updateFlowchartSrc() {
+        const isMobile = window.innerWidth <= 768;
+        const targetSrc = isMobile ? 'assets/flowchart-phone.webp' : 'assets/flowchart.webp';
+        if (!img.src.endsWith(targetSrc)) {
+            imgLoaded = false;
+            img.src = targetSrc;
+        }
+    }
+    
+    updateFlowchartSrc();
 
     let ctx = canvas.getContext('2d');
     let transform = { x: 0, y: 0, scale: 1 };
@@ -3382,6 +3393,11 @@
     let animationFrameId = null;
     let isFilterActive = false;
     let isBlurred = false;
+
+    // Multi-touch gestures tracking
+    let initialPinchDist = 0;
+    let initialScale = 1;
+    let pinchCenter = { x: 0, y: 0 };
 
     img.onload = () => {
         imgLoaded = true;
@@ -3419,7 +3435,8 @@
         if (!imgLoaded) return;
         const scaleX = canvas.width / img.width;
         const scaleY = canvas.height / img.height;
-        const finalScale = Math.min(scaleX, scaleY) * 0.92;
+        // Use Math.max to achieve "Cover" behavior so the image fills the canvas with no space around it
+        const finalScale = Math.max(scaleX, scaleY);
         
         const targetX = (canvas.width - img.width * finalScale) / 2;
         const targetY = (canvas.height - img.height * finalScale) / 2;
@@ -3440,10 +3457,13 @@
         if (viewer.style.display === 'none') {
             viewer.style.display = 'block';
             btn.innerHTML = '<span class="material-symbols-rounded">filter_alt_off</span> Hide Flowchart';
+            updateFlowchartSrc();
             setTimeout(() => {
                 resizeCanvas();
-                resetView(true);
-                startAnimationLoop();
+                if (imgLoaded) {
+                    resetView(true);
+                    startAnimationLoop();
+                }
             }, 50);
         } else {
             viewer.style.display = 'none';
@@ -3463,6 +3483,7 @@
 
     window.addEventListener('resize', () => {
         if (viewer.style.display === 'block') {
+            updateFlowchartSrc();
             resizeCanvas();
         }
     });
@@ -3490,17 +3511,47 @@
             isDragging = true;
             dragStart.x = e.touches[0].clientX - targetTransform.x;
             dragStart.y = e.touches[0].clientY - targetTransform.y;
+        } else if (e.touches.length === 2) {
+            isDragging = false;
+            initialPinchDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            initialScale = targetTransform.scale;
+            
+            const rect = canvas.getBoundingClientRect();
+            pinchCenter.x = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
+            pinchCenter.y = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
         }
     });
 
     canvas.addEventListener('touchmove', (e) => {
-        if (!isDragging || e.touches.length !== 1 || isBlurred) return;
-        e.preventDefault();
-        targetTransform.x = e.touches[0].clientX - dragStart.x;
-        targetTransform.y = e.touches[0].clientY - dragStart.y;
+        if (isBlurred) return;
+        if (e.touches.length === 1 && isDragging) {
+            e.preventDefault();
+            targetTransform.x = e.touches[0].clientX - dragStart.x;
+            targetTransform.y = e.touches[0].clientY - dragStart.y;
+        } else if (e.touches.length === 2 && initialPinchDist > 0) {
+            e.preventDefault(); // Stop mobile from zooming the entire page
+            const currentDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            const zoomFactor = currentDist / initialPinchDist;
+            const targetScale = Math.min(Math.max(initialScale * zoomFactor, 0.15), 4.5);
+            
+            targetTransform.x = pinchCenter.x - (pinchCenter.x - targetTransform.x) * (targetScale / targetTransform.scale);
+            targetTransform.y = pinchCenter.y - (pinchCenter.y - targetTransform.y) * (targetScale / targetTransform.scale);
+            targetTransform.scale = targetScale;
+        }
     }, { passive: false });
 
-    canvas.addEventListener('touchend', () => { isDragging = false; });
+    canvas.addEventListener('touchend', (e) => {
+        isDragging = false;
+        if (e.touches.length < 2) {
+            initialPinchDist = 0;
+        }
+    });
 
     canvas.addEventListener('wheel', (e) => {
         if (isBlurred) return;
