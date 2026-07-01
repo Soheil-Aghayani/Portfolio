@@ -1,5 +1,5 @@
 
-import { GameLauncher } from './games/launcher.js';
+import { GameLauncher } from './games/launcher.js?v=2.2';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Register Terminal

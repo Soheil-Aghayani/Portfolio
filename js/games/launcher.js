@@ -1,7 +1,7 @@
 
-import { SnakeGame } from './snake.js';
-import { BlackjackGame } from './blackjack.js';
-import { TetrisGame } from './tetris.js';
+import { SnakeGame } from './snake.js?v=2.2';
+import { BlackjackGame } from './blackjack.js?v=2.2';
+import { TetrisGame } from './tetris.js?v=2.2';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -206,6 +206,7 @@ export class GameLauncher {
 
             const scoreBoard = document.createElement('div');
             scoreBoard.className = 'snake-scoreboard';
+            scoreBoard.style.maxWidth = '180px'; // Align with the 180px Tetris board width
             scoreBoard.innerHTML = `
                 <div class="snake-score-item">SCORE <span id="tetrisScore">0</span></div>
                 <div class="snake-score-item">LEVEL <span id="tetrisLevel">1</span></div>
