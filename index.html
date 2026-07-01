@@ -578,19 +578,19 @@
                 right: auto !important;
                 width: 48px !important;
                 max-width: 48px !important;
-                height: 48px !important;
+                height: 48px; /* Removed !important to allow expanded state height to apply */
                 max-height: 48px;
                 padding: 8px !important;
                 border-radius: 50% !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s !important;
+                transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s !important;
                 overflow: hidden !important;
             }
             .theme-switcher.expanded {
+                height: 280px !important; /* Explicitly expand height to 280px on mobile */
                 max-height: 280px !important;
-                height: auto !important;
                 padding-top: 14px !important;
                 padding-bottom: 8px !important;
                 border-radius: 24px !important; /* Perfect vertical capsule shape */
@@ -3382,10 +3382,15 @@
     
     if (!trigger || !switcher) return;
     
-    // Toggle expand
-    trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        switcher.classList.toggle('expanded');
+    // Toggle expand (listen to entire switcher when collapsed, or trigger button when expanded)
+    switcher.addEventListener('click', (e) => {
+        if (!switcher.classList.contains('expanded')) {
+            e.stopPropagation();
+            switcher.classList.add('expanded');
+        } else if (trigger.contains(e.target)) {
+            e.stopPropagation();
+            switcher.classList.remove('expanded');
+        }
     });
     
     // Close when clicking outside

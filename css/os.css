@@ -683,3 +683,36 @@
 .snake-restart-btn:active {
     transform: translateY(0);
 }
+
+/* MOBILE OPTIMIZATIONS FOR TERMINAL */
+@media (max-width: 768px) {
+    .os-term-win {
+        width: calc(100% - 12px) !important;
+        border-radius: 12px;
+    }
+    .os-term-top {
+        height: 38px;
+        grid-template-columns: 80px 1fr 80px;
+        padding: 0 8px;
+    }
+    .os-term-hint {
+        font-size: 0.72rem;
+    }
+    .os-term-out {
+        font-size: 0.78rem !important;
+        line-height: 1.45;
+        padding: 10px 10px 0;
+        height: min(320px, 45vh);
+    }
+    .os-term-in {
+        font-size: 0.78rem !important;
+        padding: 8px 10px 10px;
+        gap: 6px;
+    }
+    .os-term-prompt {
+        font-size: 0.78rem !important;
+    }
+    .os-term-input {
+        font-size: 0.78rem !important;
+    }
+}
