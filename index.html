@@ -520,25 +520,30 @@
             .theme-switcher {
                 top: auto !important;
                 bottom: 20px !important;
-                right: 20px !important;
+                right: 16px !important;
                 flex-direction: column-reverse;
                 max-width: 48px !important;
+                width: 48px !important;
                 max-height: 48px;
                 padding: 8px;
                 border-radius: 24px;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s !important;
             }
             .theme-switcher.expanded {
                 max-height: 280px;
                 padding-top: 14px;
                 padding-bottom: 8px;
                 max-width: 48px !important;
+                width: 48px !important;
             }
             .theme-options {
                 flex-direction: column;
-                transform: translateY(10px);
+                transform: translateY(10px) translateX(0) !important;
+                align-items: center;
+                gap: 8px;
             }
             .theme-switcher.expanded .theme-options {
-                transform: translateY(0);
+                transform: translateY(0) translateX(0) !important;
             }
 
             .flowchart-badge {
