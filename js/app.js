@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Register Terminal
     // We assume OS and TerminalApp are loaded globally via <script>
     if (window.OS) {
-        window.OS.register('terminal', 'osTerm', 'osTerm', {
+        window.OS.register('terminal', 'osTerm', 'osTerm-win', {
             onOpen: () => {
                 if (window.TerminalApp) window.TerminalApp.boot();
             }
