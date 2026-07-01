@@ -3671,11 +3671,12 @@
         "assets/kyoto.mp3"
     ];
     let currentTrackIdx = 0;
+    let preloadedNext = false; // prevents redundant trigger calls
     
     let audio = new Audio();
     audio.src = tracks[currentTrackIdx];
     audio.preload = "auto";
-    audio.load(); // Force preload
+    audio.load(); // Only load the 1st track initially
 
     let isPlaying = false;
     let audioCtx = null;
@@ -3684,8 +3685,27 @@
     let source = null;
     let animFrameId = null;
 
+    // Detect when current music reaches halfway point and lazy-preload the next one
+    audio.addEventListener('timeupdate', () => {
+        if (!audio.duration || preloadedNext) return;
+        
+        if (audio.currentTime >= audio.duration / 2) {
+            preloadedNext = true;
+            const nextIdx = (currentTrackIdx + 1) % tracks.length;
+            const nextUrl = tracks[nextIdx];
+            console.log(`Lazy-preloading next track into cache: ${nextUrl}`);
+            
+            // Instantiate background loader to push the track into HTTP disk cache
+            const cacheLoader = new Audio();
+            cacheLoader.src = nextUrl;
+            cacheLoader.preload = "auto";
+            cacheLoader.load();
+        }
+    });
+
     audio.addEventListener('ended', () => {
         currentTrackIdx = (currentTrackIdx + 1) % tracks.length;
+        preloadedNext = false; // reset preload trigger for the next track
         audio.src = tracks[currentTrackIdx];
         audio.load();
         if (isPlaying) {
