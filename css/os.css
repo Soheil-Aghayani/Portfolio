@@ -688,7 +688,12 @@
 @media (max-width: 768px) {
     .os-term-win {
         width: calc(100% - 16px) !important;
+        max-width: calc(100% - 16px) !important;
+        height: 65vh !important;
+        max-height: 65vh !important;
         border-radius: 12px;
+        display: grid !important;
+        grid-template-rows: 38px 1fr auto !important;
     }
     .os-term-top {
         height: 38px;
@@ -696,23 +701,24 @@
         padding: 0 8px;
     }
     .os-term-hint {
-        font-size: 0.65rem;
+        font-size: clamp(8px, 2vw, 10px) !important;
     }
     .os-term-out {
-        font-size: 0.7rem !important;
+        font-size: clamp(10px, 2.5vw, 12px) !important;
         line-height: 1.4;
         padding: 10px 10px 0;
-        height: min(320px, 45vh);
+        height: 100% !important;
+        max-height: none !important;
     }
     .os-term-in {
-        font-size: 0.7rem !important;
+        font-size: clamp(10px, 2.5vw, 12px) !important;
         padding: 8px 10px 10px;
         gap: 6px;
     }
     .os-term-prompt {
-        font-size: 0.7rem !important;
+        font-size: clamp(10px, 2.5vw, 12px) !important;
     }
     .os-term-input {
-        font-size: 0.7rem !important;
+        font-size: clamp(10px, 2.5vw, 12px) !important;
     }
 }
