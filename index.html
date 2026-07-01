@@ -456,41 +456,53 @@
         .badge-pub { color: var(--primary); border-color: var(--primary); }
         .badge-sub { color: var(--accent); border-color: var(--accent); }
 
-        /* --- LOAD MORE BUTTON --- */
-        .load-more-btn {
+        /* --- LOAD MORE / LOAD LESS BUTTONS --- */
+        .pub-load-row {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            width: 100%;
-            margin: 8px 0 32px;
-            padding: 14px 28px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: 600;
+            gap: 10px;
+            margin: 4px 0 36px;
+        }
+        .load-more-btn, .load-less-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
             font-family: inherit;
-            letter-spacing: 0.03em;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
         }
         .load-more-btn:hover {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        .load-more-btn.all-loaded {
+            background: var(--primary);
+            color: #0f172a;
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(45, 212, 191, 0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
         }
-        .load-more-btn:active {
-            transform: translateY(0);
+        .load-less-btn {
+            color: var(--text-muted);
+            opacity: 0.7;
         }
-        .load-more-btn .material-symbols-rounded {
-            font-size: 1.2rem;
-            transition: transform 0.25s ease;
+        .load-less-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            opacity: 1;
         }
-        .load-more-btn:hover .material-symbols-rounded {
-            transform: translateY(3px);
+        .load-more-btn .material-symbols-rounded,
+        .load-less-btn .material-symbols-rounded {
+            font-size: 1rem;
         }
 
         /* --- MINIMALIST MUSIC WIDGET --- */
@@ -3778,53 +3790,100 @@
 
   const LOAD_MORE_STEP = 3;
 
-  function applyLoadMore(list, btnId) {
+  function applyLoadMore(list, rowId) {
     if (!list) return;
-    const existing = document.getElementById(btnId);
+
+    // Remove old row if any
+    const existing = document.getElementById(rowId);
     if (existing) existing.remove();
 
-    const visibleItems = Array.from(list.querySelectorAll('.pub-item')).filter(
-      el => el.style.display !== 'none'
+    const allItems = Array.from(list.querySelectorAll('.pub-item')).filter(
+      el => el.style.display !== 'none' || el.dataset.loadHidden === 'true'
     );
 
-    // Reset: hide everything beyond first batch
-    visibleItems.forEach((item, idx) => {
+    // Reset visibility to first batch
+    allItems.forEach((item, idx) => {
       item.style.display = idx < LOAD_MORE_STEP ? 'flex' : 'none';
       item.dataset.loadHidden = idx >= LOAD_MORE_STEP ? 'true' : 'false';
     });
 
-    if (visibleItems.length <= LOAD_MORE_STEP) return; // No button needed
+    if (allItems.length <= LOAD_MORE_STEP) return; // nothing to paginate
 
-    const btn = document.createElement('button');
-    btn.id = btnId;
-    btn.className = 'load-more-btn';
-    btn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_more</span> Load More (${visibleItems.length - LOAD_MORE_STEP} remaining)`;
+    // Wrapper row
+    const row = document.createElement('div');
+    row.id = rowId;
+    row.className = 'pub-load-row';
 
-    btn.addEventListener('click', () => {
+    const remaining = allItems.length - LOAD_MORE_STEP;
+
+    const moreBtn = document.createElement('button');
+    moreBtn.className = 'load-more-btn';
+    moreBtn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_more</span> Load More <span class="load-count">(${remaining} remaining)</span>`;
+    row.appendChild(moreBtn);
+
+    // Load Less button — hidden until at least one extra batch is shown
+    const lessBtn = document.createElement('button');
+    lessBtn.className = 'load-less-btn';
+    lessBtn.style.display = 'none';
+    lessBtn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_less</span> Load Less`;
+    row.appendChild(lessBtn);
+
+    moreBtn.addEventListener('click', () => {
       const hidden = Array.from(list.querySelectorAll('.pub-item[data-load-hidden="true"]'));
-      const toShow = hidden.slice(0, LOAD_MORE_STEP);
-      toShow.forEach(el => {
+      hidden.slice(0, LOAD_MORE_STEP).forEach(el => {
         el.style.display = 'flex';
         el.dataset.loadHidden = 'false';
-        // Animate in
         el.style.opacity = '0';
-        el.style.transform = 'translateY(10px)';
+        el.style.transform = 'translateY(12px)';
         requestAnimationFrame(() => {
-          el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+          el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
         });
       });
 
       const stillHidden = Array.from(list.querySelectorAll('.pub-item[data-load-hidden="true"]'));
+      const countEl = moreBtn.querySelector('.load-count');
       if (stillHidden.length === 0) {
-        btn.remove();
+        moreBtn.classList.add('all-loaded');
+        moreBtn.querySelector('.material-symbols-rounded').textContent = 'done_all';
+        if (countEl) countEl.textContent = '(all shown)';
+        moreBtn.disabled = true;
+        moreBtn.style.cursor = 'default';
       } else {
-        btn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_more</span> Load More (${stillHidden.length} remaining)`;
+        if (countEl) countEl.textContent = `(${stillHidden.length} remaining)`;
       }
+      lessBtn.style.display = 'inline-flex';
     });
 
-    list.after(btn);
+    lessBtn.addEventListener('click', () => {
+      // Collapse back to first LOAD_MORE_STEP items
+      allItems.forEach((item, idx) => {
+        if (idx >= LOAD_MORE_STEP) {
+          item.style.transition = 'opacity 0.2s ease';
+          item.style.opacity = '0';
+          setTimeout(() => {
+            item.style.display = 'none';
+            item.dataset.loadHidden = 'true';
+            item.style.opacity = '';
+            item.style.transition = '';
+          }, 200);
+        }
+      });
+      // Reset more button
+      const remaining = allItems.length - LOAD_MORE_STEP;
+      moreBtn.classList.remove('all-loaded');
+      moreBtn.disabled = false;
+      moreBtn.style.cursor = '';
+      moreBtn.querySelector('.material-symbols-rounded').textContent = 'expand_more';
+      const countEl = moreBtn.querySelector('.load-count');
+      if (countEl) countEl.textContent = `(${remaining} remaining)`;
+      lessBtn.style.display = 'none';
+      // Scroll list top into view
+      list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    list.after(row);
   }
 
   function setupPubFilters() {
