@@ -550,14 +550,14 @@
             opacity: 0.75;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        .theme-switcher.scrolled {
+        .theme-switcher.scrolled:not(.expanded) {
             border-radius: 50% !important;
             transform: scale(0.9);
             opacity: 0.75;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .music-toggle-btn.scrolled:hover,
-        .theme-switcher.scrolled:hover {
+        .theme-switcher.scrolled:not(.expanded):hover {
             border-radius: 50% !important;
             opacity: 1;
             transform: scale(1.02);
@@ -583,8 +583,9 @@
                 padding: 8px !important;
                 border-radius: 50% !important;
                 display: flex !important;
+                flex-direction: column-reverse !important; /* Anchors content bottom-to-top */
+                justify-content: flex-start !important;   /* Keeps trigger button at the bottom */
                 align-items: center !important;
-                justify-content: center !important;
                 transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s !important;
                 overflow: hidden !important;
             }

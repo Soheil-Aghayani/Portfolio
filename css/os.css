@@ -687,7 +687,7 @@
 /* MOBILE OPTIMIZATIONS FOR TERMINAL */
 @media (max-width: 768px) {
     .os-term-win {
-        width: calc(100% - 12px) !important;
+        width: calc(100% - 16px) !important;
         border-radius: 12px;
     }
     .os-term-top {
@@ -696,23 +696,23 @@
         padding: 0 8px;
     }
     .os-term-hint {
-        font-size: 0.72rem;
+        font-size: 0.65rem;
     }
     .os-term-out {
-        font-size: 0.78rem !important;
-        line-height: 1.45;
+        font-size: 0.7rem !important;
+        line-height: 1.4;
         padding: 10px 10px 0;
         height: min(320px, 45vh);
     }
     .os-term-in {
-        font-size: 0.78rem !important;
+        font-size: 0.7rem !important;
         padding: 8px 10px 10px;
         gap: 6px;
     }
     .os-term-prompt {
-        font-size: 0.78rem !important;
+        font-size: 0.7rem !important;
     }
     .os-term-input {
-        font-size: 0.78rem !important;
+        font-size: 0.7rem !important;
     }
 }
