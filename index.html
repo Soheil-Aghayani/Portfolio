@@ -510,12 +510,65 @@
             box-shadow: 0 0 8px var(--primary);
         }
 
+        /* --- ARRIVAL & SCROLL MORPH WIDGETS --- */
+        @keyframes widgetArrival {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.3) rotate(-25deg);
+                border-radius: 50% 15% 50% 50%;
+            }
+            65% {
+                opacity: 1;
+                transform: translateY(-8px) scale(1.15) rotate(5deg);
+                border-radius: 35% 65% 55% 45%;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+                border-radius: 50%;
+            }
+        }
+
+        .music-toggle-btn {
+            animation: widgetArrival 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .theme-switcher {
+            animation: widgetArrival 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 0.18s;
+        }
+
+        /* Morph to organic liquid blob shapes on page scroll */
+        .music-toggle-btn.scrolled {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% !important;
+            opacity: 0.82;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .theme-switcher.scrolled {
+            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30% !important;
+            opacity: 0.82;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .music-toggle-btn.scrolled:hover,
+        .theme-switcher.scrolled:hover {
+            border-radius: 50% !important;
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
         /* --- FOOTER --- */
         footer { padding: 50px 0; text-align: center; color: var(--text-muted); margin-top: 80px; border-top: 1px solid var(--glass-border); }
         
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             .card .date { position: relative; top: auto; right: auto; display: block; margin-bottom: 10px; }
+
+            /* Mobile Stack: Theme Switcher aligned above Music Widget */
+            .theme-switcher {
+                top: auto !important;
+                bottom: 80px !important; /* Positioned directly above 48px music widget with a 12px gap */
+                left: 20px !important;   /* Matches music widget's left padding */
+                right: auto !important;
+            }
 
 
 
@@ -3863,6 +3916,22 @@
     setupFlowchartViewer();
     setupPubFilters();
     setupMusicPlayer();
+
+    // Dynamically toggle morph classes on fixed widgets during scroll
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY > 40;
+        const musicBtn = document.getElementById('musicToggleBtn');
+        const themeBtn = document.getElementById('themeSwitcher');
+        
+        if (musicBtn) {
+            if (scrolled) musicBtn.classList.add('scrolled');
+            else musicBtn.classList.remove('scrolled');
+        }
+        if (themeBtn) {
+            if (scrolled) themeBtn.classList.add('scrolled');
+            else themeBtn.classList.remove('scrolled');
+        }
+    });
   });
 })();
 </script>
