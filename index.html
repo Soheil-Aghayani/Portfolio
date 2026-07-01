@@ -515,12 +515,12 @@
             0% {
                 opacity: 0;
                 transform: translateY(60px) scale(0.3) rotate(-25deg);
-                border-radius: 50% 15% 50% 50%;
+                border-radius: 50%;
             }
             65% {
                 opacity: 1;
                 transform: translateY(-8px) scale(1.15) rotate(5deg);
-                border-radius: 35% 65% 55% 45%;
+                border-radius: 50%;
             }
             100% {
                 opacity: 1;
@@ -530,29 +530,37 @@
         }
 
         .music-toggle-btn {
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 50% !important;
             animation: widgetArrival 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         .theme-switcher {
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 50% !important;
             animation: widgetArrival 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             animation-delay: 0.18s;
         }
 
-        /* Morph to organic liquid blob shapes on page scroll */
+        /* Keep perfect circles on page scroll, just scale down slightly and dim opacity */
         .music-toggle-btn.scrolled {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% !important;
-            opacity: 0.82;
+            border-radius: 50% !important;
+            transform: scale(0.9);
+            opacity: 0.75;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .theme-switcher.scrolled {
-            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30% !important;
-            opacity: 0.82;
+            border-radius: 50% !important;
+            transform: scale(0.9);
+            opacity: 0.75;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .music-toggle-btn.scrolled:hover,
         .theme-switcher.scrolled:hover {
             border-radius: 50% !important;
             opacity: 1;
-            transform: scale(1.08);
+            transform: scale(1.02);
         }
 
         /* --- FOOTER --- */
@@ -562,12 +570,40 @@
             h1 { font-size: 3rem; }
             .card .date { position: relative; top: auto; right: auto; display: block; margin-bottom: 10px; }
 
-            /* Mobile Stack: Theme Switcher aligned above Music Widget */
+            /* Mobile Stack: Vertical Theme Switcher aligned above Music Widget */
             .theme-switcher {
                 top: auto !important;
-                bottom: 80px !important; /* Positioned directly above 48px music widget with a 12px gap */
-                left: 20px !important;   /* Matches music widget's left padding */
+                bottom: 80px !important; /* Stacked above music widget */
+                left: 20px !important;   /* Aligned with music widget */
                 right: auto !important;
+                flex-direction: column-reverse;
+                width: 48px !important;
+                max-width: 48px !important;
+                height: 48px;
+                max-height: 48px;
+                padding: 8px;
+                border-radius: 50% !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s !important;
+            }
+            .theme-switcher.expanded {
+                max-height: 280px !important;
+                height: auto !important;
+                padding-top: 14px;
+                padding-bottom: 8px;
+                border-radius: 24px !important; /* Perfect vertical capsule shape */
+            }
+            .theme-options {
+                flex-direction: column;
+                transform: translateY(10px) translateX(0) !important;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            .theme-switcher.expanded .theme-options {
+                transform: translateY(0) translateX(0) !important;
             }
 
 
