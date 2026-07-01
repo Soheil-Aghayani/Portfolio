@@ -514,12 +514,7 @@
             box-shadow: 0 0 8px var(--primary);
         }
 
-        /* --- 3D TILT EFFECT & CRT SCANLINES --- */
-        .card, .pub-item {
-            transform-style: preserve-3d;
-            will-change: transform;
-            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-        }
+        /* --- CRT SCANLINES --- */
         .os-term-win {
             position: relative;
         }
@@ -4030,32 +4025,6 @@
     }, delay);
   }
 
-  function setupTiltEffect() {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) return;
-    
-    const elements = document.querySelectorAll('.card, .pub-item');
-    elements.forEach(el => {
-        el.addEventListener('mousemove', e => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((centerY - y) / centerY) * 8;
-            const rotateY = ((x - centerX) / centerX) * 8;
-            
-            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        });
-    });
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
     // Scramble Hero name on load
     scrambleText('#heroName', 1500, 200);
@@ -4066,7 +4035,6 @@
     setupFlowchartViewer();
     setupPubFilters();
     setupMusicPlayer();
-    setupTiltEffect();
 
     // Dynamically toggle morph classes on fixed widgets during scroll
     window.addEventListener('scroll', () => {

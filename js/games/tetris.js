@@ -375,6 +375,7 @@ export class TetrisGame {
         if (this.gameOverState) return;
 
         if (e.key === 'p' || e.key === 'P') {
+            e.preventDefault();
             this.isPaused = !this.isPaused;
             this.draw();
             return;
@@ -386,16 +387,19 @@ export class TetrisGame {
             case 'ArrowLeft':
             case 'a':
             case 'A':
+                e.preventDefault();
                 this.move(-1);
                 break;
             case 'ArrowRight':
             case 'd':
             case 'D':
+                e.preventDefault();
                 this.move(1);
                 break;
             case 'ArrowDown':
             case 's':
             case 'S':
+                e.preventDefault();
                 this.drop();
                 break;
             case 'ArrowUp':
@@ -403,6 +407,7 @@ export class TetrisGame {
             case 'W':
             case 'x':
             case 'X':
+                e.preventDefault();
                 this.rotate();
                 this.draw();
                 break;

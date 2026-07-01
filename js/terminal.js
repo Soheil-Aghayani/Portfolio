@@ -195,6 +195,19 @@ class Terminal {
             case 'matrix':
                 await this.cmdMatrix();
                 break;
+            case 'snake':
+                if (window.OS) window.OS.open('games', 'snake');
+                await this.typeLine('Launching Snake...', 'os-ok');
+                break;
+            case 'blackjack':
+            case 'bj':
+                if (window.OS) window.OS.open('games', 'blackjack');
+                await this.typeLine('Launching Blackjack...', 'os-ok');
+                break;
+            case 'tetris':
+                if (window.OS) window.OS.open('games', 'tetris');
+                await this.typeLine('Launching Tetris...', 'os-ok');
+                break;
             case 'notes':
                 await this.cmdNotes(args);
                 break;
