@@ -503,6 +503,35 @@
         .load-more-btn .material-symbols-rounded,
         .load-less-btn .material-symbols-rounded {
             font-size: 1rem;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        /* Button press bounce */
+        @keyframes btnBounce {
+            0%   { transform: scale(1); }
+            35%  { transform: scale(0.91); }
+            65%  { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+        .load-more-btn.bouncing,
+        .load-less-btn.bouncing {
+            animation: btnBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        /* Per-item entrance */
+        @keyframes pubItemIn {
+            0%   { opacity: 0; transform: translateY(18px) scaleY(0.92); }
+            60%  { opacity: 1; transform: translateY(-3px) scaleY(1.01); }
+            100% { opacity: 1; transform: translateY(0) scaleY(1); }
+        }
+        /* Per-item exit */
+        @keyframes pubItemOut {
+            0%   { opacity: 1; transform: translateY(0) scaleY(1); }
+            100% { opacity: 0; transform: translateY(10px) scaleY(0.94); }
+        }
+        .pub-item.animating-in {
+            animation: pubItemIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .pub-item.animating-out {
+            animation: pubItemOut 0.22s ease-in both;
         }
 
         /* --- MINIMALIST MUSIC WIDGET --- */
@@ -3829,24 +3858,37 @@
     row.appendChild(lessBtn);
 
     moreBtn.addEventListener('click', () => {
+      // Button bounce
+      moreBtn.classList.remove('bouncing');
+      void moreBtn.offsetWidth;
+      moreBtn.classList.add('bouncing');
+      moreBtn.addEventListener('animationend', () => moreBtn.classList.remove('bouncing'), { once: true });
+
+      // Spin the chevron down
+      const moreBtnIcon = moreBtn.querySelector('.material-symbols-rounded');
+      if (moreBtnIcon) moreBtnIcon.style.transform = 'rotate(360deg)';
+      setTimeout(() => { if (moreBtnIcon) moreBtnIcon.style.transform = ''; }, 350);
+
       const hidden = Array.from(list.querySelectorAll('.pub-item[data-load-hidden="true"]'));
-      hidden.slice(0, LOAD_MORE_STEP).forEach(el => {
+      hidden.slice(0, LOAD_MORE_STEP).forEach((el, i) => {
         el.style.display = 'flex';
         el.dataset.loadHidden = 'false';
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(12px)';
-        requestAnimationFrame(() => {
-          el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        });
+        // Staggered entrance — each item slightly delayed
+        el.classList.remove('animating-in', 'animating-out');
+        el.style.animationDelay = `${i * 80}ms`;
+        void el.offsetWidth; // reflow
+        el.classList.add('animating-in');
+        el.addEventListener('animationend', () => {
+          el.classList.remove('animating-in');
+          el.style.animationDelay = '';
+        }, { once: true });
       });
 
       const stillHidden = Array.from(list.querySelectorAll('.pub-item[data-load-hidden="true"]'));
       const countEl = moreBtn.querySelector('.load-count');
       if (stillHidden.length === 0) {
         moreBtn.classList.add('all-loaded');
-        moreBtn.querySelector('.material-symbols-rounded').textContent = 'done_all';
+        if (moreBtnIcon) moreBtnIcon.textContent = 'done_all';
         if (countEl) countEl.textContent = '(all shown)';
         moreBtn.disabled = true;
         moreBtn.style.cursor = 'default';
@@ -3857,29 +3899,46 @@
     });
 
     lessBtn.addEventListener('click', () => {
-      // Collapse back to first LOAD_MORE_STEP items
-      allItems.forEach((item, idx) => {
-        if (idx >= LOAD_MORE_STEP) {
-          item.style.transition = 'opacity 0.2s ease';
-          item.style.opacity = '0';
-          setTimeout(() => {
-            item.style.display = 'none';
-            item.dataset.loadHidden = 'true';
-            item.style.opacity = '';
-            item.style.transition = '';
-          }, 200);
-        }
+      // Button bounce
+      lessBtn.classList.remove('bouncing');
+      void lessBtn.offsetWidth;
+      lessBtn.classList.add('bouncing');
+      lessBtn.addEventListener('animationend', () => lessBtn.classList.remove('bouncing'), { once: true });
+
+      // Spin the chevron up
+      const lessBtnIcon = lessBtn.querySelector('.material-symbols-rounded');
+      if (lessBtnIcon) lessBtnIcon.style.transform = 'rotate(-360deg)';
+      setTimeout(() => { if (lessBtnIcon) lessBtnIcon.style.transform = ''; }, 350);
+
+      // Stagger collapse from bottom to top
+      const toHide = allItems.slice(LOAD_MORE_STEP).reverse();
+      toHide.forEach((item, i) => {
+        item.classList.remove('animating-in', 'animating-out');
+        item.style.animationDelay = `${i * 55}ms`;
+        item.classList.add('animating-out');
+        item.addEventListener('animationend', () => {
+          item.style.display = 'none';
+          item.dataset.loadHidden = 'true';
+          item.classList.remove('animating-out');
+          item.style.animationDelay = '';
+        }, { once: true });
       });
-      // Reset more button
-      const remaining = allItems.length - LOAD_MORE_STEP;
-      moreBtn.classList.remove('all-loaded');
-      moreBtn.disabled = false;
-      moreBtn.style.cursor = '';
-      moreBtn.querySelector('.material-symbols-rounded').textContent = 'expand_more';
-      const countEl = moreBtn.querySelector('.load-count');
-      if (countEl) countEl.textContent = `(${remaining} remaining)`;
+
+      // Reset more button after longest delay
+      const collapseDuration = toHide.length * 55 + 220;
+      setTimeout(() => {
+        const remaining = allItems.length - LOAD_MORE_STEP;
+        moreBtn.classList.remove('all-loaded');
+        moreBtn.disabled = false;
+        moreBtn.style.cursor = '';
+        const moreBtnIcon = moreBtn.querySelector('.material-symbols-rounded');
+        if (moreBtnIcon) moreBtnIcon.textContent = 'expand_more';
+        const countEl = moreBtn.querySelector('.load-count');
+        if (countEl) countEl.textContent = `(${remaining} remaining)`;
+      }, collapseDuration);
+
       lessBtn.style.display = 'none';
-      // Scroll list top into view
+      // Smooth scroll so user sees the list top again
       list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
