@@ -65,3 +65,7 @@
 ## 2026-06-27 - Hover States for Interactive Buttons
 **Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
 **Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
+
+## 2024-07-01 - Missing Cursor Pointer on Generic Buttons
+**Learning:** Generic button classes (like `.btn` used on buttons or anchor links) often miss `cursor: pointer` during styling, which leaves mouse users without a standard visual affordance that the element is clickable.
+**Action:** Always ensure that classes intended for interactive buttons explicitly define `cursor: pointer` to guarantee affordance, regardless of whether they are applied to `<button>`, `<a>`, or custom `<div>` tags.
