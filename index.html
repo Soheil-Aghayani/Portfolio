@@ -4774,9 +4774,17 @@
     if (!ss || !canvas || !clock) return;
 
     const ctx = canvas.getContext('2d');
-    const TIMEOUT = 60000; // 60 seconds
+    const TIMEOUT = 120000; // 2 minutes
     let timer, ssActive = false, animId;
     const stars = [];
+
+    function isGameOpen() {
+        const gameWrap = document.getElementById('appWrap');
+        return Boolean(
+            (window.OS && window.OS.isOpen && window.OS.isOpen('games')) ||
+            (gameWrap && gameWrap.classList.contains('open'))
+        );
+    }
 
     function buildStars() {
         stars.length = 0;
@@ -4826,6 +4834,11 @@
     }
 
     function activate() {
+        if (isGameOpen()) {
+            resetTimer();
+            return;
+        }
+
         ssActive = true;
         ss.setAttribute('aria-hidden', 'false');
         ss.classList.add('active');
