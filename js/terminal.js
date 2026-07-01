@@ -17,6 +17,10 @@ class Terminal {
 
         this.THESIS = 'Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells';
 
+        // Load command history
+        this.history = JSON.parse(localStorage.getItem('term_history') || '[]');
+        this.historyIndex = this.history.length;
+
         this.init();
     }
 
@@ -26,7 +30,40 @@ class Terminal {
             if (e.key === 'Enter') {
                 const val = this.input.value;
                 this.input.value = '';
+                
+                if (val.trim()) {
+                    this.history.push(val);
+                    if (this.history.length > 50) this.history.shift(); // Limit history size
+                    localStorage.setItem('term_history', JSON.stringify(this.history));
+                }
+                this.historyIndex = this.history.length;
                 this.run(val);
+            }
+
+            // Command History Navigation
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (this.history.length === 0) return;
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    this.input.value = this.history[this.historyIndex];
+                }
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (this.historyIndex < this.history.length - 1) {
+                    this.historyIndex++;
+                    this.input.value = this.history[this.historyIndex];
+                } else {
+                    this.historyIndex = this.history.length;
+                    this.input.value = '';
+                }
+            }
+
+            // Tab Autocomplete
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                this.handleAutocomplete();
             }
         });
 
@@ -34,25 +71,83 @@ class Terminal {
         const termWin = document.getElementById('osTerm');
         if (termWin) {
             termWin.addEventListener('click', (e) => {
-                // Don't focus if selecting text
                 if (window.getSelection().toString()) return;
                 this.input.focus();
             });
         }
     }
 
-    boot() {
+    handleAutocomplete() {
+        const val = this.input.value.trim().toLowerCase();
+        if (!val) return;
+
+        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix'];
+        const matches = commands.filter(c => c.startsWith(val));
+
+        if (matches.length === 1) {
+            this.input.value = matches[0] + ' ';
+        } else if (matches.length > 1) {
+            // Display matching options in terminal
+            this.addLine(`${this.getPrompt()} ${this.input.value}`, 'os-dim');
+            this.addLine(matches.join('   '), 'os-dim');
+            this.out.scrollTop = this.out.scrollHeight;
+        }
+    }
+
+    async boot() {
         if (this.printing) return;
+        this.printing = true;
+        this.clear();
+
+        // Check if already booted in this session to prevent repetitive BIOS animations
+        const alreadyBooted = sessionStorage.getItem('term_booted');
+        if (alreadyBooted) {
+            const now = new Date();
+            const stamp = now.toLocaleString();
+            await this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 200);
+            await this.typeLine('Welcome back to Soheil_OS v2.0.', 'os-ok', 150);
+            await this.typeLine("Type 'help' to see available commands.", 'os-dim', 150);
+            this.addLine('', '');
+            this.printing = false;
+            this.out.scrollTop = this.out.scrollHeight;
+            return;
+        }
+
+        sessionStorage.setItem('term_booted', 'true');
+
+        const speed = 250;
+        await this.typeLine('AMIBIOS (C) 2026 American Megatrends, Inc.', 'os-dim', speed);
+        await this.typeLine('BIOS Date: 07/02/26 Ver: 08.00.12', 'os-dim', speed);
+        await this.typeLine('CPU: AMD Ryzen 9 @ 4.80 GHz', 'os-dim', speed);
+        await this.typeLine('Speed: 4800 MHz', 'os-dim', speed);
+        await this.sleep(120);
+        
+        await this.typeLine('Checking RAM ... OK (65536MB)', 'os-dim', speed);
+        await this.sleep(100);
+        
+        await this.typeLine('Detecting Storage Devices ...', 'os-dim', speed);
+        await this.sleep(80);
+        await this.typeLine('  SATA Port 0: NVMe SSD 2TB - OK', 'os-dim', speed);
+        await this.typeLine('  SATA Port 1: HDD 4TB - OK', 'os-dim', speed);
+        await this.sleep(100);
+
+        await this.typeLine('Initializing OS Kernel ...', 'os-ok', speed);
+        await this.sleep(80);
+        await this.typeLine('Loading network drivers ...', 'os-ok', speed);
+        await this.sleep(60);
+        await this.typeLine('Connecting to guest@soheil-os ... SUCCESS', 'os-ok', speed);
+        await this.sleep(250);
+        
         this.clear();
         const now = new Date();
         const stamp = now.toLocaleString();
+        await this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 200);
+        await this.typeLine('Welcome to Soheil_OS v2.0. Modular & Optimized.', 'os-ok', 150);
+        await this.typeLine("Type 'help' to see available commands.", 'os-dim', 150);
+        this.addLine('', '');
 
-        this.typeLine('Last login: ' + stamp + ' on ttys001', 'os-dim', 120)
-            .then(() => this.sleep(80))
-            .then(() => this.typeLine('Welcome to Soheil_OS v2.0. Modular & Optimized.', 'os-ok', 100))
-            .then(() => this.sleep(70))
-            .then(() => this.typeLine("Type 'help' to see available commands.", 'os-dim', 100))
-            .then(() => this.addLine('', ''));
+        this.printing = false;
+        this.out.scrollTop = this.out.scrollHeight;
     }
 
     async run(raw) {
@@ -97,6 +192,9 @@ class Terminal {
             case 'quit':
                 if (window.OS) window.OS.close('terminal');
                 break;
+            case 'matrix':
+                await this.cmdMatrix();
+                break;
             case 'notes':
                 await this.cmdNotes(args);
                 break;
@@ -110,9 +208,12 @@ class Terminal {
                     } else if (gameName === 'blackjack' || gameName === 'bj') {
                         if (window.OS) window.OS.open('games', 'blackjack');
                         await this.typeLine('Launching Blackjack...', 'os-dim');
+                    } else if (gameName === 'tetris') {
+                        if (window.OS) window.OS.open('games', 'tetris');
+                        await this.typeLine('Launching Tetris...', 'os-dim');
                     } else {
                         await this.typeLine(`Game not found: ${gameName}`, 'os-bad');
-                        await this.typeLine('Available: snake, blackjack', 'os-dim');
+                        await this.typeLine('Available: snake, blackjack, tetris', 'os-dim');
                     }
                 } else {
                     if (window.OS) window.OS.open('games');
@@ -131,7 +232,79 @@ class Terminal {
         this.out.scrollTop = this.out.scrollHeight;
     }
 
-    // Commands implementation
+    async cmdMatrix() {
+        await this.typeLine('Loading Matrix Digital Rain... Press "ESC" or "Q" to exit.', 'os-ok');
+        await this.sleep(400);
+
+        this.out.style.overflow = 'hidden';
+
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'absolute';
+        canvas.style.top = '46px';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = 'calc(100% - 46px)';
+        canvas.style.background = '#000';
+        canvas.style.zIndex = '90';
+        this.out.parentElement.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        
+        const resize = () => {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight - 46;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ';
+        const fontSize = 12;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        let animId;
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const txt = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(txt, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            animId = requestAnimationFrame(draw);
+        };
+        
+        draw();
+
+        const exitMatrix = () => {
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', resize);
+            document.removeEventListener('keydown', keyHandler);
+            canvas.remove();
+            this.out.style.overflow = 'auto';
+            this.addLine('Matrix session closed.', 'os-ok');
+            this.input.focus();
+        };
+
+        const keyHandler = (e) => {
+            if (e.key === 'Escape' || e.key === 'q' || e.key === 'Q') {
+                exitMatrix();
+            }
+        };
+
+        document.addEventListener('keydown', keyHandler);
+        canvas.addEventListener('click', exitMatrix);
+        canvas.addEventListener('touchstart', exitMatrix);
+    }
+
     async cmdHelp() {
         const speed = 100;
         await this.typeLine('Available commands:', 'os-dim', speed);
@@ -142,8 +315,8 @@ class Terminal {
         await this.typeLine('- resume: Open resume link', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
-        await this.typeLine('  -- snake', 'os-dim', speed);
-        await this.typeLine('  -- black jack', 'os-dim', speed);
+        await this.typeLine('  -- snake, blackjack, tetris', 'os-dim', speed);
+        await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);
     }

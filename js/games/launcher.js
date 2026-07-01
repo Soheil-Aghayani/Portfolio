@@ -1,6 +1,7 @@
 
 import { SnakeGame } from './snake.js';
 import { BlackjackGame } from './blackjack.js';
+import { TetrisGame } from './tetris.js';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -15,6 +16,11 @@ export class GameLauncher {
                 id: 'blackjack',
                 name: 'Blackjack',
                 img: 'assets/Card.png'
+            },
+            {
+                id: 'tetris',
+                name: 'Tetris',
+                img: 'assets/Tetris.png'
             }
         ];
 
@@ -189,6 +195,101 @@ export class GameLauncher {
                     if (dir === 'down') this.activeGame.setDir(0, 1);
                     if (dir === 'left') this.activeGame.setDir(-1, 0);
                     if (dir === 'right') this.activeGame.setDir(1, 0);
+                });
+            });
+
+            this.activeGame.start();
+            content.focus();
+        }
+        else if (id === 'tetris') {
+            const savedHighScore = localStorage.getItem('tetris_high_score') || 0;
+
+            const scoreBoard = document.createElement('div');
+            scoreBoard.className = 'snake-scoreboard';
+            scoreBoard.innerHTML = `
+                <div class="snake-score-item">SCORE <span id="tetrisScore">0</span></div>
+                <div class="snake-score-item">LEVEL <span id="tetrisLevel">1</span></div>
+                <div class="snake-score-item">HIGH <span id="tetrisHighScore">${savedHighScore}</span></div>
+            `;
+
+            // Insert ScoreBoard before content
+            gameWrap.insertBefore(scoreBoard, content);
+
+            // Container for Canvas + Controls
+            const tetrisContainer = document.createElement('div');
+            tetrisContainer.style.display = 'flex';
+            tetrisContainer.style.flexDirection = 'column';
+            tetrisContainer.style.alignItems = 'center';
+            tetrisContainer.style.gap = '15px';
+
+            const canvas = document.createElement('canvas');
+            canvas.height = 360; // tileSize is dynamically set, canvas width is computed in game
+            canvas.className = 'in-app-game-canvas';
+
+            // Restart Button
+            const restartBtn = document.createElement('button');
+            restartBtn.className = 'snake-restart-btn';
+            restartBtn.textContent = 'Play Again';
+            restartBtn.style.display = 'none';
+            restartBtn.onclick = () => {
+                restartBtn.style.display = 'none';
+                this.activeGame.start();
+                content.focus();
+            };
+
+            // Mobile Controls
+            const controls = document.createElement('div');
+            controls.className = 'snake-controls';
+            controls.innerHTML = `
+                <button class="snake-btn" data-action="rotate" type="button" aria-label="Rotate block" title="Rotate block"><span class="material-symbols-rounded" aria-hidden="true">rotate_right</span></button>
+                <button class="snake-btn" data-action="drop" type="button" aria-label="Soft drop" title="Soft drop"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span></button>
+                <button class="snake-btn" data-action="hard" type="button" aria-label="Hard drop" title="Hard drop"><span class="material-symbols-rounded" aria-hidden="true">vertical_align_bottom</span></button>
+                <button class="snake-btn" data-action="left" type="button" aria-label="Move left" title="Move left"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_left</span></button>
+                <div></div>
+                <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
+            `;
+
+            tetrisContainer.appendChild(canvas);
+            tetrisContainer.appendChild(restartBtn);
+            tetrisContainer.appendChild(controls);
+            content.appendChild(tetrisContainer);
+
+            this.activeGame = new TetrisGame(canvas, {
+                onScore: (score, level) => {
+                    document.getElementById('tetrisScore').textContent = score;
+                    document.getElementById('tetrisLevel').textContent = level;
+                    const curHigh = parseInt(localStorage.getItem('tetris_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('tetris_high_score', score);
+                        document.getElementById('tetrisHighScore').textContent = score;
+                    }
+                },
+                onStart: () => {
+                    document.getElementById('tetrisScore').textContent = 0;
+                    document.getElementById('tetrisLevel').textContent = 1;
+                    restartBtn.style.display = 'none';
+                },
+                onEnd: (score) => {
+                    restartBtn.style.display = 'block';
+                    restartBtn.focus();
+                    const curHigh = parseInt(localStorage.getItem('tetris_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('tetris_high_score', score);
+                        document.getElementById('tetrisHighScore').textContent = score;
+                    }
+                }
+            });
+
+            // Wire up controls
+            controls.querySelectorAll('.snake-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const act = btn.dataset.action;
+                    if (act === 'left') this.activeGame.move(-1);
+                    if (act === 'right') this.activeGame.move(1);
+                    if (act === 'rotate') { this.activeGame.rotate(); this.activeGame.draw(); }
+                    if (act === 'drop') this.activeGame.drop();
+                    if (act === 'hard') this.activeGame.hardDrop();
                 });
             });
 
