@@ -687,21 +687,29 @@
 /* MOBILE OPTIMIZATIONS FOR TERMINAL */
 @media (max-width: 768px) {
     .os-term-win {
-        width: min(420px, 90vw) !important;
-        max-width: min(420px, 90vw) !important;
+        width: 88vw !important;
+        max-width: 88vw !important;
         height: 65vh !important;
         max-height: 65vh !important;
         border-radius: 12px;
         display: grid !important;
         grid-template-rows: 38px 1fr auto !important;
+        overflow: hidden !important;
     }
     .os-term-top {
         height: 38px;
-        grid-template-columns: 80px 1fr 80px;
+        grid-template-columns: auto 1fr auto !important;
         padding: 0 8px;
+        gap: 8px !important;
+        overflow: hidden !important;
+    }
+    .os-dots {
+        padding-left: 4px !important;
+        gap: 6px !important;
     }
     .os-term-hint {
         font-size: clamp(8px, 2vw, 10px) !important;
+        white-space: nowrap !important;
     }
     .os-term-out {
         font-size: clamp(10px, 2.5vw, 12px) !important;
@@ -709,16 +717,26 @@
         padding: 10px 10px 0;
         height: 100% !important;
         max-height: none !important;
+        word-break: break-all !important;
+        overflow-wrap: anywhere !important;
+    }
+    .os-line {
+        word-break: break-all !important;
+        overflow-wrap: anywhere !important;
     }
     .os-term-in {
         font-size: clamp(10px, 2.5vw, 12px) !important;
         padding: 8px 10px 10px;
         gap: 6px;
+        overflow: hidden !important;
     }
     .os-term-prompt {
         font-size: clamp(10px, 2.5vw, 12px) !important;
     }
     .os-term-input {
-        font-size: clamp(10px, 2.5vw, 12px) !important;
+        font-size: 16px !important; /* Prevents auto-zoom on iOS/Chrome mobile focus */
+        transform: scale(0.75) !important; /* Scales down to match visual terminal sizing */
+        transform-origin: left center !important;
+        width: 133% !important; /* Compensate for width reduction due to scale */
     }
 }
