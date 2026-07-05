@@ -63,6 +63,10 @@ export class MinesweeperGame {
         this.timerEl.textContent = '000';
         this.smileyBtn.textContent = '😊';
 
+        if (this.boardEl) {
+            this.boardEl.classList.remove('shake');
+        }
+
         this.buildGrid();
         this.renderBoard();
 
@@ -305,6 +309,10 @@ export class MinesweeperGame {
         if (this.timer) clearInterval(this.timer);
 
         this.smileyBtn.textContent = success ? '😎' : '😵';
+
+        if (!success && this.boardEl) {
+            this.boardEl.classList.add('shake');
+        }
 
         // Reveal all mines
         for (let r = 0; r < this.rows; r++) {

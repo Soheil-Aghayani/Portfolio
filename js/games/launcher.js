@@ -12,27 +12,27 @@ export class GameLauncher {
             {
                 id: 'snake',
                 name: 'Snake',
-                img: 'assets/Snake.png'
+                img: 'assets/snake.svg'
             },
             {
                 id: 'blackjack',
                 name: 'Blackjack',
-                img: 'assets/Card.png'
+                img: 'assets/blackjack.svg'
             },
             {
                 id: 'tetris',
                 name: 'Tetris',
-                img: 'assets/Tetris.png'
+                img: 'assets/tetris.svg'
             },
             {
                 id: 'g2048',
                 name: '2048',
-                img: 'assets/2048.png'
+                img: 'assets/2048.svg'
             },
             {
                 id: 'minesweeper',
                 name: 'Minesweeper',
-                img: 'assets/minesweeper.png'
+                img: 'assets/minesweeper.svg'
             }
         ];
 
