@@ -65,3 +65,10 @@
 ## 2026-06-27 - Hover States for Interactive Buttons
 **Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
 **Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
+## 2026-07-05 - ARIA Labels on Icon-Only Buttons
+**Learning:** Flowchart control buttons relying solely on `title` attributes provide tooltips for mouse users but lack explicit semantic descriptions for screen readers, diminishing accessibility for complex UI widgets.
+**Action:** Always verify that functional buttons with only an icon child have an explicit `aria-label` matching their `title` attribute.
+
+## 2026-07-05 - Decorative Material Symbols Icons
+**Learning:** Ligature-based icon fonts, such as Material Symbols, read as plain text by default in screen readers, leading to confusing auditory experiences (e.g., reading "zoom_in" instead of indicating functionality).
+**Action:** When using ligature-based icon fonts that are purely decorative or supplementary to other labels/text, strictly append `aria-hidden="true"` to the icon element to hide it from assistive technologies.
