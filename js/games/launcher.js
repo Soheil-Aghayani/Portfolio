@@ -4,6 +4,7 @@ import { BlackjackGame } from './blackjack.js?v=2.2';
 import { TetrisGame } from './tetris.js?v=2.2';
 import { Game2048 } from './2048.js?v=2.2';
 import { MinesweeperGame } from './minesweeper.js?v=2.2';
+import { BreakoutGame } from './breakout.js?v=2.2';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -12,27 +13,32 @@ export class GameLauncher {
             {
                 id: 'snake',
                 name: 'Snake',
-                img: 'assets/snake.svg'
+                img: 'assets/snake.webp'
             },
             {
                 id: 'blackjack',
                 name: 'Blackjack',
-                img: 'assets/blackjack.svg'
+                img: 'assets/blackjack.webp'
             },
             {
                 id: 'tetris',
                 name: 'Tetris',
-                img: 'assets/tetris.svg'
+                img: 'assets/tetris.webp'
             },
             {
                 id: 'g2048',
                 name: '2048',
-                img: 'assets/2048.svg'
+                img: 'assets/2048.webp'
             },
             {
                 id: 'minesweeper',
                 name: 'Minesweeper',
-                img: 'assets/minesweeper.svg'
+                img: 'assets/minesweeper.webp'
+            },
+            {
+                id: 'breakout',
+                name: 'Breakout',
+                img: 'assets/breakout.webp'
             }
         ];
 
@@ -320,6 +326,71 @@ export class GameLauncher {
         else if (id === 'minesweeper') {
             this.activeGame = new MinesweeperGame(content);
             this.activeGame.start();
+        }
+        else if (id === 'breakout') {
+            const savedHighScore = localStorage.getItem('breakout_high_score') || 0;
+
+            const scoreBoard = document.createElement('div');
+            scoreBoard.className = 'snake-scoreboard';
+            scoreBoard.innerHTML = `
+                <div class="snake-score-item">SCORE <span id="breakoutScore">0</span></div>
+                <div class="snake-score-item">HIGH SCORE <span id="breakoutHighScore">${savedHighScore}</span></div>
+            `;
+
+            gameWrap.insertBefore(scoreBoard, content);
+
+            const breakoutContainer = document.createElement('div');
+            breakoutContainer.style.display = 'flex';
+            breakoutContainer.style.flexDirection = 'column';
+            breakoutContainer.style.alignItems = 'center';
+            breakoutContainer.style.gap = '15px';
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 360;
+            canvas.height = 360;
+            canvas.className = 'in-app-game-canvas';
+
+            const restartBtn = document.createElement('button');
+            restartBtn.className = 'snake-restart-btn';
+            restartBtn.textContent = 'Play Again';
+            restartBtn.style.display = 'none';
+            restartBtn.onclick = () => {
+                restartBtn.style.display = 'none';
+                this.activeGame.start();
+                content.focus();
+            };
+
+            breakoutContainer.appendChild(canvas);
+            breakoutContainer.appendChild(restartBtn);
+            content.appendChild(breakoutContainer);
+
+            this.activeGame = new BreakoutGame(canvas, {
+                onScore: (score) => {
+                    document.getElementById('breakoutScore').textContent = score;
+                    const curHigh = parseInt(localStorage.getItem('breakout_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('breakout_high_score', score);
+                        document.getElementById('breakoutHighScore').textContent = score;
+                    }
+                },
+                onStart: () => {
+                    document.getElementById('breakoutScore').textContent = 0;
+                    restartBtn.style.display = 'none';
+                },
+                onEnd: (score) => {
+                    restartBtn.style.display = 'block';
+                    restartBtn.focus();
+                    
+                    const curHigh = parseInt(localStorage.getItem('breakout_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('breakout_high_score', score);
+                        document.getElementById('breakoutHighScore').textContent = score;
+                    }
+                }
+            });
+
+            this.activeGame.start();
+            content.focus();
         }
     }
 
