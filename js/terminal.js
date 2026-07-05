@@ -81,7 +81,7 @@ class Terminal {
         const val = this.input.value.trim().toLowerCase();
         if (!val) return;
 
-        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', '2048'];
+        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', '2048', 'minesweeper'];
         const matches = commands.filter(c => c.startsWith(val));
 
         if (matches.length === 1) {
@@ -212,6 +212,11 @@ class Terminal {
                 if (window.OS) window.OS.open('games', 'g2048');
                 await this.typeLine('Launching 2048...', 'os-ok');
                 break;
+            case 'minesweeper':
+            case 'ms':
+                if (window.OS) window.OS.open('games', 'minesweeper');
+                await this.typeLine('Launching Minesweeper...', 'os-ok');
+                break;
             case 'notes':
                 await this.cmdNotes(args);
                 break;
@@ -231,9 +236,12 @@ class Terminal {
                     } else if (gameName === '2048') {
                         if (window.OS) window.OS.open('games', 'g2048');
                         await this.typeLine('Launching 2048...', 'os-dim');
+                    } else if (gameName === 'minesweeper' || gameName === 'ms') {
+                        if (window.OS) window.OS.open('games', 'minesweeper');
+                        await this.typeLine('Launching Minesweeper...', 'os-dim');
                     } else {
                         await this.typeLine(`Game not found: ${gameName}`, 'os-bad');
-                        await this.typeLine('Available: snake, blackjack, tetris, 2048', 'os-dim');
+                        await this.typeLine('Available: snake, blackjack, tetris, 2048, minesweeper', 'os-dim');
                     }
                 } else {
                     if (window.OS) window.OS.open('games');
@@ -335,7 +343,7 @@ class Terminal {
         await this.typeLine('- resume: Open resume link', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
-        await this.typeLine('  -- snake, blackjack, tetris, 2048', 'os-dim', speed);
+        await this.typeLine('  -- snake, blackjack, tetris, 2048, minesweeper', 'os-dim', speed);
         await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);

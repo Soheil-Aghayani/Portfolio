@@ -3,6 +3,7 @@ import { SnakeGame } from './snake.js?v=2.2';
 import { BlackjackGame } from './blackjack.js?v=2.2';
 import { TetrisGame } from './tetris.js?v=2.2';
 import { Game2048 } from './2048.js?v=2.2';
+import { MinesweeperGame } from './minesweeper.js?v=2.2';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -27,6 +28,11 @@ export class GameLauncher {
                 id: 'g2048',
                 name: '2048',
                 img: 'assets/2048.png'
+            },
+            {
+                id: 'minesweeper',
+                name: 'Minesweeper',
+                img: 'assets/minesweeper.png'
             }
         ];
 
@@ -309,6 +315,10 @@ export class GameLauncher {
         }
         else if (id === 'g2048') {
             this.activeGame = new Game2048(content);
+            this.activeGame.start();
+        }
+        else if (id === 'minesweeper') {
+            this.activeGame = new MinesweeperGame(content);
             this.activeGame.start();
         }
     }
