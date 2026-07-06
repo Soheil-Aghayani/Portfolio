@@ -32,6 +32,7 @@ export class SnakeGame {
     start() {
         this.resize();
         this.gameOverState = false;
+        this.isPaused = false;
         this.particles = [];
         this.scanlineY = 0;
         this.snake = {
@@ -46,7 +47,7 @@ export class SnakeGame {
         this.placeFood();
 
         if (this.timer) clearInterval(this.timer);
-        this.timer = setInterval(() => this.tick(), 120);
+        this.timer = setInterval(() => this.tick(), 180);
 
         // Start render loop
         if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
@@ -74,11 +75,32 @@ export class SnakeGame {
     pause() {
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
-        if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
-        this.animFrameId = null;
+        // Keep animation frame running so we can render paused state
+    }
+
+    togglePause() {
+        if (this.gameOverState) return;
+        this.isPaused = !this.isPaused;
+        if (this.isPaused) {
+            if (this.timer) clearInterval(this.timer);
+            this.timer = null;
+        } else {
+            if (this.timer) clearInterval(this.timer);
+            this.timer = setInterval(() => this.tick(), 180);
+        }
+        this.draw();
+        if (this.callbacks.onPauseToggle) {
+            this.callbacks.onPauseToggle(this.isPaused);
+        }
     }
 
     handleInput(e) {
+        if (e.key === 'p' || e.key === 'P') {
+            e.preventDefault();
+            this.togglePause();
+            return;
+        }
+
         if (this.gameOverState) {
             if (e.key === ' ' || e.key === 'Enter') {
                 this.start();
@@ -86,6 +108,7 @@ export class SnakeGame {
             return;
         }
 
+        if (this.isPaused) return;
         if (!this.snake || !this.snake.alive) return;
 
         switch(e.key) {
@@ -372,6 +395,24 @@ export class SnakeGame {
             this.ctx.fill();
             this.ctx.restore();
         });
+
+        // 6. Draw Paused Overlay
+        if (this.isPaused) {
+            this.ctx.save();
+            this.ctx.fillStyle = 'rgba(9, 13, 22, 0.85)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.ctx.fillStyle = '#ffffff';
+            this.ctx.font = 'bold 24px Outfit, sans-serif';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText('PAUSED', this.canvas.width / 2, this.canvas.height / 2 - 10);
+
+            this.ctx.font = '12px Outfit, sans-serif';
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            this.ctx.fillText('Press P or Click Pause to Resume', this.canvas.width / 2, this.canvas.height / 2 + 15);
+            this.ctx.restore();
+        }
     }
 
     gameOver() {

@@ -210,10 +210,13 @@ export class BreakoutGame {
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
         this.handleCanvasClick = this.handleCanvasClick.bind(this);
         this.gameLoop = this.gameLoop.bind(this);
 
         this.animationId = null;
+        this.targetPaddleX = 0;
+        this.targetSpeed = 4.5;
     }
 
     start() {
@@ -227,15 +230,18 @@ export class BreakoutGame {
 
         this.paddleWidth = this.basePaddleWidth;
         this.paddleX = (this.canvas.width - this.paddleWidth) / 2;
+        this.targetPaddleX = this.paddleX;
         this.prevPaddleX = this.paddleX;
         this.paddleTilt = 0;
 
-        // Initialize single primary ball
+        // Initialize single primary ball starting slow
+        const baseSpeed = 2.6; // starts slow
+        this.targetSpeed = 4.5;
         this.balls = [{
             x: this.canvas.width / 2,
             y: this.canvas.height - 25,
-            dx: 2.8 + (Math.random() - 0.5) * 1.5,
-            dy: -3.8,
+            dx: baseSpeed * 0.7 * (Math.random() > 0.5 ? 1 : -1),
+            dy: -baseSpeed,
             trail: []
         }];
 
@@ -263,8 +269,10 @@ export class BreakoutGame {
 
         window.removeEventListener('mousemove', this.handleMouseMove);
         window.removeEventListener('touchmove', this.handleTouchMove);
+        window.removeEventListener('touchstart', this.handleTouchStart);
         window.addEventListener('mousemove', this.handleMouseMove);
         window.addEventListener('touchmove', this.handleTouchMove, { passive: true });
+        window.addEventListener('touchstart', this.handleTouchStart, { passive: true });
 
         this.canvas.removeEventListener('mousedown', this.handleCanvasClick);
         this.canvas.addEventListener('mousedown', this.handleCanvasClick);
@@ -283,6 +291,7 @@ export class BreakoutGame {
         window.removeEventListener('keyup', this.handleKeyUp);
         window.removeEventListener('mousemove', this.handleMouseMove);
         window.removeEventListener('touchmove', this.handleTouchMove);
+        window.removeEventListener('touchstart', this.handleTouchStart);
         this.canvas.removeEventListener('mousedown', this.handleCanvasClick);
     }
 
@@ -307,7 +316,23 @@ export class BreakoutGame {
         }
     }
 
+    togglePause() {
+        if (this.gameOverState) return;
+        this.isPaused = !this.isPaused;
+        if (this.callbacks.onPauseToggle) {
+            this.callbacks.onPauseToggle(this.isPaused);
+        }
+    }
+
     handleKeyDown(e) {
+        if (e.key === 'p' || e.key === 'P') {
+            e.preventDefault();
+            this.togglePause();
+            return;
+        }
+
+        if (this.isPaused) return;
+
         if (e.key === 'ArrowRight' || e.key === 'Right' || e.key === 'd' || e.key === 'D') {
             e.preventDefault();
             this.rightPressed = true;
@@ -315,7 +340,7 @@ export class BreakoutGame {
             e.preventDefault();
             this.leftPressed = true;
         } else if (e.key === ' ' || e.key === 'Spacebar') {
-            if (this.laserActive && !this.gameOverState && !this.isPaused && !this.isLevelTransition) {
+            if (this.laserActive && !this.gameOverState && !this.isLevelTransition) {
                 e.preventDefault();
                 this.fireLaser();
             }
@@ -332,17 +357,28 @@ export class BreakoutGame {
 
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
-        const relativeX = e.clientX - rect.left;
+        const scaleX = this.canvas.width / rect.width;
+        const relativeX = (e.clientX - rect.left) * scaleX;
         const clampedX = Math.max(0, Math.min(relativeX, this.canvas.width));
-        this.paddleX = clampedX - this.paddleWidth / 2;
+        this.targetPaddleX = clampedX - this.paddleWidth / 2;
     }
 
     handleTouchMove(e) {
         if (e.touches.length === 0) return;
         const rect = this.canvas.getBoundingClientRect();
-        const relativeX = e.touches[0].clientX - rect.left;
+        const scaleX = this.canvas.width / rect.width;
+        const relativeX = (e.touches[0].clientX - rect.left) * scaleX;
         const clampedX = Math.max(0, Math.min(relativeX, this.canvas.width));
-        this.paddleX = clampedX - this.paddleWidth / 2;
+        this.targetPaddleX = clampedX - this.paddleWidth / 2;
+    }
+
+    handleTouchStart(e) {
+        if (e.touches.length === 0) return;
+        const rect = this.canvas.getBoundingClientRect();
+        const scaleX = this.canvas.width / rect.width;
+        const relativeX = (e.touches[0].clientX - rect.left) * scaleX;
+        const clampedX = Math.max(0, Math.min(relativeX, this.canvas.width));
+        this.targetPaddleX = clampedX - this.paddleWidth / 2;
     }
 
     handleCanvasClick(e) {
@@ -479,8 +515,9 @@ export class BreakoutGame {
         this.laserActive = false;
         this.shieldActive = false;
 
-        // Reset ball position and multiply speeds
-        const baseSpeed = 3.6 + (this.level - 1) * 0.45;
+        // Reset ball position and multiply speeds (starts slow, targets higher speed)
+        const baseSpeed = 2.6 + (this.level - 1) * 0.45;
+        this.targetSpeed = 4.5 + (this.level - 1) * 0.45;
         this.balls = [{
             x: this.canvas.width / 2,
             y: this.canvas.height - 25,
@@ -518,9 +555,14 @@ export class BreakoutGame {
 
                             // Dynamic speed ramp
                             const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-                            if (speed < 7) {
-                                ball.dx *= 1.008;
-                                ball.dy *= 1.008;
+                            if (speed < this.targetSpeed) {
+                                const newSpeed = Math.min(speed * 1.025, this.targetSpeed);
+                                ball.dx = (ball.dx / speed) * newSpeed;
+                                ball.dy = (ball.dy / speed) * newSpeed;
+                            } else if (speed < 7.2) {
+                                const newSpeed = Math.min(speed * 1.004, 7.2);
+                                ball.dx = (ball.dx / speed) * newSpeed;
+                                ball.dy = (ball.dy / speed) * newSpeed;
                             }
 
                             // Register the hit consequence
@@ -820,7 +862,7 @@ export class BreakoutGame {
 
         this.ctx.font = '12px Outfit, sans-serif';
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        this.ctx.fillText('Press P to Resume', this.canvas.width / 2, this.canvas.height / 2 + 15);
+        this.ctx.fillText('Press P or Click Pause to Resume', this.canvas.width / 2, this.canvas.height / 2 + 15);
     }
 
     drawLevelBanner() {
@@ -1026,9 +1068,11 @@ export class BreakoutGame {
                     // Angle alteration depending on impact offset from paddle center
                     const hitPoint = (ball.x - (this.paddleX + this.paddleWidth / 2)) / (this.paddleWidth / 2);
                     const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+                    const speedUpMultiplier = speed < this.targetSpeed ? 1.025 : 1.004;
+                    const newSpeed = Math.min(speed * speedUpMultiplier, 7.2);
                     
                     ball.dx = hitPoint * 4.2;
-                    ball.dy = -Math.sqrt(Math.max(9, speed * speed - ball.dx * ball.dx));
+                    ball.dy = -Math.sqrt(Math.max(9, newSpeed * newSpeed - ball.dx * ball.dx));
                 }
                 // Shield save fallback
                 else if (this.shieldActive) {
@@ -1065,10 +1109,14 @@ export class BreakoutGame {
         // Smoothly handle paddle motion and tilt
         const prevX = this.paddleX;
         if (this.rightPressed) {
-            this.paddleX = Math.min(this.paddleX + 6.5, this.canvas.width - this.paddleWidth);
+            this.targetPaddleX = Math.min(this.targetPaddleX + 7.5, this.canvas.width - this.paddleWidth);
         } else if (this.leftPressed) {
-            this.paddleX = Math.max(this.paddleX - 6.5, 0);
+            this.targetPaddleX = Math.max(this.targetPaddleX - 7.5, 0);
         }
+
+        // Interpolate paddleX towards targetPaddleX for smooth glide movement
+        this.paddleX += (this.targetPaddleX - this.paddleX) * 0.32;
+        this.paddleX = Math.max(0, Math.min(this.paddleX, this.canvas.width - this.paddleWidth));
         
         // Calculate velocity and tilt rotation
         const paddleVelocity = this.paddleX - prevX;

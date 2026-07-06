@@ -19,10 +19,13 @@ export class MinesweeperGame {
         this.gameOverState = false;
         this.won = false;
         this.firstClick = true;
+        this.isPaused = false;
         
         this.minesRemaining = this.mineCount;
         this.time = 0;
         this.timer = null;
+
+        this.handleKeyDown = this.handleKeyDown.bind(this);
 
         this.initUI();
     }
@@ -67,6 +70,7 @@ export class MinesweeperGame {
         this.gameOverState = false;
         this.won = false;
         this.firstClick = true;
+        this.isPaused = false;
         this.minesRemaining = this.mineCount;
         this.time = 0;
         
@@ -90,12 +94,16 @@ export class MinesweeperGame {
         this.buildGrid();
         this.renderBoard();
 
+        window.removeEventListener('keydown', this.handleKeyDown);
+        window.addEventListener('keydown', this.handleKeyDown);
+
         if (this.callbacks.onStart) this.callbacks.onStart();
     }
 
     stop() {
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
+        window.removeEventListener('keydown', this.handleKeyDown);
     }
 
     buildGrid() {
@@ -183,8 +191,15 @@ export class MinesweeperGame {
                 cellEl.dataset.col = c;
 
                 // Event Listeners
+                let touchTimer;
+                let wasLongPress = false;
+
                 cellEl.addEventListener('click', (e) => {
                     e.preventDefault();
+                    if (wasLongPress) {
+                        wasLongPress = false;
+                        return;
+                    }
                     this.handleCellClick(r, c);
                 });
 
@@ -194,14 +209,18 @@ export class MinesweeperGame {
                 });
 
                 // Long press / Touch hold for mobile flag placement
-                let touchTimer;
                 cellEl.addEventListener('touchstart', (e) => {
+                    wasLongPress = false;
                     touchTimer = setTimeout(() => {
+                        wasLongPress = true;
                         this.handleCellRightClick(r, c);
+                        if (navigator.vibrate) {
+                            try { navigator.vibrate(50); } catch(err) {}
+                        }
                     }, 500); // 500ms long press
-                }, { passive: true });
+                });
 
-                cellEl.addEventListener('touchend', () => {
+                cellEl.addEventListener('touchend', (e) => {
                     clearTimeout(touchTimer);
                 });
 
@@ -215,7 +234,7 @@ export class MinesweeperGame {
     }
 
     handleCellClick(r, c) {
-        if (this.gameOverState) return;
+        if (this.gameOverState || this.isPaused) return;
 
         const cell = this.grid[r][c];
         if (cell.revealed || cell.flagged) return;
@@ -232,7 +251,7 @@ export class MinesweeperGame {
     }
 
     handleCellRightClick(r, c) {
-        if (this.gameOverState) return;
+        if (this.gameOverState || this.isPaused) return;
 
         const cell = this.grid[r][c];
         if (cell.revealed) return;
@@ -262,13 +281,58 @@ export class MinesweeperGame {
         }
     }
 
-    startTimer() {
-        this.time = 0;
+    startTimer(resume = false) {
+        if (this.timer) clearInterval(this.timer);
+        if (!resume) this.time = 0;
         this.timer = setInterval(() => {
             this.time++;
             const displayTime = String(Math.min(this.time, 999)).padStart(3, '0');
             this.timerEl.textContent = displayTime;
         }, 1000);
+    }
+
+    togglePause() {
+        if (this.gameOverState) return;
+        this.isPaused = !this.isPaused;
+        if (this.isPaused) {
+            if (this.timer) clearInterval(this.timer);
+            this.timer = null;
+            this.showPauseOverlay(true);
+        } else {
+            this.startTimer(true);
+            this.showPauseOverlay(false);
+        }
+        if (this.callbacks.onPauseToggle) {
+            this.callbacks.onPauseToggle(this.isPaused);
+        }
+    }
+
+    showPauseOverlay(show) {
+        const overlay = this.container.querySelector('#msOverlay');
+        const overlayTitle = this.container.querySelector('#msOverlayTitle');
+        const overlayMsg = this.container.querySelector('#msOverlayMsg');
+        const overlayBtn = this.container.querySelector('#msOverlayBtn');
+
+        if (overlay && overlayTitle && overlayMsg && overlayBtn) {
+            if (show) {
+                overlayTitle.textContent = 'PAUSED';
+                overlayTitle.style.color = '#38bdf8'; // friendly blue
+                overlayMsg.textContent = 'Game is paused';
+                overlayBtn.textContent = 'Resume';
+                overlayBtn.onclick = () => this.togglePause();
+                overlay.classList.add('show');
+            } else {
+                overlay.classList.remove('show');
+            }
+        }
+    }
+
+    handleKeyDown(e) {
+        if (e.key === 'p' || e.key === 'P') {
+            if (this.firstClick) return; // Don't pause before game has started
+            e.preventDefault();
+            this.togglePause();
+        }
     }
 
     updateCellUI(r, c) {

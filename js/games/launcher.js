@@ -88,21 +88,18 @@ export class GameLauncher {
 
         // Wrapper for game
         const gameWrap = document.createElement('div');
-        gameWrap.style.width = '100%';
-        gameWrap.style.height = '100%';
-        gameWrap.style.display = 'flex';
-        gameWrap.style.flexDirection = 'column';
-        gameWrap.style.alignItems = 'center';
-        gameWrap.style.justifyContent = 'center';
+        gameWrap.className = 'game-stage-wrapper';
 
         stage.appendChild(gameWrap);
 
         // Navigation bar
         const navBar = document.createElement('div');
+        navBar.className = 'game-navbar';
         navBar.style.width = '100%';
         navBar.style.padding = '10px 20px';
         navBar.style.display = 'flex';
         navBar.style.justifyContent = 'flex-start';
+        navBar.style.alignItems = 'center';
 
         const backBtn = document.createElement('button');
         backBtn.className = 'game-back-btn';
@@ -112,7 +109,21 @@ export class GameLauncher {
         backBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Back to Menu';
         backBtn.onclick = () => this.showMenu();
 
+        const pauseBtn = document.createElement('button');
+        pauseBtn.className = 'game-pause-btn';
+        pauseBtn.type = 'button';
+        pauseBtn.style.display = 'none'; // Hidden by default, shown for pause-supporting games
+        pauseBtn.setAttribute('aria-label', 'Pause game');
+        pauseBtn.setAttribute('title', 'Pause game');
+        pauseBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">pause</span> Pause';
+        pauseBtn.onclick = () => {
+            if (this.activeGame && typeof this.activeGame.togglePause === 'function') {
+                this.activeGame.togglePause();
+            }
+        };
+
         navBar.appendChild(backBtn);
+        navBar.appendChild(pauseBtn);
         gameWrap.appendChild(navBar);
 
         const content = document.createElement('div');
@@ -196,8 +207,11 @@ export class GameLauncher {
                 onStart: () => {
                     document.getElementById('snakeScore').textContent = 0;
                     overlay.classList.remove('show');
+                    pauseBtn.style.display = 'inline-flex';
+                    this.updatePauseButtonState(pauseBtn, false);
                 },
                 onEnd: (score) => {
+                    pauseBtn.style.display = 'none';
                     const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('snake_high_score', score);
@@ -216,6 +230,9 @@ export class GameLauncher {
                     };
                     
                     overlay.classList.add('show');
+                },
+                onPauseToggle: (isPaused) => {
+                    this.updatePauseButtonState(pauseBtn, isPaused);
                 }
             });
 
@@ -257,9 +274,7 @@ export class GameLauncher {
             tetrisContainer.style.gap = '15px';
 
             const canvasWrapper = document.createElement('div');
-            canvasWrapper.className = 'game-canvas-wrapper';
-            canvasWrapper.style.width = '180px';
-            canvasWrapper.style.height = '360px';
+            canvasWrapper.className = 'game-canvas-wrapper tetris-wrapper';
 
             const canvas = document.createElement('canvas');
             canvas.height = 360; // tileSize is dynamically set, canvas width is computed in game
@@ -308,8 +323,11 @@ export class GameLauncher {
                     document.getElementById('tetrisScore').textContent = 0;
                     document.getElementById('tetrisLevel').textContent = 1;
                     overlay.classList.remove('show');
+                    pauseBtn.style.display = 'inline-flex';
+                    this.updatePauseButtonState(pauseBtn, false);
                 },
                 onEnd: (score) => {
+                    pauseBtn.style.display = 'none';
                     const curHigh = parseInt(localStorage.getItem('tetris_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('tetris_high_score', score);
@@ -328,6 +346,9 @@ export class GameLauncher {
                     };
 
                     overlay.classList.add('show');
+                },
+                onPauseToggle: (isPaused) => {
+                    this.updatePauseButtonState(pauseBtn, isPaused);
                 }
             });
 
@@ -356,7 +377,18 @@ export class GameLauncher {
             this.activeGame.start();
         }
         else if (id === 'minesweeper') {
-            this.activeGame = new MinesweeperGame(content);
+            this.activeGame = new MinesweeperGame(content, {
+                onStart: () => {
+                    pauseBtn.style.display = 'inline-flex';
+                    this.updatePauseButtonState(pauseBtn, false);
+                },
+                onEnd: () => {
+                    pauseBtn.style.display = 'none';
+                },
+                onPauseToggle: (isPaused) => {
+                    this.updatePauseButtonState(pauseBtn, isPaused);
+                }
+            });
             this.activeGame.start();
         }
         else if (id === 'breakout') {
@@ -420,8 +452,11 @@ export class GameLauncher {
                         document.getElementById('breakoutLevel').textContent = 1;
                     }
                     overlay.classList.remove('show');
+                    pauseBtn.style.display = 'inline-flex';
+                    this.updatePauseButtonState(pauseBtn, false);
                 },
                 onEnd: (score, isWin) => {
+                    pauseBtn.style.display = 'none';
                     const curHigh = parseInt(localStorage.getItem('breakout_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('breakout_high_score', score);
@@ -446,6 +481,9 @@ export class GameLauncher {
                     };
 
                     overlay.classList.add('show');
+                },
+                onPauseToggle: (isPaused) => {
+                    this.updatePauseButtonState(pauseBtn, isPaused);
                 }
             });
 
@@ -460,6 +498,10 @@ export class GameLauncher {
         }
         this.activeGame = null;
 
+        // Hide pause button when going back to menu
+        const pauseBtn = this.container.querySelector('.game-pause-btn');
+        if (pauseBtn) pauseBtn.style.display = 'none';
+
         const stage = this.container.querySelector('#gameStage');
         const menu = this.container.querySelector('#gameMenu');
         stage.style.display = 'none';
@@ -467,6 +509,17 @@ export class GameLauncher {
 
         if (this.lastFocusedGameIcon) {
             this.lastFocusedGameIcon.focus();
+        }
+    }
+
+    updatePauseButtonState(btn, isPaused) {
+        if (!btn) return;
+        if (isPaused) {
+            btn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">play_arrow</span> Resume';
+            btn.classList.add('paused');
+        } else {
+            btn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">pause</span> Pause';
+            btn.classList.remove('paused');
         }
     }
 }

@@ -471,6 +471,24 @@ export class TetrisGame {
             this.ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
+
+        // 8. Paused Overlay
+        if (this.isPaused) {
+            this.ctx.save();
+            this.ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.ctx.fillStyle = '#ffffff';
+            this.ctx.font = 'bold 20px Outfit, sans-serif';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText('PAUSED', this.canvas.width / 2, this.canvas.height / 2 - 10);
+
+            this.ctx.font = '10px Outfit, sans-serif';
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            this.ctx.fillText('Press P or Click Pause to Resume', this.canvas.width / 2, this.canvas.height / 2 + 15);
+            this.ctx.restore();
+        }
     }
 
     drawBlock(x, y, color, isGhost = false, blockType = 1) {
@@ -564,16 +582,26 @@ export class TetrisGame {
         }
     }
 
-    handleInput(e) {
-        if (this.gameOverState || this.isPaused || this.isClearingAnimation) return;
+    togglePause() {
+        if (this.gameOverState) return;
+        this.isPaused = !this.isPaused;
+        if (!this.isPaused) {
+            this.lastDropTime = performance.now();
+        }
+        this.draw();
+        if (this.callbacks.onPauseToggle) {
+            this.callbacks.onPauseToggle(this.isPaused);
+        }
+    }
 
+    handleInput(e) {
         if (e.key === 'p' || e.key === 'P') {
             e.preventDefault();
-            this.isPaused = !this.isPaused;
+            this.togglePause();
             return;
         }
 
-        if (this.isPaused) return;
+        if (this.gameOverState || this.isPaused || this.isClearingAnimation) return;
 
         switch (e.key) {
             case 'ArrowLeft':

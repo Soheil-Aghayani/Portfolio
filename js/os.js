@@ -68,6 +68,8 @@ class WindowManager {
         app.wrap.focus();
 
         document.body.style.overflow = 'hidden'; // Lock scroll
+        document.body.style.overscrollBehavior = 'none';
+        document.documentElement.style.overscrollBehavior = 'none';
 
         if (app.options.onOpen) app.options.onOpen(...args);
     }
@@ -84,7 +86,11 @@ class WindowManager {
 
         // Check if any other apps are open before unlocking scroll
         const anyOpen = Object.values(this.apps).some(a => a.isOpen);
-        if (!anyOpen) document.body.style.overflow = '';
+        if (!anyOpen) {
+            document.body.style.overflow = '';
+            document.body.style.overscrollBehavior = '';
+            document.documentElement.style.overscrollBehavior = '';
+        }
 
         // Restore focus
         if (app.previousFocus) {
@@ -122,3 +128,48 @@ class WindowManager {
 
 // Global instance
 window.OS = new WindowManager();
+
+// Prevent background scrolling on touch devices and desktop when an app window is active
+document.addEventListener('touchmove', (e) => {
+    if (window.OS && window.OS.activeApp) {
+        const app = window.OS.apps[window.OS.activeApp];
+        if (app && app.wrap && app.win) {
+            // If touch is outside the modal window, block it completely
+            const isInsideWin = app.win.contains(e.target);
+            if (!isInsideWin) {
+                if (e.cancelable) e.preventDefault();
+                return;
+            }
+
+            // If inside the window, check if it's in a scrollable element
+            let current = e.target;
+            let isScrollable = false;
+            while (current && current !== app.win) {
+                const style = window.getComputedStyle(current);
+                const overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
+                if ((overflowY === 'auto' || overflowY === 'scroll') && current.scrollHeight > current.clientHeight) {
+                    isScrollable = true;
+                    break;
+                }
+                current = current.parentElement;
+            }
+
+            if (!isScrollable) {
+                if (e.cancelable) e.preventDefault();
+            }
+        }
+    }
+}, { passive: false });
+
+document.addEventListener('wheel', (e) => {
+    if (window.OS && window.OS.activeApp) {
+        const app = window.OS.apps[window.OS.activeApp];
+        if (app && app.wrap && app.win) {
+            const isInsideWin = app.win.contains(e.target);
+            if (!isInsideWin) {
+                if (e.cancelable) e.preventDefault();
+            }
+        }
+    }
+}, { passive: false });
+
