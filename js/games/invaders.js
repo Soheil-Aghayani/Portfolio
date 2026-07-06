@@ -127,13 +127,32 @@ export class InvadersGame {
         this.alienShotInterval = 2200;
         this.alienBulletSpeed = 2.5; // scales up each wave
 
-        // TWINKLING BACKGROUND STARS
-        for (let i = 0; i < 40; i++) {
+        // TWINKLING BACKGROUND STARS (Parallax Neon Starfield)
+        for (let i = 0; i < 60; i++) {
+            const layer = Math.random();
+            let size, speed, color;
+            if (layer < 0.5) {
+                // Background layer (slow, small, dim white/blue)
+                size = Math.random() * 0.8 + 0.4;
+                speed = Math.random() * 0.15 + 0.05;
+                color = Math.random() < 0.5 ? 'rgba(100, 116, 139, 0.4)' : 'rgba(56, 189, 248, 0.3)';
+            } else if (layer < 0.85) {
+                // Midground layer (medium, warm white/cyan)
+                size = Math.random() * 1.2 + 0.8;
+                speed = Math.random() * 0.4 + 0.2;
+                color = Math.random() < 0.5 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(45, 212, 191, 0.5)';
+            } else {
+                // Foreground layer (fast, large, glowing purple/white)
+                size = Math.random() * 1.6 + 1.2;
+                speed = Math.random() * 0.9 + 0.6;
+                color = Math.random() < 0.5 ? 'rgba(217, 70, 239, 0.7)' : 'rgba(255, 255, 255, 0.8)';
+            }
             this.stars.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                size: Math.random() * 1.5 + 0.5,
-                speed: Math.random() * 0.5 + 0.2
+                size,
+                speed,
+                color
             });
         }
 
@@ -208,14 +227,15 @@ export class InvadersGame {
         const lvl = this.level;
         const isBossWave = (lvl % 3 === 0); // every 3rd wave is a BOSS wave
 
-        // Per-level scaling
-        this.invaderSpeed   = 0.4 + lvl * 0.1;
-        this.alienShotInterval  = Math.max(700, 2200 - lvl * 150); // faster shooting each wave
-        this.alienBulletSpeed   = 2.5 + lvl * 0.3;                 // faster bullets each wave
+        // Per-level scaling (smoother log progression + responsive player speed)
+        this.invaderSpeed = 0.45 + Math.log2(lvl) * 0.16;
+        this.alienShotInterval = Math.max(900, 2200 - Math.log2(lvl) * 350);
+        this.alienBulletSpeed = 2.0 + Math.log2(lvl) * 0.45;
+        this.playerSpeed = 5.0;
 
         if (isBossWave) {
             // ---- BOSS WAVE: single large alien with HP ----
-            const bossHp = 3 + Math.floor(lvl / 3); // more HP per boss cycle
+            const bossHp = 10 + Math.floor(lvl / 3) * 5; // Level 3: 15 HP, Level 6: 20 HP, Level 9: 25 HP
             this.invaders.push({
                 x: this.canvas.width / 2 - 30,
                 y: 70,
@@ -419,14 +439,47 @@ export class InvadersGame {
         const aliveAliens = this.invaders.filter(a => a.alive);
         if (aliveAliens.length === 0) return;
 
-        const shooter = aliveAliens[Math.floor(Math.random() * aliveAliens.length)];
-        this.bullets.push({
-            x: shooter.x + shooter.width / 2,
-            y: shooter.y + shooter.height,
-            dx: 0,
-            dy: this.alienBulletSpeed,
-            isPlayer: false
-        });
+        // Check if boss is alive
+        const boss = aliveAliens.find(a => a.type === 'boss');
+
+        if (boss) {
+            // Boss Multi-Pattern Attacks!
+            const roll = Math.random();
+            if (roll < 0.4) {
+                // 3-way spread pattern
+                this.bullets.push({ x: boss.x + boss.width / 2, y: boss.y + boss.height, dx: -0.7, dy: this.alienBulletSpeed * 0.9, isPlayer: false });
+                this.bullets.push({ x: boss.x + boss.width / 2, y: boss.y + boss.height, dx: 0, dy: this.alienBulletSpeed, isPlayer: false });
+                this.bullets.push({ x: boss.x + boss.width / 2, y: boss.y + boss.height, dx: 0.7, dy: this.alienBulletSpeed * 0.9, isPlayer: false });
+            } else if (roll < 0.75) {
+                // Aimed target-seeking bullet
+                const playerCenter = this.playerX + this.playerWidth / 2;
+                const bossCenter = boss.x + boss.width / 2;
+                const dx = (playerCenter - bossCenter) * 0.012; // trace player speed
+                const clampedDx = Math.max(-1.4, Math.min(1.4, dx));
+                this.bullets.push({
+                    x: bossCenter,
+                    y: boss.y + boss.height,
+                    dx: clampedDx,
+                    dy: this.alienBulletSpeed,
+                    isPlayer: false
+                });
+            } else {
+                // Standard double laser
+                this.bullets.push({ x: boss.x + 12, y: boss.y + boss.height, dx: 0, dy: this.alienBulletSpeed, isPlayer: false });
+                this.bullets.push({ x: boss.x + boss.width - 12, y: boss.y + boss.height, dx: 0, dy: this.alienBulletSpeed, isPlayer: false });
+            }
+            this.sound.play(180, 90, 'square', 0.12, 0.04);
+        } else {
+            // Standard alien fires straight down
+            const shooter = aliveAliens[Math.floor(Math.random() * aliveAliens.length)];
+            this.bullets.push({
+                x: shooter.x + shooter.width / 2,
+                y: shooter.y + shooter.height,
+                dx: 0,
+                dy: this.alienBulletSpeed,
+                isPlayer: false
+            });
+        }
     }
 
     spawnParticles(x, y, color) {
@@ -505,15 +558,15 @@ export class InvadersGame {
             this.playerInvulnerableTime -= 16.67; // decrement approx frame duration
         }
 
+        // Auto-fire player lasers!
+        this.firePlayerBullet();
+
         // --- 3. Handle Keyboard & Touch Ship Movements ---
         if (this.leftPressed) {
             this.playerX = Math.max(0, this.playerX - this.playerSpeed);
         }
         if (this.rightPressed) {
             this.playerX = Math.min(this.canvas.width - this.playerWidth, this.playerX + this.playerSpeed);
-        }
-        if (this.spacePressed) {
-            this.firePlayerBullet();
         }
 
         if (this.isTouching) {
@@ -567,7 +620,15 @@ export class InvadersGame {
         if (shiftDown) {
             this.invaderDirection *= -1;
             this.invaders.forEach(alien => {
-                alien.y += this.invaderStepDown;
+                // Shifting down: Boss shifts down slower and stops at y = 140
+                if (alien.type === 'boss') {
+                    if (alien.y < 140) {
+                        alien.y += this.invaderStepDown * 0.5;
+                    }
+                } else {
+                    alien.y += this.invaderStepDown;
+                }
+
                 // Game Over if aliens reach player height
                 if (alien.y + alien.height >= this.playerY && alien.alive) {
                     if (!window.godModeActive) {
@@ -768,113 +829,164 @@ export class InvadersGame {
         this.ctx.fillStyle = '#060a12';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // 1. Draw Twinkling Stars
+        // 1. Draw Twinkling Stars (Parallax Layers)
         this.stars.forEach(s => {
-            this.ctx.fillStyle = `rgba(255, 255, 255, ${0.4 + Math.sin(Date.now() * 0.005 + s.x) * 0.3})`;
+            const twinkle = 0.45 + Math.sin(Date.now() * 0.005 + s.x) * 0.35;
+            this.ctx.fillStyle = s.color;
+            this.ctx.globalAlpha = twinkle;
             this.ctx.fillRect(s.x, s.y, s.size, s.size);
         });
+        this.ctx.globalAlpha = 1.0; // reset
 
         // 2. Draw UFO Mystery Ship
         if (this.ufo) {
             const uf = this.ufo;
-            // Pulsing red glow
-            this.ctx.shadowBlur = 10;
+            // Pulsing red glow saucer
+            this.ctx.shadowBlur = 12;
             this.ctx.shadowColor = '#f43f5e';
             this.ctx.fillStyle = '#f43f5e';
-            // Dome top
             this.ctx.beginPath();
-            this.ctx.ellipse(uf.x + uf.width / 2, uf.y + 3, uf.width / 2 - 2, 7, 0, Math.PI, 0);
+            this.ctx.ellipse(uf.x + uf.width / 2, uf.y + 4, uf.width / 2, 6, 0, 0, Math.PI * 2);
             this.ctx.fill();
-            // Saucer body
-            this.ctx.fillRect(uf.x, uf.y + 4, uf.width, uf.height - 4);
+            this.ctx.fillStyle = '#fda4af';
+            this.ctx.beginPath();
+            this.ctx.ellipse(uf.x + uf.width / 2, uf.y + 1, uf.width / 4, 3, 0, 0, Math.PI * 2);
+            this.ctx.fill();
             this.ctx.shadowBlur = 0;
-            // Blinking lights
-            const blinkOn = Math.floor(Date.now() / 200) % 2 === 0;
+
+            const blinkOn = Math.floor(Date.now() / 150) % 2 === 0;
             this.ctx.fillStyle = blinkOn ? '#fff' : '#f43f5e';
-            this.ctx.fillRect(uf.x + 4, uf.y + 7, 3, 3);
-            this.ctx.fillRect(uf.x + uf.width / 2 - 1, uf.y + 7, 3, 3);
-            this.ctx.fillRect(uf.x + uf.width - 7, uf.y + 7, 3, 3);
-            // UFO label
-            this.ctx.fillStyle = '#fff';
-            this.ctx.font = 'bold 7px monospace';
-            this.ctx.textAlign = 'center';
-            this.ctx.fillText('UFO', uf.x + uf.width / 2, uf.y - 3);
+            this.ctx.fillRect(uf.x + 6, uf.y + 5, 2, 2);
+            this.ctx.fillRect(uf.x + uf.width / 2 - 1, uf.y + 5, 2, 2);
+            this.ctx.fillRect(uf.x + uf.width - 8, uf.y + 5, 2, 2);
         }
 
-        // 3. Draw Invaders (Aliens) with animated jitter frames
+        // 3. Draw Invaders (Aliens) with custom high-tech vector graphics
         this.invaders.forEach(alien => {
             if (!alien.alive) return;
 
-            // --- BOSS alien ---
+            // --- BOSS DREADNOUGHT ---
             if (alien.type === 'boss') {
                 const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.006);
-                const bossColor = `rgba(255, ${Math.floor(50 + pulse * 60)}, 80, 1)`;
-                this.ctx.shadowBlur = 14 + pulse * 8;
+                const bossColor = `rgba(244, 63, 94, 1)`;
+
+                // Glowing shield boundary
+                this.ctx.strokeStyle = `rgba(244, 63, 94, ${0.15 + pulse * 0.15})`;
+                this.ctx.lineWidth = 2.5;
+                this.ctx.beginPath();
+                this.ctx.arc(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.width * 0.72, 0, Math.PI * 2);
+                this.ctx.stroke();
+
+                // Delta wing warship hull
+                this.ctx.shadowBlur = 15;
                 this.ctx.shadowColor = '#f43f5e';
                 this.ctx.fillStyle = bossColor;
-                // Main body
-                this.ctx.fillRect(alien.x + 4, alien.y + 8, alien.width - 8, alien.height - 10);
-                // Wide wings
-                this.ctx.fillRect(alien.x, alien.y + 14, alien.width, 10);
-                // Crown spikes
-                this.ctx.fillRect(alien.x + 8,  alien.y,     6, 10);
-                this.ctx.fillRect(alien.x + 22, alien.y + 4, 6, 7);
-                this.ctx.fillRect(alien.x + alien.width - 14, alien.y, 6, 10);
+                this.ctx.beginPath();
+                this.ctx.moveTo(alien.x + alien.width / 2, alien.y + alien.height); // nose cone pointing down
+                this.ctx.lineTo(alien.x + alien.width, alien.y + 8);
+                this.ctx.lineTo(alien.x + alien.width - 12, alien.y);
+                this.ctx.lineTo(alien.x + 12, alien.y);
+                this.ctx.lineTo(alien.x, alien.y + 8);
+                this.ctx.closePath();
+                this.ctx.fill();
                 this.ctx.shadowBlur = 0;
-                // Red eyes
+
+                // Engine thrust trails
+                this.ctx.fillStyle = '#f97316';
+                this.ctx.fillRect(alien.x + 15, alien.y - 5, 6, 5);
+                this.ctx.fillRect(alien.x + alien.width - 21, alien.y - 5, 6, 5);
+                if (Date.now() % 120 < 60) {
+                    this.ctx.fillStyle = '#ef4444';
+                    this.ctx.fillRect(alien.x + 17, alien.y - 8, 2, 3);
+                    this.ctx.fillRect(alien.x + alien.width - 19, alien.y - 8, 2, 3);
+                }
+
+                // Glowing core eyes
                 this.ctx.fillStyle = '#fff';
-                this.ctx.fillRect(alien.x + 10, alien.y + 12, 5, 5);
-                this.ctx.fillRect(alien.x + alien.width - 15, alien.y + 12, 5, 5);
-                this.ctx.fillStyle = '#f43f5e';
-                this.ctx.fillRect(alien.x + 12, alien.y + 14, 3, 3);
-                this.ctx.fillRect(alien.x + alien.width - 13, alien.y + 14, 3, 3);
-                // HP bar
+                this.ctx.fillRect(alien.x + alien.width / 2 - 8, alien.y + 12, 3, 3);
+                this.ctx.fillRect(alien.x + alien.width / 2 + 5, alien.y + 12, 3, 3);
+
+                // Boss HP bar
                 const hpRatio = alien.hp / alien.maxHp;
-                const barW = alien.width + 10;
-                const barX = alien.x - 5;
-                const barY = alien.y - 8;
-                this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                this.ctx.fillRect(barX, barY, barW, 5);
+                const barW = alien.width + 12;
+                const barX = alien.x - 6;
+                const barY = alien.y - 14;
+                this.ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                this.ctx.fillRect(barX, barY, barW, 6);
                 this.ctx.fillStyle = hpRatio > 0.5 ? '#10b981' : (hpRatio > 0.25 ? '#f59e0b' : '#ef4444');
-                this.ctx.fillRect(barX, barY, barW * hpRatio, 5);
+                this.ctx.fillRect(barX, barY, barW * hpRatio, 6);
                 return;
             }
 
-            // --- Regular alien ---
+            // --- REGULAR ALIEN SHIPS ---
             const color = alien.type === 'magenta' ? '#d946ef' : (alien.type === 'cyan' ? '#2dd4bf' : '#eab308');
             this.ctx.fillStyle = color;
-            this.ctx.shadowBlur = 4;
+            this.ctx.shadowBlur = 8;
             this.ctx.shadowColor = color;
 
-            if (this.animFrame === 0) {
-                // Frame A: legs spread
-                this.ctx.fillRect(alien.x + 3, alien.y + 2, alien.width - 6, alien.height - 5);
-                this.ctx.fillRect(alien.x, alien.y + 7, 4, 5);
-                this.ctx.fillRect(alien.x + alien.width - 4, alien.y + 7, 4, 5);
-                this.ctx.fillRect(alien.x + 2, alien.y, 3, 3);
-                this.ctx.fillRect(alien.x + alien.width - 5, alien.y, 3, 3);
+            if (alien.type === 'cyan') {
+                // Sleek Chevron Fighter
+                this.ctx.beginPath();
+                this.ctx.moveTo(alien.x + alien.width / 2, alien.y + alien.height);
+                this.ctx.lineTo(alien.x + alien.width, alien.y + 2);
+                this.ctx.lineTo(alien.x + alien.width - 4, alien.y);
+                this.ctx.lineTo(alien.x + alien.width / 2, alien.y + 6);
+                this.ctx.lineTo(alien.x + 4, alien.y);
+                this.ctx.lineTo(alien.x, alien.y + 2);
+                this.ctx.closePath();
+                this.ctx.fill();
+                
+                // Tiny engine trail
+                if (Date.now() % 160 < 80) {
+                    this.ctx.fillStyle = '#38bdf8';
+                    this.ctx.fillRect(alien.x + alien.width / 2 - 2, alien.y - 4, 4, 3);
+                }
+            } else if (alien.type === 'yellow') {
+                // Heavy Hex Bomber
+                this.ctx.beginPath();
+                this.ctx.moveTo(alien.x + 4, alien.y);
+                this.ctx.lineTo(alien.x + alien.width - 4, alien.y);
+                this.ctx.lineTo(alien.x + alien.width, alien.y + 6);
+                this.ctx.lineTo(alien.x + alien.width - 5, alien.y + alien.height);
+                this.ctx.lineTo(alien.x + 5, alien.y + alien.height);
+                this.ctx.lineTo(alien.x, alien.y + 6);
+                this.ctx.closePath();
+                this.ctx.fill();
+
+                // Side laser cannons
+                this.ctx.fillRect(alien.x - 2, alien.y + 4, 2, 7);
+                this.ctx.fillRect(alien.x + alien.width, alien.y + 4, 2, 7);
             } else {
-                // Frame B: legs together
-                this.ctx.fillRect(alien.x + 3, alien.y + 2, alien.width - 6, alien.height - 5);
-                this.ctx.fillRect(alien.x + 2, alien.y + 8, 4, 4);
-                this.ctx.fillRect(alien.x + alien.width - 6, alien.y + 8, 4, 4);
-                this.ctx.fillRect(alien.x + 5, alien.y, 2, 3);
-                this.ctx.fillRect(alien.x + alien.width - 7, alien.y, 2, 3);
+                // Magenta Elite Diamond Interceptor
+                this.ctx.beginPath();
+                this.ctx.moveTo(alien.x + alien.width / 2, alien.y);
+                this.ctx.lineTo(alien.x + alien.width, alien.y + alien.height / 2);
+                this.ctx.lineTo(alien.x + alien.width - 4, alien.y + alien.height);
+                this.ctx.lineTo(alien.x + 4, alien.y + alien.height);
+                this.ctx.lineTo(alien.x, alien.y + alien.height / 2);
+                this.ctx.closePath();
+                this.ctx.fill();
+
+                // Lower engine cooling thrusters
+                this.ctx.fillRect(alien.x + 3, alien.y + alien.height, 2, 3);
+                this.ctx.fillRect(alien.x + alien.width - 5, alien.y + alien.height, 2, 3);
             }
 
             this.ctx.shadowBlur = 0;
+            // Draw cockpit overlay
             this.ctx.fillStyle = '#060a12';
-            this.ctx.fillRect(alien.x + 5, alien.y + 5, 3, 3);
-            this.ctx.fillRect(alien.x + alien.width - 8, alien.y + 5, 3, 3);
+            this.ctx.fillRect(alien.x + alien.width / 2 - 3, alien.y + 4, 6, 3);
         });
 
-        // 3. Draw Player Spaceship
+        // 3. Draw Player Spaceship (Glowing Neon Aura)
         const blinkState = Math.floor(this.playerInvulnerableTime / 100) % 2 === 0;
         if (this.playerInvulnerableTime <= 0 || blinkState) {
-            // Draw space fighter body (glowing neon cyan triangle shape with wings)
-            this.ctx.fillStyle = window.godModeActive ? '#10b981' : '#2dd4bf';
+            const shipColor = window.godModeActive ? '#10b981' : '#2dd4bf';
+            this.ctx.fillStyle = shipColor;
             this.ctx.strokeStyle = window.godModeActive ? '#059669' : '#0d9488';
-            this.ctx.lineWidth = 2;
+            this.ctx.lineWidth = 2.5;
+            this.ctx.shadowBlur = 12;
+            this.ctx.shadowColor = shipColor;
 
             this.ctx.beginPath();
             this.ctx.moveTo(this.playerX + this.playerWidth / 2, this.playerY);
@@ -885,23 +997,25 @@ export class InvadersGame {
             this.ctx.closePath();
             this.ctx.fill();
             this.ctx.stroke();
+            this.ctx.shadowBlur = 0;
 
-            // Thrust nozzle visual effect
-            if (Date.now() % 150 < 75) {
+            // Thrust fire trail
+            if (Date.now() % 120 < 60) {
                 this.ctx.fillStyle = '#f97316';
-                this.ctx.fillRect(this.playerX + this.playerWidth / 2 - 2, this.playerY + this.playerHeight - 1, 4, 5);
+                this.ctx.fillRect(this.playerX + this.playerWidth / 2 - 2, this.playerY + this.playerHeight - 1, 4, 6);
             }
         }
 
-        // 4. Draw Lasers (Bullets)
+        // 4. Draw Lasers (glowing laser rays)
         this.bullets.forEach(b => {
-            this.ctx.fillStyle = b.isPlayer ? (window.godModeActive ? '#10b981' : '#2dd4bf') : '#f97316';
-            this.ctx.shadowBlur = 4;
-            this.ctx.shadowColor = this.ctx.fillStyle;
+            const bulletColor = b.isPlayer ? (window.godModeActive ? '#10b981' : '#2dd4bf') : '#f97316';
+            this.ctx.fillStyle = bulletColor;
+            this.ctx.shadowBlur = 8;
+            this.ctx.shadowColor = bulletColor;
             
-            this.ctx.fillRect(b.x - 1.5, b.y, 3, 7);
+            this.ctx.fillRect(b.x - 1.5, b.y, 3, 9);
             
-            this.ctx.shadowBlur = 0; // reset shadow
+            this.ctx.shadowBlur = 0; // reset
         });
 
         // 5. Draw Particles

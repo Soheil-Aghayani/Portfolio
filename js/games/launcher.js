@@ -538,29 +538,31 @@ export class GameLauncher {
 
             invadersContainer.appendChild(canvasWrapper);
 
-            // Mobile D-pad / fire controls
+            // Mobile D-pad controls (Autofire is always active)
             const mobileControls = document.createElement('div');
             mobileControls.style.cssText = `
-                display: flex; gap: 12px; align-items: center; justify-content: center;
-                width: 100%; padding: 6px 0;
+                display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center;
+                width: 100%; padding: 4px 0;
+            `;
+
+            const buttonsRow = document.createElement('div');
+            buttonsRow.style.cssText = `
+                display: flex; gap: 30px; align-items: center; justify-content: center;
+                width: 100%;
             `;
 
             const btnStyle = (color) => `
                 background: ${color}22; border: 1px solid ${color}55; color: ${color};
-                border-radius: 10px; font-size: 20px; padding: 10px 18px; cursor: pointer;
+                border-radius: 14px; font-size: 24px; padding: 12px 32px; cursor: pointer;
                 user-select: none; -webkit-user-select: none; touch-action: none;
-                font-family: monospace; font-weight: bold; min-width: 60px; text-align: center;
+                font-family: monospace; font-weight: bold; min-width: 110px; text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.1s;
             `;
 
             const leftBtn = document.createElement('button');
             leftBtn.innerHTML = '◀';
             leftBtn.style.cssText = btnStyle('#2dd4bf');
             leftBtn.setAttribute('aria-label', 'Move Left');
-
-            const fireBtn = document.createElement('button');
-            fireBtn.innerHTML = '🔫 FIRE';
-            fireBtn.style.cssText = btnStyle('#f97316') + 'min-width:80px; font-size:13px;';
-            fireBtn.setAttribute('aria-label', 'Fire');
 
             const rightBtn = document.createElement('button');
             rightBtn.innerHTML = '▶';
@@ -578,12 +580,14 @@ export class GameLauncher {
             rightBtn.addEventListener('mousedown',  ()  => { if(this.activeGame) this.activeGame.rightPressed = true;  });
             rightBtn.addEventListener('mouseup',    ()  => { if(this.activeGame) this.activeGame.rightPressed = false; });
 
-            fireBtn.addEventListener('touchstart',  (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.firePlayerBullet(); }, { passive: false });
-            fireBtn.addEventListener('click',       ()  => { if(this.activeGame) this.activeGame.firePlayerBullet(); });
+            const infoLabel = document.createElement('div');
+            infoLabel.innerHTML = '🚀 AUTO-FIRE ACTIVE';
+            infoLabel.style.cssText = 'color: #10b981; font-size: 10px; font-weight: 800; letter-spacing: 1px; font-family: monospace; text-shadow: 0 0 6px rgba(16,185,129,0.4);';
 
-            mobileControls.appendChild(leftBtn);
-            mobileControls.appendChild(fireBtn);
-            mobileControls.appendChild(rightBtn);
+            buttonsRow.appendChild(leftBtn);
+            buttonsRow.appendChild(rightBtn);
+            mobileControls.appendChild(buttonsRow);
+            mobileControls.appendChild(infoLabel);
             invadersContainer.appendChild(mobileControls);
 
             content.appendChild(invadersContainer);
