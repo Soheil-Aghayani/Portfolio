@@ -656,9 +656,8 @@ export class BreakoutGame {
 
         this.ctx.save();
         
-        // Translate and tilt the paddle based on velocity
+        // Translate the paddle based on current position
         this.ctx.translate(this.paddleX + this.paddleWidth / 2, paddleY + this.paddleHeight / 2);
-        this.ctx.rotate(this.paddleTilt);
         
         // Draw Glassmorphic paddle base
         const grad = this.ctx.createLinearGradient(
@@ -1084,6 +1083,13 @@ export class BreakoutGame {
                 }
                 // Ball lost
                 else {
+                    if (window.godModeActive) {
+                        ball.dy = -Math.abs(ball.dy);
+                        this.sound.playBounce();
+                        this.triggerShake(4, 5);
+                        this.spawnFloatingText(ball.x, this.canvas.height - 20, 'AUTO BOUNCE', '#fbbf24');
+                        continue;
+                    }
                     this.spawnParticles(ball.x, ball.y, '#ffffff', 20); // big spark loss
                     this.balls.splice(i, 1);
                     continue;
@@ -1118,9 +1124,7 @@ export class BreakoutGame {
         this.paddleX += (this.targetPaddleX - this.paddleX) * 0.32;
         this.paddleX = Math.max(0, Math.min(this.paddleX, this.canvas.width - this.paddleWidth));
         
-        // Calculate velocity and tilt rotation
-        const paddleVelocity = this.paddleX - prevX;
-        this.paddleTilt = this.paddleTilt * 0.75 + paddleVelocity * 0.024;
+
 
         this.ctx.restore(); // end screen shake translation
 

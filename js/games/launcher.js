@@ -1,10 +1,11 @@
 
-import { SnakeGame } from './snake.js?v=6.3';
-import { BlackjackGame } from './blackjack.js?v=6.3';
-import { TetrisGame } from './tetris.js?v=6.3';
-import { Game2048 } from './2048.js?v=6.3';
-import { MinesweeperGame } from './minesweeper.js?v=6.3';
-import { BreakoutGame } from './breakout.js?v=6.3';
+import { SnakeGame } from './snake.js?v=6.4';
+import { BlackjackGame } from './blackjack.js?v=6.4';
+import { TetrisGame } from './tetris.js?v=6.4';
+import { Game2048 } from './2048.js?v=6.4';
+import { MinesweeperGame } from './minesweeper.js?v=6.4';
+import { BreakoutGame } from './breakout.js?v=6.4';
+import { InvadersGame } from './invaders.js?v=6.4';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -39,6 +40,11 @@ export class GameLauncher {
                 id: 'breakout',
                 name: 'Breakout',
                 img: 'assets/breakout.webp'
+            },
+            {
+                id: 'invaders',
+                name: 'Space Shooter',
+                img: 'assets/invaders.webp'
             }
         ];
 
@@ -474,6 +480,152 @@ export class GameLauncher {
                         : `Score: ${score}<br>High Score: ${updatedHigh}`;
 
                     const overlayBtn = document.getElementById('breakoutOverlayBtn');
+                    overlayBtn.onclick = () => {
+                        overlay.classList.remove('show');
+                        this.activeGame.start();
+                        content.focus();
+                    };
+
+                    overlay.classList.add('show');
+                },
+                onPauseToggle: (isPaused) => {
+                    this.updatePauseButtonState(pauseBtn, isPaused);
+                }
+            });
+
+            this.activeGame.start();
+            content.focus();
+        }
+        else if (id === 'invaders') {
+            const savedHighScore = localStorage.getItem('invaders_high_score') || 0;
+
+            const scoreBoard = document.createElement('div');
+            scoreBoard.className = 'snake-scoreboard';
+            scoreBoard.innerHTML = `
+                <div class="snake-score-item">SCORE <span id="invadersScore">0</span></div>
+                <div class="snake-score-item">WAVE <span id="invadersLevel">1</span></div>
+                <div class="snake-score-item">HIGH SCORE <span id="invadersHighScore">${savedHighScore}</span></div>
+            `;
+
+            gameWrap.insertBefore(scoreBoard, content);
+
+            const invadersContainer = document.createElement('div');
+            invadersContainer.style.display = 'flex';
+            invadersContainer.style.flexDirection = 'column';
+            invadersContainer.style.alignItems = 'center';
+            invadersContainer.style.gap = '15px';
+
+            const canvasWrapper = document.createElement('div');
+            canvasWrapper.className = 'game-canvas-wrapper';
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 360;
+            canvas.height = 360;
+            canvas.className = 'in-app-game-canvas';
+
+            // HTML Overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'game-overlay';
+            overlay.id = 'invadersOverlay';
+            overlay.innerHTML = `
+                <div class="game-overlay-title" id="invadersOverlayTitle">GAME OVER</div>
+                <div class="game-overlay-msg" id="invadersOverlayMsg"></div>
+                <button class="game-overlay-btn" id="invadersOverlayBtn" type="button">Play Again</button>
+            `;
+
+            canvasWrapper.appendChild(canvas);
+            canvasWrapper.appendChild(overlay);
+
+            invadersContainer.appendChild(canvasWrapper);
+
+            // Mobile D-pad / fire controls
+            const mobileControls = document.createElement('div');
+            mobileControls.style.cssText = `
+                display: flex; gap: 12px; align-items: center; justify-content: center;
+                width: 100%; padding: 6px 0;
+            `;
+
+            const btnStyle = (color) => `
+                background: ${color}22; border: 1px solid ${color}55; color: ${color};
+                border-radius: 10px; font-size: 20px; padding: 10px 18px; cursor: pointer;
+                user-select: none; -webkit-user-select: none; touch-action: none;
+                font-family: monospace; font-weight: bold; min-width: 60px; text-align: center;
+            `;
+
+            const leftBtn = document.createElement('button');
+            leftBtn.innerHTML = '◀';
+            leftBtn.style.cssText = btnStyle('#2dd4bf');
+            leftBtn.setAttribute('aria-label', 'Move Left');
+
+            const fireBtn = document.createElement('button');
+            fireBtn.innerHTML = '🔫 FIRE';
+            fireBtn.style.cssText = btnStyle('#f97316') + 'min-width:80px; font-size:13px;';
+            fireBtn.setAttribute('aria-label', 'Fire');
+
+            const rightBtn = document.createElement('button');
+            rightBtn.innerHTML = '▶';
+            rightBtn.style.cssText = btnStyle('#2dd4bf');
+            rightBtn.setAttribute('aria-label', 'Move Right');
+
+            // Touch events for D-pad buttons
+            leftBtn.addEventListener('touchstart',  (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.leftPressed = true;  }, { passive: false });
+            leftBtn.addEventListener('touchend',    (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.leftPressed = false; }, { passive: false });
+            leftBtn.addEventListener('mousedown',   ()  => { if(this.activeGame) this.activeGame.leftPressed = true;  });
+            leftBtn.addEventListener('mouseup',     ()  => { if(this.activeGame) this.activeGame.leftPressed = false; });
+
+            rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.rightPressed = true;  }, { passive: false });
+            rightBtn.addEventListener('touchend',   (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.rightPressed = false; }, { passive: false });
+            rightBtn.addEventListener('mousedown',  ()  => { if(this.activeGame) this.activeGame.rightPressed = true;  });
+            rightBtn.addEventListener('mouseup',    ()  => { if(this.activeGame) this.activeGame.rightPressed = false; });
+
+            fireBtn.addEventListener('touchstart',  (e) => { e.preventDefault(); if(this.activeGame) this.activeGame.firePlayerBullet(); }, { passive: false });
+            fireBtn.addEventListener('click',       ()  => { if(this.activeGame) this.activeGame.firePlayerBullet(); });
+
+            mobileControls.appendChild(leftBtn);
+            mobileControls.appendChild(fireBtn);
+            mobileControls.appendChild(rightBtn);
+            invadersContainer.appendChild(mobileControls);
+
+            content.appendChild(invadersContainer);
+
+            this.activeGame = new InvadersGame(canvas, {
+                onScore: (score, level) => {
+                    document.getElementById('invadersScore').textContent = score;
+                    if (document.getElementById('invadersLevel')) {
+                        document.getElementById('invadersLevel').textContent = level;
+                    }
+                    const curHigh = parseInt(localStorage.getItem('invaders_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('invaders_high_score', score);
+                        document.getElementById('invadersHighScore').textContent = score;
+                    }
+                },
+                onStart: () => {
+                    document.getElementById('invadersScore').textContent = 0;
+                    if (document.getElementById('invadersLevel')) {
+                        document.getElementById('invadersLevel').textContent = 1;
+                    }
+                    overlay.classList.remove('show');
+                    pauseBtn.style.display = 'inline-flex';
+                    this.updatePauseButtonState(pauseBtn, false);
+                },
+                onEnd: (score) => {
+                    pauseBtn.style.display = 'none';
+                    const curHigh = parseInt(localStorage.getItem('invaders_high_score') || 0);
+                    if (score > curHigh) {
+                        localStorage.setItem('invaders_high_score', score);
+                        document.getElementById('invadersHighScore').textContent = score;
+                    }
+
+                    const overlayTitle = document.getElementById('invadersOverlayTitle');
+                    overlayTitle.textContent = 'GAME OVER';
+                    overlayTitle.style.color = '#ef4444';
+
+                    const overlayMsg = document.getElementById('invadersOverlayMsg');
+                    const updatedHigh = localStorage.getItem('invaders_high_score') || 0;
+                    overlayMsg.innerHTML = `Final Score: ${score}<br>High Score: ${updatedHigh}`;
+
+                    const overlayBtn = document.getElementById('invadersOverlayBtn');
                     overlayBtn.onclick = () => {
                         overlay.classList.remove('show');
                         this.activeGame.start();

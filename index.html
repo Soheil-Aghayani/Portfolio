@@ -244,6 +244,7 @@
         .theme-dot[data-theme="sunset"] { background: linear-gradient(135deg, #fb923c, #f472b6); --dot-color: #fb923c; }
         .theme-dot[data-theme="frost"] { background: linear-gradient(135deg, #38bdf8, #818cf8); --dot-color: #38bdf8; }
         .theme-dot[data-theme="amethyst"] { background: linear-gradient(135deg, #a78bfa, #fb7185); --dot-color: #a78bfa; }
+        .theme-dot[data-theme="matrix"] { background: linear-gradient(135deg, #00ff00, #003300); --dot-color: #00ff00; }
 
         /* --- FLOWCHART VIEWER STYLE --- */
         .flowchart-wrap {
@@ -1014,6 +1015,7 @@
             <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
             <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
             <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
+            <button class="theme-dot" data-theme="matrix" style="display: none; background: linear-gradient(135deg, #00ff00, #003300); --dot-color: #00ff00;" aria-label="Matrix Code Theme" title="Matrix Code"></button>
         </div>
     </div>
 
@@ -3517,11 +3519,29 @@
         0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 0 transparent); }
         50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 5px var(--primary)); }
     }
+    
+    .heart-link {
+        display: inline-block;
+        color: inherit;
+        text-decoration: none;
+        cursor: default;
+        pointer-events: none;
+        transition: transform 0.2s ease, filter 0.2s ease, color 0.2s ease;
+    }
+    .heart-link.unlocked {
+        color: #ef4444 !important;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+    .heart-link.unlocked:hover {
+        transform: scale(1.35) !important;
+        filter: drop-shadow(0 0 8px #ef4444) !important;
+    }
 </style>
 
 <div class="copyright">
     <span class="shimmer-text">
-        &copy; <span id="year"></span> Soheil Aghayani. Engineered for a sustainable future. Built with <span class="heart-beat">♥</span> and code.
+        &copy; <span id="year"></span> Soheil Aghayani. Engineered for a sustainable future. Built with <a href="projects.html" class="heart-link" aria-label="View other web projects"><span class="heart-beat">♥</span></a> and code.
     </span>
 </div>
 </footer>
@@ -3757,7 +3777,8 @@
         forest: { primary: '#10b981', secondary: '#34d399', accent: '#059669', bg: '#060f0e', glass: 'rgba(12,24,20,0.45)', border: 'rgba(255,255,255,0.06)' },
         sunset: { primary: '#fb923c', secondary: '#f472b6', accent: '#e11d48', bg: '#120b10', glass: 'rgba(24,12,20,0.45)', border: 'rgba(255,255,255,0.07)' },
         frost: { primary: '#38bdf8', secondary: '#818cf8', accent: '#4f46e5', bg: '#0b0f19', glass: 'rgba(12,18,32,0.45)', border: 'rgba(255,255,255,0.08)' },
-        amethyst: { primary: '#a78bfa', secondary: '#fb7185', accent: '#db2777', bg: '#0e0b16', glass: 'rgba(18,12,28,0.45)', border: 'rgba(255,255,255,0.08)' }
+        amethyst: { primary: '#a78bfa', secondary: '#fb7185', accent: '#db2777', bg: '#0e0b16', glass: 'rgba(18,12,28,0.45)', border: 'rgba(255,255,255,0.08)' },
+        matrix: { primary: '#10b981', secondary: '#047857', accent: '#065f46', bg: '#020617', glass: 'rgba(2,6,23,0.55)', border: 'rgba(16,185,129,0.1)' }
     };
     
     // Set active dot
@@ -3785,8 +3806,35 @@
             root.style.setProperty('--bg-dark', theme.bg);
             root.style.setProperty('--glass', theme.glass);
             root.style.setProperty('--glass-border', theme.border);
+            
+            // Manage matrix falling rain & god mode
+            if (themeName === 'matrix') {
+                window.godModeActive = true;
+                if (typeof window.toggleMatrixRain === 'function') {
+                    window.toggleMatrixRain(true);
+                }
+            } else {
+                window.godModeActive = false;
+                if (typeof window.toggleMatrixRain === 'function') {
+                    window.toggleMatrixRain(false);
+                }
+            }
         });
     });
+
+    // Auto-trigger matrix rain on load if saved theme is matrix
+    if (currentTheme === 'matrix') {
+        const matrixDot = switcher.querySelector('.theme-dot[data-theme="matrix"]');
+        if (matrixDot) {
+            matrixDot.style.display = 'inline-block';
+            window.godModeActive = true;
+            setTimeout(() => {
+                if (typeof window.toggleMatrixRain === 'function') {
+                    window.toggleMatrixRain(true);
+                }
+            }, 100);
+        }
+    }
   }
 
   function setupFlowchartViewer() {
@@ -4875,6 +4923,7 @@
 /* =============================================
    3. KONAMI CODE EASTER EGG
 ============================================= */
+window.godModeActive = false;
 (function() {
     const overlay = document.getElementById('konamiOverlay');
     const art     = document.getElementById('konamiArt');
@@ -4884,6 +4933,9 @@
     const SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
     const EMOJIS   = ['🎮','🌟','🚀','🔥','💎','⚡','🎯','🌈','💫','🏆'];
     let pos = 0;
+    let matrixActive = false;
+    let matrixInterval = null;
+    let matrixCanvas = null;
 
     const isTyping = (e) => {
         const tag = e.target.tagName;
@@ -4891,25 +4943,142 @@
     };
 
     document.addEventListener('keydown', (e) => {
-        if (isTyping(e)) return; // don't interfere with terminal / input fields
+        if (isTyping(e)) return;
 
-        // Close if active
         if (overlay.classList.contains('active')) {
             close(); return;
         }
 
-        if (e.key === SEQUENCE[pos]) {
+        const key = e.key.toLowerCase();
+        const expected = SEQUENCE[pos].toLowerCase();
+
+        if (key === expected) {
             pos++;
             if (pos === SEQUENCE.length) {
                 pos = 0;
                 open();
             }
         } else {
-            pos = (e.key === SEQUENCE[0]) ? 1 : 0;
+            pos = (key === SEQUENCE[0].toLowerCase()) ? 1 : 0;
         }
     });
 
+    function playUnlockSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.08, now + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+            
+            const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, idx) => {
+                osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            });
+            
+            osc.start(now);
+            osc.stop(now + 0.8);
+        } catch(e) {}
+    }
+
+    window.toggleMatrixRain = function(show) {
+        if (!show) {
+            matrixActive = false;
+            if (matrixInterval) clearInterval(matrixInterval);
+            if (matrixCanvas && matrixCanvas.parentNode) {
+                matrixCanvas.parentNode.removeChild(matrixCanvas);
+            }
+            matrixCanvas = null;
+            return;
+        }
+
+        if (matrixActive) return;
+
+        matrixActive = true;
+        matrixCanvas = document.createElement('canvas');
+        matrixCanvas.id = 'matrixRainCanvas';
+        matrixCanvas.style.position = 'fixed';
+        matrixCanvas.style.top = '0';
+        matrixCanvas.style.left = '0';
+        matrixCanvas.style.width = '100vw';
+        matrixCanvas.style.height = '100vh';
+        matrixCanvas.style.zIndex = '-2';
+        matrixCanvas.style.pointerEvents = 'none';
+        document.body.appendChild(matrixCanvas);
+
+        const ctx = matrixCanvas.getContext('2d');
+        let W = (matrixCanvas.width = window.innerWidth);
+        let H = (matrixCanvas.height = window.innerHeight);
+
+        const handleResize = () => {
+            if (!matrixCanvas) return;
+            W = matrixCanvas.width = window.innerWidth;
+            H = matrixCanvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', handleResize);
+
+        const chars = "01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/*-+$#@!".split("");
+        const fontSize = 14;
+        const columns = Math.floor(W / fontSize) + 1;
+        const drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.08)';
+            ctx.fillRect(0, 0, W, H);
+
+            ctx.fillStyle = '#10b981';
+            ctx.font = fontSize + 'px Courier New, monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > H && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        matrixInterval = setInterval(drawMatrix, 33);
+    };
+
     function open() {
+        playUnlockSound();
+
+        // Unlock theme option dot
+        const dot = document.querySelector('.theme-dot[data-theme="matrix"]');
+        if (dot) {
+            dot.style.display = 'inline-block';
+        }
+
+        // Open theme settings menu
+        const switcher = document.getElementById('themeSwitcher');
+        if (switcher) {
+            switcher.classList.add('expanded');
+        }
+
+        // Unlock projects page access
+        sessionStorage.setItem('cheatcode_unlocked', 'true');
+        const heartLink = document.querySelector('.heart-link');
+        if (heartLink) {
+            heartLink.classList.add('unlocked');
+        }
+
+        const msgEl = overlay.querySelector('.konami-msg');
+        if (msgEl) {
+            msgEl.innerHTML = `&gt; CHEAT CODE ACTIVATED<br><span>Secret Matrix Code Theme Unlocked & Developer's Heart Unlocked!</span>`;
+        }
+
         const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
         if (art) art.textContent = emoji;
         overlay.setAttribute('aria-hidden', 'false');
@@ -4923,6 +5092,18 @@
 
     closeBtn && closeBtn.addEventListener('click', close);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+
+    // Restore unlocked state on page load/reload if already activated
+    if (sessionStorage.getItem('cheatcode_unlocked') === 'true') {
+        const heartLink = document.querySelector('.heart-link');
+        if (heartLink) {
+            heartLink.classList.add('unlocked');
+        }
+        const dot = document.querySelector('.theme-dot[data-theme="matrix"]');
+        if (dot) {
+            dot.style.display = 'inline-block';
+        }
+    }
 })();
 </script>
 

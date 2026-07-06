@@ -121,6 +121,20 @@ export class TetrisGame {
 
         // Game Over Check
         if (this.checkCollision()) {
+            if (window.godModeActive) {
+                // God Mode Saves the Day! Shift everything down by 6 rows.
+                for (let r = this.rows - 1; r >= 6; r--) {
+                    this.board[r] = [...this.board[r - 6]];
+                }
+                for (let r = 0; r < 6; r++) {
+                    this.board[r] = Array(this.cols).fill(0);
+                }
+                this.piece.y = -1;
+                this.piece.x = Math.floor((this.cols - this.piece.matrix[0].length) / 2);
+                this.score = Math.max(0, this.score - 200); // Small penalty or correction
+                if (this.elScore) this.elScore.textContent = this.score;
+                return;
+            }
             this.gameOver();
         }
     }

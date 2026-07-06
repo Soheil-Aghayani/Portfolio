@@ -31,6 +31,10 @@ export class Game2048 {
                         <div class="g2048-score-label">Score</div>
                         <div id="g2048Score" class="g2048-score-value">0</div>
                     </div>
+                    <div class="g2048-score-box" id="g2048UndoBox" style="display: none; cursor: pointer; border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.1);">
+                        <div class="g2048-score-label" style="color: #10b981;">Cheat Mode</div>
+                        <div id="g2048UndoBtn" class="g2048-score-value" style="font-size: 0.95rem; line-height: 1.8; color: #10b981;">UNDO ↺</div>
+                    </div>
                     <div class="g2048-score-box">
                         <div class="g2048-score-label">Best</div>
                         <div id="g2048HighScore" class="g2048-score-value">${savedHighScore}</div>
@@ -73,19 +77,32 @@ export class Game2048 {
         this.overlayTitleEl = this.container.querySelector('#g2048OverlayTitle');
         this.overlayMsgEl = this.container.querySelector('#g2048OverlayMsg');
         this.restartBtn = this.container.querySelector('#g2048RestartBtn');
+        this.undoBox = this.container.querySelector('#g2048UndoBox');
 
         this.restartBtn.onclick = () => {
             this.start();
         };
+
+        if (this.undoBox) {
+            this.undoBox.onclick = (e) => {
+                e.stopPropagation();
+                this.undo();
+            };
+        }
     }
 
     start() {
         this.grid = Array(4).fill().map(() => Array(4).fill(0));
         this.mergedGrid = Array(4).fill().map(() => Array(4).fill(false));
         this.score = 0;
+        this.history = [];
         this.gameOverState = false;
         this.won = false;
         this.keepPlaying = false;
+
+        if (this.undoBox) {
+            this.undoBox.style.display = window.godModeActive ? 'flex' : 'none';
+        }
 
         this.overlayEl.classList.remove('show');
 
@@ -143,6 +160,10 @@ export class Game2048 {
             document.getElementById('g2048HighScore').textContent = savedHigh;
         }
 
+        if (this.undoBox) {
+            this.undoBox.style.display = window.godModeActive ? 'flex' : 'none';
+        }
+
         // Render board
         for (let r = 0; r < 4; r++) {
             for (let c = 0; c < 4; c++) {
@@ -169,6 +190,9 @@ export class Game2048 {
 
     handleKeyDown(e) {
         if (this.gameOverState) return;
+
+        const prevGrid = JSON.parse(JSON.stringify(this.grid));
+        const prevScore = this.score;
 
         let moved = false;
         switch (e.key) {
@@ -201,6 +225,10 @@ export class Game2048 {
         }
 
         if (moved) {
+            if (!this.history) this.history = [];
+            this.history.push({ grid: prevGrid, score: prevScore });
+            if (this.history.length > 15) this.history.shift();
+
             this.spawnTile();
             this.render();
             this.checkGameStatus();
@@ -221,20 +249,21 @@ export class Game2048 {
         const deltaY = e.changedTouches[0].clientY - this.touchStartClientY;
         const absDeltaX = Math.abs(deltaX);
         const absDeltaY = Math.abs(deltaY);
-        const threshold = 30; // Min swipe distance in pixels
+        const threshold = 30;
 
         if (Math.max(absDeltaX, absDeltaY) < threshold) return;
 
+        const prevGrid = JSON.parse(JSON.stringify(this.grid));
+        const prevScore = this.score;
+
         let moved = false;
         if (absDeltaX > absDeltaY) {
-            // Horizontal swipe
             if (deltaX > 0) {
                 moved = this.moveRight();
             } else {
                 moved = this.moveLeft();
             }
         } else {
-            // Vertical swipe
             if (deltaY > 0) {
                 moved = this.moveDown();
             } else {
@@ -243,6 +272,10 @@ export class Game2048 {
         }
 
         if (moved) {
+            if (!this.history) this.history = [];
+            this.history.push({ grid: prevGrid, score: prevScore });
+            if (this.history.length > 15) this.history.shift();
+
             this.spawnTile();
             this.render();
             this.checkGameStatus();
@@ -473,6 +506,17 @@ export class Game2048 {
 
         if (this.callbacks.onEnd) {
             this.callbacks.onEnd(this.score);
+        }
+    }
+
+    undo() {
+        if (this.history && this.history.length > 0) {
+            const prevState = this.history.pop();
+            this.grid = JSON.parse(JSON.stringify(prevState.grid));
+            this.score = prevState.score;
+            this.gameOverState = false;
+            this.overlayEl.classList.remove('show');
+            this.render();
         }
     }
 }

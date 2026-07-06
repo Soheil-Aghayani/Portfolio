@@ -280,6 +280,17 @@ export class MinesweeperGame {
         cell.revealed = true;
 
         if (cell.mine) {
+            if (window.godModeActive) {
+                cell.revealed = false;
+                cell.flagged = true;
+                this.minesRemaining--;
+                this.minesCountEl.textContent = this.minesRemaining;
+                this.updateCellUI(r, c);
+                if (navigator.vibrate) {
+                    try { navigator.vibrate([100, 50, 100]); } catch(err) {}
+                }
+                return;
+            }
             this.gameOver(false);
             return;
         }

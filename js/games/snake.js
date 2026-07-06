@@ -35,19 +35,26 @@ export class SnakeGame {
         this.isPaused = false;
         this.particles = [];
         this.scanlineY = 0;
+        this.obstacles = [];
+        this.floatingTexts = [];
+        this.shieldActive = false;
+        this.speedSlowDuration = 0;
+        this.speedBoostDuration = 0;
         this.snake = {
             dir: {x:1, y:0},
             nextDir: {x:1, y:0},
             body: [{x: Math.floor(this.cols/2), y: Math.floor(this.rows/2)}],
             food: null,
+            foodType: 'normal',
             score: 0,
             alive: true
         };
 
         this.placeFood();
 
-        if (this.timer) clearInterval(this.timer);
-        this.timer = setInterval(() => this.tick(), 220);
+        if (this.timer) clearTimeout(this.timer);
+        this.timer = null;
+        this.nextTick();
 
         // Start render loop
         if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
@@ -65,7 +72,7 @@ export class SnakeGame {
     }
 
     stop() {
-        if (this.timer) clearInterval(this.timer);
+        if (this.timer) clearTimeout(this.timer);
         this.timer = null;
         if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
         this.animFrameId = null;
@@ -73,25 +80,39 @@ export class SnakeGame {
     }
 
     pause() {
-        if (this.timer) clearInterval(this.timer);
+        if (this.timer) clearTimeout(this.timer);
         this.timer = null;
-        // Keep animation frame running so we can render paused state
     }
 
     togglePause() {
         if (this.gameOverState) return;
         this.isPaused = !this.isPaused;
         if (this.isPaused) {
-            if (this.timer) clearInterval(this.timer);
+            if (this.timer) clearTimeout(this.timer);
             this.timer = null;
         } else {
-            if (this.timer) clearInterval(this.timer);
-            this.timer = setInterval(() => this.tick(), 220);
+            this.nextTick();
         }
         this.draw();
         if (this.callbacks.onPauseToggle) {
             this.callbacks.onPauseToggle(this.isPaused);
         }
+    }
+
+    nextTick() {
+        if (!this.snake || !this.snake.alive || this.isPaused) return;
+
+        this.tick();
+
+        let interval = 220;
+        if (this.speedSlowDuration > 0) {
+            interval = 320;
+        } else if (this.speedBoostDuration > 0) {
+            interval = 140;
+        }
+
+        if (this.timer) clearTimeout(this.timer);
+        this.timer = setTimeout(() => this.nextTick(), interval);
     }
 
     handleInput(e) {
@@ -133,6 +154,10 @@ export class SnakeGame {
     tick() {
         if (!this.snake || !this.snake.alive) return;
 
+        // Decrement powerup steps
+        if (this.speedSlowDuration > 0) this.speedSlowDuration--;
+        if (this.speedBoostDuration > 0) this.speedBoostDuration--;
+
         this.snake.dir = this.snake.nextDir;
         const head = this.snake.body[0];
         const nx = head.x + this.snake.dir.x;
@@ -140,12 +165,30 @@ export class SnakeGame {
 
         // Wall collision
         if (nx < 0 || ny < 0 || nx >= this.cols || ny >= this.rows) {
+            if (this.shieldActive) {
+                this.breakShield();
+                return;
+            }
             this.gameOver();
             return;
         }
 
         // Self collision
         if (this.snake.body.some((p, idx) => idx !== 0 && p.x === nx && p.y === ny)) {
+            if (this.shieldActive) {
+                this.breakShield();
+                return;
+            }
+            this.gameOver();
+            return;
+        }
+
+        // Obstacle collision
+        if (this.obstacles && this.obstacles.some(o => o.x === nx && o.y === ny)) {
+            if (this.shieldActive) {
+                this.breakShield();
+                return;
+            }
             this.gameOver();
             return;
         }
@@ -154,9 +197,43 @@ export class SnakeGame {
 
         // Eat food
         if (this.snake.food && nx === this.snake.food.x && ny === this.snake.food.y) {
-            this.snake.score += 1;
+            let scoreGained = 1;
+            let text = '+1';
+            let textColor = '#2dd4bf';
+
+            if (this.snake.foodType === 'golden') {
+                scoreGained = 3;
+                text = 'GOLD SHIELD + TIME SLOW!';
+                textColor = '#fbbf24';
+                this.shieldActive = true;
+                this.speedSlowDuration = 20; // 20 steps of slowness
+                this.speedBoostDuration = 0;
+                this.createShieldBurst(nx * this.size + this.size / 2, ny * this.size + this.size / 2);
+            } else if (this.snake.foodType === 'rainbow') {
+                scoreGained = 2;
+                text = 'SPEED BOOST (2x)!';
+                textColor = '#ec4899';
+                this.speedBoostDuration = 25; // 25 steps of speed boost
+                this.speedSlowDuration = 0;
+            }
+
+            this.snake.score += scoreGained;
             if (this.callbacks.onScore) this.callbacks.onScore(this.snake.score);
+            
+            this.spawnFloatingText(
+                nx * this.size + this.size / 2,
+                ny * this.size + this.size / 2 - 10,
+                text,
+                textColor
+            );
+
             this.createBurst(nx * this.size + this.size / 2, ny * this.size + this.size / 2);
+
+            // Generate cyber wall obstacle every 5 points, up to 6 obstacles
+            if (this.snake.score > 0 && this.snake.score % 5 === 0 && this.obstacles.length < 6) {
+                this.spawnObstacle();
+            }
+
             this.placeFood();
         } else {
             const tail = this.snake.body.pop();
@@ -167,13 +244,105 @@ export class SnakeGame {
                     y: tail.y * this.size + this.size / 2 + (Math.random() - 0.5) * 6,
                     vx: (Math.random() - 0.5) * 0.3,
                     vy: (Math.random() - 0.5) * 0.3,
-                    color: '#0ea5e9',
+                    color: this.shieldActive ? '#fbbf24' : (this.speedBoostDuration > 0 ? '#ec4899' : '#0ea5e9'),
                     size: Math.random() * 2 + 0.8,
                     alpha: 0.8,
                     life: 25 + Math.random() * 15
                 });
             }
         }
+
+        // Rainbow Apple trail particles
+        if (this.speedBoostDuration > 0 && Math.random() < 0.8) {
+            const colors = ['#ec4899', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
+            const head = this.snake.body[0];
+            this.particles.push({
+                x: head.x * this.size + this.size / 2 + (Math.random() - 0.5) * 6,
+                y: head.y * this.size + this.size / 2 + (Math.random() - 0.5) * 6,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                size: Math.random() * 2 + 1,
+                alpha: 0.9,
+                life: 15 + Math.random() * 10
+            });
+        }
+    }
+
+    breakShield() {
+        this.shieldActive = false;
+        const head = this.snake.body[0];
+        this.spawnFloatingText(
+            head.x * this.size + this.size / 2,
+            head.y * this.size + this.size / 2,
+            'SHIELD BLOCKED CRASH!',
+            '#fbbf24'
+        );
+        if (navigator.vibrate) {
+            try { navigator.vibrate([80, 40, 80]); } catch(e) {}
+        }
+        this.createShieldBurst(head.x * this.size + this.size / 2, head.y * this.size + this.size / 2);
+    }
+
+    createShieldBurst(x, y) {
+        for (let i = 0; i < 30; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 1;
+            this.particles.push({
+                x: x,
+                y: y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                color: '#fbbf24',
+                size: Math.random() * 3 + 1.5,
+                alpha: 1.0,
+                life: 30 + Math.random() * 20
+            });
+        }
+    }
+
+    spawnObstacle() {
+        while (true) {
+            const ox = Math.floor(Math.random() * this.cols);
+            const oy = Math.floor(Math.random() * this.rows);
+            const hitBody = this.snake.body.some(p => p.x === ox && p.y === oy);
+            const head = this.snake.body[0];
+            const dist = Math.abs(head.x - ox) + Math.abs(head.y - oy);
+            const hitFood = this.snake.food && this.snake.food.x === ox && this.snake.food.y === oy;
+            const hitObstacle = this.obstacles && this.obstacles.some(o => o.x === ox && o.y === oy);
+
+            if (!hitBody && dist > 2 && !hitFood && !hitObstacle) {
+                this.obstacles.push({x: ox, y: oy});
+                this.spawnFloatingText(ox * this.size + this.size / 2, oy * this.size + this.size / 2 - 10, 'CYBER WALL ADDED', '#ef4444');
+                
+                for (let i = 0; i < 15; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 1.5 + 0.5;
+                    this.particles.push({
+                        x: ox * this.size + this.size / 2,
+                        y: oy * this.size + this.size / 2,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        color: '#ef4444',
+                        size: Math.random() * 2 + 1,
+                        alpha: 0.9,
+                        life: 20 + Math.random() * 10
+                    });
+                }
+                break;
+            }
+        }
+    }
+
+    spawnFloatingText(x, y, text, color) {
+        this.floatingTexts.push({
+            x: x,
+            y: y,
+            text: text,
+            color: color,
+            alpha: 1.0,
+            life: 60
+        });
     }
 
     createBurst(x, y) {
@@ -189,17 +358,27 @@ export class SnakeGame {
                 color: colors[Math.floor(Math.random() * colors.length)],
                 size: Math.random() * 2.5 + 1.2,
                 alpha: 1,
-                life: 20 + Math.random() * 15
+                life: 25 + Math.random() * 15
             });
         }
     }
 
     placeFood() {
+        const rand = Math.random();
+        if (rand < 0.15) {
+            this.snake.foodType = 'golden';
+        } else if (rand < 0.30) {
+            this.snake.foodType = 'rainbow';
+        } else {
+            this.snake.foodType = 'normal';
+        }
+
         while (true) {
             const fx = Math.floor(Math.random() * this.cols);
             const fy = Math.floor(Math.random() * this.rows);
-            const hit = this.snake.body.some(p => p.x === fx && p.y === fy);
-            if (!hit) {
+            const hitBody = this.snake.body.some(p => p.x === fx && p.y === fy);
+            const hitObstacle = this.obstacles && this.obstacles.some(o => o.x === fx && o.y === fy);
+            if (!hitBody && !hitObstacle) {
                 this.snake.food = {x: fx, y: fy};
                 return;
             }
@@ -240,27 +419,42 @@ export class SnakeGame {
             const centerX = this.snake.food.x * s + s / 2;
             const centerY = this.snake.food.y * s + s / 2;
 
+            let colorMain = '#fb7185';
+            let colorCore = '#fff';
+            let sparkleColor = '#fb7185';
+
+            if (this.snake.foodType === 'golden') {
+                colorMain = '#fbbf24';
+                colorCore = '#fffbeb';
+                sparkleColor = '#fbbf24';
+            } else if (this.snake.foodType === 'rainbow') {
+                const hue = (Date.now() / 5) % 360;
+                colorMain = `hsl(${hue}, 100%, 60%)`;
+                colorCore = `hsl(${(hue + 180) % 360}, 100%, 90%)`;
+                sparkleColor = colorMain;
+            }
+
             // Spawn ambient sparkles around food
-            if (Math.random() < 0.15) {
+            if (Math.random() < 0.18) {
                 this.particles.push({
                     x: centerX + (Math.random() - 0.5) * 8,
                     y: centerY + (Math.random() - 0.5) * 8,
                     vx: (Math.random() - 0.5) * 0.5,
                     vy: (Math.random() - 0.5) * 0.5 - 0.2, // slowly drift upwards
-                    color: '#fb7185',
+                    color: sparkleColor,
                     size: Math.random() * 1.5 + 1,
                     alpha: 1,
                     life: 30 + Math.random() * 20
                 });
             }
             
-            this.ctx.shadowBlur = 12;
-            this.ctx.shadowColor = '#fb7185';
+            this.ctx.shadowBlur = 14;
+            this.ctx.shadowColor = colorMain;
             
             const grad = this.ctx.createRadialGradient(centerX, centerY, 1, centerX, centerY, radius);
-            grad.addColorStop(0, '#fff');
-            grad.addColorStop(0.3, '#fb7185');
-            grad.addColorStop(1, 'rgba(251, 113, 133, 0)');
+            grad.addColorStop(0, colorCore);
+            grad.addColorStop(0.3, colorMain);
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
             
             this.ctx.fillStyle = grad;
             this.ctx.beginPath();
@@ -269,10 +463,52 @@ export class SnakeGame {
             this.ctx.restore();
         }
 
+        // Draw Obstacles (Cyber Walls)
+        if (this.obstacles) {
+            this.obstacles.forEach(o => {
+                this.ctx.save();
+                this.ctx.fillStyle = 'rgba(239, 68, 68, 0.45)';
+                this.ctx.strokeStyle = '#ef4444';
+                this.ctx.lineWidth = 1.5;
+                this.ctx.shadowBlur = 10;
+                this.ctx.shadowColor = '#ef4444';
+                
+                this.ctx.beginPath();
+                this.ctx.roundRect(o.x * s + 2, o.y * s + 2, s - 4, s - 4, 4);
+                this.ctx.fill();
+                this.ctx.stroke();
+                
+                // hazard stripes in wall
+                this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+                this.ctx.lineWidth = 1;
+                this.ctx.beginPath();
+                this.ctx.moveTo(o.x * s + 4, o.y * s + 4);
+                this.ctx.lineTo(o.x * s + s - 4, o.y * s + s - 4);
+                this.ctx.moveTo(o.x * s + s - 4, o.y * s + 4);
+                this.ctx.lineTo(o.x * s + 4, o.y * s + s - 4);
+                this.ctx.stroke();
+                this.ctx.restore();
+            });
+        }
+
         // 3. Draw Glowing Snake
         if (this.snake && this.snake.body) {
             const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#2dd4bf';
             
+            let startColor = 'rgba(14, 165, 233, ';
+            let shadowColor = '#0ea5e9';
+            let coreColor = primaryColor;
+
+            if (this.shieldActive) {
+                startColor = 'rgba(251, 191, 36, ';
+                shadowColor = '#fbbf24';
+                coreColor = '#fbbf24';
+            } else if (this.speedBoostDuration > 0) {
+                startColor = 'rgba(236, 72, 153, ';
+                shadowColor = '#ec4899';
+                coreColor = '#ec4899';
+            }
+
             // Draw body segments (connected lines from tail to neck)
             if (this.snake.body.length > 1) {
                 for (let i = this.snake.body.length - 1; i > 0; i--) {
@@ -289,19 +525,19 @@ export class SnakeGame {
                     
                     this.ctx.save();
                     // Glow stroke
-                    this.ctx.strokeStyle = `rgba(14, 165, 233, ${alpha})`;
+                    this.ctx.strokeStyle = `${startColor}${alpha})`;
                     this.ctx.lineWidth = width;
                     this.ctx.lineCap = 'round';
                     this.ctx.lineJoin = 'round';
                     this.ctx.shadowBlur = 8;
-                    this.ctx.shadowColor = '#0ea5e9';
+                    this.ctx.shadowColor = shadowColor;
                     this.ctx.beginPath();
                     this.ctx.moveTo(prevCx, prevCy);
                     this.ctx.lineTo(currCx, currCy);
                     this.ctx.stroke();
                     
                     // Core stroke (neon light tube effect)
-                    this.ctx.strokeStyle = primaryColor;
+                    this.ctx.strokeStyle = coreColor;
                     this.ctx.lineWidth = width * 0.4;
                     this.ctx.globalAlpha = 0.5;
                     this.ctx.beginPath();
@@ -320,8 +556,8 @@ export class SnakeGame {
             
             this.ctx.save();
             this.ctx.shadowBlur = 15;
-            this.ctx.shadowColor = primaryColor;
-            this.ctx.fillStyle = primaryColor;
+            this.ctx.shadowColor = this.shieldActive ? '#fbbf24' : (this.speedBoostDuration > 0 ? '#ec4899' : primaryColor);
+            this.ctx.fillStyle = this.ctx.shadowColor;
             
             this.ctx.beginPath();
             this.ctx.arc(cx, cy, s / 2 - 0.5, 0, Math.PI * 2);
@@ -396,6 +632,26 @@ export class SnakeGame {
             this.ctx.restore();
         });
 
+        // Draw Floating Texts
+        if (this.floatingTexts) {
+            this.floatingTexts.forEach((ft) => {
+                ft.y -= 0.5; // drift up
+                ft.alpha = ft.life / 60;
+                ft.life--;
+                
+                this.ctx.save();
+                this.ctx.fillStyle = ft.color;
+                this.ctx.globalAlpha = ft.alpha;
+                this.ctx.font = 'bold 11px Outfit, sans-serif';
+                this.ctx.textAlign = 'center';
+                this.ctx.shadowBlur = 4;
+                this.ctx.shadowColor = ft.color;
+                this.ctx.fillText(ft.text, ft.x, ft.y);
+                this.ctx.restore();
+            });
+            this.floatingTexts = this.floatingTexts.filter(ft => ft.life > 0);
+        }
+
         // 6. Draw Paused Overlay
         if (this.isPaused) {
             this.ctx.save();
@@ -418,7 +674,7 @@ export class SnakeGame {
     gameOver() {
         this.snake.alive = false;
         this.gameOverState = true;
-        if (this.timer) clearInterval(this.timer);
+        if (this.timer) clearTimeout(this.timer);
         this.timer = null;
         if (this.callbacks.onEnd) this.callbacks.onEnd(this.snake.score);
     }

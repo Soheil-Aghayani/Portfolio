@@ -1043,7 +1043,7 @@ export class BlackjackGame {
             
             let secondHtml = '';
             if (second) {
-                if (this.peeked) {
+                if (this.peeked || window.godModeActive) {
                     secondHtml = this.cardHtml(second, false, true); 
                 } else {
                     secondHtml = this.cardHtml(null, animateLast && this.dealerHand.length === 2);
@@ -1052,8 +1052,8 @@ export class BlackjackGame {
 
             this.elDealerCards.innerHTML = firstHtml + secondHtml;
             
-            if (first && second && this.peeked) {
-                this.elDealerScore.textContent = `(${this.handValue([first, second])})`;
+            if (first && second && (this.peeked || window.godModeActive)) {
+                this.elDealerScore.textContent = `(${this.handValue([first, second])}) (Matrix Peek)`;
             } else {
                 this.elDealerScore.textContent = first ? `(${this.handValue([first])})` : '';
             }

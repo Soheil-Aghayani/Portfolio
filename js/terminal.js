@@ -81,7 +81,7 @@ class Terminal {
         const val = this.input.value.trim().toLowerCase();
         if (!val) return;
 
-        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', '2048', 'minesweeper', 'breakout'];
+        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', '2048', 'minesweeper', 'breakout', 'invaders', 'shooter'];
         const matches = commands.filter(c => c.startsWith(val));
 
         if (matches.length === 1) {
@@ -221,6 +221,11 @@ class Terminal {
                 if (window.OS) window.OS.open('games', 'breakout');
                 await this.typeLine('Launching Breakout...', 'os-ok');
                 break;
+            case 'invaders':
+            case 'shooter':
+                if (window.OS) window.OS.open('games', 'invaders');
+                await this.typeLine('Launching Space Shooter...', 'os-ok');
+                break;
             case 'notes':
                 await this.cmdNotes(args);
                 break;
@@ -246,9 +251,12 @@ class Terminal {
                     } else if (gameName === 'breakout') {
                         if (window.OS) window.OS.open('games', 'breakout');
                         await this.typeLine('Launching Breakout...', 'os-dim');
+                    } else if (gameName === 'invaders' || gameName === 'shooter' || gameName === 'space') {
+                        if (window.OS) window.OS.open('games', 'invaders');
+                        await this.typeLine('Launching Space Shooter...', 'os-dim');
                     } else {
                         await this.typeLine(`Game not found: ${gameName}`, 'os-bad');
-                        await this.typeLine('Available: snake, blackjack, tetris, 2048, minesweeper, breakout', 'os-dim');
+                        await this.typeLine('Available: snake, blackjack, tetris, 2048, minesweeper, breakout, shooter', 'os-dim');
                     }
                 } else {
                     if (window.OS) window.OS.open('games');
@@ -350,7 +358,6 @@ class Terminal {
         await this.typeLine('- resume: Open resume link', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
-        await this.typeLine('  -- snake, blackjack, tetris, 2048, minesweeper, breakout', 'os-dim', speed);
         await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);
