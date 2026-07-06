@@ -117,6 +117,7 @@ export class MinesweeperGame {
                     mine: false,
                     revealed: false,
                     flagged: false,
+                    questioned: false,
                     count: 0
                 });
             }
@@ -232,12 +233,12 @@ export class MinesweeperGame {
                     clearHoldTimer();
                     holdTimer = setTimeout(() => {
                         wasLongPress = true;
-                        suppressClickUntil = Date.now() + 700;
+                        suppressClickUntil = Date.now() + 500;
                         this.handleCellRightClick(r, c);
                         if (navigator.vibrate) {
                             try { navigator.vibrate(50); } catch(err) {}
                         }
-                    }, 450);
+                    }, 200);
                 });
 
                 cellEl.addEventListener('pointerup', (e) => {
@@ -247,7 +248,7 @@ export class MinesweeperGame {
                         e.preventDefault();
                         setTimeout(() => {
                             wasLongPress = false;
-                        }, 800);
+                        }, 500);
                     }
                     try { cellEl.releasePointerCapture(activePointerId); } catch(err) {}
                     activePointerId = null;
@@ -294,8 +295,17 @@ export class MinesweeperGame {
         const cell = this.grid[r][c];
         if (cell.revealed) return;
 
-        cell.flagged = !cell.flagged;
-        this.minesRemaining += cell.flagged ? -1 : 1;
+        if (cell.flagged) {
+            cell.flagged = false;
+            cell.questioned = true;
+            this.minesRemaining += 1;
+        } else if (cell.questioned) {
+            cell.questioned = false;
+        } else {
+            cell.flagged = true;
+            cell.questioned = false;
+            this.minesRemaining -= 1;
+        }
         this.minesCountEl.textContent = this.minesRemaining;
 
         this.updateCellUI(r, c);
@@ -304,11 +314,13 @@ export class MinesweeperGame {
     reveal(r, c) {
         const cell = this.grid[r][c];
         cell.revealed = true;
+        cell.questioned = false;
 
         if (cell.mine) {
             if (window.godModeActive) {
                 cell.revealed = false;
                 cell.flagged = true;
+                cell.questioned = false;
                 this.minesRemaining--;
                 this.minesCountEl.textContent = this.minesRemaining;
                 this.updateCellUI(r, c);
@@ -404,6 +416,9 @@ export class MinesweeperGame {
         } else if (cell.flagged) {
             cellEl.classList.add('flagged');
             cellEl.innerHTML = FLAG_SVG;
+        } else if (cell.questioned) {
+            cellEl.classList.add('questioned');
+            cellEl.textContent = '?';
         }
     }
 
@@ -455,6 +470,7 @@ export class MinesweeperGame {
                 if (cell.mine) {
                     if (success) {
                         cell.flagged = true;
+                        cell.questioned = false;
                     } else {
                         cell.revealed = true;
                     }

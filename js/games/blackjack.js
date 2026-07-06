@@ -213,7 +213,7 @@ export class BlackjackGame {
                 <div class="bj-reg-modal" id="bjRegModal">
                     <div class="bj-reg-content">
                         <div class="bj-reg-left">
-                            <img id="bjRegImg" src="name.webp" alt="Casino Boss" class="bj-reg-avatar" />
+                            <img id="bjRegImg" src="assets/name.webp" alt="Casino Boss" class="bj-reg-avatar" />
                         </div>
                         <div class="bj-reg-right">
                             <div class="bj-reg-title">REGISTRATION REQUIRED</div>
@@ -351,7 +351,7 @@ export class BlackjackGame {
             
             // Reset modal state
             modal.classList.add('show');
-            avatar.src = 'name.webp';
+            avatar.src = 'assets/name.webp';
             input.value = '';
             input.disabled = false;
             submitBtn.disabled = false;
@@ -390,7 +390,7 @@ export class BlackjackGame {
                 // Transition Avatar to Welcome!
                 avatar.classList.add('fade-out');
                 await this.sleep(150);
-                avatar.src = 'welcome.webp';
+                avatar.src = 'assets/welcome.webp';
                 avatar.classList.remove('fade-out');
                 
                 // Update text

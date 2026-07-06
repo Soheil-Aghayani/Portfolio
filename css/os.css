@@ -1751,6 +1751,11 @@ html.os-active, body.os-active {
     100% { transform: scale(1.08); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.9)); }
 }
 
+.ms-cell.questioned {
+    color: #facc15;
+    text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+}
+
 /* Glowing Neon Digit Styling */
 .ms-num-1 { color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.6); }
 .ms-num-2 { color: #4ade80; text-shadow: 0 0 8px rgba(74, 222, 128, 0.6); }
