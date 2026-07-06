@@ -2150,5 +2150,58 @@ html.os-active, body.os-active {
     cursor: default;
 }
 
+/* --- MINESWEEPER HACKER TOOLKIT --- */
+.ms-hacks-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+.ms-hack-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.ms-hack-btn.active {
+    background: rgba(45, 212, 191, 0.06);
+    border-color: rgba(45, 212, 191, 0.3);
+    color: var(--primary);
+    box-shadow: 0 0 10px rgba(45, 212, 191, 0.1);
+}
+.ms-hack-btn.active:hover {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: var(--primary);
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.2);
+    transform: translateY(-1px);
+}
+.ms-hack-btn.active:active {
+    transform: translateY(0);
+}
+.ms-hack-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+.ms-board.shield-flash {
+    animation: ms-shield-flash 400ms ease-out;
+}
+@keyframes ms-shield-flash {
+    0% { box-shadow: 0 0 0 0px rgba(56, 189, 248, 0.8); filter: brightness(1.2); }
+    100% { box-shadow: 0 0 25px 15px rgba(56, 189, 248, 0); filter: brightness(1); }
+}
+
 
 

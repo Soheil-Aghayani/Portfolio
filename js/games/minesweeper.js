@@ -25,6 +25,10 @@ export class MinesweeperGame {
         this.time = 0;
         this.timer = null;
 
+        // Cyber Deck Hacks System
+        this.shieldActive = true;
+        this.pingCharges = 1;
+
         this.handleKeyDown = this.handleKeyDown.bind(this);
 
         this.initUI();
@@ -43,6 +47,15 @@ export class MinesweeperGame {
                         <div class="ms-counter-label">Time</div>
                         <div id="msTimer" class="ms-counter-val">000</div>
                     </div>
+                </div>
+
+                <div class="ms-hacks-container">
+                    <button class="ms-hack-btn disabled" id="msHackShield" type="button" title="Shield: Absorbs 1 mine explosion automatically.">
+                        <span class="ms-hack-icon">🛡️</span> SHIELD: ON
+                    </button>
+                    <button class="ms-hack-btn disabled" id="msHackPing" type="button" title="Ping: Reveals a random safe cell. (Unlocks after 1st click)">
+                        <span class="ms-hack-icon">📡</span> PING (1)
+                    </button>
                 </div>
 
                 <div style="position: relative; width: fit-content; height: fit-content; margin: 0 auto;">
@@ -64,6 +77,12 @@ export class MinesweeperGame {
         this.timerEl = this.container.querySelector('#msTimer');
 
         this.smileyBtn.onclick = () => this.start();
+
+        // Wire up ping button
+        const pingBtn = this.container.querySelector('#msHackPing');
+        if (pingBtn) {
+            pingBtn.onclick = () => this.usePing();
+        }
     }
 
     start() {
@@ -74,6 +93,9 @@ export class MinesweeperGame {
         this.minesRemaining = this.mineCount;
         this.time = 0;
         
+        this.shieldActive = true;
+        this.pingCharges = 1;
+
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
 
@@ -93,6 +115,7 @@ export class MinesweeperGame {
 
         this.buildGrid();
         this.renderBoard();
+        this.updateHacksUI();
 
         window.removeEventListener('keydown', this.handleKeyDown);
         window.addEventListener('keydown', this.handleKeyDown);
@@ -282,6 +305,7 @@ export class MinesweeperGame {
             this.firstClick = false;
             this.placeMines(r, c);
             this.startTimer();
+            this.updateHacksUI();
         }
 
         this.reveal(r, c);
@@ -309,6 +333,7 @@ export class MinesweeperGame {
         this.minesCountEl.textContent = this.minesRemaining;
 
         this.updateCellUI(r, c);
+        this.checkGameStatus();
     }
 
     reveal(r, c) {
@@ -329,6 +354,28 @@ export class MinesweeperGame {
                 }
                 return;
             }
+
+            // Cyber Shield Passive Powerup
+            if (this.shieldActive) {
+                this.shieldActive = false;
+                cell.revealed = false;
+                cell.flagged = true;
+                cell.questioned = false;
+                this.minesRemaining--;
+                this.minesCountEl.textContent = this.minesRemaining;
+                this.updateCellUI(r, c);
+                this.updateHacksUI();
+
+                if (navigator.vibrate) {
+                    try { navigator.vibrate([80, 50, 80]); } catch(err) {}
+                }
+                if (this.boardEl) {
+                    this.boardEl.classList.add('shield-flash');
+                    setTimeout(() => this.boardEl.classList.remove('shield-flash'), 400);
+                }
+                return;
+            }
+
             this.gameOver(false);
             return;
         }
@@ -363,6 +410,7 @@ export class MinesweeperGame {
             this.startTimer(true);
             this.showPauseOverlay(false);
         }
+        this.updateHacksUI();
         if (this.callbacks.onPauseToggle) {
             this.callbacks.onPauseToggle(this.isPaused);
         }
@@ -433,20 +481,36 @@ export class MinesweeperGame {
     checkGameStatus() {
         if (this.gameOverState) return;
 
-        // Check if all non-mine cells are revealed
-        let win = true;
+        // Check 1: All non-mine cells are revealed
+        let allSafeRevealed = true;
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
                 const cell = this.grid[r][c];
                 if (!cell.mine && !cell.revealed) {
-                    win = false;
+                    allSafeRevealed = false;
                     break;
                 }
             }
-            if (!win) break;
+            if (!allSafeRevealed) break;
         }
 
-        if (win) {
+        // Check 2: All mines are flagged correctly (and no safe cells are flagged)
+        let allMinesFlaggedCorrectly = true;
+        let flaggedCount = 0;
+        for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+                const cell = this.grid[r][c];
+                if (cell.flagged) {
+                    flaggedCount++;
+                    if (!cell.mine) {
+                         allMinesFlaggedCorrectly = false;
+                    }
+                }
+            }
+        }
+        const winByFlagging = (flaggedCount === this.mineCount && allMinesFlaggedCorrectly);
+
+        if (allSafeRevealed || winByFlagging) {
             this.gameOver(true);
         }
     }
@@ -455,6 +519,8 @@ export class MinesweeperGame {
         this.gameOverState = true;
         this.won = success;
         if (this.timer) clearInterval(this.timer);
+
+        this.updateHacksUI();
 
         this.smileyBtn.innerHTML = success ? SMILEY_SVG_WIN : SMILEY_SVG_LOSE;
         this.smileyBtn.className = success ? 'ms-smiley state-win' : 'ms-smiley state-lose';
@@ -518,6 +584,61 @@ export class MinesweeperGame {
         // Trigger end callbacks
         if (this.callbacks.onEnd) {
             this.callbacks.onEnd(success ? this.time : 0);
+        }
+    }
+
+    updateHacksUI() {
+        const shieldBtn = this.container.querySelector('#msHackShield');
+        const pingBtn = this.container.querySelector('#msHackPing');
+
+        if (shieldBtn) {
+            if (this.shieldActive) {
+                shieldBtn.className = 'ms-hack-btn active';
+                shieldBtn.innerHTML = '<span class="ms-hack-icon">🛡️</span> SHIELD: ON';
+            } else {
+                shieldBtn.className = 'ms-hack-btn disabled';
+                shieldBtn.innerHTML = '<span class="ms-hack-icon">🛡️</span> SHIELD: OFF';
+            }
+        }
+
+        if (pingBtn) {
+            if (this.pingCharges > 0 && !this.firstClick && !this.gameOverState && !this.isPaused) {
+                pingBtn.className = 'ms-hack-btn active';
+                pingBtn.disabled = false;
+            } else {
+                pingBtn.className = 'ms-hack-btn disabled';
+                pingBtn.disabled = true;
+            }
+            pingBtn.innerHTML = `<span class="ms-hack-icon">📡</span> PING (${this.pingCharges})`;
+        }
+    }
+
+    usePing() {
+        if (this.gameOverState || this.isPaused || this.firstClick || this.pingCharges <= 0) return;
+
+        // Find all unrevealed, non-mine cells
+        const candidates = [];
+        for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+                const cell = this.grid[r][c];
+                if (!cell.mine && !cell.revealed) {
+                    candidates.push(cell);
+                }
+            }
+        }
+
+        if (candidates.length > 0) {
+            const randCell = candidates[Math.floor(Math.random() * candidates.length)];
+            this.reveal(randCell.row, randCell.col);
+            this.updateUI();
+            this.checkGameStatus();
+
+            this.pingCharges = 0;
+            this.updateHacksUI();
+
+            if (navigator.vibrate) {
+                try { navigator.vibrate(30); } catch(err) {}
+            }
         }
     }
 }
