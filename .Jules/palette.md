@@ -65,3 +65,6 @@
 ## 2026-06-27 - Hover States for Interactive Buttons
 **Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
 **Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
+## 2024-07-06 - ARIA Pressed State for Toggle Button Groups
+**Learning:** Custom toggle button groups (like theme switchers or content filters) use CSS classes (e.g., `.active`) to show visual state. However, screen readers cannot interpret CSS classes. Without `aria-pressed` or `aria-selected`, blind users have no way to know which option is currently active.
+**Action:** When implementing custom toggle button groups, ensure the `aria-pressed` (or `aria-selected` for tablists) attribute is included in the HTML and synchronized via JavaScript when the state changes. Set it to `"true"` for the active button and `"false"` for the inactive buttons.
