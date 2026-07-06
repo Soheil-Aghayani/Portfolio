@@ -191,12 +191,21 @@ export class MinesweeperGame {
                 cellEl.dataset.col = c;
 
                 // Event Listeners
-                let touchTimer;
+                let holdTimer;
                 let wasLongPress = false;
+                let suppressClickUntil = 0;
+                let activePointerId = null;
+                let startX = 0;
+                let startY = 0;
+
+                const clearHoldTimer = () => {
+                    clearTimeout(holdTimer);
+                    holdTimer = null;
+                };
 
                 cellEl.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (wasLongPress) {
+                    if (wasLongPress || Date.now() < suppressClickUntil) {
                         wasLongPress = false;
                         return;
                     }
@@ -208,36 +217,48 @@ export class MinesweeperGame {
                     this.handleCellRightClick(r, c);
                 });
 
-                // Long press / Touch hold for mobile flag placement
-                let startX, startY;
-                cellEl.addEventListener('touchstart', (e) => {
+                // Long press / touch hold for mobile flag placement.
+                cellEl.addEventListener('pointerdown', (e) => {
+                    if (e.pointerType === 'mouse') return;
+                    e.preventDefault();
                     wasLongPress = false;
-                    const touch = e.touches[0];
-                    startX = touch.clientX;
-                    startY = touch.clientY;
-                    touchTimer = setTimeout(() => {
+                    activePointerId = e.pointerId;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    try { cellEl.setPointerCapture(activePointerId); } catch(err) {}
+
+                    clearHoldTimer();
+                    holdTimer = setTimeout(() => {
                         wasLongPress = true;
+                        suppressClickUntil = Date.now() + 700;
                         this.handleCellRightClick(r, c);
                         if (navigator.vibrate) {
                             try { navigator.vibrate(50); } catch(err) {}
                         }
-                    }, 500); // 500ms long press
+                    }, 450);
                 });
 
-                cellEl.addEventListener('touchend', (e) => {
-                    clearTimeout(touchTimer);
+                cellEl.addEventListener('pointerup', (e) => {
+                    if (e.pointerType === 'mouse') return;
+                    clearHoldTimer();
                     if (wasLongPress) {
                         e.preventDefault();
                     }
+                    try { cellEl.releasePointerCapture(activePointerId); } catch(err) {}
+                    activePointerId = null;
                 });
 
-                cellEl.addEventListener('touchmove', (e) => {
-                    if (e.touches.length === 0) return;
-                    const touch = e.touches[0];
-                    const dist = Math.hypot(touch.clientX - startX, touch.clientY - startY);
+                cellEl.addEventListener('pointermove', (e) => {
+                    if (e.pointerType === 'mouse' || activePointerId !== e.pointerId) return;
+                    const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
                     if (dist > 10) {
-                        clearTimeout(touchTimer);
+                        clearHoldTimer();
                     }
+                });
+
+                cellEl.addEventListener('pointercancel', () => {
+                    clearHoldTimer();
+                    activePointerId = null;
                 });
 
                 this.boardEl.appendChild(cellEl);

@@ -1697,6 +1697,10 @@ html.os-active, body.os-active {
 .ms-cell {
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 6px;

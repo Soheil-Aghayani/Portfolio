@@ -3822,6 +3822,16 @@
         });
     });
 
+    window.setAccentTheme = (themeName) => {
+        const targetDot = switcher.querySelector(`.theme-dot[data-theme="${themeName}"]`);
+        if (!targetDot) return false;
+        if (themeName === 'matrix') {
+            targetDot.style.display = 'inline-block';
+        }
+        targetDot.click();
+        return true;
+    };
+
     // Auto-trigger matrix rain on load if saved theme is matrix
     if (currentTheme === 'matrix') {
         const matrixDot = switcher.querySelector('.theme-dot[data-theme="matrix"]');
@@ -5078,16 +5088,14 @@ window.godModeActive = false;
     function deactivateCheat() {
         playDeactivateSound();
 
+        const previousTheme = sessionStorage.getItem('pre_cheat_theme') || 'teal';
+        if (typeof window.setAccentTheme === 'function') {
+            window.setAccentTheme(previousTheme);
+        }
+
         // Hide matrix theme dot
         const dot = document.querySelector('.theme-dot[data-theme="matrix"]');
         if (dot) dot.style.display = 'none';
-
-        // If matrix theme is active, switch back to dark
-        if (document.body.dataset.theme === 'matrix') {
-            document.body.dataset.theme = 'dark';
-            localStorage.setItem('portfolio-theme', 'dark');
-            window.toggleMatrixRain && window.toggleMatrixRain(false);
-        }
 
         // Close the theme switcher
         const switcher = document.getElementById('themeSwitcher');
@@ -5095,6 +5103,7 @@ window.godModeActive = false;
 
         // Lock the heart/projects link again
         sessionStorage.removeItem('cheatcode_unlocked');
+        sessionStorage.removeItem('pre_cheat_theme');
         window.godModeActive = false;
         const heartLink = document.querySelector('.heart-link');
         if (heartLink) heartLink.classList.remove('unlocked');
@@ -5113,10 +5122,17 @@ window.godModeActive = false;
     function open() {
         playUnlockSound();
 
+        const previousTheme = localStorage.getItem('theme-accent') || 'teal';
+        sessionStorage.setItem('pre_cheat_theme', previousTheme);
+
         // Unlock theme option dot
         const dot = document.querySelector('.theme-dot[data-theme="matrix"]');
         if (dot) {
             dot.style.display = 'inline-block';
+        }
+
+        if (typeof window.setAccentTheme === 'function') {
+            window.setAccentTheme('matrix');
         }
 
         // Open theme settings menu
