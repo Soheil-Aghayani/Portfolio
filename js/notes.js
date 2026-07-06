@@ -2,7 +2,6 @@
 class NotesApp {
     constructor() {
         this.NOTES_LOCAL_KEY = 'soheil_notes_local_v1';
-        this.NOTES_AUTH_KEY = 'soheil_notes_auth_v1';
         this.NOTES_PUBLIC_URL = 'notes.json';
 
         this.notesPublic = [];
@@ -15,13 +14,6 @@ class NotesApp {
         this.listEl = document.getElementById('notesList');
         this.addBtn = document.getElementById('notesAddBtn');
 
-        this.authModal = document.getElementById('notesAuth');
-        this.userIn = document.getElementById('notesUser');
-        this.passIn = document.getElementById('notesPass');
-        this.authGo = document.getElementById('notesAuthGo');
-        this.authCancel = document.getElementById('notesAuthCancel');
-        this.authMsg = document.getElementById('notesAuthMsg');
-
         this.editorModal = document.getElementById('notesEditor');
         this.nameIn = document.getElementById('noteName');
         this.descIn = document.getElementById('noteDesc');
@@ -32,7 +24,6 @@ class NotesApp {
         this.editorCancel = document.getElementById('notesEditCancel');
         this.editorMsg = document.getElementById('notesEditMsg');
 
-        this.authForm = document.getElementById('notesAuthForm');
         this.editForm = document.getElementById('notesEditForm');
 
         this.bindEvents();
@@ -40,20 +31,18 @@ class NotesApp {
     }
 
     bindEvents() {
-        if(this.addBtn) {
-            this.addBtn.addEventListener('click', () => {
-                if (this.isAuthed()) this.openEditor();
-                else this.openAuth();
-            });
+        if (this.addBtn) {
+            // No auth gate — go straight to editor
+            this.addBtn.addEventListener('click', () => this.openEditor());
         }
 
-        if(this.nameIn && this.nameCount) {
+        if (this.nameIn && this.nameCount) {
             this.nameIn.addEventListener('input', () => {
                 this.nameCount.textContent = `${this.nameIn.value.length}/80`;
             });
         }
 
-        if(this.descIn && this.descCount) {
+        if (this.descIn && this.descCount) {
             this.descIn.addEventListener('input', () => {
                 this.descCount.textContent = `${this.descIn.innerText.length}/280`;
             });
@@ -72,27 +61,17 @@ class NotesApp {
             });
         }
 
-        if(this.authForm) {
-            this.authForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.doAuth();
-            });
-        }
-        if(this.authCancel) this.authCancel.addEventListener('click', () => this.closeAuth());
-
-        if(this.editForm) {
+        if (this.editForm) {
             this.editForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 this.saveNote();
             });
         }
-        if(this.editorCancel) this.editorCancel.addEventListener('click', () => this.closeEditor());
+        if (this.editorCancel) this.editorCancel.addEventListener('click', () => this.closeEditor());
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                if (this.authModal && this.authModal.classList.contains('open')) {
-                    this.closeAuth();
-                } else if (this.editorModal && this.editorModal.classList.contains('open')) {
+                if (this.editorModal && this.editorModal.classList.contains('open')) {
                     this.closeEditor();
                 }
             }
@@ -129,39 +108,7 @@ class NotesApp {
     }
 
     isAuthed() {
-        return sessionStorage.getItem(this.NOTES_AUTH_KEY) === '1';
-    }
-
-    doAuth() {
-        const u = this.userIn.value.trim();
-        const p = this.passIn.value;
-        // Simple client-side auth as in original code
-        if (u === 'agseyl' && p === 'Silver_seyl2021') {
-            sessionStorage.setItem(this.NOTES_AUTH_KEY, '1');
-            this.closeAuth();
-            this.openEditor();
-        } else {
-            this.authMsg.textContent = 'Invalid credentials';
-        }
-    }
-
-    openAuth() {
-        this.lastFocus = document.activeElement;
-        this.authModal.classList.add('open');
-        this.authModal.setAttribute('aria-hidden', 'false');
-        this.userIn.focus();
-    }
-
-    closeAuth() {
-        this.authModal.classList.remove('open');
-        this.authModal.setAttribute('aria-hidden', 'true');
-        this.userIn.value = '';
-        this.passIn.value = '';
-        this.authMsg.textContent = '';
-        if (this.lastFocus) {
-            this.lastFocus.focus();
-            this.lastFocus = null;
-        }
+        return true; // No auth required — anyone can add/edit/delete notes
     }
 
     openEditor() {

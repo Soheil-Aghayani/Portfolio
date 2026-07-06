@@ -4956,7 +4956,12 @@ window.godModeActive = false;
             pos++;
             if (pos === SEQUENCE.length) {
                 pos = 0;
-                open();
+                // Toggle: if already active, deactivate; otherwise activate
+                if (sessionStorage.getItem('cheatcode_unlocked') === 'true') {
+                    deactivateCheat();
+                } else {
+                    open();
+                }
             }
         } else {
             pos = (key === SEQUENCE[0].toLowerCase()) ? 1 : 0;
@@ -5052,6 +5057,59 @@ window.godModeActive = false;
         matrixInterval = setInterval(drawMatrix, 33);
     };
 
+    function playDeactivateSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sawtooth';
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+            osc.frequency.setValueAtTime(600, now);
+            osc.frequency.exponentialRampToValueAtTime(80, now + 0.6);
+            osc.start(now);
+            osc.stop(now + 0.6);
+        } catch(e) {}
+    }
+
+    function deactivateCheat() {
+        playDeactivateSound();
+
+        // Hide matrix theme dot
+        const dot = document.querySelector('.theme-dot[data-theme="matrix"]');
+        if (dot) dot.style.display = 'none';
+
+        // If matrix theme is active, switch back to dark
+        if (document.body.dataset.theme === 'matrix') {
+            document.body.dataset.theme = 'dark';
+            localStorage.setItem('portfolio-theme', 'dark');
+            window.toggleMatrixRain && window.toggleMatrixRain(false);
+        }
+
+        // Close the theme switcher
+        const switcher = document.getElementById('themeSwitcher');
+        if (switcher) switcher.classList.remove('expanded');
+
+        // Lock the heart/projects link again
+        sessionStorage.removeItem('cheatcode_unlocked');
+        window.godModeActive = false;
+        const heartLink = document.querySelector('.heart-link');
+        if (heartLink) heartLink.classList.remove('unlocked');
+
+        // Show deactivation overlay
+        const msgEl = overlay.querySelector('.konami-msg');
+        if (msgEl) {
+            msgEl.innerHTML = `&gt; CHEAT CODE DEACTIVATED<br><span>All secret features have been reverted.</span>`;
+        }
+        const emoji = '🔒';
+        if (art) art.textContent = emoji;
+        overlay.setAttribute('aria-hidden', 'false');
+        overlay.classList.add('active');
+    }
+
     function open() {
         playUnlockSound();
 
@@ -5069,6 +5127,7 @@ window.godModeActive = false;
 
         // Unlock projects page access
         sessionStorage.setItem('cheatcode_unlocked', 'true');
+        window.godModeActive = true;
         const heartLink = document.querySelector('.heart-link');
         if (heartLink) {
             heartLink.classList.add('unlocked');
@@ -5076,7 +5135,7 @@ window.godModeActive = false;
 
         const msgEl = overlay.querySelector('.konami-msg');
         if (msgEl) {
-            msgEl.innerHTML = `&gt; CHEAT CODE ACTIVATED<br><span>Secret Matrix Code Theme Unlocked & Developer's Heart Unlocked!</span>`;
+            msgEl.innerHTML = `&gt; CHEAT CODE ACTIVATED<br><span>Secret Matrix Code Theme Unlocked &amp; Developer's Heart Unlocked!</span>`;
         }
 
         const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
