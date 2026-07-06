@@ -4518,6 +4518,17 @@
     let step = 0;
     
     setTimeout(() => {
+      // Freeze height, overflow, and wrap state to prevent vertical page shaking/reflows
+      const originalHeight = el.offsetHeight;
+      el.style.height = `${originalHeight}px`;
+      el.style.minHeight = `${originalHeight}px`;
+      el.style.overflow = 'hidden';
+      
+      const isSingleLine = originalHeight < parseFloat(window.getComputedStyle(el).fontSize) * 2;
+      if (isSingleLine) {
+        el.style.whiteSpace = 'nowrap';
+      }
+
       const interval = setInterval(() => {
         let scrambled = '';
         for (let i = 0; i < totalSteps; i++) {
@@ -4535,6 +4546,11 @@
         step += totalSteps / (duration / 40);
         if (step >= totalSteps) {
           targetNode.textContent = originalText;
+          // Unfreeze styling
+          el.style.height = '';
+          el.style.minHeight = '';
+          el.style.overflow = '';
+          el.style.whiteSpace = '';
           clearInterval(interval);
         }
       }, 40);
