@@ -47,7 +47,7 @@ export class SnakeGame {
         this.placeFood();
 
         if (this.timer) clearInterval(this.timer);
-        this.timer = setInterval(() => this.tick(), 180);
+        this.timer = setInterval(() => this.tick(), 220);
 
         // Start render loop
         if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
@@ -86,7 +86,7 @@ export class SnakeGame {
             this.timer = null;
         } else {
             if (this.timer) clearInterval(this.timer);
-            this.timer = setInterval(() => this.tick(), 180);
+            this.timer = setInterval(() => this.tick(), 220);
         }
         this.draw();
         if (this.callbacks.onPauseToggle) {

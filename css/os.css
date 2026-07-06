@@ -63,6 +63,12 @@
 }
 .os-term.open, .notes-wrap.open, .app-wrap.open { display: flex; }
 
+html.os-active, body.os-active {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none !important;
+}
+
 /* Generic Window Style */
 .os-term-win, .notes-win, .app-win {
     width: min(980px, calc(100% - 22px));
@@ -609,9 +615,34 @@
     overflow-y: auto;
     overscroll-behavior: contain;
 }
-@media (max-height: 580px) {
+@media (max-width: 768px) {
     .game-stage-wrapper {
-        justify-content: flex-start;
+        justify-content: flex-start !important;
+        padding-bottom: 20px;
+    }
+    .snake-scoreboard, .g2048-scoreboard {
+        margin-bottom: 8px !important;
+        gap: 6px !important;
+    }
+    .snake-controls {
+        gap: 4px !important;
+    }
+    .snake-btn {
+        width: 44px !important;
+        height: 44px !important;
+    }
+    /* Shrink board sizes to fit mobile screens perfectly */
+    .g2048-container {
+        padding: 5px !important;
+    }
+    .g2048-board {
+        gap: 6px !important;
+        padding: 6px !important;
+        width: min(290px, 80vw) !important;
+        height: min(290px, 80vw) !important;
+    }
+    .g2048-cell {
+        border-radius: 6px !important;
     }
 }
 .game-pause-btn {

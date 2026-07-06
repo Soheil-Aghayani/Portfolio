@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    import('./games/launcher.js?v=6.2')
+    import('./games/launcher.js?v=6.3')
         .then(({ GameLauncher }) => {
             const launcher = new GameLauncher('appBody');
             launcher.render();

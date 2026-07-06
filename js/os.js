@@ -67,6 +67,8 @@ class WindowManager {
         app.wrap.setAttribute('tabindex', '-1');
         app.wrap.focus();
 
+        document.body.classList.add('os-active');
+        document.documentElement.classList.add('os-active');
         document.body.style.overflow = 'hidden'; // Lock scroll
         document.body.style.overscrollBehavior = 'none';
         document.documentElement.style.overscrollBehavior = 'none';
@@ -87,6 +89,8 @@ class WindowManager {
         // Check if any other apps are open before unlocking scroll
         const anyOpen = Object.values(this.apps).some(a => a.isOpen);
         if (!anyOpen) {
+            document.body.classList.remove('os-active');
+            document.documentElement.classList.remove('os-active');
             document.body.style.overflow = '';
             document.body.style.overscrollBehavior = '';
             document.documentElement.style.overscrollBehavior = '';
@@ -167,6 +171,24 @@ document.addEventListener('wheel', (e) => {
         if (app && app.wrap && app.win) {
             const isInsideWin = app.win.contains(e.target);
             if (!isInsideWin) {
+                if (e.cancelable) e.preventDefault();
+                return;
+            }
+
+            // If inside, check if the wheel target is scrollable
+            let current = e.target;
+            let isScrollable = false;
+            while (current && current !== app.win) {
+                const style = window.getComputedStyle(current);
+                const overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
+                if ((overflowY === 'auto' || overflowY === 'scroll') && current.scrollHeight > current.clientHeight) {
+                    isScrollable = true;
+                    break;
+                }
+                current = current.parentElement;
+            }
+
+            if (!isScrollable) {
                 if (e.cancelable) e.preventDefault();
             }
         }

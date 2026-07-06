@@ -1,10 +1,10 @@
 
-import { SnakeGame } from './snake.js?v=6.2';
-import { BlackjackGame } from './blackjack.js?v=6.2';
-import { TetrisGame } from './tetris.js?v=6.2';
-import { Game2048 } from './2048.js?v=6.2';
-import { MinesweeperGame } from './minesweeper.js?v=6.2';
-import { BreakoutGame } from './breakout.js?v=6.2';
+import { SnakeGame } from './snake.js?v=6.3';
+import { BlackjackGame } from './blackjack.js?v=6.3';
+import { TetrisGame } from './tetris.js?v=6.3';
+import { Game2048 } from './2048.js?v=6.3';
+import { MinesweeperGame } from './minesweeper.js?v=6.3';
+import { BreakoutGame } from './breakout.js?v=6.3';
 
 export class GameLauncher {
     constructor(containerId) {

@@ -209,8 +209,12 @@ export class MinesweeperGame {
                 });
 
                 // Long press / Touch hold for mobile flag placement
+                let startX, startY;
                 cellEl.addEventListener('touchstart', (e) => {
                     wasLongPress = false;
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
                     touchTimer = setTimeout(() => {
                         wasLongPress = true;
                         this.handleCellRightClick(r, c);
@@ -222,10 +226,18 @@ export class MinesweeperGame {
 
                 cellEl.addEventListener('touchend', (e) => {
                     clearTimeout(touchTimer);
+                    if (wasLongPress) {
+                        e.preventDefault();
+                    }
                 });
 
-                cellEl.addEventListener('touchmove', () => {
-                    clearTimeout(touchTimer);
+                cellEl.addEventListener('touchmove', (e) => {
+                    if (e.touches.length === 0) return;
+                    const touch = e.touches[0];
+                    const dist = Math.hypot(touch.clientX - startX, touch.clientY - startY);
+                    if (dist > 10) {
+                        clearTimeout(touchTimer);
+                    }
                 });
 
                 this.boardEl.appendChild(cellEl);
