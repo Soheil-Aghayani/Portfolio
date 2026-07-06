@@ -440,7 +440,9 @@ export class Game2048 {
 
     showWinOverlay() {
         this.overlayTitleEl.textContent = "You Win!";
-        this.overlayMsgEl.textContent = "You reached the 2048 tile!";
+        this.overlayTitleEl.style.color = "var(--primary)";
+        const updatedHigh = localStorage.getItem('2048_high_score') || 0;
+        this.overlayMsgEl.innerHTML = `You reached the 2048 tile!<br>Score: ${this.score}<br>High Score: ${updatedHigh}`;
         this.restartBtn.textContent = "Keep Playing";
         
         // Custom restart btn behavior for keep playing
@@ -461,8 +463,10 @@ export class Game2048 {
     gameOver() {
         this.gameOverState = true;
         this.overlayTitleEl.textContent = "Game Over";
-        this.overlayMsgEl.textContent = "No moves left!";
-        this.restartBtn.textContent = "Try Again";
+        this.overlayTitleEl.style.color = "#ef4444";
+        const updatedHigh = localStorage.getItem('2048_high_score') || 0;
+        this.overlayMsgEl.innerHTML = `No moves left!<br>Score: ${this.score}<br>High Score: ${updatedHigh}`;
+        this.restartBtn.textContent = "Play Again";
         this.restartBtn.onclick = () => this.start();
 
         this.overlayEl.classList.add('show');

@@ -1,10 +1,10 @@
 
-import { SnakeGame } from './snake.js?v=2.2';
-import { BlackjackGame } from './blackjack.js?v=2.2';
-import { TetrisGame } from './tetris.js?v=2.2';
-import { Game2048 } from './2048.js?v=2.2';
-import { MinesweeperGame } from './minesweeper.js?v=2.2';
-import { BreakoutGame } from './breakout.js?v=2.2';
+import { SnakeGame } from './snake.js?v=6.2';
+import { BlackjackGame } from './blackjack.js?v=6.2';
+import { TetrisGame } from './tetris.js?v=6.2';
+import { Game2048 } from './2048.js?v=6.2';
+import { MinesweeperGame } from './minesweeper.js?v=6.2';
+import { BreakoutGame } from './breakout.js?v=6.2';
 
 export class GameLauncher {
     constructor(containerId) {
@@ -147,21 +147,26 @@ export class GameLauncher {
             snakeContainer.style.alignItems = 'center';
             snakeContainer.style.gap = '15px';
 
+            const canvasWrapper = document.createElement('div');
+            canvasWrapper.className = 'game-canvas-wrapper';
+
             const canvas = document.createElement('canvas');
             canvas.width = 360;
             canvas.height = 360;
             canvas.className = 'in-app-game-canvas';
 
-            // Restart Button
-            const restartBtn = document.createElement('button');
-            restartBtn.className = 'snake-restart-btn';
-            restartBtn.textContent = 'Play Again';
-            restartBtn.style.display = 'none'; // Hidden by default
-            restartBtn.onclick = () => {
-                restartBtn.style.display = 'none';
-                this.activeGame.start();
-                content.focus();
-            };
+            // HTML Overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'game-overlay';
+            overlay.id = 'snakeOverlay';
+            overlay.innerHTML = `
+                <div class="game-overlay-title">GAME OVER</div>
+                <div class="game-overlay-msg" id="snakeOverlayMsg"></div>
+                <button class="game-overlay-btn" id="snakeOverlayBtn" type="button">Play Again</button>
+            `;
+
+            canvasWrapper.appendChild(canvas);
+            canvasWrapper.appendChild(overlay);
 
             // Mobile Controls
             const controls = document.createElement('div');
@@ -175,8 +180,7 @@ export class GameLauncher {
                 <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
             `;
 
-            snakeContainer.appendChild(canvas);
-            snakeContainer.appendChild(restartBtn);
+            snakeContainer.appendChild(canvasWrapper);
             snakeContainer.appendChild(controls);
             content.appendChild(snakeContainer);
 
@@ -191,16 +195,27 @@ export class GameLauncher {
                 },
                 onStart: () => {
                     document.getElementById('snakeScore').textContent = 0;
-                    restartBtn.style.display = 'none';
+                    overlay.classList.remove('show');
                 },
                 onEnd: (score) => {
-                    restartBtn.style.display = 'block';
-                    restartBtn.focus();
                     const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('snake_high_score', score);
                         document.getElementById('snakeHighScore').textContent = score;
                     }
+                    
+                    const overlayMsg = document.getElementById('snakeOverlayMsg');
+                    const updatedHigh = localStorage.getItem('snake_high_score') || 0;
+                    overlayMsg.innerHTML = `Score: ${score}<br>High Score: ${updatedHigh}`;
+                    
+                    const overlayBtn = document.getElementById('snakeOverlayBtn');
+                    overlayBtn.onclick = () => {
+                        overlay.classList.remove('show');
+                        this.activeGame.start();
+                        content.focus();
+                    };
+                    
+                    overlay.classList.add('show');
                 }
             });
 
@@ -241,20 +256,27 @@ export class GameLauncher {
             tetrisContainer.style.alignItems = 'center';
             tetrisContainer.style.gap = '15px';
 
+            const canvasWrapper = document.createElement('div');
+            canvasWrapper.className = 'game-canvas-wrapper';
+            canvasWrapper.style.width = '180px';
+            canvasWrapper.style.height = '360px';
+
             const canvas = document.createElement('canvas');
             canvas.height = 360; // tileSize is dynamically set, canvas width is computed in game
             canvas.className = 'in-app-game-canvas';
 
-            // Restart Button
-            const restartBtn = document.createElement('button');
-            restartBtn.className = 'snake-restart-btn';
-            restartBtn.textContent = 'Play Again';
-            restartBtn.style.display = 'none';
-            restartBtn.onclick = () => {
-                restartBtn.style.display = 'none';
-                this.activeGame.start();
-                content.focus();
-            };
+            // HTML Overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'game-overlay';
+            overlay.id = 'tetrisOverlay';
+            overlay.innerHTML = `
+                <div class="game-overlay-title" style="font-size:1.5rem;">GAME OVER</div>
+                <div class="game-overlay-msg" id="tetrisOverlayMsg" style="font-size:0.85rem;"></div>
+                <button class="game-overlay-btn" id="tetrisOverlayBtn" type="button" style="padding:10px 18px; font-size:0.85rem;">Play Again</button>
+            `;
+
+            canvasWrapper.appendChild(canvas);
+            canvasWrapper.appendChild(overlay);
 
             // Mobile Controls
             const controls = document.createElement('div');
@@ -268,8 +290,7 @@ export class GameLauncher {
                 <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
             `;
 
-            tetrisContainer.appendChild(canvas);
-            tetrisContainer.appendChild(restartBtn);
+            tetrisContainer.appendChild(canvasWrapper);
             tetrisContainer.appendChild(controls);
             content.appendChild(tetrisContainer);
 
@@ -286,16 +307,27 @@ export class GameLauncher {
                 onStart: () => {
                     document.getElementById('tetrisScore').textContent = 0;
                     document.getElementById('tetrisLevel').textContent = 1;
-                    restartBtn.style.display = 'none';
+                    overlay.classList.remove('show');
                 },
                 onEnd: (score) => {
-                    restartBtn.style.display = 'block';
-                    restartBtn.focus();
                     const curHigh = parseInt(localStorage.getItem('tetris_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('tetris_high_score', score);
                         document.getElementById('tetrisHighScore').textContent = score;
                     }
+                    
+                    const overlayMsg = document.getElementById('tetrisOverlayMsg');
+                    const updatedHigh = localStorage.getItem('tetris_high_score') || 0;
+                    overlayMsg.innerHTML = `Score: ${score}<br>High Score: ${updatedHigh}`;
+
+                    const overlayBtn = document.getElementById('tetrisOverlayBtn');
+                    overlayBtn.onclick = () => {
+                        overlay.classList.remove('show');
+                        this.activeGame.start();
+                        content.focus();
+                    };
+
+                    overlay.classList.add('show');
                 }
             });
 
@@ -334,6 +366,7 @@ export class GameLauncher {
             scoreBoard.className = 'snake-scoreboard';
             scoreBoard.innerHTML = `
                 <div class="snake-score-item">SCORE <span id="breakoutScore">0</span></div>
+                <div class="snake-score-item">LEVEL <span id="breakoutLevel">1</span></div>
                 <div class="snake-score-item">HIGH SCORE <span id="breakoutHighScore">${savedHighScore}</span></div>
             `;
 
@@ -345,28 +378,36 @@ export class GameLauncher {
             breakoutContainer.style.alignItems = 'center';
             breakoutContainer.style.gap = '15px';
 
+            const canvasWrapper = document.createElement('div');
+            canvasWrapper.className = 'game-canvas-wrapper';
+
             const canvas = document.createElement('canvas');
             canvas.width = 360;
             canvas.height = 360;
             canvas.className = 'in-app-game-canvas';
 
-            const restartBtn = document.createElement('button');
-            restartBtn.className = 'snake-restart-btn';
-            restartBtn.textContent = 'Play Again';
-            restartBtn.style.display = 'none';
-            restartBtn.onclick = () => {
-                restartBtn.style.display = 'none';
-                this.activeGame.start();
-                content.focus();
-            };
+            // HTML Overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'game-overlay';
+            overlay.id = 'breakoutOverlay';
+            overlay.innerHTML = `
+                <div class="game-overlay-title" id="breakoutOverlayTitle">GAME OVER</div>
+                <div class="game-overlay-msg" id="breakoutOverlayMsg"></div>
+                <button class="game-overlay-btn" id="breakoutOverlayBtn" type="button">Play Again</button>
+            `;
 
-            breakoutContainer.appendChild(canvas);
-            breakoutContainer.appendChild(restartBtn);
+            canvasWrapper.appendChild(canvas);
+            canvasWrapper.appendChild(overlay);
+
+            breakoutContainer.appendChild(canvasWrapper);
             content.appendChild(breakoutContainer);
 
             this.activeGame = new BreakoutGame(canvas, {
-                onScore: (score) => {
+                onScore: (score, level) => {
                     document.getElementById('breakoutScore').textContent = score;
+                    if (document.getElementById('breakoutLevel')) {
+                        document.getElementById('breakoutLevel').textContent = level;
+                    }
                     const curHigh = parseInt(localStorage.getItem('breakout_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('breakout_high_score', score);
@@ -375,17 +416,36 @@ export class GameLauncher {
                 },
                 onStart: () => {
                     document.getElementById('breakoutScore').textContent = 0;
-                    restartBtn.style.display = 'none';
+                    if (document.getElementById('breakoutLevel')) {
+                        document.getElementById('breakoutLevel').textContent = 1;
+                    }
+                    overlay.classList.remove('show');
                 },
-                onEnd: (score) => {
-                    restartBtn.style.display = 'block';
-                    restartBtn.focus();
-                    
+                onEnd: (score, isWin) => {
                     const curHigh = parseInt(localStorage.getItem('breakout_high_score') || 0);
                     if (score > curHigh) {
                         localStorage.setItem('breakout_high_score', score);
                         document.getElementById('breakoutHighScore').textContent = score;
                     }
+
+                    const overlayTitle = document.getElementById('breakoutOverlayTitle');
+                    overlayTitle.textContent = isWin ? 'YOU WIN!' : 'GAME OVER';
+                    overlayTitle.style.color = isWin ? 'var(--primary)' : '#ef4444';
+
+                    const overlayMsg = document.getElementById('breakoutOverlayMsg');
+                    const updatedHigh = localStorage.getItem('breakout_high_score') || 0;
+                    overlayMsg.innerHTML = isWin 
+                        ? `Congratulations! You cleared all bricks!<br>Score: ${score}<br>High Score: ${updatedHigh}`
+                        : `Score: ${score}<br>High Score: ${updatedHigh}`;
+
+                    const overlayBtn = document.getElementById('breakoutOverlayBtn');
+                    overlayBtn.onclick = () => {
+                        overlay.classList.remove('show');
+                        this.activeGame.start();
+                        content.focus();
+                    };
+
+                    overlay.classList.add('show');
                 }
             });
 

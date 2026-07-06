@@ -1,4 +1,11 @@
 
+const SMILEY_SVG_HAPPY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`;
+const SMILEY_SVG_WIN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><path d="M6 9h12l-1.5 4h-9L6 9z" fill="currentColor" opacity="0.3"></path><line x1="6" y1="9" x2="18" y2="9"></line><path d="M9 15s1.5 1.5 3 1.5 3-1.5 3-1.5"></path></svg>`;
+const SMILEY_SVG_LOSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; color: #ef4444;"><circle cx="12" cy="12" r="10"></circle><path d="M9 9l2 2m-2 0l2-2"></path><path d="M13 9l2 2m-2 0l2-2"></path><circle cx="12" cy="15" r="1.5"></circle></svg>`;
+
+const FLAG_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; color: #fb7185; filter: drop-shadow(0 0 4px rgba(251, 113, 133, 0.6));"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="rgba(251, 113, 133, 0.3)"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>`;
+const MINE_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; color: #ef4444; filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));"><circle cx="12" cy="12" r="8" fill="rgba(239, 68, 68, 0.2)"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line><line x1="19.07" y1="4.93" x2="17.66" y2="6.34"></line><line x1="6.34" y1="17.66" x2="4.93" y2="19.07"></line><circle cx="10" cy="10" r="1.2" fill="#fff" stroke="none"></circle></svg>`;
+
 export class MinesweeperGame {
     constructor(container, callbacks = {}) {
         this.container = container;
@@ -25,18 +32,25 @@ export class MinesweeperGame {
             <div class="ms-container">
                 <div class="ms-header">
                     <div class="ms-counter-box">
-                        <div class="ms-counter-label">Mines</div>
-                        <div id="msMinesCount" class="ms-counter-val">15</div>
-                    </div>
-                    <button class="ms-smiley" id="msSmileyBtn" type="button" aria-label="Reset Game">😊</button>
+                          <div class="ms-counter-label">Mines</div>
+                          <div id="msMinesCount" class="ms-counter-val">15</div>
+                      </div>
+                      <button class="ms-smiley state-happy" id="msSmileyBtn" type="button" aria-label="Reset Game">${SMILEY_SVG_HAPPY}</button>
                     <div class="ms-counter-box">
                         <div class="ms-counter-label">Time</div>
                         <div id="msTimer" class="ms-counter-val">000</div>
                     </div>
                 </div>
 
-                <div class="ms-board" id="msBoard" role="grid" aria-label="Minesweeper Board">
-                    <!-- 100 cells generated dynamically -->
+                <div style="position: relative; width: fit-content; height: fit-content; margin: 0 auto;">
+                    <div class="ms-board" id="msBoard" role="grid" aria-label="Minesweeper Board">
+                        <!-- 100 cells generated dynamically -->
+                    </div>
+                    <div class="ms-overlay" id="msOverlay">
+                        <div class="ms-title" id="msOverlayTitle">GAME OVER</div>
+                        <div class="ms-msg" id="msOverlayMsg">Time: 000s</div>
+                        <button class="ms-btn" id="msOverlayBtn" type="button">Play Again</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -61,7 +75,13 @@ export class MinesweeperGame {
 
         this.minesCountEl.textContent = this.minesRemaining;
         this.timerEl.textContent = '000';
-        this.smileyBtn.textContent = '😊';
+        this.smileyBtn.innerHTML = SMILEY_SVG_HAPPY;
+        this.smileyBtn.className = 'ms-smiley state-happy';
+
+        const overlay = this.container.querySelector('#msOverlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
 
         if (this.boardEl) {
             this.boardEl.classList.remove('shake');
@@ -257,20 +277,20 @@ export class MinesweeperGame {
         if (!cellEl) return;
 
         cellEl.className = 'ms-cell';
-        cellEl.textContent = '';
+        cellEl.innerHTML = '';
 
         if (cell.revealed) {
             cellEl.classList.add('revealed');
             if (cell.mine) {
                 cellEl.classList.add('mine');
-                cellEl.textContent = '💣';
+                cellEl.innerHTML = MINE_SVG;
             } else if (cell.count > 0) {
                 cellEl.classList.add(`ms-num-${cell.count}`);
                 cellEl.textContent = cell.count;
             }
         } else if (cell.flagged) {
             cellEl.classList.add('flagged');
-            cellEl.textContent = '🚩';
+            cellEl.innerHTML = FLAG_SVG;
         }
     }
 
@@ -308,7 +328,8 @@ export class MinesweeperGame {
         this.won = success;
         if (this.timer) clearInterval(this.timer);
 
-        this.smileyBtn.textContent = success ? '😎' : '😵';
+        this.smileyBtn.innerHTML = success ? SMILEY_SVG_WIN : SMILEY_SVG_LOSE;
+        this.smileyBtn.className = success ? 'ms-smiley state-win' : 'ms-smiley state-lose';
 
         if (!success && this.boardEl) {
             this.boardEl.classList.add('shake');
@@ -327,6 +348,42 @@ export class MinesweeperGame {
                 }
                 this.updateCellUI(r, c);
             }
+        }
+
+        // Handle Best Time Record & Overlay display
+        let isNewRecord = false;
+        let bestTime = localStorage.getItem('minesweeper_best_time');
+        if (success) {
+            if (!bestTime || this.time < parseInt(bestTime)) {
+                localStorage.setItem('minesweeper_best_time', this.time);
+                bestTime = this.time;
+                isNewRecord = true;
+            }
+        }
+
+        const overlay = this.container.querySelector('#msOverlay');
+        const overlayTitle = this.container.querySelector('#msOverlayTitle');
+        const overlayMsg = this.container.querySelector('#msOverlayMsg');
+        const overlayBtn = this.container.querySelector('#msOverlayBtn');
+
+        if (overlay && overlayTitle && overlayMsg && overlayBtn) {
+            overlayTitle.textContent = success ? 'VICTORY!' : 'GAME OVER';
+            overlayTitle.style.color = success ? 'var(--primary)' : '#ef4444';
+            
+            const displayTime = String(this.time).padStart(3, '0');
+            const displayBest = bestTime ? String(bestTime).padStart(3, '0') + 's' : '---';
+            
+            overlayMsg.innerHTML = success 
+                ? (isNewRecord 
+                    ? `🏆 NEW RECORD!<br>Clear Time: ${displayTime}s` 
+                    : `Clear Time: ${displayTime}s<br>Best Time: ${displayBest}`)
+                : `Blew up in ${displayTime}s<br>Best Time: ${displayBest}`;
+
+            overlayBtn.onclick = () => this.start();
+
+            setTimeout(() => {
+                overlay.classList.add('show');
+            }, 800);
         }
 
         // Trigger end callbacks
