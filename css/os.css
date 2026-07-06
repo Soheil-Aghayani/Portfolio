@@ -2203,5 +2203,267 @@ html.os-active, body.os-active {
     100% { box-shadow: 0 0 25px 15px rgba(56, 189, 248, 0); filter: brightness(1); }
 }
 
+/* Minesweeper Menu Screen */
+.ms-menu-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    max-width: 320px;
+    margin: 0 auto;
+    animation: ms-fade-in 0.3s ease;
+}
+.ms-menu-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(45, 212, 191, 0.4);
+    letter-spacing: 1px;
+}
+.ms-menu-modes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+.ms-mode-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+.ms-mode-card.selected {
+    border-color: var(--primary);
+    background: rgba(45, 212, 191, 0.08);
+}
+.ms-mode-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+.ms-mode-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: left;
+}
+.ms-diff-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+    justify-content: space-between;
+}
+.ms-diff-btn {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text-muted);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    padding: 5px 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.15s;
+}
+.ms-diff-btn.selected {
+    background: var(--primary);
+    color: #0f172a;
+    border-color: var(--primary);
+}
+/* Miner Mascot Styles */
+.ms-miner-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+    max-width: 320px;
+}
+.ms-miner-img-wrapper {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.3);
+}
+.ms-miner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.ms-miner-img-placeholder {
+    font-size: 2.2rem;
+    animation: ms-bounce 1s infinite alternate;
+}
+.ms-miner-bubble {
+    position: relative;
+    font-size: 0.8rem;
+    color: #fff;
+    line-height: 1.3;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+/* Tutorial Modal */
+.ms-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.ms-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.ms-modal-content {
+    background: #0f172a;
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 380px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.ms-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 8px;
+}
+.ms-modal-title {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.1rem;
+    font-family: monospace;
+}
+.ms-modal-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+.ms-modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+}
+.ms-modal-text {
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(30, 41, 59, 0.4);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+    min-height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.ms-modal-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 4px;
+}
+.ms-nav-btn {
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.ms-nav-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.ms-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+/* Endless Scrolling styling */
+.ms-board-scroll-wrapper {
+    max-width: 100%;
+    max-height: 380px;
+    overflow: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(6, 10, 18, 0.6);
+    cursor: grab;
+    user-select: none;
+}
+.ms-board-scroll-wrapper:active {
+    cursor: grabbing;
+}
+/* Hide default scrollbars for clean cyberpunk feel */
+.ms-board-scroll-wrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ms-board-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(45, 212, 191, 0.3);
+    border-radius: 3px;
+}
+.ms-board-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+@keyframes ms-fade-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes ms-bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+
+
 
 
