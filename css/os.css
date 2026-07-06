@@ -2293,27 +2293,30 @@ html.os-active, body.os-active {
 /* Miner Mascot Styles */
 .ms-miner-box {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     background: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 12px;
-    padding: 12px;
+    padding: 14px;
     margin-top: 12px;
     max-width: 320px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .ms-miner-img-wrapper {
-    width: 72px;
-    height: 72px;
-    border-radius: 8px;
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
     background: #fff;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 2px solid var(--primary);
-    box-shadow: 0 0 8px rgba(45, 212, 191, 0.3);
+    border: 2.5px solid var(--primary);
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.45);
 }
 .ms-miner-img {
     width: 100%;
@@ -2321,16 +2324,16 @@ html.os-active, body.os-active {
     object-fit: contain;
 }
 .ms-miner-img-placeholder {
-    font-size: 2.2rem;
+    font-size: 3.2rem;
     animation: ms-bounce 1s infinite alternate;
 }
 .ms-miner-bubble {
     position: relative;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #fff;
-    line-height: 1.3;
+    line-height: 1.45;
     font-family: 'Courier New', Courier, monospace;
-    text-align: left;
+    text-align: center;
 }
 /* Tutorial Modal */
 .ms-modal {
