@@ -43,7 +43,7 @@ export class MinesweeperGame {
 
     initUI() {
         this.container.innerHTML = `
-            <div class="ms-container" id="msContainer" style="width: 100%; display: flex; flex-direction: column; justify-content: center; min-height: 420px;">
+            <div class="ms-container" id="msContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 460px;">
                 <!-- Main UI injected by showStartMenu or renderGameLayout -->
             </div>
 
@@ -55,7 +55,8 @@ export class MinesweeperGame {
                         <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button" aria-label="Close Manual">&times;</button>
                     </div>
                     <div class="ms-modal-body">
-                        <div class="ms-miner-img-wrapper">
+                        <!-- Enlarged Miner Image in Modal (160px * 160px) -->
+                        <div class="ms-miner-img-wrapper" style="width: 160px; height: 160px; border-radius: 12px; border: 2.5px solid var(--primary); box-shadow: 0 0 12px rgba(45, 212, 191, 0.45);">
                             <img class="ms-miner-img" id="msModalMinerImg" src="" alt="Miner Mascot">
                         </div>
                         <div class="ms-modal-text" id="msModalText"></div>
@@ -90,47 +91,60 @@ export class MinesweeperGame {
                 <div class="ms-menu-title">CYBER DECK MINES</div>
                 
                 <div class="ms-menu-modes">
-                    <!-- Zen Mode Card -->
+                    <!-- Zen Mode -->
                     <div class="ms-mode-card ${this.mode === 'zen' ? 'selected' : ''}" id="modeCardZen">
-                        <button class="ms-mode-btn" type="button" id="selectZenBtn">
-                            <span>🧘 ZEN MODE</span>
-                        </button>
-                        <div class="ms-mode-desc">Untimed tactical sweeps. Choose difficulty:</div>
+                        <div class="ms-mode-title-row">
+                            <span>🧘 ZEN PLAYLIST</span>
+                        </div>
+                        <div class="ms-mode-desc">Relaxed sweep with no timer pressure. Choose difficulty:</div>
                         <div class="ms-diff-row">
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="easy">Easy (10m)</button>
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="medium">Med (15m)</button>
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="hard">Hard (20m)</button>
+                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="easy">Easy</button>
+                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="medium">Medium</button>
+                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="hard">Hard</button>
                         </div>
                     </div>
 
-                    <!-- Time Trial Card -->
+                    <!-- Time Trial -->
                     <div class="ms-mode-card ${this.mode === 'time-trial' ? 'selected' : ''}" id="modeCardTimeTrial">
-                        <button class="ms-mode-btn" type="button" id="selectTimeTrialBtn">
+                        <div class="ms-mode-title-row">
                             <span>⚡ TIME TRIAL</span>
-                        </button>
-                        <div class="ms-mode-desc">Race against timer! Hard mode turns off hacks.</div>
+                        </div>
+                        <div class="ms-mode-desc">Race against the timer! Hacks disabled on Hard.</div>
                         <div class="ms-diff-row">
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="easy">Easy (120s)</button>
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="medium">Med (90s)</button>
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="hard">Hard (90s)</button>
+                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="easy">Easy</button>
+                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="medium">Medium</button>
+                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="hard">Hard</button>
                         </div>
                     </div>
 
-                    <!-- Endless Mode Card -->
+                    <!-- Endless Mode -->
                     <div class="ms-mode-card ${this.mode === 'endless' ? 'selected' : ''}" id="modeCardEndless">
-                        <button class="ms-mode-btn" type="button" id="selectEndlessBtn">
-                            <span>♾️ ENDLESS MODE</span>
-                        </button>
-                        <div class="ms-mode-desc">Drag and expand board. Infinite mines, dig forever!</div>
+                        <div class="ms-mode-title-row">
+                            <span>♾️ ENDLESS DRIFT</span>
+                        </div>
+                        <div class="ms-mode-desc">Expandable board with endless mines. Drag and dig forever!</div>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 12px; width: 100%; margin-top: 8px;">
+                <div style="display: flex; gap: 12px; width: 100%; margin-top: 4px;">
                     <button class="ms-btn" style="flex: 1;" id="msStartGameBtn" type="button">START</button>
                     <button class="ms-btn" style="background: #334155; box-shadow: none; padding: 12px; width: 44px; min-width: 44px;" id="msMenuTutorialBtn" type="button" title="How to Play">❓</button>
                 </div>
             </div>
+
+            <!-- Bottom Mascot dialogue panel (Kept outside board wrapper to prevent cramping/stretching) -->
+            <div class="ms-mascot-row" id="msMascotRow">
+                <div class="ms-miner-img-wrapper">
+                    <img class="ms-miner-img" id="msMascotImg" src="" alt="Miner Mascot">
+                </div>
+                <div class="ms-miner-bubble" id="msMascotText">Ready to dig? Select a mode and let's sweep this cave!</div>
+            </div>
         `;
+
+        const mascotImg = this.mainContainer.querySelector('#msMascotImg');
+        if (mascotImg) {
+            mascotImg.src = this.getMinerImgSrc('tutorial_1');
+        }
 
         const cards = {
             zen: this.mainContainer.querySelector('#modeCardZen'),
@@ -147,9 +161,9 @@ export class MinesweeperGame {
             });
         };
 
-        this.mainContainer.querySelector('#selectZenBtn').onclick = () => selectMode('zen');
-        this.mainContainer.querySelector('#selectTimeTrialBtn').onclick = () => selectMode('time-trial');
-        this.mainContainer.querySelector('#selectEndlessBtn').onclick = () => selectMode('endless');
+        cards.zen.onclick = () => selectMode('zen');
+        cards['time-trial'].onclick = () => selectMode('time-trial');
+        cards.endless.onclick = () => selectMode('endless');
 
         const diffBtns = this.mainContainer.querySelectorAll('.ms-diff-btn');
         diffBtns.forEach(btn => {
@@ -240,7 +254,6 @@ export class MinesweeperGame {
     }
 
     getMinerImgSrc(poseKey) {
-        // These are the images we successfully generated and copied to assets
         const knownAssets = [
             'tutorial_1', 'tutorial_2', 'tutorial_3', 'tutorial_4', 'tutorial_5', 'tutorial_6',
             'win_easy', 'win_medium', 'win_fast', 'win_record'
@@ -249,13 +262,13 @@ export class MinesweeperGame {
             return `assets/miner/${poseKey}.webp`;
         }
 
-        // Logical fallback mappings for missing images:
+        // Fallbacks:
         if (poseKey === 'win_hard') return `assets/miner/win_medium.webp`;
         if (poseKey.startsWith('lose_')) {
             if (poseKey === 'lose_easy') return `assets/miner/win_easy.webp`; // sarcastic clap
             if (poseKey === 'lose_medium') return `assets/miner/tutorial_5.webp`; // scratching head
             if (poseKey === 'lose_hard') return `assets/miner/tutorial_6.webp`; // philosophical pose
-            if (poseKey === 'lose_slow') return `assets/miner/tutorial_5.webp`; // scratching head
+            if (poseKey === 'lose_slow') return `assets/miner/tutorial_5.webp`;
             return `assets/miner/win_easy.webp`;
         }
         return `assets/miner/tutorial_1.webp`;
@@ -366,7 +379,7 @@ export class MinesweeperGame {
         } else if (this.mode === 'endless') {
             this.rows = 10;
             this.cols = 10;
-            this.mineCount = 12; // initial mines
+            this.mineCount = 12; // starting density
             this.initialShield = true;
             this.initialPing = 1;
             this.score = 0;
@@ -402,26 +415,27 @@ export class MinesweeperGame {
             </div>
 
             <div style="position: relative; width: fit-content; height: fit-content; margin: 0 auto;">
+                <!-- Fixed Viewport Board Frame Wrapper (300px * 300px) -->
                 <div class="ms-board-scroll-wrapper" id="msBoardWrapper">
                     <div class="ms-board" id="msBoard" role="grid" aria-label="Minesweeper Board">
                         <!-- cells generated dynamically -->
                     </div>
                 </div>
                 
-                <div class="ms-overlay" id="msOverlay">
-                    <div class="ms-title" id="msOverlayTitle">GAME OVER</div>
-                    <div class="ms-msg" id="msOverlayMsg">Time: 000s</div>
-                    
-                    <!-- Miner mascot dialog on Game Over -->
-                    <div class="ms-miner-box">
-                        <div class="ms-miner-img-wrapper">
-                            <img class="ms-miner-img" id="msGameOverMinerImg" src="" alt="Miner Mascot">
-                        </div>
-                        <div class="ms-miner-bubble" id="msGameOverMinerText"></div>
-                    </div>
-
-                    <button class="ms-btn" style="margin-top: 14px;" id="msOverlayBtn" type="button">Play Again</button>
+                <!-- Clean compact HUD overlay (fits exactly inside the 300x300 frame wrapper) -->
+                <div class="ms-overlay" id="msOverlay" style="border-radius: 12px;">
+                    <div class="ms-title" id="msOverlayTitle" style="font-size: 1.5rem; margin-bottom: 8px;">GAME OVER</div>
+                    <div class="ms-msg" id="msOverlayMsg" style="font-size: 0.85rem; margin-bottom: 12px; line-height: 1.4;">Time: 000s</div>
+                    <button class="ms-btn" style="padding: 8px 18px; font-size: 0.85rem;" id="msOverlayBtn" type="button">Play Again</button>
                 </div>
+            </div>
+
+            <!-- Bottom Mascot panel -->
+            <div class="ms-mascot-row" id="msMascotRow">
+                <div class="ms-miner-img-wrapper">
+                    <img class="ms-miner-img" id="msMascotImg" src="" alt="Miner Mascot">
+                </div>
+                <div class="ms-miner-bubble" id="msMascotText">Dig carefully, greenhorn! Watch your steps!</div>
             </div>
         `;
 
@@ -430,6 +444,13 @@ export class MinesweeperGame {
         this.smileyBtn = this.mainContainer.querySelector('#msSmileyBtn');
         this.minesCountEl = this.mainContainer.querySelector('#msMinesCount');
         this.timerEl = this.mainContainer.querySelector('#msTimer');
+        
+        this.mascotImgEl = this.mainContainer.querySelector('#msMascotImg');
+        this.mascotTextEl = this.mainContainer.querySelector('#msMascotText');
+
+        if (this.mascotImgEl) {
+            this.mascotImgEl.src = this.getMinerImgSrc('tutorial_1');
+        }
 
         this.smileyBtn.onclick = () => this.start();
 
@@ -552,11 +573,17 @@ export class MinesweeperGame {
             this.boardEl.classList.remove('shake');
         }
 
-        // Reset dimensions for Endless start (back to 10x10)
         if (this.mode === 'endless') {
             this.rows = 10;
             this.cols = 10;
             this.mineCount = 12;
+        }
+
+        if (this.mascotImgEl && this.mascotTextEl) {
+            this.mascotImgEl.src = this.getMinerImgSrc('tutorial_1');
+            this.mascotTextEl.textContent = this.mode === 'endless' 
+                ? "Deeper and deeper we go! Watch out, these endless mines have no pattern!" 
+                : "Keep scanning, cadet! Watch out for the red warning tiles.";
         }
 
         this.buildGrid();
@@ -618,7 +645,6 @@ export class MinesweeperGame {
             }
         }
 
-        // Calculate initial adjacent counts
         this.recalculateCounts();
     }
 
@@ -870,7 +896,6 @@ export class MinesweeperGame {
         const prevRows = this.rows;
         const prevCols = this.cols;
 
-        // 1. Add rows
         if (addRows > 0) {
             for (let r = prevRows; r < prevRows + addRows; r++) {
                 const row = [];
@@ -890,7 +915,6 @@ export class MinesweeperGame {
             this.rows += addRows;
         }
 
-        // 2. Add columns
         if (addCols > 0) {
             for (let r = 0; r < this.rows; r++) {
                 for (let c = prevCols; c < prevCols + addCols; c++) {
@@ -908,7 +932,6 @@ export class MinesweeperGame {
             this.cols += addCols;
         }
 
-        // 3. Dynamic mine seeding (~15% probability on new cells)
         const density = 0.15;
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
@@ -920,10 +943,7 @@ export class MinesweeperGame {
             }
         }
 
-        // 4. Recalculate counts
         this.recalculateCounts();
-
-        // 5. Re-render board DOM
         this.renderBoard();
         this.updateUI();
     }
@@ -1119,10 +1139,8 @@ export class MinesweeperGame {
         const overlayTitle = this.container.querySelector('#msOverlayTitle');
         const overlayMsg = this.container.querySelector('#msOverlayMsg');
         const overlayBtn = this.container.querySelector('#msOverlayBtn');
-        const gameOverMinerImg = this.container.querySelector('#msGameOverMinerImg');
-        const gameOverMinerText = this.container.querySelector('#msGameOverMinerText');
 
-        if (overlay && overlayTitle && overlayMsg && overlayBtn && gameOverMinerImg && gameOverMinerText) {
+        if (overlay && overlayTitle && overlayMsg && overlayBtn) {
             overlayTitle.textContent = success ? 'VICTORY!' : 'GAME OVER';
             overlayTitle.style.color = success ? 'var(--primary)' : '#ef4444';
             
@@ -1141,10 +1159,12 @@ export class MinesweeperGame {
                     : `Blew up in ${displayTime}s<br>Best Time: ${displayBest}`;
             }
 
-            // Get Miner Mascot image and speech comment
+            // Update bottom mascot panel with outcome pose and comment
             const minerResult = this.getMinerComment(success, reason);
-            gameOverMinerImg.src = this.getMinerImgSrc(minerResult.img);
-            gameOverMinerText.textContent = minerResult.text;
+            if (this.mascotImgEl && this.mascotTextEl) {
+                this.mascotImgEl.src = this.getMinerImgSrc(minerResult.img);
+                this.mascotTextEl.textContent = minerResult.text;
+            }
 
             overlayBtn.onclick = () => this.start();
 

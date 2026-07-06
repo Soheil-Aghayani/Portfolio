@@ -2210,22 +2210,24 @@ html.os-active, body.os-active {
     align-items: center;
     justify-content: center;
     gap: 16px;
-    padding: 24px;
+    padding: 20px;
     text-align: center;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(45, 212, 191, 0.25);
+    background: #090d16;
+    border: 2px solid #0d9488;
+    box-shadow: 0 0 20px rgba(13, 148, 136, 0.25);
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    max-width: 320px;
+    width: 300px;
+    box-sizing: border-box;
     margin: 0 auto;
     animation: ms-fade-in 0.3s ease;
 }
 .ms-menu-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(45, 212, 191, 0.4);
-    letter-spacing: 1px;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #2dd4bf;
+    text-shadow: 0 0 10px rgba(45, 212, 191, 0.55);
+    letter-spacing: 1.5px;
+    font-family: monospace;
 }
 .ms-menu-modes {
     display: flex;
@@ -2234,61 +2236,112 @@ html.os-active, body.os-active {
     width: 100%;
 }
 .ms-mode-card {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 10px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: border-color 0.2s;
+    gap: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.ms-mode-card:hover {
+    border-color: rgba(45, 212, 191, 0.35);
+    background: #151f32;
 }
 .ms-mode-card.selected {
-    border-color: var(--primary);
-    background: rgba(45, 212, 191, 0.08);
+    border-color: #2dd4bf;
+    background: rgba(13, 148, 136, 0.12);
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.15);
 }
-.ms-mode-btn {
-    background: none;
-    border: none;
-    color: #fff;
+.ms-mode-title-row {
     font-family: monospace;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: #fff;
     text-align: left;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0;
 }
 .ms-mode-desc {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     text-align: left;
+    line-height: 1.35;
 }
 .ms-diff-row {
     display: flex;
     gap: 6px;
     margin-top: 4px;
-    justify-content: space-between;
 }
 .ms-diff-btn {
     flex: 1;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--text-muted);
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #64748b;
     border-radius: 6px;
-    font-size: 0.75rem;
-    padding: 5px 0;
+    font-size: 0.72rem;
+    padding: 6px 0;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.15s;
+    font-family: monospace;
+    transition: all 0.15s ease;
+}
+.ms-diff-btn:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: #fff;
 }
 .ms-diff-btn.selected {
-    background: var(--primary);
+    background: #2dd4bf;
     color: #0f172a;
-    border-color: var(--primary);
+    border-color: #2dd4bf;
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.45);
+}
+
+/* Mascot bottom row panel visible during play & menu */
+.ms-mascot-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 16px;
+    width: 300px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+    animation: ms-fade-in 0.3s ease;
+}
+.ms-mascot-row .ms-miner-img-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid #2dd4bf;
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.25);
+}
+.ms-mascot-row .ms-miner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.ms-mascot-row .ms-miner-bubble {
+    font-size: 0.78rem;
+    color: #e2e8f0;
+    line-height: 1.4;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    flex: 1;
 }
 /* Miner Mascot Styles */
 .ms-miner-box {
@@ -2432,16 +2485,19 @@ html.os-active, body.os-active {
     opacity: 0.3;
     cursor: not-allowed;
 }
-/* Endless Scrolling styling */
+/* Endless Scrolling styling (Fixed Viewport Frame) */
 .ms-board-scroll-wrapper {
-    max-width: 100%;
-    max-height: 380px;
+    width: 300px;
+    height: 300px;
+    max-width: 300px;
+    max-height: 300px;
     overflow: auto;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.05);
     background: rgba(6, 10, 18, 0.6);
     cursor: grab;
     user-select: none;
+    position: relative;
 }
 .ms-board-scroll-wrapper:active {
     cursor: grabbing;
