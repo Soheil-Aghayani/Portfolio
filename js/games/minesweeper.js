@@ -206,7 +206,6 @@ export class MinesweeperGame {
                 cellEl.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (wasLongPress || Date.now() < suppressClickUntil) {
-                        wasLongPress = false;
                         return;
                     }
                     this.handleCellClick(r, c);
@@ -214,6 +213,9 @@ export class MinesweeperGame {
 
                 cellEl.addEventListener('contextmenu', (e) => {
                     e.preventDefault();
+                    if (wasLongPress || Date.now() < suppressClickUntil) {
+                        return;
+                    }
                     this.handleCellRightClick(r, c);
                 });
 
@@ -243,6 +245,9 @@ export class MinesweeperGame {
                     clearHoldTimer();
                     if (wasLongPress) {
                         e.preventDefault();
+                        setTimeout(() => {
+                            wasLongPress = false;
+                        }, 800);
                     }
                     try { cellEl.releasePointerCapture(activePointerId); } catch(err) {}
                     activePointerId = null;
