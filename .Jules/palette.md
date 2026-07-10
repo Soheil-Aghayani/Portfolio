@@ -65,3 +65,7 @@
 ## 2026-06-27 - Hover States for Interactive Buttons
 **Learning:** Interactive UI elements (like custom buttons) lacking explicit `:hover` states and `transition` properties fail to provide interactivity affordance for mouse users. Furthermore, destructive actions (like delete buttons) need specific visual cues, such as a red highlight on hover, to warn users before clicking.
 **Action:** Always add `transition: all 0.2s ease;` and `:hover` states to interactive elements. For destructive actions, use a distinct red hover style (e.g., `background: rgba(248,113,113,0.15); color: #f87171;`) to signal danger.
+
+## 2025-05-18 - Missing ARIA attributes for Material Symbols
+**Learning:** Decorative or icon-only elements such as Google Material Symbols ligature-based font icons (`<span class="material-symbols-rounded">`) can be mistakenly read aloud by screen readers using the literal string (e.g. "menu book"). It is vital to include the `aria-hidden="true"` attribute on all purely decorative or redundant visual icons, and instead rely on appropriate adjacent labels or `aria-label` attributes on the parent button.
+**Action:** Always verify that ligature-based icon spans have `aria-hidden="true"` applied so they do not add auditory noise to the screen reading experience.
