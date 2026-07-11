@@ -787,6 +787,50 @@
                 </div>
             </div>
 
+            <!-- DESIGN SUITE (Favorite) -->
+            <div class="project-card favorite" data-category="tools" data-glow="#ff5e62" style="--hover-color: #ff5e62; --hover-glow: rgba(255, 94, 98, 0.25);">
+                <div class="badge">FAVORITE</div>
+                <div class="card-preview">
+                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="20" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="1" opacity="0.15" stroke-dasharray="2 2"/>
+                        <line x1="50" y1="20" x2="50" y2="80" stroke="#fff" stroke-width="1" opacity="0.15" stroke-dasharray="2 2"/>
+                        <circle cx="50" cy="50" r="22" stroke="url(#designGrad)" stroke-width="2"/>
+                        <rect x="47" y="25" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
+                        <rect x="47" y="69" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
+                        <rect x="25" y="47" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
+                        <rect x="69" y="47" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
+                        <path d="M50 50 L65 65 L58 68 L55 75 Z" fill="#fff"/>
+                        <defs>
+                            <linearGradient id="designGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#ff5e62"/>
+                                <stop offset="100%" stop-color="#ff9966"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <h2 class="project-title">Design Suite</h2>
+                    <p class="project-desc">A premium, unified visual workspace offering advanced vector generators, flowchart builders, equations plotter, gauge designers, and a suite of custom tools.</p>
+                    <div class="project-tags">
+                        <span class="tag">Workspace Hub</span>
+                        <span class="tag">SVG Generators</span>
+                        <span class="tag">Vector Tools</span>
+                        <span class="tag">Custom Utilities</span>
+                    </div>
+                    <div class="action-row">
+                        <button class="action-btn-card details-btn" data-id="design-suite">Details</button>
+                        <div class="split-launch">
+                            <a href="https://soheil-aghayani.github.io/Design-Suite/" target="_blank" class="action-btn-card launch-btn" title="Launch Website">
+                                <span class="material-symbols-rounded">open_in_new</span>
+                            </a>
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Design-Suite/" data-title="Design Suite" title="Live Preview">
+                                <span class="material-symbols-rounded">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- FOOD RECIPE -->
             <div class="project-card" data-category="designs" data-glow="#ec4899" style="--hover-color: #ec4899; --hover-glow: rgba(236, 72, 153, 0.25);">
                 <div class="card-preview">
@@ -1288,6 +1332,18 @@
                     'Customizable intervals and persistent local progress settings.'
                 ],
                 notes: 'This project is Soheil\'s absolute favorite due to its extreme performance optimization and minimalist, glassmorphic aesthetic. Synthesizing sound directly in the browser saved considerable download footprint, making the page load instantly.'
+            },
+            'design-suite': {
+                title: 'Design Suite Hub',
+                overview: 'A premium visual workspace hub unifying multiple graphic design and utility micro-apps. It features fluid custom dashboards, SVG vector creators, circular gauges, cryptography modules, and format converters in a responsive, desktop-like visual console.',
+                tech: ['Vanilla ES6+', 'HTML5 SVG APIs', 'CSS variables & Themes', 'Web Cryptography', 'Canvas Rendering'],
+                features: [
+                    'Flowchart Builder & Plotter: Dynamic node mapping and coordinate grid rendering.',
+                    'Vector Generators: Customizable analog clocks, circular gauges, and jigsaw puzzle templates.',
+                    'Utilities Suite: Reversible XOR encryption, WebP/ICO format converter, and modular typography playground.',
+                    'Visual Theme Studio: Comprehensive palette creator with real-time WCAG contrast score validation.'
+                ],
+                notes: 'Built with modular architecture principles, allowing high-performance tools to run inside sandboxed containers. The hub includes sidebar workspace switching, unified state preservation, and advanced graphic generation.'
             },
             'food-recipe': {
                 title: 'Food Recipe Book',
