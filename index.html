@@ -1009,11 +1009,11 @@
             <span class="material-symbols-rounded" aria-hidden="true">palette</span>
         </button>
         <div class="theme-options">
-            <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
-            <button class="theme-dot" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"></button>
-            <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
-            <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
-            <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
+            <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze" aria-pressed="false"></button>
+            <button class="theme-dot" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest" aria-pressed="false"></button>
+            <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset" aria-pressed="false"></button>
+            <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost" aria-pressed="false"></button>
+            <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst" aria-pressed="false"></button>
         </div>
     </div>
 
@@ -1624,11 +1624,11 @@
         </div>
 
         <div class="pub-filters">
-            <button class="pub-filter-btn active" data-filter="all">All (12)</button>
-            <button class="pub-filter-btn" data-filter="journal">Journal Papers (4)</button>
-            <button class="pub-filter-btn" data-filter="conference">Conference (8)</button>
-            <button class="pub-filter-btn" data-filter="lca-waste">LCA & Waste Mgmt</button>
-            <button class="pub-filter-btn" data-filter="biofuels-facades">Biofuels & Facades</button>
+            <button class="pub-filter-btn active" data-filter="all" aria-pressed="true">All (12)</button>
+            <button class="pub-filter-btn" data-filter="journal" aria-pressed="false">Journal Papers (4)</button>
+            <button class="pub-filter-btn" data-filter="conference" aria-pressed="false">Conference (8)</button>
+            <button class="pub-filter-btn" data-filter="lca-waste" aria-pressed="false">LCA & Waste Mgmt</button>
+            <button class="pub-filter-btn" data-filter="biofuels-facades" aria-pressed="false">Biofuels & Facades</button>
         </div>
 
         <h3 id="pub-journal-title" style="color: var(--text-main); margin: 30px 0 20px; font-size: 1.5rem;">Journal Papers</h3>
@@ -3781,12 +3781,19 @@
     // Set active dot
     const currentTheme = localStorage.getItem('theme-accent') || 'teal';
     const activeDot = switcher.querySelector(`.theme-dot[data-theme="${currentTheme}"]`);
-    if (activeDot) activeDot.classList.add('active');
+    if (activeDot) {
+        activeDot.classList.add('active');
+        activeDot.setAttribute('aria-pressed', 'true');
+    }
     
     dots.forEach(dot => {
         dot.addEventListener('click', () => {
-            dots.forEach(d => d.classList.remove('active'));
+            dots.forEach(d => {
+                d.classList.remove('active');
+                d.setAttribute('aria-pressed', 'false');
+            });
             dot.classList.add('active');
+            dot.setAttribute('aria-pressed', 'true');
             
             const themeName = dot.getAttribute('data-theme');
             const theme = themes[themeName];
@@ -4226,8 +4233,12 @@
 
     filters.forEach(btn => {
         btn.addEventListener('click', () => {
-            filters.forEach(b => b.classList.remove('active'));
+            filters.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
 
             const filterValue = btn.getAttribute('data-filter');
 
