@@ -531,9 +531,13 @@ html.os-active, body.os-active {
 /* --- GAME LAUNCHER UI --- */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 160px));
+    justify-content: center;
+    gap: 24px;
+    padding: 30px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
     align-items: start;
     flex: 1;
     overflow-y: auto;
@@ -2517,6 +2521,43 @@ html.os-active, body.os-active {
 @keyframes ms-fade-in {
     from { opacity: 0; transform: scale(0.96); }
     to { opacity: 1; transform: scale(1); }
+}
+
+/* --- MATRIX CYBERPUNK THEME EXTENSIONS --- */
+html[data-theme="matrix"] body, [data-theme="matrix"] {
+    --primary: #00ff00;
+    --primary-glow: rgba(0, 255, 0, 0.3);
+}
+
+[data-theme="matrix"] .hero-card,
+[data-theme="matrix"] .card,
+[data-theme="matrix"] .project-card,
+[data-theme="matrix"] .os-term-win,
+[data-theme="matrix"] .app-win,
+[data-theme="matrix"] .notes-win,
+[data-theme="matrix"] .flowchart-wrap {
+    border-color: rgba(0, 255, 0, 0.4) !important;
+    box-shadow: 0 0 22px rgba(0, 255, 0, 0.2), inset 0 0 15px rgba(0, 255, 0, 0.08) !important;
+    background: rgba(2, 16, 8, 0.82) !important;
+}
+
+[data-theme="matrix"] h1,
+[data-theme="matrix"] h2,
+[data-theme="matrix"] h3,
+[data-theme="matrix"] .section-title {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.6) !important;
+    color: #00ff00 !important;
+}
+
+/* --- HARDWARE ACCELERATION & SMOOTH SCROLL PERFORMANCE --- */
+.os-term-win, .app-win, .notes-win, .hero-card, .project-card, .share-widget, .screensaver, #particleCanvas {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 @keyframes ms-bounce {
     0% { transform: translateY(0); }

@@ -9,6 +9,8 @@
         }
     </script>
     <title>Soheil Aghayani - Web Projects Showcase</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
@@ -1236,27 +1238,37 @@
             const columns = Math.floor(W / fontSize) + 1;
             const drops = Array(columns).fill(1);
 
-            function draw() {
-                ctx.fillStyle = 'rgba(2, 6, 23, 0.08)';
-                ctx.fillRect(0, 0, W, H);
-
-                ctx.fillStyle = '#00ff00';
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars[Math.floor(Math.random() * chars.length)];
-                    const x = i * fontSize;
-                    const y = drops[i] * fontSize;
-
-                    ctx.fillText(text, x, y);
-
-                    if (y > H && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
+            let animId = null;
+            let lastDrawTime = 0;
+            function draw(timestamp) {
+                if (document.hidden) {
+                    animId = requestAnimationFrame(draw);
+                    return;
                 }
+                if (!timestamp || timestamp - lastDrawTime > 33) {
+                    lastDrawTime = timestamp || 0;
+                    ctx.fillStyle = 'rgba(2, 6, 23, 0.08)';
+                    ctx.fillRect(0, 0, W, H);
+
+                    ctx.fillStyle = '#00ff00';
+                    ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        const x = i * fontSize;
+                        const y = drops[i] * fontSize;
+
+                        ctx.fillText(text, x, y);
+
+                        if (y > H && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                }
+                animId = requestAnimationFrame(draw);
             }
-            matrixInterval = setInterval(draw, 33);
+            animId = requestAnimationFrame(draw);
         }
 
         if (activeThemeName === 'matrix') {

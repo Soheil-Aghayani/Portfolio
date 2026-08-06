@@ -15,8 +15,8 @@
     <meta property="og:video:width" content="1280" />
     <meta property="og:video:height" content="720" />
 
-        <link rel="icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
-    <link rel="apple-touch-icon" href="https://biaupload.com/do.php?imgf=org-b4c1f86e17951.png" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="css/os.css" />
@@ -244,6 +244,7 @@
         .theme-dot[data-theme="sunset"] { background: linear-gradient(135deg, #fb923c, #f472b6); --dot-color: #fb923c; }
         .theme-dot[data-theme="frost"] { background: linear-gradient(135deg, #38bdf8, #818cf8); --dot-color: #38bdf8; }
         .theme-dot[data-theme="amethyst"] { background: linear-gradient(135deg, #a78bfa, #fb7185); --dot-color: #a78bfa; }
+        .theme-dot[data-theme="matrix"] { background: linear-gradient(135deg, #00ff00, #15803d); --dot-color: #00ff00; }
 
         /* --- FLOWCHART VIEWER STYLE --- */
         .flowchart-wrap {
@@ -1014,6 +1015,7 @@
             <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
             <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
             <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
+            <button class="theme-dot" id="matrixThemeDot" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain" style="display: none;"></button>
         </div>
     </div>
 
@@ -3775,35 +3777,43 @@
         forest: { primary: '#10b981', secondary: '#34d399', accent: '#059669', bg: '#060f0e', glass: 'rgba(12,24,20,0.45)', border: 'rgba(255,255,255,0.06)' },
         sunset: { primary: '#fb923c', secondary: '#f472b6', accent: '#e11d48', bg: '#120b10', glass: 'rgba(24,12,20,0.45)', border: 'rgba(255,255,255,0.07)' },
         frost: { primary: '#38bdf8', secondary: '#818cf8', accent: '#4f46e5', bg: '#0b0f19', glass: 'rgba(12,18,32,0.45)', border: 'rgba(255,255,255,0.08)' },
-        amethyst: { primary: '#a78bfa', secondary: '#fb7185', accent: '#db2777', bg: '#0e0b16', glass: 'rgba(18,12,28,0.45)', border: 'rgba(255,255,255,0.08)' }
+        amethyst: { primary: '#a78bfa', secondary: '#fb7185', accent: '#db2777', bg: '#0e0b16', glass: 'rgba(18,12,28,0.45)', border: 'rgba(255,255,255,0.08)' },
+        matrix: { primary: '#00ff00', secondary: '#22c55e', accent: '#15803d', bg: '#020617', glass: 'rgba(2,16,8,0.5)', border: 'rgba(0,255,0,0.15)' }
     };
     
-    // Set active dot
-    const currentTheme = localStorage.getItem('theme-accent') || 'teal';
-    const activeDot = switcher.querySelector(`.theme-dot[data-theme="${currentTheme}"]`);
-    if (activeDot) activeDot.classList.add('active');
+    const applyTheme = (themeName) => {
+        const theme = themes[themeName] || themes.teal;
+        localStorage.setItem('theme-accent', themeName);
+        const root = document.documentElement;
+        root.setAttribute('data-theme', themeName);
+        root.style.setProperty('--primary', theme.primary);
+        root.style.setProperty('--secondary', theme.secondary);
+        root.style.setProperty('--accent', theme.accent);
+        root.style.setProperty('--bg-dark', theme.bg);
+        root.style.setProperty('--glass', theme.glass);
+        root.style.setProperty('--glass-border', theme.border);
+        
+        const allDots = switcher.querySelectorAll('.theme-dot');
+        allDots.forEach(d => d.classList.remove('active'));
+        const activeDot = switcher.querySelector(`.theme-dot[data-theme="${themeName}"]`);
+        if (activeDot) activeDot.classList.add('active');
+
+        window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: themeName } }));
+    };
+
+    // Set active theme on load
+    let currentTheme = localStorage.getItem('theme-accent') || 'teal';
+    if (currentTheme === 'matrix' && sessionStorage.getItem('cheatcode_unlocked') !== 'true') {
+        currentTheme = 'teal';
+    }
+    applyTheme(currentTheme);
     
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
-            
+    switcher.addEventListener('click', (e) => {
+        const dot = e.target.closest('.theme-dot');
+        if (dot) {
             const themeName = dot.getAttribute('data-theme');
-            const theme = themes[themeName];
-            if (!theme) return;
-            
-            // Save selection
-            localStorage.setItem('theme-accent', themeName);
-            
-            // Apply variables
-            const root = document.documentElement;
-            root.style.setProperty('--primary', theme.primary);
-            root.style.setProperty('--secondary', theme.secondary);
-            root.style.setProperty('--accent', theme.accent);
-            root.style.setProperty('--bg-dark', theme.bg);
-            root.style.setProperty('--glass', theme.glass);
-            root.style.setProperty('--glass-border', theme.border);
-        });
+            applyTheme(themeName);
+        }
     });
   }
 
@@ -4615,7 +4625,8 @@
         }
     }
     readThemeColor();
-    setInterval(readThemeColor, 2000);
+    window.addEventListener('theme-changed', readThemeColor);
+    document.addEventListener('click', () => setTimeout(readThemeColor, 50));
 
     function rand(min, max) { return min + Math.random() * (max - min); }
 
@@ -4653,64 +4664,111 @@
     const REPEL_DIST = 90;
     const REPEL_FORCE = 0.55;
 
-    function tick() {
-        ctx.clearRect(0, 0, W, H);
+    // --- Matrix Digital Rain Setup ---
+    let matrixDrops = [];
+    const matrixChars = "01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const matrixFontSize = 14;
 
-        const { r, g, b } = themeColor;
+    function initMatrixDrops() {
+        const cols = Math.floor(W / matrixFontSize) + 1;
+        matrixDrops = Array(cols).fill(1);
+    }
 
-        for (const p of particles) {
-            // Parallax offset from mouse
-            const cx = W / 2, cy = H / 2;
-            const ox = (mouse.x - cx) * p.parallax;
-            const oy = (mouse.y - cy) * p.parallax;
+    let lastMatrixFrameTime = 0;
 
-            // Drift
-            p.x += p.vx;
-            p.y += p.vy;
+    function tick(timestamp) {
+        if (document.hidden) {
+            requestAnimationFrame(tick);
+            return;
+        }
+        const isMatrixTheme = localStorage.getItem('theme-accent') === 'matrix';
 
-            // Mouse repulsion
-            const dx = p.x - mouse.x;
-            const dy = p.y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < REPEL_DIST && dist > 0.1) {
-                const force = (1 - dist / REPEL_DIST) * REPEL_FORCE;
-                p.x += (dx / dist) * force;
-                p.y += (dy / dist) * force;
+        if (isMatrixTheme) {
+            // Capped at ~30 FPS for extreme performance & low CPU/RAM
+            if (!timestamp || timestamp - lastMatrixFrameTime > 33) {
+                lastMatrixFrameTime = timestamp || 0;
+
+                if (matrixDrops.length === 0) initMatrixDrops();
+
+                ctx.fillStyle = 'rgba(2, 6, 23, 0.12)';
+                ctx.fillRect(0, 0, W, H);
+
+                ctx.fillStyle = '#00ff00';
+                ctx.font = matrixFontSize + 'px monospace';
+
+                for (let i = 0; i < matrixDrops.length; i++) {
+                    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                    const x = i * matrixFontSize;
+                    const y = matrixDrops[i] * matrixFontSize;
+
+                    ctx.fillText(text, x, y);
+
+                    if (y > H && Math.random() > 0.975) {
+                        matrixDrops[i] = 0;
+                    }
+                    matrixDrops[i]++;
+                }
             }
+        } else {
+            matrixDrops = []; // Reset when leaving matrix theme
+            ctx.clearRect(0, 0, W, H);
 
-            // Wrap edges with slight margin
-            const m = p.r + 5;
-            if (p.x < -m) p.x = W + m;
-            else if (p.x > W + m) p.x = -m;
-            if (p.y < -m) p.y = H + m;
-            else if (p.y > H + m) p.y = -m;
+            const { r, g, b } = themeColor;
 
-            // Twinkle
-            p.alpha += p.twinkleSpeed * p.twinkleDir;
-            if (p.alpha >= p.baseAlpha + 0.15) { p.alpha = p.baseAlpha + 0.15; p.twinkleDir = -1; }
-            if (p.alpha <= p.baseAlpha - 0.12) { p.alpha = p.baseAlpha - 0.12; p.twinkleDir = 1; }
-            const alpha = Math.max(0, Math.min(1, p.alpha));
+            for (const p of particles) {
+                // Parallax offset from mouse
+                const cx = W / 2, cy = H / 2;
+                const ox = (mouse.x - cx) * p.parallax;
+                const oy = (mouse.y - cy) * p.parallax;
 
-            // Draw with parallax offset
-            const px = p.x + ox;
-            const py = p.y + oy;
+                // Drift
+                p.x += p.vx;
+                p.y += p.vy;
 
-            // Glow for near-layer particles
-            if (p.layerIdx === 0) {
-                const grd = ctx.createRadialGradient(px, py, 0, px, py, p.r * 3);
-                grd.addColorStop(0, `rgba(${r},${g},${b},${alpha * 0.5})`);
-                grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+                // Mouse repulsion
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < REPEL_DIST && dist > 0.1) {
+                    const force = (1 - dist / REPEL_DIST) * REPEL_FORCE;
+                    p.x += (dx / dist) * force;
+                    p.y += (dy / dist) * force;
+                }
+
+                // Wrap edges with slight margin
+                const m = p.r + 5;
+                if (p.x < -m) p.x = W + m;
+                else if (p.x > W + m) p.x = -m;
+                if (p.y < -m) p.y = H + m;
+                else if (p.y > H + m) p.y = -m;
+
+                // Twinkle
+                p.alpha += p.twinkleSpeed * p.twinkleDir;
+                if (p.alpha >= p.baseAlpha + 0.15) { p.alpha = p.baseAlpha + 0.15; p.twinkleDir = -1; }
+                if (p.alpha <= p.baseAlpha - 0.12) { p.alpha = p.baseAlpha - 0.12; p.twinkleDir = 1; }
+                const alpha = Math.max(0, Math.min(1, p.alpha));
+
+                // Draw with parallax offset
+                const px = p.x + ox;
+                const py = p.y + oy;
+
+                // Glow for near-layer particles
+                if (p.layerIdx === 0) {
+                    const grd = ctx.createRadialGradient(px, py, 0, px, py, p.r * 3);
+                    grd.addColorStop(0, `rgba(${r},${g},${b},${alpha * 0.5})`);
+                    grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.r * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = grd;
+                    ctx.fill();
+                }
+
+                // Core dot
                 ctx.beginPath();
-                ctx.arc(px, py, p.r * 3, 0, Math.PI * 2);
-                ctx.fillStyle = grd;
+                ctx.arc(px, py, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
                 ctx.fill();
             }
-
-            // Core dot
-            ctx.beginPath();
-            ctx.arc(px, py, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
-            ctx.fill();
         }
 
         requestAnimationFrame(tick);
@@ -4891,12 +4949,13 @@
 })();
 
 /* =============================================
-   3. KONAMI CODE EASTER EGG
+   3. KONAMI CODE EASTER EGG & CHEAT CODE UNLOCK
 ============================================= */
 (function() {
     const overlay = document.getElementById('konamiOverlay');
     const art     = document.getElementById('konamiArt');
     const closeBtn = document.getElementById('konamiClose');
+    const msgEl   = overlay ? overlay.querySelector('.konami-msg') : null;
     if (!overlay) return;
 
     const SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -4908,6 +4967,35 @@
         return tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable;
     };
 
+    function updateCheatCodeUI() {
+        const isUnlocked = sessionStorage.getItem('cheatcode_unlocked') === 'true';
+        
+        // Matrix theme dot toggle
+        const matrixDot = document.getElementById('matrixThemeDot');
+        if (matrixDot) {
+            matrixDot.style.display = isUnlocked ? 'inline-block' : 'none';
+        }
+
+        // Footer heart link toggle
+        const heartEl = document.querySelector('.heart-beat');
+        if (heartEl) {
+            if (isUnlocked) {
+                heartEl.style.cursor = 'pointer';
+                heartEl.title = 'Click to open Web Projects Showcase!';
+                heartEl.onclick = () => {
+                    window.location.href = 'projects.html';
+                };
+            } else {
+                heartEl.style.cursor = 'default';
+                heartEl.removeAttribute('title');
+                heartEl.onclick = null;
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCheatCodeUI);
+    updateCheatCodeUI();
+
     document.addEventListener('keydown', (e) => {
         if (isTyping(e)) return; // don't interfere with terminal / input fields
 
@@ -4916,16 +5004,42 @@
             close(); return;
         }
 
-        if (e.key === SEQUENCE[pos]) {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        const expected = SEQUENCE[pos].length === 1 ? SEQUENCE[pos].toLowerCase() : SEQUENCE[pos];
+
+        if (key === expected) {
             pos++;
             if (pos === SEQUENCE.length) {
                 pos = 0;
-                open();
+                toggleCheatCode();
             }
         } else {
-            pos = (e.key === SEQUENCE[0]) ? 1 : 0;
+            const firstSeqKey = SEQUENCE[0].length === 1 ? SEQUENCE[0].toLowerCase() : SEQUENCE[0];
+            pos = (key === firstSeqKey) ? 1 : 0;
         }
     });
+
+    function toggleCheatCode() {
+        const isUnlocked = sessionStorage.getItem('cheatcode_unlocked') === 'true';
+        if (!isUnlocked) {
+            sessionStorage.setItem('cheatcode_unlocked', 'true');
+            if (msgEl) {
+                msgEl.innerHTML = '&gt; CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Matrix Theme & Projects unlocked! Click heart in footer.</em></span>';
+            }
+        } else {
+            sessionStorage.removeItem('cheatcode_unlocked');
+            if (msgEl) {
+                msgEl.innerHTML = '&gt; CHEAT CODE DEACTIVATED<br><span>Secret locked: <em>Matrix Theme & Projects disabled.</em></span>';
+            }
+            // Revert theme if matrix is active
+            if (localStorage.getItem('theme-accent') === 'matrix') {
+                const tealDot = document.querySelector('.theme-dot[data-theme="teal"]');
+                if (tealDot) tealDot.click();
+            }
+        }
+        updateCheatCodeUI();
+        open();
+    }
 
     function open() {
         const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
