@@ -2559,6 +2559,36 @@ html[data-theme="matrix"] body, [data-theme="matrix"] {
 html {
     scroll-behavior: smooth;
 }
+
+/* --- UNIVERSAL CUSTOM SCROLLBARS FOR CARDS, MODALS, DRAWERS & BODY --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary, #2dd4bf);
+    border-radius: 6px;
+    box-shadow: 0 0 8px var(--primary-glow, rgba(45, 212, 191, 0.4));
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #60a5fa;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6);
+}
 @keyframes ms-bounce {
     0% { transform: translateY(0); }
     100% { transform: translateY(-4px); }
