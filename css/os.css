@@ -2603,9 +2603,11 @@ html {
     background: transparent;
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6);
+@supports (scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6);
+    }
 }
 @keyframes ms-bounce {
     0% { transform: translateY(0); }

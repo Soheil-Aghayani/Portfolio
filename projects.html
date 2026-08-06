@@ -57,7 +57,9 @@
         ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); border-radius: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--primary, #2dd4bf); border-radius: 6px; box-shadow: 0 0 8px var(--primary-glow, rgba(45, 212, 191, 0.4)); }
         ::-webkit-scrollbar-thumb:hover { background: #60a5fa; }
-        * { scrollbar-width: thin; scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6); }
+        @supports (scrollbar-width: thin) {
+            * { scrollbar-width: thin; scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6); }
+        }
 
         /* Interactive Grid Background */
         .grid-bg {
