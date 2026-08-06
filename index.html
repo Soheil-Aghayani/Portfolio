@@ -173,8 +173,8 @@
             align-items: center;
             gap: 10px;
             background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 8px;
             border-radius: 40px;
@@ -250,8 +250,8 @@
         .flowchart-wrap {
             position: relative;
             background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             overflow: hidden;
@@ -283,8 +283,8 @@
             top: 16px;
             left: 16px;
             background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 6px 14px;
             border-radius: 30px;
@@ -305,8 +305,8 @@
             display: flex;
             gap: 6px;
             background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 6px;
             border-radius: 30px;
@@ -545,8 +545,8 @@
             height: 48px;
             border-radius: 50%;
             background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             cursor: pointer;
@@ -658,8 +658,8 @@
             height: 48px;
             border-radius: 50%;
             background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             cursor: pointer;
@@ -698,8 +698,8 @@
             height: 40px;
             border-radius: 50%;
             background: rgba(15,23,42,0.55);
-            backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(255,255,255,0.08);
             cursor: pointer;
             display: flex;
@@ -770,6 +770,7 @@
             position: relative;
             z-index: 2;
             text-align: center;
+            -webkit-user-select: none;
             user-select: none;
         }
         .ss-clock {
@@ -1015,7 +1016,7 @@
             <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
             <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
             <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
-            <button class="theme-dot" id="matrixThemeDot" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain" style="display: none;"></button>
+            <button class="theme-dot hide" id="matrixThemeDot" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain"></button>
         </div>
     </div>
 
@@ -1023,6 +1024,60 @@
 
 <style>
     /* --- DESKTOP & GLOBAL STYLES --- */
+    .hide { display: none !important; }
+    .btn-hero-primary .material-symbols-rounded { font-size: 1.2rem; margin-left: 8px; }
+    .edu-school .material-symbols-rounded { font-size: 1.1em; }
+    .timeline-dot-secondary { border-color: var(--secondary) !important; box-shadow: 0 0 10px var(--secondary) !important; }
+    .gpa-badge-secondary { color: var(--secondary) !important; background: rgba(96, 165, 250, 0.1) !important; border-color: rgba(96, 165, 250, 0.2) !important; }
+    .card-list { list-style: none; padding: 0; margin-top: 15px; }
+    .card-list-item { display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted); }
+    .card-list-item-icon { color: var(--primary); font-size: 1.1rem; flex-shrink: 0; }
+    .card-primary-border { border-color: var(--primary) !important; }
+    .card-secondary-border { border-left: 4px solid var(--secondary) !important; }
+    .flex-space-between { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+    .text-primary { color: var(--primary) !important; }
+    .text-secondary { color: var(--secondary) !important; }
+    .badge-primary { border-color: var(--primary) !important; color: var(--primary) !important; }
+    .mt-10 { margin-top: 10px !important; }
+    .mt-20 { margin-top: 20px !important; }
+    .mt-25 { margin-top: 25px !important; }
+    .mb-5 { margin-bottom: 5px !important; }
+    .mb-10 { margin-bottom: 10px !important; }
+    .mb-20 { margin-bottom: 20px !important; }
+    .mb-40 { margin-bottom: 40px !important; }
+    .mb-50 { margin-bottom: 50px !important; }
+    .thesis-desc { color: var(--text-main); font-weight: 500; margin-bottom: 5px; }
+    .thesis-supervisors { font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .email-link { color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center; }
+    .email-link .material-symbols-rounded { font-size: 1.1rem; }
+    .pipe-sep { margin: 0 5px; }
+    .btn-flowchart { padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px; }
+    .flowchart-viewer { display: none; margin-top: 25px; position: relative; }
+    .flowchart-badge .material-symbols-rounded { font-size: 1.1rem; color: var(--primary); }
+    .pub-section-subtitle { color: var(--text-main); font-size: 1.5rem; }
+    .pub-journal-subtitle { margin: 30px 0 20px; }
+    .pub-conf-subtitle { margin: 50px 0 20px; }
+    .pub-link-icon { font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary); }
+    .card-header-flex { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .btn-verify { padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff; }
+    .btn-verify .material-symbols-rounded { font-size: 14px; vertical-align: middle; }
+    .cop29-card { margin-bottom: 50px; padding: 0; overflow: hidden; border: 1px solid var(--primary); }
+    .cop29-header { padding: 20px; background: rgba(16, 185, 129, 0.1); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 10px; }
+    .cop29-icon { color: var(--primary); font-size: 2rem; }
+    .cop29-title { margin: 0; font-size: 1.2rem; color: #fff; }
+    .cop29-sub { font-size: 0.9rem; color: var(--primary); }
+    .cop29-body { padding: 20px; max-height: 250px; overflow-y: auto; background: rgba(0,0,0,0.3); }
+    .cop29-list { list-style: none; padding: 0; }
+    .cop29-item { margin-bottom: 12px; color: var(--text-muted); font-family: monospace; }
+    .nav-hint .material-symbols-rounded { vertical-align: middle; font-size: 1rem; }
+    .skill-card p { font-size: 0.85rem; color: var(--text-muted); }
+    .flex-align-center-gap { display: flex; align-items: center; gap: 10px; }
+    .text-white { color: #fff !important; }
+    .text-muted { color: var(--text-muted) !important; }
+    .footer-time-wrap { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-family: monospace; }
+    .footer-time-icon { font-size: 16px; vertical-align: middle; color: var(--secondary); margin-right: 5px; }
+    #appBody { height: 100%; overflow: hidden; }
+    #musicWave { display: none; }
     header {
         position: relative;
         min-height: 100dvh;
@@ -1081,8 +1136,8 @@
         position: relative;
         z-index: 2;
         background: rgba(15, 23, 42, 0.3);
-        backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 30px;
         padding: 60px 40px;
@@ -1190,16 +1245,16 @@
     <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
     <div class="social-dock">
-        <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
+        <a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
-        <a href="https://t.me/AgSeyl" target="_blank" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0-12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0 12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
         </a>
     </div>
 
     <div class="hero-card">
-        <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" aria-label="Open terminal" title="Open Interactive Terminal" style="cursor: pointer;" onclick="if(window.OS &amp;&amp; window.OS.open) window.OS.open('terminal');">&gt; Hello_World</span>
+        <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" aria-label="Open terminal" title="Open Interactive Terminal" onclick="if(window.OS && window.OS.open) window.OS.open('terminal');">&gt; Hello_World</span>
         
         <h1 id="heroName">Soheil Aghayani</h1>
         
@@ -1215,15 +1270,15 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.2rem; margin-left: 8px;">send</span>
+                Get in Touch <span class="material-symbols-rounded" aria-hidden="true">send</span>
             </a>
 
             <div class="mobile-socials">
-                <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
+                <a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-                <a href="https://t.me/AgSeyl" target="_blank" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0-12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0 12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                 </a>
             </div>
         </div>
@@ -1484,7 +1539,7 @@
                 <div class="edu-degree">Master of Science, Env. Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.1em;">account_balance</span>
+                    <span class="material-symbols-rounded" aria-hidden="true">account_balance</span>
                     University of Tehran
                     <span class="edu-time">2022 - Present</span>
                 </div>
@@ -1505,18 +1560,18 @@
         </div>
 
         <div class="timeline-item reveal-on-scroll">
-            <div class="timeline-dot" style="border-color: var(--secondary); box-shadow: 0 0 10px var(--secondary);"></div>
+            <div class="timeline-dot timeline-dot-secondary"></div>
             <div class="edu-card">
                 <div class="edu-degree">Bachelor of Science, Civil Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.1em;">architecture</span>
+                    <span class="material-symbols-rounded" aria-hidden="true">architecture</span>
                     Shahed University
                     <span class="edu-time">2018 - 2022</span>
                 </div>
                 
                 <div class="edu-meta">
-                    <span class="gpa-badge" style="color: var(--secondary); background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.2);">GPA: 2.93 / 4.00</span>
+                    <span class="gpa-badge gpa-badge-secondary">GPA: 2.93 / 4.00</span>
                 </div>
             </div>
         </div>
@@ -1547,13 +1602,13 @@
                 <h3>Technical Expert</h3>
                 <span class="role">Arvin Sarouj Pay, Tehran</span>
                 
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                <ul class="card-list">
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         Responsible for HSE checklists and providing safety training to construction workers.
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         Contributed to the R&D department in designing energy-efficient buildings.
                     </li>
                 </ul>
@@ -1564,9 +1619,9 @@
                 <h3>Technical Expert</h3>
                 <span class="role">Sedna, Tehran</span>
                 
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem;">check_circle</span>
+                <ul class="card-list">
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         Supervised the construction process of a factory for manufacturing electronic thermal devices.
                     </li>
                 </ul>
@@ -1577,41 +1632,41 @@
 
 <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">science</span> Research & Publications</h2>
 
-        <div class="card" style="margin-bottom: 40px; border-color: var(--primary);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-                <span class="role" style="color: var(--primary);">Master's Thesis</span>
-                <span class="badge badge-pub" style="border-color: var(--primary); color: var(--primary);">TRL: 4 (Lab Validated)</span>
+        <div class="card card-primary-border mb-40">
+            <div class="flex-space-between">
+                <span class="role text-primary">Master's Thesis</span>
+                <span class="badge badge-pub badge-primary">TRL: 4 (Lab Validated)</span>
             </div>
-            <h3 style="margin-top: 10px;">Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells</h3>
-            <p style="color: var(--text-main); font-weight: 500; margin-bottom: 5px;">
+            <h3 class="mt-10">Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells</h3>
+            <p class="thesis-desc">
                 Waste cooking oil converted to biofuel via transesterification using a seashell-derived catalyst, designed for practical circular economy impact.
             </p>
-            <p style="font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                <span style="color: var(--secondary);">Supervisors:</span>
+            <p class="thesis-supervisors">
+                <span class="text-secondary">Supervisors:</span>
                 
                 <span>R. Samie Zafraghandi</span>
-                <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.1rem;">mail</span>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" class="email-link">
+                    <span class="material-symbols-rounded" aria-hidden="true">mail</span>
                 </a>
                 
-                <span style="margin: 0 5px;">|</span>
+                <span class="pipe-sep">|</span>
                 
                 <span>M. Baghdadi</span>
-                <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" style="color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center;">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1.1rem;">mail</span>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" class="email-link">
+                    <span class="material-symbols-rounded" aria-hidden="true">mail</span>
                 </a>
             </p>
 
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn-hero-primary" id="toggleFlowchartBtn" style="padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px;">
+            <div class="mt-20">
+                <button type="button" class="btn-hero-primary btn-flowchart" id="toggleFlowchartBtn">
                     <span class="material-symbols-rounded" aria-hidden="true">filter_alt</span> View Process Flowchart
                 </button>
             </div>
             
-            <div id="flowchartViewer" style="display: none; margin-top: 25px; position: relative;">
+            <div id="flowchartViewer" class="flowchart-viewer">
                 <div class="flowchart-wrap" id="flowchartWrap">
                     <div class="flowchart-badge">
-                        <span class="material-symbols-rounded" style="font-size: 1.1rem; color: var(--primary);">info</span>
+                        <span class="material-symbols-rounded" aria-hidden="true">info</span>
                         Drag to Pan • Scroll to Zoom • Double-Click to Reset
                     </div>
                     <canvas id="flowchartCanvas" width="800" height="480"></canvas>
@@ -1633,7 +1688,7 @@
             <button class="pub-filter-btn" data-filter="biofuels-facades">Biofuels & Facades</button>
         </div>
 
-        <h3 id="pub-journal-title" style="color: var(--text-main); margin: 30px 0 20px; font-size: 1.5rem;">Journal Papers</h3>
+        <h3 id="pub-journal-title" class="pub-section-subtitle pub-journal-subtitle">Journal Papers</h3>
         <ul id="pub-journal-list" class="pub-list">
             <li class="pub-item" data-category="journal" data-tags="aop,catalysis,advanced oxidation">
                 <div class="pub-icon" aria-hidden="true">
@@ -1653,16 +1708,16 @@
                 </div>
             </li>
 
-            <li class="pub-item" data-category="journal" data-tags="lca,msw,sustainability">
+            <li class="pub-item" data-category="journal" data-tags="lca,msw,biofuel">
                 <div class="pub-icon" aria-hidden="true">
                     <span class="material-symbols-rounded">menu_book</span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
-                            <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank">
+                            <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Biomass Resources in Iran and Worldwide: Diversity Analysis in Rural Areas with a Focus on Municipal Solid Waste and Livestock Manure
-                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1681,9 +1736,9 @@
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
-                            <a href="https://aet.irost.ir/article_1686.html" target="_blank">
+                            <a href="https://aet.irost.ir/article_1686.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
-                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1702,9 +1757,9 @@
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
-                            <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank">
+                            <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" rel="noopener noreferrer">
                                 Siting a Waste Transfer Station in District 6 of Karaj Municipality
-                                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary);">open_in_new</span>
+                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1717,7 +1772,7 @@
             </li>
         </ul>
 
-        <h3 id="pub-conference-title" style="color: var(--text-main); margin: 50px 0 20px; font-size: 1.5rem;">Conference Papers</h3>
+        <h3 id="pub-conference-title" class="pub-section-subtitle pub-conf-subtitle">Conference Papers</h3>
         <ul id="pub-conference-list" class="pub-list">
             <li class="pub-item" data-category="conference" data-tags="biofuel,energy">
                 <div class="pub-icon" aria-hidden="true">
@@ -1860,51 +1915,51 @@
 
         <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">verified_user</span> Certifications & Continuous Learning</h2>
 
-        <div class="grid" style="margin-bottom: 50px;">
+        <div class="grid mb-50">
             
-            <div class="card" style="border-left: 4px solid var(--secondary);">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span class="role" style="color: var(--secondary);">University of Michigan</span>
+            <div class="card card-secondary-border">
+                <div class="card-header-flex">
+                    <span class="role text-secondary">University of Michigan</span>
                     <span class="badge badge-sub">35 Hours</span>
                 </div>
                 <h3>Life Cycle Assessment</h3>
-                <p style="margin-bottom: 20px;">Mastered LCA methodology and SimaPro tools. Verified by Coursera.</p>
-                <a href="https://coursera.org/verify/TSN51X42BCZR" target="_blank" class="btn" style="padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff;">
-                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 14px; vertical-align: middle;">open_in_new</span>
+                <p class="mb-20">Mastered LCA methodology and SimaPro tools. Verified by Coursera.</p>
+                <a href="https://coursera.org/verify/TSN51X42BCZR" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
+                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
                 </a>
             </div>
 
-            <div class="card" style="border-left: 4px solid var(--secondary);">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span class="role" style="color: var(--secondary);">Johns Hopkins University</span>
+            <div class="card card-secondary-border">
+                <div class="card-header-flex">
+                    <span class="role text-secondary">Johns Hopkins University</span>
                     <span class="badge badge-sub">7 Hours</span>
                 </div>
                 <h3>Sustainable Regional Principles</h3>
-                <p style="margin-bottom: 20px;">Planning and Transportation systems for sustainable development.</p>
-                <a href="https://www.coursera.org/account/accomplishments/verify/97ENWJ7STLNH" target="_blank" class="btn" style="padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff;">
-                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 14px; vertical-align: middle;">open_in_new</span>
+                <p class="mb-20">Planning and Transportation systems for sustainable development.</p>
+                <a href="https://www.coursera.org/account/accomplishments/verify/97ENWJ7STLNH" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
+                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
                 </a>
             </div>
         </div>
 
-        <div class="card" style="margin-bottom: 50px; padding: 0; overflow: hidden; border: 1px solid var(--primary);">
-            <div style="padding: 20px; background: rgba(16, 185, 129, 0.1); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 10px;">
-                <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 2rem;">public</span>
+        <div class="card cop29-card">
+            <div class="cop29-header">
+                <span class="material-symbols-rounded cop29-icon" aria-hidden="true">public</span>
                 <div>
-                    <h3 style="margin: 0; font-size: 1.2rem; color: #fff;">COP29 Summit Delegation</h3>
-                    <span style="font-size: 0.9rem; color: var(--primary);">Baku, Azerbaijan | Nov 2024</span>
+                    <h3 class="cop29-title">COP29 Summit Delegation</h3>
+                    <span class="cop29-sub">Baku, Azerbaijan | Nov 2024</span>
                 </div>
             </div>
             
-            <div class="custom-scroll" style="padding: 20px; max-height: 250px; overflow-y: auto; background: rgba(0,0,0,0.3);">
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> People-Centered Transition to a Circular Economy</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Think Global, Act Local: Reducing Food Loss</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Materials to Systems: Scaling Finance for Energy Efficiency</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Renewables and Natural Gas Partnership</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Global Methane Pledge Ministerial</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Enhancing NDCs 3.0: Carbon Markets</li>
-                    <li style="margin-bottom: 12px; color: var(--text-muted); font-family: monospace;">> Industrial Policy, Trade, and Decarbonization</li>
+            <div class="custom-scroll cop29-body">
+                <ul class="cop29-list">
+                    <li class="cop29-item">> People-Centered Transition to a Circular Economy</li>
+                    <li class="cop29-item">> Think Global, Act Local: Reducing Food Loss</li>
+                    <li class="cop29-item">> Materials to Systems: Scaling Finance for Energy Efficiency</li>
+                    <li class="cop29-item">> Renewables and Natural Gas Partnership</li>
+                    <li class="cop29-item">> Global Methane Pledge Ministerial</li>
+                    <li class="cop29-item">> Enhancing NDCs 3.0: Carbon Markets</li>
+                    <li class="cop29-item">> Industrial Policy, Trade, and Decarbonization</li>
                 </ul>
             </div>
         </div>
@@ -2382,7 +2437,7 @@
     </div>
 
     <div class="nav-hint">
-        <span class="material-symbols-rounded" aria-hidden="true" style="vertical-align: middle; font-size: 1rem;">touch_app</span> Click stack or swipe to view
+        <span class="material-symbols-rounded" aria-hidden="true">touch_app</span> Click stack or swipe to view
     </div>
 </div>
 
@@ -2517,25 +2572,25 @@
             <div class="skill-card skill-simapro">
                 <span class="material-symbols-rounded skill-icon">eco</span>
                 <h3>SimaPro</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">LCA Modeling</p>
+                <p>LCA Modeling</p>
             </div>
 
             <div class="skill-card skill-landgem">
                 <span class="material-symbols-rounded skill-icon">bar_chart</span>
                 <h3>LandGEM</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Landfill Gas Emission</p>
+                <p>Landfill Gas Emission</p>
             </div>
 
             <div class="skill-card skill-python">
                 <span class="material-symbols-rounded skill-icon">code</span>
                 <h3>Python</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Automation & Scripts</p>
+                <p>Automation & Scripts</p>
             </div>
 
             <div class="skill-card skill-chemdraw">
                 <span class="material-symbols-rounded skill-icon">science</span>
                 <h3>ChemDraw</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Molecular Structures</p>
+                <p>Molecular Structures</p>
             </div>
 
         </div>
@@ -2544,19 +2599,19 @@
         <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">language</span> Language Skills</h2>
         <div class="grid">
             <div class="card reveal-on-scroll">
-                <h3 style="display:flex;align-items:center;gap:10px;">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary);">translate</span>
+                <h3 class="flex-align-center-gap">
+                    <span class="material-symbols-rounded text-primary" aria-hidden="true">translate</span>
                     English
                 </h3>
-                <p style="color: var(--text-muted); margin-top: 10px;">Overall score: <b style="color:#fff;">7.0</b></p>
+                <p class="mt-10 text-muted">Overall score: <b class="text-white">7.0</b></p>
             </div>
 
             <div class="card reveal-on-scroll">
-                <h3 style="display:flex;align-items:center;gap:10px;">
-                    <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary);">translate</span>
+                <h3 class="flex-align-center-gap">
+                    <span class="material-symbols-rounded text-primary" aria-hidden="true">translate</span>
                     German
                 </h3>
-                <p style="color: var(--text-muted); margin-top: 10px;">Current Level: <b style="color:#fff;">B1.1</b></p>
+                <p class="mt-10 text-muted">Current Level: <b class="text-white">B1.1</b></p>
             </div>
         </div>
 
@@ -2567,17 +2622,17 @@
                 <h3>Administrative Coordinator</h3>
                 <span class="role">Iranian Society of Waste Engineering and Management (IRISWA)</span>
                 
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                <ul class="card-list">
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Managed member registration processes and maintained document archives.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Designed promotional materials such as posters and brochures for events.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Provided guidance and support to members and participants during events.</span>
                     </li>
                 </ul>
@@ -2587,17 +2642,17 @@
                 <h3>Volunteer Coordinator</h3>
                 <span class="role">Waste Management Winter School, Tehran</span>
                 
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                <ul class="card-list">
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Organized and coordinated courses, ensuring smooth execution of sessions.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Assisted instructors with logistics and provided necessary guidance.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Managed attendance lists and supported participants throughout the program.</span>
                     </li>
                 </ul>
@@ -2607,17 +2662,17 @@
                 <h3>Volunteer Journal Assistant</h3>
                 <span class="role">International Journal of Environmental Research, Tehran, Iran</span>
 
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                <ul class="card-list">
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Assisted in initial screening of submitted manuscripts and checked adherence to journal guidelines.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Communicated with authors and reviewers regarding submission status and minor revisions.</span>
                     </li>
-                    <li style="display: flex; gap: 10px; margin-bottom: 10px; color: var(--text-muted);">
-                        <span class="material-symbols-rounded" aria-hidden="true" style="color: var(--primary); font-size: 1.1rem; flex-shrink: 0;">check_circle</span>
+                    <li class="card-list-item">
+                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
                         <span>Helped organize and maintain the journal’s manuscript tracking records and documentation.</span>
                     </li>
                 </ul>
@@ -2858,6 +2913,7 @@
         font-weight: 500;
         font-size: 0.9rem;
         margin-bottom: 20px;
+        -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         box-shadow: 0 0 20px rgba(45, 212, 191, 0.1);
         transition: 0.3s;
@@ -3031,6 +3087,7 @@
         font-weight: 600;
         font-size: 0.9rem;
         margin-bottom: 25px;
+        -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         transition: 0.3s;
     }
@@ -3220,6 +3277,7 @@
         font-weight: 600;
         font-size: 0.9rem;
         margin-bottom: 25px;
+        -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         transition: 0.3s;
     }
@@ -3395,6 +3453,7 @@
         font-weight: 600;
         font-size: 0.9rem;
         margin-bottom: 25px;
+        -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         transition: 0.3s;
     }
@@ -3468,17 +3527,17 @@
                 <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
             </div>
             
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-family: monospace;">
-                <span class="material-symbols-rounded" aria-hidden="true" style="font-size: 16px; vertical-align: middle; color: var(--secondary); margin-right: 5px;">schedule</span>
-                Tehran Time: <span id="local-time" style="color: #fff;">--:--</span>
+            <p class="footer-time-wrap">
+                <span class="material-symbols-rounded footer-time-icon" aria-hidden="true">schedule</span>
+                Tehran Time: <span id="local-time" class="text-white">--:--</span>
             </p>
 
             <div class="footer-links">
-                <a href="https://linkedin.com/in/AgSeyl" target="_blank" class="f-link">LinkedIn</a>
-                <a href="https://t.me/AgSeyl" target="_blank" class="f-link">Telegram</a>
+                <a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noopener noreferrer" class="f-link">LinkedIn</a>
+                <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="f-link">Telegram</a>
                 <a href="mailto:soheil.aghayani@ut.ac.ir" class="f-link">Email</a>
                 <a href="tel:+989120543587" class="f-link">Phone</a>
-                <a href="https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing" target="_blank" class="f-link">Resume</a>
+                <a href="https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="f-link">Resume</a>
             </div>
         </div>
     </div>
@@ -3576,7 +3635,7 @@
       </div>
       <div class="app-title">Game Center</div>
     </div>
-    <div id="appBody" style="height: 100%; overflow: hidden;">
+    <div id="appBody">
       <!-- Content injected by launcher.js -->
     </div>
   </div>
@@ -3606,9 +3665,9 @@
           <div class="notes-modal-card">
             <div class="notes-modal-title">Admin login</div>
             <form class="notes-form" id="notesAuthForm">
-              <label class="notes-label" for="notesUser">Username <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <label class="notes-label" for="notesUser">Username <span class="notes-required-star" aria-hidden="true">*</span></label>
               <input id="notesUser" class="notes-input" autocomplete="username" required aria-required="true" />
-              <label class="notes-label" for="notesPass">Password <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <label class="notes-label" for="notesPass">Password <span class="notes-required-star" aria-hidden="true">*</span></label>
               <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" required aria-required="true" />
               <div class="notes-form-actions">
                 <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
@@ -3623,12 +3682,12 @@
           <div class="notes-modal-card">
             <div class="notes-modal-title">New note</div>
             <form class="notes-form" id="notesEditForm">
-              <div class="note-top" style="margin-bottom: 0;">
-                <label class="notes-label" for="noteName">Name <span style="color: var(--os-bad, #f87171);" aria-hidden="true">*</span></label>
+              <div class="note-top">
+                <label class="notes-label" for="noteName">Name <span class="notes-required-star" aria-hidden="true">*</span></label>
                 <span id="noteNameCount" class="notes-label">0/80</span>
               </div>
               <input id="noteName" class="notes-input" maxlength="80" required aria-required="true" aria-describedby="noteNameCount" />
-              <div class="note-top" style="margin-bottom: 0;">
+              <div class="note-top">
                 <label class="notes-label" for="noteDesc">Description</label>
                 <span id="noteDescCount" class="notes-label">0/280</span>
               </div>
@@ -3815,43 +3874,6 @@
             applyTheme(themeName);
         }
     });
-
-    // --- Matrix Theme Music Manager (Daft Punk - Veridis Quo) ---
-    let matrixAudio = null;
-
-    function handleMatrixAudio(isMatrixTheme) {
-        if (isMatrixTheme) {
-            if (!matrixAudio) {
-                matrixAudio = new Audio('assets/daft-punk-veridis-quo.mp3');
-                matrixAudio.loop = true;
-                matrixAudio.volume = 0.65;
-            }
-            matrixAudio.play().catch(() => {
-                const unlockAudio = () => {
-                    if (localStorage.getItem('theme-accent') === 'matrix' && matrixAudio) {
-                        matrixAudio.play().catch(() => {});
-                    }
-                    document.removeEventListener('click', unlockAudio);
-                    document.removeEventListener('keydown', unlockAudio);
-                };
-                document.addEventListener('click', unlockAudio, { once: true });
-                document.addEventListener('keydown', unlockAudio, { once: true });
-            });
-        } else {
-            if (matrixAudio) {
-                matrixAudio.pause();
-                matrixAudio.currentTime = 0;
-            }
-        }
-    }
-
-    window.addEventListener('theme-changed', (e) => {
-        handleMatrixAudio(e.detail && e.detail.theme === 'matrix');
-    });
-
-    if (localStorage.getItem('theme-accent') === 'matrix' && sessionStorage.getItem('cheatcode_unlocked') === 'true') {
-        handleMatrixAudio(true);
-    }
   }
 
   function setupFlowchartViewer() {
@@ -4352,13 +4374,19 @@
         "assets/monday-routine.mp3",
         "assets/kyoto.mp3"
     ];
+    const matrixTrack = "assets/daft-punk-veridis-quo.mp3";
     let currentTrackIdx = 0;
     let preloadedNext = false; // prevents redundant trigger calls
     
+    function getActiveTrack() {
+        const activeTheme = localStorage.getItem('theme-accent');
+        return activeTheme === 'matrix' ? matrixTrack : tracks[currentTrackIdx];
+    }
+
     let audio = new Audio();
-    audio.src = tracks[currentTrackIdx];
+    audio.src = getActiveTrack();
     audio.preload = "auto";
-    audio.load(); // Only load the 1st track initially
+    audio.load();
 
     let isPlaying = false;
     let audioCtx = null;
@@ -4370,6 +4398,8 @@
     // Detect when current music reaches halfway point and lazy-preload the next one
     audio.addEventListener('timeupdate', () => {
         if (!audio.duration || preloadedNext) return;
+        const activeTheme = localStorage.getItem('theme-accent');
+        if (activeTheme === 'matrix') return; // Don't preload default tracks when on matrix theme
         
         if (audio.currentTime >= audio.duration / 2) {
             preloadedNext = true;
@@ -4386,17 +4416,44 @@
     });
 
     audio.addEventListener('ended', () => {
-        currentTrackIdx = (currentTrackIdx + 1) % tracks.length;
-        preloadedNext = false; // reset preload trigger for the next track
-        audio.src = tracks[currentTrackIdx];
-        audio.load();
-        if (isPlaying) {
-            audio.play().catch(() => setPlayingState(false));
+        const activeTheme = localStorage.getItem('theme-accent');
+        if (activeTheme === 'matrix') {
+            audio.src = matrixTrack;
+            audio.load();
+            if (isPlaying) {
+                audio.play().catch(() => setPlayingState(false));
+            }
+        } else {
+            currentTrackIdx = (currentTrackIdx + 1) % tracks.length;
+            preloadedNext = false; // reset preload trigger for the next track
+            audio.src = tracks[currentTrackIdx];
+            audio.load();
+            if (isPlaying) {
+                audio.play().catch(() => setPlayingState(false));
+            }
         }
     });
 
     audio.addEventListener('error', (e) => {
         console.error("Audio playback error encountered:", audio.error);
+    });
+
+    // Handle theme switching seamlessly
+    window.addEventListener('theme-changed', (e) => {
+        const themeName = e.detail && e.detail.theme;
+        const desiredTrack = (themeName === 'matrix') ? matrixTrack : tracks[currentTrackIdx];
+        
+        if (!audio.src.includes(desiredTrack)) {
+            const wasPlaying = isPlaying;
+            audio.pause();
+            audio.src = desiredTrack;
+            audio.load();
+            if (wasPlaying) {
+                audio.play().then(() => {
+                    setPlayingState(true);
+                }).catch(() => setPlayingState(false));
+            }
+        }
     });
 
     function initWebAudio() {
@@ -4498,6 +4555,11 @@
             audio.pause();
             setPlayingState(false);
         } else {
+            const targetTrack = getActiveTrack();
+            if (!audio.src.includes(targetTrack)) {
+                audio.src = targetTrack;
+                audio.load();
+            }
             if (audioCtx && audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
@@ -4621,7 +4683,7 @@
     <div class="music-mute-icon" id="musicMuteIcon">
         <span class="material-symbols-rounded">music_off</span>
     </div>
-    <div class="music-wave" id="musicWave" style="display: none;">
+    <div class="music-wave" id="musicWave">
         <span></span>
         <span></span>
         <span></span>
