@@ -3,6 +3,36 @@ class WindowManager {
     constructor() {
         this.apps = {};
         this.activeApp = null;
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.registerDefaults());
+        } else {
+            setTimeout(() => this.registerDefaults(), 0);
+        }
+    }
+
+    registerDefaults() {
+        if (document.getElementById('osTerm') && document.getElementById('osTerm-win') && !this.apps['terminal']) {
+            this.register('terminal', 'osTerm', 'osTerm-win', {
+                onOpen: () => {
+                    if (window.TerminalApp && typeof window.TerminalApp.boot === 'function') {
+                        window.TerminalApp.boot();
+                    }
+                }
+            });
+        }
+        if (document.getElementById('notesWrap') && document.getElementById('notesWin') && !this.apps['notes']) {
+            this.register('notes', 'notesWrap', 'notesWin', {
+                onOpen: () => {
+                    if (window.NotesApp && typeof window.NotesApp.render === 'function') {
+                        window.NotesApp.render();
+                    }
+                }
+            });
+        }
+        if (document.getElementById('appWrap') && document.getElementById('appWin') && !this.apps['games']) {
+            this.register('games', 'appWrap', 'appWin');
+        }
     }
 
     /**

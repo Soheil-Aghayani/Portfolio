@@ -24,6 +24,12 @@ class Terminal {
         this.init();
     }
 
+    boot() {
+        if (this.input) {
+            setTimeout(() => this.input.focus(), 120);
+        }
+    }
+
     init() {
         if (!this.input) return;
         this.input.addEventListener('keydown', (e) => {

@@ -1280,6 +1280,18 @@
 
         if (activeThemeName === 'matrix') {
             startMatrixRain();
+            try {
+                const matrixAudio = new Audio('assets/daft-punk-veridis-quo.mp3');
+                matrixAudio.loop = true;
+                matrixAudio.volume = 0.65;
+                matrixAudio.play().catch(() => {
+                    const unlockAudio = () => {
+                        matrixAudio.play().catch(() => {});
+                        document.removeEventListener('click', unlockAudio);
+                    };
+                    document.addEventListener('click', unlockAudio, { once: true });
+                });
+            } catch(e) {}
         }
 
 

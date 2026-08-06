@@ -3815,6 +3815,43 @@
             applyTheme(themeName);
         }
     });
+
+    // --- Matrix Theme Music Manager (Daft Punk - Veridis Quo) ---
+    let matrixAudio = null;
+
+    function handleMatrixAudio(isMatrixTheme) {
+        if (isMatrixTheme) {
+            if (!matrixAudio) {
+                matrixAudio = new Audio('assets/daft-punk-veridis-quo.mp3');
+                matrixAudio.loop = true;
+                matrixAudio.volume = 0.65;
+            }
+            matrixAudio.play().catch(() => {
+                const unlockAudio = () => {
+                    if (localStorage.getItem('theme-accent') === 'matrix' && matrixAudio) {
+                        matrixAudio.play().catch(() => {});
+                    }
+                    document.removeEventListener('click', unlockAudio);
+                    document.removeEventListener('keydown', unlockAudio);
+                };
+                document.addEventListener('click', unlockAudio, { once: true });
+                document.addEventListener('keydown', unlockAudio, { once: true });
+            });
+        } else {
+            if (matrixAudio) {
+                matrixAudio.pause();
+                matrixAudio.currentTime = 0;
+            }
+        }
+    }
+
+    window.addEventListener('theme-changed', (e) => {
+        handleMatrixAudio(e.detail && e.detail.theme === 'matrix');
+    });
+
+    if (localStorage.getItem('theme-accent') === 'matrix' && sessionStorage.getItem('cheatcode_unlocked') === 'true') {
+        handleMatrixAudio(true);
+    }
   }
 
   function setupFlowchartViewer() {
