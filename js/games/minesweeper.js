@@ -1,594 +1,448 @@
-const SMILEY_SVG_HAPPY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`;
-const SMILEY_SVG_WIN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><path d="M6 9h12l-1.5 4h-9L6 9z" fill="currentColor" opacity="0.3"></path><line x1="6" y1="9" x2="18" y2="9"></line><path d="M9 15s1.5 1.5 3 1.5 3-1.5 3-1.5"></path></svg>`;
-const SMILEY_SVG_LOSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; color: #ef4444;"><circle cx="12" cy="12" r="10"></circle><path d="M9 9l2 2m-2 0l2-2"></path><path d="M13 9l2 2m-2 0l2-2"></path><circle cx="12" cy="15" r="1.5"></circle></svg>`;
+const SMILEY_SVG_HAPPY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`;
+const SMILEY_SVG_WIN   = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:var(--primary);"><circle cx="12" cy="12" r="10"></circle><path d="M6 9h12l-1.5 4h-9L6 9z" fill="currentColor" opacity="0.3"></path><line x1="6" y1="9" x2="18" y2="9"></line><path d="M9 15s1.5 1.5 3 1.5 3-1.5 3-1.5"></path></svg>`;
+const SMILEY_SVG_LOSE  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#ef4444;"><circle cx="12" cy="12" r="10"></circle><path d="M9 9l2 2m-2 0l2-2"></path><path d="M13 9l2 2m-2 0l2-2"></path><circle cx="12" cy="15" r="1.5"></circle></svg>`;
+const FLAG_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#fb7185;filter:drop-shadow(0 0 4px rgba(251,113,133,0.6));"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="rgba(251,113,133,0.4)"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>`;
+const MINE_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#ef4444;filter:drop-shadow(0 0 6px rgba(239,68,68,0.7));"><circle cx="12" cy="12" r="8" fill="rgba(239,68,68,0.25)"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line><line x1="19.07" y1="4.93" x2="17.66" y2="6.34"></line><line x1="6.34" y1="17.66" x2="4.93" y2="19.07"></line><circle cx="10" cy="10" r="1.2" fill="#fff" stroke="none"></circle></svg>`;
 
-const FLAG_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; color: #fb7185; filter: drop-shadow(0 0 4px rgba(251, 113, 133, 0.6));"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="rgba(251, 113, 133, 0.3)"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>`;
-const MINE_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; color: #ef4444; filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));"><circle cx="12" cy="12" r="8" fill="rgba(239, 68, 68, 0.2)"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line><line x1="19.07" y1="4.93" x2="17.66" y2="6.34"></line><line x1="6.34" y1="17.66" x2="4.93" y2="19.07"></line><circle cx="10" cy="10" r="1.2" fill="#fff" stroke="none"></circle></svg>`;
+const MODES = [
+    { id: 'zen',        icon: '🧘', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
+    { id: 'time-trial', icon: '⚡', name: 'TIME',     sub: 'TRIAL',     desc: 'Race the clock! Hacks off on Hard.',   hasDiff: true  },
+    { id: 'endless',    icon: '♾️', name: 'ENDLESS',  sub: 'DRIFT',     desc: 'Infinite sector drift! Clear safe tiles to expand.', hasDiff: false }
+];
 
 export class MinesweeperGame {
     constructor(container, callbacks = {}) {
         this.container = container;
-        this.callbacks = callbacks; // { onScore, onStart, onEnd }
+        this.callbacks = callbacks;
 
-        this.rows = 10;
-        this.cols = 10;
-        this.mineCount = 15;
-
-        // Playlist parameters
-        this.mode = 'zen'; // 'zen', 'time-trial', 'endless'
-        this.difficulty = 'easy'; // 'easy', 'medium', 'hard'
-        this.timeLimit = 0;
-        this.score = 0; // For Endless mode
+        this.rows = 10; this.cols = 10; this.mineCount = 15;
+        this.mode = 'zen'; this.difficulty = 'easy'; this.timeLimit = 0;
+        this.score = 0;
 
         this.grid = [];
         this.gameOverState = false;
         this.won = false;
         this.firstClick = true;
         this.isPaused = false;
-        
-        this.minesRemaining = this.mineCount;
-        this.time = 0;
-        this.timer = null;
 
-        // Cyber Deck Hacks System Config
-        this.initialShield = true;
-        this.initialPing = 1;
-        this.shieldActive = true;
-        this.pingCharges = 1;
+        // Mobile tap tool: 'dig' vs 'flag'
+        this.inputTool = 'dig';
+
+        this.panX = 0; this.panY = 0; this.scale = 1;
+        this.minesRemaining = this.mineCount;
+        this.time = 0; this.timer = null;
+
+        this.initialShield = true; this.initialPing = 1;
+        this.shieldActive = true; this.pingCharges = 1;
+        this.lastMilestone = 0;
+
+        // Carousel state
+        this._carouselIndex = 0;
+
+        // Pan & gesture state
+        this._panActive = false;
+        this._onPanMove = null;
+        this._onPanUp = null;
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
-
         this.initUI();
     }
 
+    // ─────────────────────────── UI INIT ───────────────────────────
     initUI() {
-        this.container.innerHTML = `
-            <div class="ms-container" id="msContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 460px;">
-                <!-- Main UI injected by showStartMenu or renderGameLayout -->
-            </div>
+        Object.assign(this.container.style, {
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'stretch', overflow: 'hidden',
+            flex: '1', minHeight: '0', width: '100%', height: '100%'
+        });
 
-            <!-- Miner mascot instruction modal -->
+        this.container.innerHTML = `
+            <div class="ms-root" id="msRoot"></div>
             <div class="ms-modal" id="msTutorialModal">
                 <div class="ms-modal-content">
                     <div class="ms-modal-header">
-                        <div class="ms-modal-title">🛠️ MINER'S MANUAL</div>
-                        <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button" aria-label="Close Manual">&times;</button>
+                        <div class="ms-modal-title">🛠️ MINER's MANUAL</div>
+                        <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button">&times;</button>
                     </div>
                     <div class="ms-modal-body">
-                        <!-- Enlarged Miner Image in Modal (160px * 160px) -->
-                        <div class="ms-miner-img-wrapper" style="width: 160px; height: 160px; border-radius: 12px; border: 2.5px solid var(--primary); box-shadow: 0 0 12px rgba(45, 212, 191, 0.45);">
-                            <img class="ms-miner-img" id="msModalMinerImg" src="" alt="Miner Mascot">
+                        <div style="width:90px;height:90px;border-radius:10px;border:2px solid var(--primary);overflow:hidden;flex-shrink:0;background:#fff;margin:0 auto 10px;">
+                            <img id="msModalMinerImg" src="${this.getMinerImgSrc('tutorial_1')}" alt="Miner" style="width:100%;height:100%;object-fit:contain;">
                         </div>
-                        <div class="ms-modal-text" id="msModalText"></div>
-                        <div class="ms-modal-nav">
-                            <button class="ms-nav-btn" id="msModalPrevBtn" type="button">◀ PREV</button>
-                            <span style="color: var(--text-muted); font-size: 0.8rem; font-family: monospace; align-self: center;" id="msModalProgress">1 / 6</span>
-                            <button class="ms-nav-btn" id="msModalNextBtn" type="button">NEXT ▶</button>
+                        <div class="ms-modal-text" id="msModalText" style="color:#e2e8f0;font-size:0.85rem;line-height:1.4;margin-bottom:12px;"></div>
+                        <div class="ms-modal-nav" style="display:flex;justify-content:space-between;gap:8px;">
+                            <button class="ms-btn" id="msModalPrevBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">◀ PREV</button>
+                            <span style="color:var(--text-muted);font-size:0.8rem;font-family:monospace;align-self:center;" id="msModalProgress">1/6</span>
+                            <button class="ms-btn" id="msModalNextBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">NEXT ▶</button>
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-        this.mainContainer = this.container.querySelector('#msContainer');
-        
-        // Wire up manual close button
-        const modal = this.container.querySelector('#msTutorialModal');
+        this.root = this.container.querySelector('#msRoot');
         const closeBtn = this.container.querySelector('#msModalCloseBtn');
-        if (closeBtn && modal) {
-            closeBtn.onclick = () => modal.classList.remove('show');
-        }
+        const modal    = this.container.querySelector('#msTutorialModal');
+        if (closeBtn) closeBtn.onclick = () => modal.classList.remove('show');
 
         this.showStartMenu();
     }
 
+    // ─────────────────────────── LOBBY ───────────────────────────
     showStartMenu() {
+        this._cleanPanListeners();
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
+        this._panActive = false;
+        window.removeEventListener('keydown', this.handleKeyDown);
 
-        this.mainContainer.innerHTML = `
+        this.root.innerHTML = `
             <div class="ms-menu-screen">
-                <div class="ms-menu-title">CYBER DECK MINES</div>
-                
-                <div class="ms-menu-modes">
-                    <!-- Zen Mode -->
-                    <div class="ms-mode-card ${this.mode === 'zen' ? 'selected' : ''}" id="modeCardZen">
-                        <div class="ms-mode-title-row">
-                            <span>🧘 ZEN PLAYLIST</span>
-                        </div>
-                        <div class="ms-mode-desc">Relaxed sweep with no timer pressure. Choose difficulty:</div>
-                        <div class="ms-diff-row">
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="easy">Easy</button>
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="medium">Medium</button>
-                            <button class="ms-diff-btn ${this.mode === 'zen' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="zen" data-diff="hard">Hard</button>
-                        </div>
+                <div class="ms-menu-header">
+                    <div class="ms-mascot-thumb">
+                        <img src="${this.getMinerImgSrc('tutorial_1')}" alt="Miner">
                     </div>
-
-                    <!-- Time Trial -->
-                    <div class="ms-mode-card ${this.mode === 'time-trial' ? 'selected' : ''}" id="modeCardTimeTrial">
-                        <div class="ms-mode-title-row">
-                            <span>⚡ TIME TRIAL</span>
-                        </div>
-                        <div class="ms-mode-desc">Race against the timer! Hacks disabled on Hard.</div>
-                        <div class="ms-diff-row">
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'easy' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="easy">Easy</button>
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'medium' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="medium">Medium</button>
-                            <button class="ms-diff-btn ${this.mode === 'time-trial' && this.difficulty === 'hard' ? 'selected' : ''}" type="button" data-mode="time-trial" data-diff="hard">Hard</button>
-                        </div>
-                    </div>
-
-                    <!-- Endless Mode -->
-                    <div class="ms-mode-card ${this.mode === 'endless' ? 'selected' : ''}" id="modeCardEndless">
-                        <div class="ms-mode-title-row">
-                            <span>♾️ ENDLESS DRIFT</span>
-                        </div>
-                        <div class="ms-mode-desc">Expandable board with endless mines. Drag and dig forever!</div>
+                    <div>
+                        <div class="ms-menu-title">CYBER DECK MINES</div>
+                        <div class="ms-menu-sub">Select a mode to begin sweeping</div>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 12px; width: 100%; margin-top: 4px;">
-                    <button class="ms-btn" style="flex: 1;" id="msStartGameBtn" type="button">START</button>
-                    <button class="ms-btn" style="background: #334155; box-shadow: none; padding: 12px; width: 44px; min-width: 44px;" id="msMenuTutorialBtn" type="button" title="How to Play">❓</button>
+                <div class="ms-carousel">
+                    <button class="ms-carousel-arrow" id="msPrev" type="button" aria-label="Previous mode">&#9664;</button>
+                    <div class="ms-carousel-track" id="msCarouselTrack"></div>
+                    <button class="ms-carousel-arrow" id="msNext" type="button" aria-label="Next mode">&#9654;</button>
                 </div>
-            </div>
 
-            <!-- Bottom Mascot dialogue panel (Kept outside board wrapper to prevent cramping/stretching) -->
-            <div class="ms-mascot-row" id="msMascotRow">
-                <div class="ms-miner-img-wrapper">
-                    <img class="ms-miner-img" id="msMascotImg" src="" alt="Miner Mascot">
+                <div class="ms-carousel-dots" id="msCarouselDots">
+                    ${MODES.map((_, i) => `<span class="ms-dot${i === this._carouselIndex ? ' active' : ''}"></span>`).join('')}
                 </div>
-                <div class="ms-miner-bubble" id="msMascotText">Ready to dig? Select a mode and let's sweep this cave!</div>
+
+                <div class="ms-menu-actions">
+                    <button class="ms-btn ms-start-btn" id="msStartBtn" type="button">▶ START SWEEP</button>
+                    <button class="ms-btn ms-manual-btn" id="msManualBtn" type="button" title="How to Play">❓</button>
+                </div>
             </div>
         `;
 
-        const mascotImg = this.mainContainer.querySelector('#msMascotImg');
-        if (mascotImg) {
-            mascotImg.src = this.getMinerImgSrc('tutorial_1');
-        }
+        const track  = this.root.querySelector('#msCarouselTrack');
+        const dotsEl = this.root.querySelector('#msCarouselDots');
 
-        const cards = {
-            zen: this.mainContainer.querySelector('#modeCardZen'),
-            'time-trial': this.mainContainer.querySelector('#modeCardTimeTrial'),
-            endless: this.mainContainer.querySelector('#modeCardEndless')
+        const renderCard = (dir = 0) => {
+            const idx = this._carouselIndex;
+            const m   = MODES[idx];
+            this.mode = m.id;
+
+            const animClass = dir >= 0 ? 'ms-slide-right' : 'ms-slide-left';
+            track.innerHTML = `
+                <div class="ms-mode-card ${animClass}">
+                    <div class="ms-mode-icon">${m.icon}</div>
+                    <div class="ms-mode-name">${m.name} <span class="ms-mode-sub-label">${m.sub}</span></div>
+                    <div class="ms-mode-desc">${m.desc}</div>
+                    ${m.hasDiff ? `
+                    <div class="ms-diff-row">
+                        <button class="ms-icon-diff ${this.difficulty==='easy'   ? 'selected':''}" data-diff="easy"   type="button" title="Easy">🟢</button>
+                        <button class="ms-icon-diff ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium">🟡</button>
+                        <button class="ms-icon-diff ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard">🔴</button>
+                    </div>
+                    ` : `<div class="ms-mode-badge">∞ INFINITE SECTOR DRIFT</div>`}
+                </div>
+            `;
+
+            dotsEl.querySelectorAll('.ms-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+
+            if (m.hasDiff) {
+                track.querySelectorAll('.ms-icon-diff').forEach(btn => {
+                    btn.onclick = e => { e.stopPropagation(); this.difficulty = btn.dataset.diff; renderCard(0); };
+                });
+            }
         };
 
-        const selectMode = (modeName) => {
-            this.mode = modeName;
-            Object.keys(cards).forEach(k => {
-                if (cards[k]) {
-                    cards[k].classList.toggle('selected', k === modeName);
-                }
-            });
+        const navigate = dir => {
+            this._carouselIndex = (this._carouselIndex + dir + MODES.length) % MODES.length;
+            renderCard(dir);
         };
 
-        cards.zen.onclick = () => selectMode('zen');
-        cards['time-trial'].onclick = () => selectMode('time-trial');
-        cards.endless.onclick = () => selectMode('endless');
+        renderCard(1);
 
-        const diffBtns = this.mainContainer.querySelectorAll('.ms-diff-btn');
-        diffBtns.forEach(btn => {
-            btn.onclick = (e) => {
-                e.stopPropagation();
-                const m = btn.dataset.mode;
-                const d = btn.dataset.diff;
-                this.mode = m;
-                this.difficulty = d;
+        this.root.querySelector('#msPrev').onclick = () => navigate(-1);
+        this.root.querySelector('#msNext').onclick = () => navigate(1);
 
-                diffBtns.forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                selectMode(m);
-            };
+        let swipeX = 0;
+        track.addEventListener('pointerdown', e => { swipeX = e.clientX; });
+        track.addEventListener('pointerup',   e => {
+            const d = e.clientX - swipeX;
+            if (Math.abs(d) > 40) navigate(d < 0 ? 1 : -1);
         });
 
-        this.mainContainer.querySelector('#msStartGameBtn').onclick = () => this.setupGameParamsAndStart();
-        this.mainContainer.querySelector('#msMenuTutorialBtn').onclick = () => this.showTutorialModal();
+        this.root.querySelector('#msStartBtn').onclick  = () => this.setupGameParamsAndStart();
+        this.root.querySelector('#msManualBtn').onclick = () => this.showTutorialModal();
     }
 
-    showTutorialModal() {
-        const modal = this.container.querySelector('#msTutorialModal');
-        const textEl = this.container.querySelector('#msModalText');
-        const imgEl = this.container.querySelector('#msModalMinerImg');
-        const prevBtn = this.container.querySelector('#msModalPrevBtn');
-        const nextBtn = this.container.querySelector('#msModalNextBtn');
-        const progressEl = this.container.querySelector('#msModalProgress');
-
-        if (!modal || !textEl || !imgEl || !prevBtn || !nextBtn || !progressEl) return;
-
-        const isMobile = window.innerWidth <= 768;
-        const steps = [
-            {
-                img: 'tutorial_1',
-                text: isMobile 
-                    ? "Howdy, greenhorn! Tap a box to scan it. If it's safe, it'll show how many mines are adjacent. Don't touch a mine or you'll lose a limb!"
-                    : "Howdy, greenhorn! Left-click a box to scan it. If it's safe, it'll show how many mines are adjacent. Don't click a mine or you'll lose a limb!"
-            },
-            {
-                img: 'tutorial_2',
-                text: "Mines are highly unstable and destructive! One wrong move and KABOOM! Watch your step, cadet."
-            },
-            {
-                img: 'tutorial_3',
-                text: "You don't need to blow up mines to clear them. Mark them carefully with flags to disable their trigger mechanisms."
-            },
-            {
-                img: 'tutorial_4',
-                text: "Plant a Red Cyber-Flag on any tile you're sure has a mine. This locks the tile and keeps you from clicking it accidentally!"
-            },
-            {
-                img: 'tutorial_5',
-                text: "Not sure? Cycle a flagged tile to a Question Mark (?) as a placeholder until you gather more surrounding data."
-            },
-            {
-                img: 'tutorial_6',
-                text: "To win, reveal all safe boxes or flag all mines correctly. In Endless Mode, though... there is no winning. You just dig until you blow up. Just like a miner's life! Pointless, eh?"
-            }
-        ];
-
-        let currentStepIndex = 0;
-
-        const updateStep = () => {
-            const step = steps[currentStepIndex];
-            imgEl.src = this.getMinerImgSrc(step.img);
-            textEl.textContent = step.text;
-            progressEl.textContent = `${currentStepIndex + 1} / ${steps.length}`;
-            prevBtn.disabled = currentStepIndex === 0;
-            nextBtn.disabled = currentStepIndex === steps.length - 1;
-        };
-
-        prevBtn.onclick = () => {
-            if (currentStepIndex > 0) {
-                currentStepIndex--;
-                updateStep();
-            }
-        };
-
-        nextBtn.onclick = () => {
-            if (currentStepIndex < steps.length - 1) {
-                currentStepIndex++;
-                updateStep();
-            }
-        };
-
-        updateStep();
-        modal.classList.add('show');
-    }
-
-    getMinerImgSrc(poseKey) {
-        const knownAssets = [
-            'tutorial_1', 'tutorial_2', 'tutorial_3', 'tutorial_4', 'tutorial_5', 'tutorial_6',
-            'win_easy', 'win_medium', 'win_fast', 'win_record'
-        ];
-        if (knownAssets.includes(poseKey)) {
-            return `assets/miner/${poseKey}.webp`;
-        }
-
-        // Fallbacks:
-        if (poseKey === 'win_hard') return `assets/miner/win_medium.webp`;
-        if (poseKey.startsWith('lose_')) {
-            if (poseKey === 'lose_easy') return `assets/miner/win_easy.webp`; // sarcastic clap
-            if (poseKey === 'lose_medium') return `assets/miner/tutorial_5.webp`; // scratching head
-            if (poseKey === 'lose_hard') return `assets/miner/tutorial_6.webp`; // philosophical pose
-            if (poseKey === 'lose_slow') return `assets/miner/tutorial_5.webp`;
-            return `assets/miner/win_easy.webp`;
-        }
-        return `assets/miner/tutorial_1.webp`;
-    }
-
-    getMinerComment(success, reason = '') {
-        if (success) {
-            if (this.mode === 'time-trial') {
-                let bestTime = localStorage.getItem('minesweeper_best_time');
-                const isNewRecord = !bestTime || this.time < parseInt(bestTime);
-                if (isNewRecord) {
-                    return {
-                        img: 'win_record',
-                        text: "Incredible! A new speed record! You navigated that field like a lightning bolt!"
-                    };
-                } else {
-                    return {
-                        img: 'win_fast',
-                        text: "Great job, runner! You beat the clock with time to spare! Keep this speed up!"
-                    };
-                }
-            } else {
-                if (this.difficulty === 'easy') {
-                    return {
-                        img: 'win_easy',
-                        text: "Wow, easy mode cleared... Do you want a gold star or a pacifier with that? Try something harder!"
-                    };
-                } else if (this.difficulty === 'medium') {
-                    return {
-                        img: 'win_medium',
-                        text: "Solid work! You cleared the field and kept your limbs intact. Ready for the hard stuff?"
-                    };
-                } else {
-                    return {
-                        img: 'win_hard',
-                        text: "Holy dynamite! You cleared the hard board! I didn't think you had it in you!"
-                    };
-                }
-            }
-        } else {
-            if (this.mode === 'time-trial') {
-                if (reason === 'time-out') {
-                    return {
-                        img: 'lose_slow',
-                        text: "Time's up! You were moving slower than molasses in a cold cave. Hustle up next time!"
-                    };
-                } else {
-                    return {
-                        img: 'lose_not_record',
-                        text: "Failed to beat your best time. Honestly, even my grandma can swing a pickaxe faster than that!"
-                    };
-                }
-            } else if (this.mode === 'zen') {
-                if (this.difficulty === 'easy') {
-                    return {
-                        img: 'lose_easy',
-                        text: "You blew up on EASY? Even my pet rock Mr. Fofo could clear this in his sleep!"
-                    };
-                } else if (this.difficulty === 'medium') {
-                    return {
-                        img: 'lose_medium',
-                        text: "Oops! A mine got you. Don't worry, here's a band-aid 🩹 for your pride. Try again!"
-                    };
-                } else {
-                    return {
-                        img: 'lose_hard',
-                        text: "Ouch, hard mode is brutal. I feel for you, kid. Maybe try Zen Easy or Medium to build up your strength?"
-                    };
-                }
-            } else {
-                return {
-                    img: 'lose_slow',
-                    text: `Your endless journey ends here! You dug up ${this.score} safe spots before getting blasted. Pointless, like a miner's life!`
-                };
-            }
-        }
-    }
-
+    // ─────────────────────────── GAME SETUP ───────────────────────────
     setupGameParamsAndStart() {
         if (this.mode === 'zen') {
-            this.rows = 10;
-            this.cols = 10;
-            if (this.difficulty === 'easy') this.mineCount = 10;
-            else if (this.difficulty === 'medium') this.mineCount = 15;
-            else this.mineCount = 20;
-
-            this.initialShield = true;
-            this.initialPing = 1;
+            this.rows = 10; this.cols = 10;
+            this.mineCount = this.difficulty === 'easy' ? 10 : this.difficulty === 'medium' ? 15 : 20;
+            this.initialShield = true; this.initialPing = 1;
         } else if (this.mode === 'time-trial') {
-            this.rows = 10;
-            this.cols = 10;
-            if (this.difficulty === 'easy') {
-                this.mineCount = 15;
-                this.timeLimit = 120;
-                this.initialShield = true;
-                this.initialPing = 1;
-            } else if (this.difficulty === 'medium') {
-                this.mineCount = 15;
-                this.timeLimit = 90;
-                this.initialShield = true;
-                this.initialPing = 1;
-            } else {
-                this.mineCount = 20;
-                this.timeLimit = 90;
-                this.initialShield = false;
-                this.initialPing = 0;
-            }
-        } else if (this.mode === 'endless') {
-            this.rows = 10;
-            this.cols = 10;
-            this.mineCount = 12; // starting density
-            this.initialShield = true;
-            this.initialPing = 1;
-            this.score = 0;
+            this.rows = 10; this.cols = 10;
+            if (this.difficulty === 'easy')         { this.mineCount = 15; this.timeLimit = 120; this.initialShield = true;  this.initialPing = 1; }
+            else if (this.difficulty === 'medium')  { this.mineCount = 15; this.timeLimit = 90;  this.initialShield = true;  this.initialPing = 1; }
+            else                                    { this.mineCount = 20; this.timeLimit = 90;  this.initialShield = false; this.initialPing = 0; }
+        } else {
+            // Endless mode starts at 12x12
+            this.rows = 12; this.cols = 12; this.mineCount = 18;
+            this.initialShield = true; this.initialPing = 1; this.score = 0; this.lastMilestone = 0;
         }
-
         this.renderGameLayout();
         this.start();
     }
 
+    // ─────────────────────────── GAME LAYOUT ───────────────────────────
     renderGameLayout() {
-        const isEndless = this.mode === 'endless';
-        this.mainContainer.innerHTML = `
-            <div class="ms-header">
-                <button class="ms-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #334155; color: #fff; box-shadow: none; min-width: auto;" id="msBackToMenuBtn" type="button">◀ MENU</button>
+        const endless = this.mode === 'endless';
+
+        this.root.innerHTML = `
+            <!-- ── Centered HUD: Mines | Smiley | Time | Dig/Flag Toggle ── -->
+            <div class="ms-hud-bar">
                 <div class="ms-counter-box">
-                    <div class="ms-counter-label" id="msCounterLabel">${isEndless ? 'Score' : 'Mines'}</div>
+                    <div class="ms-counter-label">${endless ? 'SCORE' : 'MINES'}</div>
                     <div id="msMinesCount" class="ms-counter-val">0</div>
                 </div>
-                <button class="ms-smiley state-happy" id="msSmileyBtn" type="button" aria-label="Reset Game">${SMILEY_SVG_HAPPY}</button>
+                <button class="ms-smiley state-happy" id="msSmileyBtn" type="button" title="Reset Game">${SMILEY_SVG_HAPPY}</button>
                 <div class="ms-counter-box">
-                    <div class="ms-counter-label">Time</div>
+                    <div class="ms-counter-label">${endless ? 'DEPTH' : 'TIME'}</div>
                     <div id="msTimer" class="ms-counter-val">000</div>
                 </div>
-            </div>
-
-            <div class="ms-hacks-container">
-                <button class="ms-hack-btn disabled" id="msHackShield" type="button" title="Shield: Absorbs 1 mine explosion automatically.">
-                    <span class="ms-hack-icon">🛡️</span> SHIELD: ON
-                </button>
-                <button class="ms-hack-btn disabled" id="msHackPing" type="button" title="Ping: Reveals a random safe cell. (Unlocks after 1st click)">
-                    <span class="ms-hack-icon">📡</span> PING (1)
+                <!-- Tap Input Mode Switch (Dig vs Flag) -->
+                <button class="ms-tool-toggle-btn active-dig" id="msToolToggleBtn" type="button" title="Toggle Dig / Flag Mode">
+                    <span class="ms-tool-icon" id="msToolIcon">⛏️</span>
+                    <span class="ms-tool-label" id="msToolLabel">DIG</span>
                 </button>
             </div>
 
-            <div style="position: relative; width: fit-content; height: fit-content; margin: 0 auto;">
-                <!-- Fixed Viewport Board Frame Wrapper (300px * 300px) -->
-                <div class="ms-board-scroll-wrapper" id="msBoardWrapper">
-                    <div class="ms-board" id="msBoard" role="grid" aria-label="Minesweeper Board">
-                        <!-- cells generated dynamically -->
-                    </div>
-                </div>
-                
-                <!-- Clean compact HUD overlay (fits exactly inside the 300x300 frame wrapper) -->
-                <div class="ms-overlay" id="msOverlay" style="border-radius: 12px;">
-                    <div class="ms-title" id="msOverlayTitle" style="font-size: 1.5rem; margin-bottom: 8px;">GAME OVER</div>
-                    <div class="ms-msg" id="msOverlayMsg" style="font-size: 0.85rem; margin-bottom: 12px; line-height: 1.4;">Time: 000s</div>
-                    <button class="ms-btn" style="padding: 8px 18px; font-size: 0.85rem;" id="msOverlayBtn" type="button">Play Again</button>
-                </div>
+            <!-- ── Hacks row ── -->
+            <div class="ms-hacks-bar">
+                <button class="ms-hack-btn disabled" id="msHackShield" type="button" title="Shield absorbs 1 mine hit">🛡️ SHIELD</button>
+                <button class="ms-hack-btn disabled" id="msHackPing"   type="button" title="Reveal one safe cell">📡 PING</button>
             </div>
 
-            <!-- Bottom Mascot panel -->
-            <div class="ms-mascot-row" id="msMascotRow">
-                <div class="ms-miner-img-wrapper">
-                    <img class="ms-miner-img" id="msMascotImg" src="" alt="Miner Mascot">
+            <!-- ── Viewport (fills remaining space) ── -->
+            <div class="ms-viewport" id="msViewport">
+                <!-- Floating back-to-menu pill -->
+                <button class="ms-float-btn" id="msFloatMenuBtn" type="button" title="Back to mode select">◀ MENU</button>
+
+                <!-- Milestone Toast Popup -->
+                <div class="ms-toast-banner" id="msToastBanner"></div>
+
+                <!-- Game board (GPU pan/zoom layer) -->
+                <div class="ms-board" id="msBoard" role="grid" aria-label="Minesweeper Board"></div>
+
+                <!-- Zoom HUD -->
+                <div class="ms-zoom-hud">
+                    <button class="ms-zoom-btn" id="msZoomOut"  type="button" title="Zoom Out">−</button>
+                    <button class="ms-zoom-btn ms-zoom-fit" id="msZoomFit" type="button" title="Center & Fit Board">FIT</button>
+                    <button class="ms-zoom-btn" id="msZoomIn"   type="button" title="Zoom In">＋</button>
                 </div>
-                <div class="ms-miner-bubble" id="msMascotText">Dig carefully, greenhorn! Watch your steps!</div>
+
+                <!-- Game-over / pause overlay -->
+                <div class="ms-overlay" id="msOverlay">
+                    <div class="ms-overlay-title" id="msOverlayTitle">GAME OVER</div>
+                    <div class="ms-overlay-msg"   id="msOverlayMsg">—</div>
+                    <button class="ms-btn" id="msOverlayBtn" type="button">Play Again</button>
+                    <button class="ms-btn" id="msOverlayMenuBtn" type="button"
+                        style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">◀ MENU</button>
+                </div>
             </div>
         `;
 
-        this.boardEl = this.mainContainer.querySelector('#msBoard');
-        this.boardWrapperEl = this.mainContainer.querySelector('#msBoardWrapper');
-        this.smileyBtn = this.mainContainer.querySelector('#msSmileyBtn');
-        this.minesCountEl = this.mainContainer.querySelector('#msMinesCount');
-        this.timerEl = this.mainContainer.querySelector('#msTimer');
-        
-        this.mascotImgEl = this.mainContainer.querySelector('#msMascotImg');
-        this.mascotTextEl = this.mainContainer.querySelector('#msMascotText');
-
-        if (this.mascotImgEl) {
-            this.mascotImgEl.src = this.getMinerImgSrc('tutorial_1');
-        }
+        this.boardEl      = this.root.querySelector('#msBoard');
+        this.viewportEl   = this.root.querySelector('#msViewport');
+        this.smileyBtn    = this.root.querySelector('#msSmileyBtn');
+        this.minesCountEl = this.root.querySelector('#msMinesCount');
+        this.timerEl      = this.root.querySelector('#msTimer');
 
         this.smileyBtn.onclick = () => this.start();
+        this.root.querySelector('#msFloatMenuBtn').onclick   = () => this.showStartMenu();
+        this.root.querySelector('#msHackPing').onclick       = () => this.usePing();
+        this.root.querySelector('#msOverlayBtn').onclick     = () => this.start();
+        this.root.querySelector('#msOverlayMenuBtn').onclick = () => this.showStartMenu();
 
-        const backBtn = this.mainContainer.querySelector('#msBackToMenuBtn');
-        if (backBtn) {
-            backBtn.onclick = () => this.showStartMenu();
-        }
+        // Wire Dig/Flag mode toggle button
+        const toolBtn   = this.root.querySelector('#msToolToggleBtn');
+        const toolIcon  = this.root.querySelector('#msToolIcon');
+        const toolLabel = this.root.querySelector('#msToolLabel');
 
-        const pingBtn = this.mainContainer.querySelector('#msHackPing');
-        if (pingBtn) {
-            pingBtn.onclick = () => this.usePing();
-        }
+        toolBtn.onclick = () => {
+            if (this.inputTool === 'dig') {
+                this.inputTool = 'flag';
+                toolBtn.className = 'ms-tool-toggle-btn active-flag';
+                toolIcon.textContent = '🚩';
+                toolLabel.textContent = 'FLAG';
+            } else {
+                this.inputTool = 'dig';
+                toolBtn.className = 'ms-tool-toggle-btn active-dig';
+                toolIcon.textContent = '⛏️';
+                toolLabel.textContent = 'DIG';
+            }
+        };
 
-        this.setupDragScrolling();
+        this.setupViewportTransform();
     }
 
-    setupDragScrolling() {
-        const slider = this.boardWrapperEl;
-        if (!slider) return;
-        
-        let isDown = false;
-        let startX, startY;
-        let scrollLeft, scrollTop;
+    // ─────────────────────────── GPU PAN / ZOOM & CENTERING ───────────────────────────
+    setupViewportTransform() {
+        const vp    = this.viewportEl;
+        const board = this.boardEl;
+        if (!vp || !board) return;
 
-        slider.addEventListener('mousedown', (e) => {
-            if (e.target.classList.contains('ms-cell') || e.target.closest('.ms-cell')) {
+        this.panX = 0; this.panY = 0; this.scale = 1;
+        this._panActive = false;
+
+        // Uses translate(-50%, -50%) translate3d(panX, panY, 0) so board is DEAD CENTER when panX=0, panY=0!
+        const applyTransform = () => {
+            board.style.transform = `translate(-50%, -50%) translate3d(${this.panX}px,${this.panY}px,0) scale(${this.scale})`;
+        };
+        this.applyTransform = applyTransform;
+
+        const autoFit = () => {
+            const cW = vp.clientWidth  - 32;
+            const cH = vp.clientHeight - 32;
+            const cellPixel = 36; // 34px cell + 2px gap
+            const bW = this.cols * cellPixel + 12;
+            const bH = this.rows * cellPixel + 12;
+            this.scale = Math.min(1.2, Math.max(0.35, Math.min(cW / bW, cH / bH)));
+            this.panX = 0; this.panY = 0;
+            applyTransform();
+        };
+        this.autoFitScale = autoFit;
+        setTimeout(autoFit, 30);
+
+        if (window.ResizeObserver) {
+            const ro = new ResizeObserver(() => {
+                if (this.boardEl && !this._panActive) applyTransform();
+            });
+            ro.observe(vp);
+        }
+
+        // ── Drag-threshold pan ──
+        const THRESHOLD = 12;
+        let dragging = false;
+        let sx = 0, sy = 0, ipx = 0, ipy = 0, pid = null;
+        let activePointers = new Map();
+
+        const onDown = e => {
+            if (e.target.closest('.ms-float-btn, .ms-zoom-hud, .ms-overlay')) return;
+            activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+            if (activePointers.size === 1) {
+                dragging = true;
+                sx = e.clientX; sy = e.clientY;
+                ipx = this.panX; ipy = this.panY;
+                pid = e.pointerId;
+                this._panActive = false;
+            }
+        };
+
+        const onMove = e => {
+            if (!dragging) return;
+            activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+            if (activePointers.size === 2) {
+                const pts = Array.from(activePointers.values());
+                const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+                if (this._lastPinchDist) {
+                    const delta = (dist - this._lastPinchDist) * 0.005;
+                    this.scale = Math.min(2.5, Math.max(0.3, this.scale + delta));
+                    applyTransform();
+                }
+                this._lastPinchDist = dist;
+                this._panActive = true;
                 return;
             }
-            isDown = true;
-            slider.style.cursor = 'grabbing';
-            startX = e.pageX - slider.offsetLeft;
-            startY = e.pageY - slider.offsetTop;
-            scrollLeft = slider.scrollLeft;
-            scrollTop = slider.scrollTop;
-        });
 
-        slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.style.cursor = 'grab';
-        });
+            if (e.pointerId !== pid) return;
+            const dist = Math.hypot(e.clientX - sx, e.clientY - sy);
+            if (dist > THRESHOLD) {
+                this._panActive = true;
+                vp.style.cursor = 'grabbing';
+                this.panX = ipx + (e.clientX - sx);
+                this.panY = ipy + (e.clientY - sy);
+                applyTransform();
+            }
+        };
 
-        slider.addEventListener('mouseup', () => {
-            isDown = false;
-            slider.style.cursor = 'grab';
-        });
+        const onUp = e => {
+            activePointers.delete(e.pointerId);
+            if (activePointers.size < 2) this._lastPinchDist = null;
 
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
+            if (e.pointerId === pid) {
+                dragging = false;
+                pid = null;
+                vp.style.cursor = 'grab';
+                if (this._panActive) {
+                    setTimeout(() => { this._panActive = false; }, 80);
+                }
+            }
+        };
+
+        this._onPanMove = onMove;
+        this._onPanUp   = onUp;
+
+        vp.addEventListener('pointerdown', onDown, true);
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup',   onUp);
+        window.addEventListener('pointercancel', onUp);
+
+        vp.addEventListener('click', e => {
+            if (this._panActive) { e.stopPropagation(); e.preventDefault(); }
+        }, true);
+
+        vp.addEventListener('wheel', e => {
             e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const y = e.pageY - slider.offsetTop;
-            const walkX = (x - startX) * 1.5;
-            const walkY = (y - startY) * 1.5;
-            slider.scrollLeft = scrollLeft - walkX;
-            slider.scrollTop = scrollTop - walkY;
-        });
+            const delta = e.deltaY < 0 ? 0.12 : -0.12;
+            this.scale = Math.min(2.5, Math.max(0.3, this.scale + delta));
+            applyTransform();
+        }, { passive: false });
 
-        slider.addEventListener('touchstart', (e) => {
-            if (e.target.classList.contains('ms-cell') || e.target.closest('.ms-cell')) {
-                return;
-            }
-            isDown = true;
-            const touch = e.touches[0];
-            startX = touch.pageX - slider.offsetLeft;
-            startY = touch.pageY - slider.offsetTop;
-            scrollLeft = slider.scrollLeft;
-            scrollTop = slider.scrollTop;
-        }, { passive: true });
-
-        slider.addEventListener('touchend', () => {
-            isDown = false;
-        });
-
-        slider.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            const touch = e.touches[0];
-            const x = touch.pageX - slider.offsetLeft;
-            const y = touch.pageY - slider.offsetTop;
-            const walkX = (x - startX) * 1.5;
-            const walkY = (y - startY) * 1.5;
-            slider.scrollLeft = scrollLeft - walkX;
-            slider.scrollTop = scrollTop - walkY;
-        }, { passive: true });
+        this.root.querySelector('#msZoomIn') .onclick = () => { this.scale = Math.min(2.5, this.scale + 0.2); applyTransform(); };
+        this.root.querySelector('#msZoomOut').onclick = () => { this.scale = Math.max(0.3, this.scale - 0.2); applyTransform(); };
+        this.root.querySelector('#msZoomFit').onclick = () => autoFit();
     }
 
+    _cleanPanListeners() {
+        if (this._onPanMove) { window.removeEventListener('pointermove', this._onPanMove); this._onPanMove = null; }
+        if (this._onPanUp)   { window.removeEventListener('pointerup',   this._onPanUp);   this._onPanUp   = null; }
+    }
+
+    // ─────────────────────────── GAME LOGIC ───────────────────────────
     start() {
-        this.gameOverState = false;
-        this.won = false;
-        this.firstClick = true;
-        this.isPaused = false;
+        this.gameOverState = false; this.won = false;
+        this.firstClick    = true;  this.isPaused = false;
         this.minesRemaining = this.mineCount;
-        this.time = this.mode === 'time-trial' ? this.timeLimit : 0;
+        this.time  = this.mode === 'time-trial' ? this.timeLimit : 0;
         this.score = 0;
-        
-        this.shieldActive = this.initialShield;
-        this.pingCharges = this.initialPing;
+        this.shieldActive  = this.initialShield;
+        this.pingCharges   = this.initialPing;
+        this.lastMilestone = 0;
+        this._panActive    = false;
 
-        if (this.timer) clearInterval(this.timer);
-        this.timer = null;
+        if (this.timer) { clearInterval(this.timer); this.timer = null; }
 
-        if (this.mode === 'endless') {
-            this.minesCountEl.textContent = '0';
-        } else {
-            this.minesCountEl.textContent = this.minesRemaining;
-        }
+        if (this.minesCountEl) this.minesCountEl.textContent = this.mode === 'endless' ? '0' : this.minesRemaining;
+        if (this.timerEl)      this.timerEl.textContent      = this.mode === 'time-trial' ? String(this.timeLimit).padStart(3,'0') : '000';
+        if (this.smileyBtn)    { this.smileyBtn.innerHTML = SMILEY_SVG_HAPPY; this.smileyBtn.className = 'ms-smiley state-happy'; }
 
-        this.timerEl.textContent = this.mode === 'time-trial' 
-            ? String(this.timeLimit).padStart(3, '0') 
-            : '000';
-            
-        this.smileyBtn.innerHTML = SMILEY_SVG_HAPPY;
-        this.smileyBtn.className = 'ms-smiley state-happy';
+        const ov = this.root.querySelector('#msOverlay');
+        if (ov) ov.classList.remove('show');
+        if (this.boardEl) this.boardEl.classList.remove('shake');
 
-        const overlay = this.container.querySelector('#msOverlay');
-        if (overlay) {
-            overlay.classList.remove('show');
-        }
-
-        if (this.boardEl) {
-            this.boardEl.classList.remove('shake');
-        }
-
-        if (this.mode === 'endless') {
-            this.rows = 10;
-            this.cols = 10;
-            this.mineCount = 12;
-        }
-
-        if (this.mascotImgEl && this.mascotTextEl) {
-            this.mascotImgEl.src = this.getMinerImgSrc('tutorial_1');
-            this.mascotTextEl.textContent = this.mode === 'endless' 
-                ? "Deeper and deeper we go! Watch out, these endless mines have no pattern!" 
-                : "Keep scanning, cadet! Watch out for the red warning tiles.";
-        }
+        if (this.mode === 'endless') { this.rows = 12; this.cols = 12; this.mineCount = 18; }
 
         this.buildGrid();
         this.renderBoard();
         this.updateHacksUI();
+        if (this.autoFitScale) this.autoFitScale();
 
         window.removeEventListener('keydown', this.handleKeyDown);
         window.addEventListener('keydown', this.handleKeyDown);
@@ -599,6 +453,7 @@ export class MinesweeperGame {
     stop() {
         if (this.timer) clearInterval(this.timer);
         this.timer = null;
+        this._cleanPanListeners();
         window.removeEventListener('keydown', this.handleKeyDown);
     }
 
@@ -607,175 +462,122 @@ export class MinesweeperGame {
         for (let r = 0; r < this.rows; r++) {
             const row = [];
             for (let c = 0; c < this.cols; c++) {
-                row.push({
-                    row: r,
-                    col: c,
-                    mine: false,
-                    revealed: false,
-                    flagged: false,
-                    questioned: false,
-                    count: 0
-                });
+                row.push({ row: r, col: c, mine: false, revealed: false, flagged: false, questioned: false, count: 0 });
             }
             this.grid.push(row);
         }
     }
 
     placeMines(startR, startC) {
-        let placed = 0;
-        const avoidCells = new Set();
-        for (let dr = -1; dr <= 1; dr++) {
+        const avoid = new Set();
+        for (let dr = -1; dr <= 1; dr++)
             for (let dc = -1; dc <= 1; dc++) {
-                const nr = startR + dr;
-                const nc = startC + dc;
-                if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
-                    avoidCells.add(`${nr},${nc}`);
-                }
+                const nr = startR+dr, nc = startC+dc;
+                if (nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols) avoid.add(`${nr},${nc}`);
             }
-        }
-
+        let placed = 0;
         while (placed < this.mineCount) {
-            const r = Math.floor(Math.random() * this.rows);
-            const c = Math.floor(Math.random() * this.cols);
-            const key = `${r},${c}`;
-
-            if (!this.grid[r][c].mine && !avoidCells.has(key)) {
-                this.grid[r][c].mine = true;
-                placed++;
-            }
+            const r = Math.floor(Math.random()*this.rows);
+            const c = Math.floor(Math.random()*this.cols);
+            if (!this.grid[r][c].mine && !avoid.has(`${r},${c}`)) { this.grid[r][c].mine = true; placed++; }
         }
-
-        this.recalculateCounts();
+        this.recalc();
     }
 
-    recalculateCounts() {
-        for (let r = 0; r < this.rows; r++) {
+    recalc() {
+        for (let r = 0; r < this.rows; r++)
             for (let c = 0; c < this.cols; c++) {
                 if (this.grid[r][c].mine) continue;
-                let count = 0;
-                this.getNeighbors(r, c).forEach(n => {
-                    if (n.mine) count++;
-                });
-                this.grid[r][c].count = count;
+                this.grid[r][c].count = this.neighbors(r,c).filter(n=>n.mine).length;
             }
-        }
     }
 
-    getNeighbors(r, c) {
-        const neighbors = [];
-        for (let dr = -1; dr <= 1; dr++) {
-            for (let dc = -1; dc <= 1; dc++) {
-                if (dr === 0 && dc === 0) continue;
-                const nr = r + dr;
-                const nc = c + dc;
-                if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
-                    neighbors.push(this.grid[nr][nc]);
-                }
-            }
+    neighbors(r, c) {
+        const out = [];
+        for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) {
+            if (!dr&&!dc) continue;
+            const nr=r+dr, nc=c+dc;
+            if (nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols) out.push(this.grid[nr][nc]);
         }
-        return neighbors;
+        return out;
     }
 
+    // ─────────────────────────── BOARD RENDER ───────────────────────────
     renderBoard() {
         this.boardEl.innerHTML = '';
-        this.boardEl.style.gridTemplateColumns = `repeat(${this.cols}, 28px)`;
-        this.boardEl.style.gridTemplateRows = `repeat(${this.rows}, 28px)`;
+        this.boardEl.style.gridTemplateColumns = `repeat(${this.cols}, 34px)`;
+        this.boardEl.style.gridTemplateRows    = `repeat(${this.rows}, 34px)`;
 
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
-                const cellData = this.grid[r][c];
-                const cellEl = document.createElement('button');
-                cellEl.className = 'ms-cell';
-                cellEl.setAttribute('type', 'button');
-                cellEl.setAttribute('role', 'gridcell');
-                cellEl.setAttribute('aria-label', `Cell row ${r+1} column ${c+1}`);
-                cellEl.dataset.row = r;
-                cellEl.dataset.col = c;
+                const el = document.createElement('button');
+                el.className = 'ms-cell';
+                el.type = 'button';
+                el.dataset.row = r;
+                el.dataset.col = c;
+                el.setAttribute('aria-label', `Row ${r+1} Col ${c+1}`);
 
-                let holdTimer;
-                let wasLongPress = false;
-                let suppressClickUntil = 0;
-                let activePointerId = null;
-                let startX = 0;
-                let startY = 0;
-
-                const clearHoldTimer = () => {
-                    clearTimeout(holdTimer);
-                    holdTimer = null;
-                };
-
-                cellEl.addEventListener('click', (e) => {
+                // ── Tap / Click handling ──
+                el.addEventListener('click', e => {
                     e.preventDefault();
-                    if (wasLongPress || Date.now() < suppressClickUntil) {
-                        return;
+                    if (this._panActive || this._wasLongPress) return;
+
+                    if (this.inputTool === 'flag') {
+                        this.handleCellRightClick(r, c);
+                    } else {
+                        this.handleCellClick(r, c);
                     }
-                    this.handleCellClick(r, c);
                 });
 
-                cellEl.addEventListener('contextmenu', (e) => {
+                // ── Right-click always flags ──
+                el.addEventListener('contextmenu', e => {
                     e.preventDefault();
-                    if (wasLongPress || Date.now() < suppressClickUntil) {
-                        return;
-                    }
+                    if (this._panActive || this._wasLongPress) return;
                     this.handleCellRightClick(r, c);
                 });
 
-                cellEl.addEventListener('pointerdown', (e) => {
-                    if (e.pointerType === 'mouse') return;
-                    e.preventDefault();
-                    wasLongPress = false;
-                    activePointerId = e.pointerId;
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    try { cellEl.setPointerCapture(activePointerId); } catch(err) {}
+                // ── Touch long-press (180ms) for quick flag ──
+                let holdTimer = null;
+                let lpSuppressUntil = 0;
 
-                    clearHoldTimer();
+                const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; };
+
+                el.addEventListener('pointerdown', e => {
+                    if (e.pointerType === 'mouse') return;
+                    this._wasLongPress = false;
+                    cancelHold();
                     holdTimer = setTimeout(() => {
-                        wasLongPress = true;
-                        suppressClickUntil = Date.now() + 500;
+                        if (this._panActive) return;
+                        this._wasLongPress = true;
+                        lpSuppressUntil = Date.now() + 500;
                         this.handleCellRightClick(r, c);
-                        if (navigator.vibrate) {
-                            try { navigator.vibrate(50); } catch(err) {}
-                        }
-                    }, 200);
+                        if (navigator.vibrate) try { navigator.vibrate(30); } catch(_) {}
+                    }, 180);
                 });
 
-                cellEl.addEventListener('pointerup', (e) => {
+                el.addEventListener('pointerup', e => {
                     if (e.pointerType === 'mouse') return;
-                    clearHoldTimer();
-                    if (wasLongPress) {
-                        e.preventDefault();
-                        setTimeout(() => {
-                            wasLongPress = false;
-                        }, 500);
-                    }
-                    try { cellEl.releasePointerCapture(activePointerId); } catch(err) {}
-                    activePointerId = null;
+                    cancelHold();
+                    if (Date.now() < lpSuppressUntil) e.preventDefault();
+                    setTimeout(() => { this._wasLongPress = false; }, 550);
                 });
 
-                cellEl.addEventListener('pointermove', (e) => {
-                    if (e.pointerType === 'mouse' || activePointerId !== e.pointerId) return;
-                    const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
-                    if (dist > 10) {
-                        clearHoldTimer();
-                    }
+                el.addEventListener('pointermove', e => {
+                    if (e.pointerType === 'mouse') return;
+                    if (Math.hypot(e.movementX, e.movementY) > 5) cancelHold();
                 });
 
-                cellEl.addEventListener('pointercancel', () => {
-                    clearHoldTimer();
-                    activePointerId = null;
-                });
+                el.addEventListener('pointercancel', () => cancelHold());
 
-                this.boardEl.appendChild(cellEl);
+                this.boardEl.appendChild(el);
             }
         }
     }
 
     handleCellClick(r, c) {
         if (this.gameOverState || this.isPaused) return;
-
         const cell = this.grid[r][c];
-        if (cell.revealed || cell.flagged) return;
+        if (!cell || cell.revealed || cell.flagged) return;
 
         if (this.firstClick) {
             this.firstClick = false;
@@ -786,449 +588,347 @@ export class MinesweeperGame {
 
         this.reveal(r, c);
         this.updateUI();
-        this.checkGameStatus();
+
+        // Single clean endless check after click cascade finishes
+        if (this.mode === 'endless' && !this.gameOverState) {
+            this.checkEndlessExpansion();
+        }
+
+        this.checkWin();
     }
 
     handleCellRightClick(r, c) {
         if (this.gameOverState || this.isPaused) return;
-
         const cell = this.grid[r][c];
-        if (cell.revealed) return;
-
-        if (cell.flagged) {
-            cell.flagged = false;
-            cell.questioned = true;
-            if (this.mode !== 'endless') {
-                this.minesRemaining += 1;
-            }
-        } else if (cell.questioned) {
-            cell.questioned = false;
-        } else {
-            cell.flagged = true;
-            cell.questioned = false;
-            if (this.mode !== 'endless') {
-                this.minesRemaining -= 1;
-            }
-        }
-
-        if (this.mode !== 'endless') {
-            this.minesCountEl.textContent = this.minesRemaining;
-        }
-        this.updateCellUI(r, c);
-        this.checkGameStatus();
+        if (!cell || cell.revealed) return;
+        if (cell.flagged)           { cell.flagged = false; cell.questioned = true;  if (this.mode!=='endless') this.minesRemaining++; }
+        else if (cell.questioned)   { cell.questioned = false; }
+        else                        { cell.flagged = true;  cell.questioned = false; if (this.mode!=='endless') this.minesRemaining--; }
+        if (this.mode!=='endless' && this.minesCountEl) this.minesCountEl.textContent = this.minesRemaining;
+        this.paintCell(r, c);
+        this.checkWin();
     }
 
     reveal(r, c) {
         const cell = this.grid[r][c];
-        cell.revealed = true;
-        cell.questioned = false;
+        if (!cell || cell.revealed) return;
+        cell.revealed = true; cell.questioned = false;
 
         if (this.mode === 'endless' && !cell.mine) {
             this.score++;
-            this.minesCountEl.textContent = this.score;
+            const depth = Math.floor(this.score * 1.5);
+            if (this.minesCountEl) this.minesCountEl.textContent = this.score;
+            if (this.timerEl)      this.timerEl.textContent      = String(Math.min(depth, 999)).padStart(3,'0');
+
+            // Milestone rewards
+            if (depth >= this.lastMilestone + 30) {
+                this.lastMilestone = Math.floor(depth / 30) * 30;
+                this.pingCharges++;
+                this.updateHacksUI();
+                this.showToast(`🏆 DEPTH MILESTONE: ${this.lastMilestone}m! +1 PING!`);
+            }
         }
 
         if (cell.mine) {
-            if (window.godModeActive) {
-                cell.revealed = false;
-                cell.flagged = true;
-                cell.questioned = false;
-                if (this.mode !== 'endless') {
-                    this.minesRemaining--;
-                    this.minesCountEl.textContent = this.minesRemaining;
-                }
-                this.updateCellUI(r, c);
-                if (navigator.vibrate) {
-                    try { navigator.vibrate([100, 50, 100]); } catch(err) {}
-                }
-                return;
-            }
-
-            // Cyber Shield Passive Hack
+            if (window.godModeActive) { cell.revealed=false; cell.flagged=true; this.paintCell(r,c); return; }
             if (this.shieldActive) {
                 this.shieldActive = false;
-                cell.revealed = false;
-                cell.flagged = true;
-                cell.questioned = false;
-                if (this.mode !== 'endless') {
-                    this.minesRemaining--;
-                    this.minesCountEl.textContent = this.minesRemaining;
-                }
-                this.updateCellUI(r, c);
-                this.updateHacksUI();
-
-                if (navigator.vibrate) {
-                    try { navigator.vibrate([80, 50, 80]); } catch(err) {}
-                }
-                if (this.boardEl) {
-                    this.boardEl.classList.add('shield-flash');
-                    setTimeout(() => this.boardEl.classList.remove('shield-flash'), 400);
-                }
+                cell.revealed = false; cell.flagged = true;
+                if (this.mode!=='endless') { this.minesRemaining--; if (this.minesCountEl) this.minesCountEl.textContent=this.minesRemaining; }
+                this.paintCell(r,c); this.updateHacksUI();
+                if (this.boardEl) { this.boardEl.classList.add('shield-flash'); setTimeout(()=>this.boardEl.classList.remove('shield-flash'),450); }
                 return;
             }
-
-            this.gameOver(false, 'mine-hit');
+            this.gameOver(false,'mine-hit');
             return;
         }
 
-        // Expand board if getting close to bounds in Endless mode
-        if (this.mode === 'endless') {
-            let addR = 0;
-            let addC = 0;
-            if (r >= this.rows - 2) addR = 5;
-            if (c >= this.cols - 2) addC = 5;
-            
-            if (addR > 0 || addC > 0) {
-                this.expandGrid(addR, addC);
-            }
-        }
-
         if (cell.count === 0) {
-            this.getNeighbors(r, c).forEach(n => {
-                if (!n.revealed && !n.flagged) {
-                    this.reveal(n.row, n.col);
-                }
-            });
+            this.neighbors(r,c).forEach(n => { if (!n.revealed&&!n.flagged) this.reveal(n.row,n.col); });
         }
     }
 
-    expandGrid(addRows, addCols) {
-        const prevRows = this.rows;
-        const prevCols = this.cols;
+    checkEndlessExpansion() {
+        if (this.mode !== 'endless' || this.gameOverState) return;
+        let minR = this.rows, maxR = -1, minC = this.cols, maxC = -1;
 
-        if (addRows > 0) {
-            for (let r = prevRows; r < prevRows + addRows; r++) {
-                const row = [];
-                for (let c = 0; c < prevCols; c++) {
-                    row.push({
-                        row: r,
-                        col: c,
-                        mine: false,
-                        revealed: false,
-                        flagged: false,
-                        questioned: false,
-                        count: 0
-                    });
-                }
-                this.grid.push(row);
-            }
-            this.rows += addRows;
-        }
-
-        if (addCols > 0) {
-            for (let r = 0; r < this.rows; r++) {
-                for (let c = prevCols; c < prevCols + addCols; c++) {
-                    this.grid[r].push({
-                        row: r,
-                        col: c,
-                        mine: false,
-                        revealed: false,
-                        flagged: false,
-                        questioned: false,
-                        count: 0
-                    });
-                }
-            }
-            this.cols += addCols;
-        }
-
-        const density = 0.15;
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
-                if (r >= prevRows || c >= prevCols) {
-                    if (Math.random() < density) {
-                        this.grid[r][c].mine = true;
-                    }
+                if (this.grid[r][c].revealed) {
+                    if (r < minR) minR = r;
+                    if (r > maxR) maxR = r;
+                    if (c < minC) minC = c;
+                    if (c > maxC) maxC = c;
                 }
             }
         }
 
-        this.recalculateCounts();
-        this.renderBoard();
-        this.updateUI();
+        const addT = minR < 2 ? 3 : 0;
+        const addB = maxR >= this.rows - 2 ? 3 : 0;
+        const addL = minC < 2 ? 3 : 0;
+        const addR = maxC >= this.cols - 2 ? 3 : 0;
+
+        if ((addT || addB || addL || addR) && (this.rows < 28 || this.cols < 28)) {
+            this.expandGrid4D(addT, addB, addL, addR);
+        }
     }
 
+    expandGrid4D(addTop, addBottom, addLeft, addRight) {
+        const pr = this.rows, pc = this.cols;
+
+        if (addTop > 0) {
+            this.grid.forEach(row => row.forEach(c => c.row += addTop));
+            const newRows = Array.from({length: addTop}, (_, r) =>
+                Array.from({length: pc}, (__, c) => ({ row:r,col:c,mine:false,revealed:false,flagged:false,questioned:false,count:0 }))
+            );
+            this.grid = newRows.concat(this.grid);
+            this.rows += addTop;
+        }
+        if (addBottom > 0) {
+            for (let r = this.rows; r < this.rows + addBottom; r++)
+                this.grid.push(Array.from({length:this.cols},(_,c)=>({row:r,col:c,mine:false,revealed:false,flagged:false,questioned:false,count:0})));
+            this.rows += addBottom;
+        }
+        if (addLeft > 0) {
+            this.grid.forEach(row => row.forEach(c => c.col += addLeft));
+            this.grid.forEach((row, r) => {
+                const newCols = Array.from({length:addLeft},(_,c)=>({row:r,col:c,mine:false,revealed:false,flagged:false,questioned:false,count:0}));
+                this.grid[r] = newCols.concat(row);
+            });
+            this.cols += addLeft;
+        }
+        if (addRight > 0) {
+            this.grid.forEach((row,r) => {
+                for (let c=this.cols; c<this.cols+addRight; c++)
+                    row.push({row:r,col:c,mine:false,revealed:false,flagged:false,questioned:false,count:0});
+            });
+            this.cols += addRight;
+        }
+
+        // Populate new cells with balanced mine density (12%)
+        const density = 0.12;
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) {
+            const isNew = (addTop>0&&r<addTop)||(addBottom>0&&r>=this.rows-addBottom)||
+                          (addLeft>0&&c<addLeft)||(addRight>0&&c>=this.cols-addRight);
+            if (isNew && !this.grid[r][c].revealed && Math.random()<density) {
+                this.grid[r][c].mine = true;
+            }
+        }
+        this.recalc();
+        this.renderBoard();
+        this.updateUI();
+        if (this.applyTransform) this.applyTransform();
+    }
+
+    showToast(msg) {
+        const toast = this.root.querySelector('#msToastBanner');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // ─────────────────────────── TIMER ───────────────────────────
     startTimer(resume = false) {
         if (this.timer) clearInterval(this.timer);
-        
         if (this.mode === 'time-trial') {
             if (!resume) this.time = this.timeLimit;
             this.timer = setInterval(() => {
                 this.time--;
-                const displayTime = String(Math.max(this.time, 0)).padStart(3, '0');
-                this.timerEl.textContent = displayTime;
-                
-                if (this.time <= 0) {
-                    clearInterval(this.timer);
-                    this.gameOver(false, 'time-out');
-                }
+                if (this.timerEl) this.timerEl.textContent = String(Math.max(0,this.time)).padStart(3,'0');
+                if (this.time <= 0) { clearInterval(this.timer); this.gameOver(false,'time-out'); }
             }, 1000);
         } else {
             if (!resume) this.time = 0;
             this.timer = setInterval(() => {
                 this.time++;
-                const displayTime = String(Math.min(this.time, 999)).padStart(3, '0');
-                this.timerEl.textContent = displayTime;
+                if (this.mode!=='endless'&&this.timerEl) this.timerEl.textContent = String(Math.min(this.time,999)).padStart(3,'0');
             }, 1000);
         }
     }
 
+    // ─────────────────────────── PAUSE ───────────────────────────
     togglePause() {
         if (this.gameOverState) return;
         this.isPaused = !this.isPaused;
-        if (this.isPaused) {
-            if (this.timer) clearInterval(this.timer);
-            this.timer = null;
-            this.showPauseOverlay(true);
-        } else {
-            this.startTimer(true);
-            this.showPauseOverlay(false);
-        }
+        if (this.isPaused) { clearInterval(this.timer); this.timer=null; this.showOverlay('PAUSED','Game paused','Resume',()=>this.togglePause()); }
+        else { this.startTimer(true); const ov=this.root.querySelector('#msOverlay'); if(ov) ov.classList.remove('show'); }
         this.updateHacksUI();
-        if (this.callbacks.onPauseToggle) {
-            this.callbacks.onPauseToggle(this.isPaused);
-        }
-    }
-
-    showPauseOverlay(show) {
-        const overlay = this.container.querySelector('#msOverlay');
-        const overlayTitle = this.container.querySelector('#msOverlayTitle');
-        const overlayMsg = this.container.querySelector('#msOverlayMsg');
-        const overlayBtn = this.container.querySelector('#msOverlayBtn');
-
-        if (overlay && overlayTitle && overlayMsg && overlayBtn) {
-            if (show) {
-                overlayTitle.textContent = 'PAUSED';
-                overlayTitle.style.color = '#38bdf8';
-                overlayMsg.textContent = 'Game is paused';
-                overlayBtn.textContent = 'Resume';
-                overlayBtn.onclick = () => this.togglePause();
-                overlay.classList.add('show');
-            } else {
-                overlay.classList.remove('show');
-            }
-        }
+        if (this.callbacks.onPauseToggle) this.callbacks.onPauseToggle(this.isPaused);
     }
 
     handleKeyDown(e) {
-        if (e.key === 'p' || e.key === 'P') {
-            if (this.firstClick) return;
-            e.preventDefault();
-            this.togglePause();
-        }
+        if ((e.key==='p'||e.key==='P') && !this.firstClick) { e.preventDefault(); this.togglePause(); }
     }
 
-    updateCellUI(r, c) {
-        const cell = this.grid[r][c];
-        const cellEl = this.boardEl.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-        if (!cellEl) return;
-
-        cellEl.className = 'ms-cell';
-        cellEl.innerHTML = '';
-
-        if (cell.revealed) {
-            cellEl.classList.add('revealed');
-            if (cell.mine) {
-                cellEl.classList.add('mine');
-                cellEl.innerHTML = MINE_SVG;
-            } else if (cell.count > 0) {
-                cellEl.classList.add(`ms-num-${cell.count}`);
-                cellEl.textContent = cell.count;
-            }
-        } else if (cell.flagged) {
-            cellEl.classList.add('flagged');
-            cellEl.innerHTML = FLAG_SVG;
-        } else if (cell.questioned) {
-            cellEl.classList.add('questioned');
-            cellEl.textContent = '?';
+    // ─────────────────────────── WIN CHECK ───────────────────────────
+    checkWin() {
+        if (this.gameOverState || this.mode==='endless') return;
+        let allSafe = true;
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) {
+            if (!this.grid[r][c].mine && !this.grid[r][c].revealed) { allSafe=false; break; }
         }
+        let flagCount=0, allCorrect=true;
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) {
+            if (this.grid[r][c].flagged) { flagCount++; if (!this.grid[r][c].mine) allCorrect=false; }
+        }
+        if (allSafe || (flagCount===this.mineCount&&allCorrect)) this.gameOver(true);
     }
 
-    updateUI() {
-        for (let r = 0; r < this.rows; r++) {
-            for (let c = 0; c < this.cols; c++) {
-                this.updateCellUI(r, c);
-            }
-        }
-    }
-
-    checkGameStatus() {
-        if (this.gameOverState) return;
-        if (this.mode === 'endless') return;
-
-        let allSafeRevealed = true;
-        for (let r = 0; r < this.rows; r++) {
-            for (let c = 0; c < this.cols; c++) {
-                const cell = this.grid[r][c];
-                if (!cell.mine && !cell.revealed) {
-                    allSafeRevealed = false;
-                    break;
-                }
-            }
-            if (!allSafeRevealed) break;
-        }
-
-        let allMinesFlaggedCorrectly = true;
-        let flaggedCount = 0;
-        for (let r = 0; r < this.rows; r++) {
-            for (let c = 0; c < this.cols; c++) {
-                const cell = this.grid[r][c];
-                if (cell.flagged) {
-                    flaggedCount++;
-                    if (!cell.mine) {
-                         allMinesFlaggedCorrectly = false;
-                    }
-                }
-            }
-        }
-        const winByFlagging = (flaggedCount === this.mineCount && allMinesFlaggedCorrectly);
-
-        if (allSafeRevealed || winByFlagging) {
-            this.gameOver(true);
-        }
-    }
-
-    gameOver(success, reason = '') {
-        this.gameOverState = true;
-        this.won = success;
+    // ─────────────────────────── GAME OVER ───────────────────────────
+    gameOver(success, reason='') {
+        this.gameOverState = true; this.won = success;
         if (this.timer) clearInterval(this.timer);
-
         this.updateHacksUI();
 
-        this.smileyBtn.innerHTML = success ? SMILEY_SVG_WIN : SMILEY_SVG_LOSE;
-        this.smileyBtn.className = success ? 'ms-smiley state-win' : 'ms-smiley state-lose';
+        if (this.smileyBtn) {
+            this.smileyBtn.innerHTML = success ? SMILEY_SVG_WIN : SMILEY_SVG_LOSE;
+            this.smileyBtn.className = success ? 'ms-smiley state-win' : 'ms-smiley state-lose';
+        }
+        if (!success && this.boardEl) this.boardEl.classList.add('shake');
 
-        if (!success && this.boardEl) {
-            this.boardEl.classList.add('shake');
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) {
+            const cell=this.grid[r][c];
+            if (cell.mine) { if (success) { cell.flagged=true; cell.questioned=false; } else cell.revealed=true; }
+            this.paintCell(r,c);
         }
 
-        // Reveal mines
-        for (let r = 0; r < this.rows; r++) {
-            for (let c = 0; c < this.cols; c++) {
-                const cell = this.grid[r][c];
-                if (cell.mine) {
-                    if (success) {
-                        cell.flagged = true;
-                        cell.questioned = false;
-                    } else {
-                        cell.revealed = true;
-                    }
-                }
-                this.updateCellUI(r, c);
-            }
+        let best = localStorage.getItem('ms_best_'+this.mode+'_'+this.difficulty);
+        if (success) {
+            const t = this.mode==='time-trial' ? this.timeLimit-this.time : this.time;
+            if (!best || t < parseInt(best)) { localStorage.setItem('ms_best_'+this.mode+'_'+this.difficulty, t); best=t; }
         }
 
-        let isNewRecord = false;
-        let bestTime = localStorage.getItem('minesweeper_best_time');
-        
-        if (success && this.mode === 'time-trial') {
-            if (!bestTime || this.timeLimit - this.time < parseInt(bestTime)) {
-                localStorage.setItem('minesweeper_best_time', this.timeLimit - this.time);
-                bestTime = this.timeLimit - this.time;
-                isNewRecord = true;
-            }
-        } else if (success) {
-            if (!bestTime || this.time < parseInt(bestTime)) {
-                localStorage.setItem('minesweeper_best_time', this.time);
-                bestTime = this.time;
-                isNewRecord = true;
-            }
+        const mc = this.getMinerComment(success, reason);
+        let msg = '';
+        if (this.mode==='endless') msg = `Tiles Cleared: ${this.score} · Max Depth: ${Math.floor(this.score*1.5)}m`;
+        else if (this.mode==='time-trial') msg = success ? `Done in ${this.timeLimit-this.time}s (${this.time}s left)` : `Time expired after ${this.timeLimit-this.time}s`;
+        else { const t=String(this.time).padStart(3,'0'); const b=best?String(best).padStart(3,'0')+'s':'---'; msg=success?`Clear: ${t}s · Best: ${b}`:`Exploded in ${t}s · Best: ${b}`; }
+
+        this.showOverlay(success ? 'VICTORY!' : 'DETONATED', `${msg}<br><span style="color:var(--primary);font-size:0.78rem;">${mc}</span>`, 'Play Again', () => this.start());
+
+        if (this.callbacks.onEnd) this.callbacks.onEnd(success);
+    }
+
+    showOverlay(title, msg, btnText, onAction) {
+        const ov    = this.root.querySelector('#msOverlay');
+        const tEl   = this.root.querySelector('#msOverlayTitle');
+        const mEl   = this.root.querySelector('#msOverlayMsg');
+        const btn   = this.root.querySelector('#msOverlayBtn');
+        if (!ov) return;
+        tEl.textContent = title;
+        mEl.innerHTML   = msg;
+        btn.textContent = btnText;
+        btn.onclick     = () => { ov.classList.remove('show'); if (onAction) onAction(); };
+        ov.classList.add('show');
+    }
+
+    // ─────────────────────────── HACKS ───────────────────────────
+    usePing() {
+        if (this.gameOverState || this.isPaused || this.pingCharges <= 0) return;
+        const unrev = [];
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) {
+            const cell=this.grid[r][c];
+            if (!cell.mine && !cell.revealed && !cell.flagged) unrev.push(cell);
         }
-
-        const overlay = this.container.querySelector('#msOverlay');
-        const overlayTitle = this.container.querySelector('#msOverlayTitle');
-        const overlayMsg = this.container.querySelector('#msOverlayMsg');
-        const overlayBtn = this.container.querySelector('#msOverlayBtn');
-
-        if (overlay && overlayTitle && overlayMsg && overlayBtn) {
-            overlayTitle.textContent = success ? 'VICTORY!' : 'GAME OVER';
-            overlayTitle.style.color = success ? 'var(--primary)' : '#ef4444';
-            
-            if (this.mode === 'endless') {
-                overlayMsg.innerHTML = `Safe cells cleared: ${this.score}`;
-            } else if (this.mode === 'time-trial') {
-                const secondsTaken = this.timeLimit - this.time;
-                overlayMsg.innerHTML = success 
-                    ? `Time taken: ${secondsTaken}s (Left: ${this.time}s)`
-                    : `Blew up with ${this.time}s remaining!`;
-            } else {
-                const displayTime = String(this.time).padStart(3, '0');
-                const displayBest = bestTime ? String(bestTime).padStart(3, '0') + 's' : '---';
-                overlayMsg.innerHTML = success 
-                    ? `Clear Time: ${displayTime}s<br>Best Time: ${displayBest}`
-                    : `Blew up in ${displayTime}s<br>Best Time: ${displayBest}`;
-            }
-
-            // Update bottom mascot panel with outcome pose and comment
-            const minerResult = this.getMinerComment(success, reason);
-            if (this.mascotImgEl && this.mascotTextEl) {
-                this.mascotImgEl.src = this.getMinerImgSrc(minerResult.img);
-                this.mascotTextEl.textContent = minerResult.text;
-            }
-
-            overlayBtn.onclick = () => this.start();
-
-            setTimeout(() => {
-                overlay.classList.add('show');
-            }, 800);
-        }
-
-        if (this.callbacks.onEnd) {
-            this.callbacks.onEnd(success ? this.time : 0);
-        }
+        if (!unrev.length) return;
+        const pick = unrev[Math.floor(Math.random()*unrev.length)];
+        this.pingCharges--;
+        this.updateHacksUI();
+        if (this.firstClick) { this.firstClick=false; this.placeMines(pick.row, pick.col); this.startTimer(); }
+        this.reveal(pick.row, pick.col);
+        this.updateUI();
+        this.checkWin();
     }
 
     updateHacksUI() {
-        const shieldBtn = this.container.querySelector('#msHackShield');
-        const pingBtn = this.container.querySelector('#msHackPing');
+        const shieldBtn = this.root.querySelector('#msHackShield');
+        const pingBtn   = this.root.querySelector('#msHackPing');
+        if (!shieldBtn || !pingBtn) return;
+        const off = this.gameOverState || this.isPaused;
+        shieldBtn.className = `ms-hack-btn${this.shieldActive && !off ? ' active' : ' disabled'}`;
+        shieldBtn.textContent = this.shieldActive ? '🛡️ SHIELD (READY)' : '🛡️ SHIELD (USED)';
+        pingBtn.className   = `ms-hack-btn${this.pingCharges > 0 && !off ? ' active' : ' disabled'}`;
+        pingBtn.textContent   = `📡 PING (${this.pingCharges})`;
+    }
 
-        if (shieldBtn) {
-            if (this.shieldActive) {
-                shieldBtn.className = 'ms-hack-btn active';
-                shieldBtn.innerHTML = '<span class="ms-hack-icon">🛡️</span> SHIELD: ON';
-            } else {
-                shieldBtn.className = 'ms-hack-btn disabled';
-                shieldBtn.innerHTML = '<span class="ms-hack-icon">🛡️</span> SHIELD: OFF';
-            }
-        }
+    // ─────────────────────────── PAINT CELL ───────────────────────────
+    updateUI() {
+        for (let r=0;r<this.rows;r++) for (let c=0;c<this.cols;c++) this.paintCell(r,c);
+    }
 
-        if (pingBtn) {
-            if (this.pingCharges > 0 && !this.firstClick && !this.gameOverState && !this.isPaused) {
-                pingBtn.className = 'ms-hack-btn active';
-                pingBtn.disabled = false;
-            } else {
-                pingBtn.className = 'ms-hack-btn disabled';
-                pingBtn.disabled = true;
+    paintCell(r, c) {
+        if (!this.boardEl) return;
+        const idx  = r * this.cols + c;
+        const el   = this.boardEl.children[idx];
+        const cell = this.grid[r][c];
+        if (!el || !cell) return;
+
+        el.className = 'ms-cell';
+        el.innerHTML = '';
+
+        if (cell.revealed) {
+            el.classList.add('revealed');
+            if (cell.mine) {
+                el.classList.add('mine');
+                el.innerHTML = MINE_SVG;
+            } else if (cell.count > 0) {
+                el.classList.add(`ms-num-${cell.count}`);
+                el.textContent = cell.count;
             }
-            pingBtn.innerHTML = `<span class="ms-hack-icon">📡</span> PING (${this.pingCharges})`;
+        } else if (cell.flagged) {
+            el.classList.add('flagged');
+            el.innerHTML = FLAG_SVG;
+        } else if (cell.questioned) {
+            el.classList.add('questioned');
+            el.textContent = '?';
         }
     }
 
-    usePing() {
-        if (this.gameOverState || this.isPaused || this.firstClick || this.pingCharges <= 0) return;
+    // ─────────────────────────── MASCOT / COMMENTS ───────────────────────────
+    getMinerImgSrc(type) {
+        return `assets/minesweeper.webp`;
+    }
 
-        const candidates = [];
-        for (let r = 0; r < this.rows; r++) {
-            for (let c = 0; c < this.cols; c++) {
-                const cell = this.grid[r][c];
-                if (!cell.mine && !cell.revealed) {
-                    candidates.push(cell);
-                }
-            }
-        }
+    getMinerComment(success, reason) {
+        if (success) return "Flawless sweep! Sector disarmed and cleared.";
+        if (reason === 'time-out') return "Time's up! The clock ran out on this sector.";
+        return "Boom! Watch out for high-risk proximity cells.";
+    }
 
-        if (candidates.length > 0) {
-            const randCell = candidates[Math.floor(Math.random() * candidates.length)];
-            this.reveal(randCell.row, randCell.col);
-            this.updateUI();
-            this.checkGameStatus();
+    showTutorialModal() {
+        const modal = this.container.querySelector('#msTutorialModal');
+        const text  = this.container.querySelector('#msModalText');
+        const prog  = this.container.querySelector('#msModalProgress');
+        const prev  = this.container.querySelector('#msModalPrevBtn');
+        const next  = this.container.querySelector('#msModalNextBtn');
+        if (!modal || !text) return;
 
-            this.pingCharges = 0;
-            this.updateHacksUI();
+        const pages = [
+            "Welcome to Cyber Deck Mines! Your goal is to clear all safe cells without detonating any hidden mines.",
+            "Use the ⛏️ DIG / 🚩 FLAG mode toggle in the top bar to easily switch between digging cells and placing warning flags.",
+            "On touch devices, long-pressing any cell for 180ms also instantly toggles a flag on that cell.",
+            "Drag anywhere on the board or use two fingers to pan around. Use the ＋ and − controls in the bottom right to zoom.",
+            "Click FIT in the bottom right anytime to center and auto-scale the entire board inside your view!",
+            "SHIELD absorbs 1 accidental mine hit! PING reveals a guaranteed safe cell when you get stuck.",
+            "Try Endless Mode for infinite expansion! Earn PING rewards every 30m depth!"
+        ];
 
-            if (navigator.vibrate) {
-                try { navigator.vibrate(30); } catch(err) {}
-            }
-        }
+        let page = 0;
+        const update = () => {
+            text.textContent = pages[page];
+            prog.textContent = `${page+1}/${pages.length}`;
+            prev.style.display = page === 0 ? 'none' : 'inline-block';
+            next.textContent   = page === pages.length - 1 ? 'GOT IT!' : 'NEXT ▶';
+        };
+
+        prev.onclick = () => { if (page > 0) { page--; update(); } };
+        next.onclick = () => {
+            if (page < pages.length - 1) { page++; update(); }
+            else modal.classList.remove('show');
+        };
+
+        update();
+        modal.classList.add('show');
     }
 }

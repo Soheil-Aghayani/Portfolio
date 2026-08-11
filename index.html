@@ -113,8 +113,8 @@
 
         /* --- SECTION HEADERS --- */
         .section-title {
-            font-size: 2.5rem;
-            margin: 80px 0 40px 0;
+            font-size: 2.2rem;
+            margin: 45px 0 20px 0;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -127,29 +127,29 @@
         /* --- CARDS (Projects/Experience) --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
         }
 
         .card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 30px;
+            padding: 20px 24px;
             transition: 0.3s;
             position: relative;
             overflow: hidden;
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             border-color: var(--secondary);
             background: rgba(255,255,255,0.05);
         }
 
-        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .card .role { color: var(--secondary); font-size: 0.9rem; margin-bottom: 15px; display: block; font-weight: 600; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
-        .card .date { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; position: absolute; top: 30px; right: 30px; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .card .role { color: var(--secondary); font-size: 0.88rem; margin-bottom: 12px; display: block; font-weight: 600; }
+        .card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 14px; line-height: 1.5; }
+        .card .date { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; position: absolute; top: 20px; right: 24px; }
 
         /* --- EDUCATION SPECIFIC --- */
         .edu-item {
@@ -179,10 +179,12 @@
             padding: 8px;
             border-radius: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, background 0.3s;
+            transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, background-color 0.3s ease;
             max-width: 48px;
             max-height: 48px;
             overflow: hidden;
+            transform: translateZ(0);
+            will-change: transform, max-width;
         }
         .theme-switcher.expanded {
             max-width: 280px;
@@ -198,7 +200,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            transition: background-color 0.2s ease, color 0.2s ease;
             flex-shrink: 0;
         }
         .theme-btn.trigger:hover {
@@ -211,7 +213,7 @@
             opacity: 0;
             transform: translateX(10px);
             pointer-events: none;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .theme-switcher.expanded .theme-options {
             opacity: 1;
@@ -224,9 +226,10 @@
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.15);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             position: relative;
             flex-shrink: 0;
+            will-change: transform;
         }
         .theme-dot:hover {
             transform: scale(1.15);
@@ -367,14 +370,14 @@
         .pub-list { list-style: none; padding: 0; margin: 0; }
         .pub-item {
             display: flex;
-            gap: 20px;
-            padding: 24px;
+            gap: 16px;
+            padding: 16px 20px;
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.015), transparent);
-            border-radius: 14px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-left: 4px solid var(--secondary);
-            margin-bottom: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 12px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -553,16 +556,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
             padding: 0;
+            transform: translateZ(0);
+            will-change: transform;
         }
         .music-toggle-btn:hover {
-            transform: scale(1.08);
+            transform: scale(1.08) translateZ(0);
             border-color: rgba(255, 255, 255, 0.18);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(45, 212, 191, 0.15);
         }
         .music-toggle-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.95) translateZ(0);
         }
         .music-mute-icon {
             color: var(--text-muted);
@@ -581,16 +586,19 @@
             justify-content: center;
             gap: 3px;
             width: 24px;
-            height: 20px;
+            height: 18px;
         }
         .music-wave span {
             display: block;
             width: 3px;
-            height: 4px;
+            height: 18px;
             background-color: var(--primary);
             border-radius: 2px;
-            transition: height 0.08s ease; /* fast frequency updates */
+            transform-origin: bottom;
+            transform: scaleY(0.2);
+            transition: transform 0.08s ease; /* GPU accelerated frequency updates */
             box-shadow: 0 0 8px var(--primary);
+            will-change: transform;
         }
 
         /* --- CRT SCANLINES --- */
@@ -1080,11 +1088,12 @@
     #musicWave { display: none; }
     header {
         position: relative;
-        min-height: 100dvh;
+        min-height: 75vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 40px 20px 20px;
         background: transparent; 
         overflow: hidden; 
     }
@@ -1139,8 +1148,8 @@
         -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 30px;
-        padding: 60px 40px;
+        border-radius: 26px;
+        padding: 36px 32px;
         text-align: center;
         max-width: 900px;
         width: 100%;
@@ -1188,7 +1197,7 @@
     }
     .btn-hero-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); text-decoration: none; }
 
-    .scroll-down { position: absolute; bottom: 30px; left: 0; right: 0; width: fit-content; margin-inline: auto; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.6; animation: bounce 2s infinite; z-index: 3; text-decoration: none; transition: opacity 0.3s, color 0.3s; transform: none; }
+    .scroll-down { position: relative; margin-top: 28px; width: fit-content; margin-inline: auto; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.6; animation: bounce 2s infinite; z-index: 3; text-decoration: none; transition: opacity 0.3s, color 0.3s; transform: none; }
     .scroll-down:hover { opacity: 1; color: var(--primary); }
 
     @keyframes heroFadeIn { to { opacity: 1; } }
@@ -1345,7 +1354,7 @@
 <style>
     /* SECTION CONTAINER */
     #education {
-        padding: 80px 20px;
+        padding: 36px 20px;
         position: relative;
         max-width: 1100px; 
         margin: 0 auto;
@@ -1356,7 +1365,7 @@
         display: flex;
         justify-content: flex-start; 
         align-items: center;
-        margin-bottom: 60px;
+        margin-bottom: 25px;
         opacity: 0; 
         transform: translateY(20px);
         transition: all 0.8s ease;
@@ -3970,7 +3979,8 @@
     }
 
     btn.addEventListener('click', () => {
-        if (viewer.style.display === 'none') {
+        const isHidden = viewer.style.display === 'none' || getComputedStyle(viewer).display === 'none';
+        if (isHidden) {
             viewer.style.display = 'block';
             btn.innerHTML = '<span class="material-symbols-rounded">filter_alt_off</span> Hide Flowchart';
             updateFlowchartSrc();
@@ -4126,16 +4136,33 @@
         });
     }
 
+    const EASTER_EGG_REACTIONS = [
+        { title: "🕵️ Look at you! You sneaky hacker...", sub: "(Focus this window to unmask the secret blueprint)" },
+        { title: "🕶️ Neo, is that you? The Matrix has you...", sub: "(Click back into this window to take the red pill)" },
+        { title: "💻 Access Denied: Mainframe is watching you!", sub: "(Focus window to resume top-secret operation)" },
+        { title: "🚀 Unauthorized tab switching detected!", sub: "(Return to base to decrypt the master diagram)" },
+        { title: "🍕 Shhh! The blueprint is hiding from your tabs!", sub: "(Focus this window to reveal the classified flow)" },
+        { title: "🤖 Beep Boop! Are you inspecting my source code?", sub: "(Click back to disarm the cyber security field)" },
+        { title: "🏆 Level 99 Cyber Detective Discovered!", sub: "(Focus window to claim your reward and unmask data)" }
+    ];
+
     function lockScreen() {
         isBlurred = true;
         isDragging = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'rgba(15, 23, 42, 0.99)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(248, 113, 113, 0.9)';
+
+        const reaction = EASTER_EGG_REACTIONS[Math.floor(Math.random() * EASTER_EGG_REACTIONS.length)];
+
+        ctx.fillStyle = 'rgba(45, 212, 191, 0.95)';
         ctx.font = 'bold 18px Outfit, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('🔒 Protected Content (Active Window Required)', canvas.width / 2, canvas.height / 2);
+        ctx.fillText(reaction.title, canvas.width / 2, canvas.height / 2 - 10);
+
+        ctx.fillStyle = 'rgba(148, 163, 184, 0.85)';
+        ctx.font = '14px Outfit, sans-serif';
+        ctx.fillText(reaction.sub, canvas.width / 2, canvas.height / 2 + 18);
     }
 
     function unlockScreen() {
@@ -4489,6 +4516,7 @@
 
     function setPlayingState(play) {
         isPlaying = play;
+        sessionStorage.setItem('music_playing', play ? 'true' : 'false');
         if (play) {
             btn.classList.add('playing');
             muteIcon.style.display = 'none';
@@ -4516,14 +4544,14 @@
             
             spans.forEach((span, idx) => {
                 const val = bands[idx];
-                const height = 4 + (val / 255) * 14;
-                span.style.height = `${height}px`;
+                const scale = Math.max(0.18, val / 255);
+                span.style.transform = `scaleY(${scale})`;
             });
         } else {
             // Smoothly animate random bounce heights for local/fallback player mode
             spans.forEach((span) => {
-                const height = 4 + Math.random() * 14;
-                span.style.height = `${height}px`;
+                const scale = 0.2 + Math.random() * 0.8;
+                span.style.transform = `scaleY(${scale})`;
             });
         }
         
@@ -4544,7 +4572,7 @@
             animFrameId = null;
         }
         spans.forEach(span => {
-            span.style.height = '4px';
+            span.style.transform = 'scaleY(0.2)';
         });
     }
 
@@ -4570,6 +4598,19 @@
             });
         }
     });
+
+    if (sessionStorage.getItem('music_playing') === 'true') {
+        const targetTrack = getActiveTrack();
+        if (!audio.src.includes(targetTrack)) {
+            audio.src = targetTrack;
+            audio.load();
+        }
+        audio.play().then(() => {
+            setPlayingState(true);
+        }).catch(err => {
+            console.warn("Autoplay blocked by browser policy:", err);
+        });
+    }
   }
 
   function scrambleText(target, duration = 1200, delay = 0) {
@@ -4620,21 +4661,22 @@
     setupPubFilters();
     setupMusicPlayer();
 
-    // Dynamically toggle morph classes on fixed widgets during scroll
+    // Dynamically toggle morph classes on fixed widgets during scroll (throttled)
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const themeBtn = document.getElementById('themeSwitcher');
+    let scrollTicking = false;
+
     window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY > 40;
-        const musicBtn = document.getElementById('musicToggleBtn');
-        const themeBtn = document.getElementById('themeSwitcher');
-        
-        if (musicBtn) {
-            if (scrolled) musicBtn.classList.add('scrolled');
-            else musicBtn.classList.remove('scrolled');
+        if (!scrollTicking) {
+            requestAnimationFrame(() => {
+                const scrolled = window.scrollY > 40;
+                if (musicBtn) musicBtn.classList.toggle('scrolled', scrolled);
+                if (themeBtn) themeBtn.classList.toggle('scrolled', scrolled);
+                scrollTicking = false;
+            });
+            scrollTicking = true;
         }
-        if (themeBtn) {
-            if (scrolled) themeBtn.classList.add('scrolled');
-            else themeBtn.classList.remove('scrolled');
-        }
-    });
+    }, { passive: true });
   });
 })();
 </script>
@@ -4705,6 +4747,7 @@
     const isMobile = () => window.innerWidth <= 768;
     let mouse = { x: -9999, y: -9999 };
     let W, H, particles = [];
+    let isMatrixTheme = localStorage.getItem('theme-accent') === 'matrix';
 
     // --- Depth layers config ---
     const LAYERS = [
@@ -4724,8 +4767,10 @@
         }
     }
     readThemeColor();
-    window.addEventListener('theme-changed', readThemeColor);
-    document.addEventListener('click', () => setTimeout(readThemeColor, 50));
+    window.addEventListener('theme-changed', (e) => {
+        readThemeColor();
+        isMatrixTheme = (e.detail && e.detail.theme === 'matrix') || (localStorage.getItem('theme-accent') === 'matrix');
+    });
 
     function rand(min, max) { return min + Math.random() * (max - min); }
 
@@ -4779,7 +4824,6 @@
             requestAnimationFrame(tick);
             return;
         }
-        const isMatrixTheme = localStorage.getItem('theme-accent') === 'matrix';
 
         if (isMatrixTheme) {
             // Capped at ~30 FPS for extreme performance & low CPU/RAM
@@ -4850,14 +4894,11 @@
                 const px = p.x + ox;
                 const py = p.y + oy;
 
-                // Glow for near-layer particles
+                // Glow for near-layer particles (optimized using dual arc fills)
                 if (p.layerIdx === 0) {
-                    const grd = ctx.createRadialGradient(px, py, 0, px, py, p.r * 3);
-                    grd.addColorStop(0, `rgba(${r},${g},${b},${alpha * 0.5})`);
-                    grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
                     ctx.beginPath();
-                    ctx.arc(px, py, p.r * 3, 0, Math.PI * 2);
-                    ctx.fillStyle = grd;
+                    ctx.arc(px, py, p.r * 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.22})`;
                     ctx.fill();
                 }
 
@@ -5068,7 +5109,13 @@
         // Matrix theme dot toggle
         const matrixDot = document.getElementById('matrixThemeDot');
         if (matrixDot) {
-            matrixDot.style.display = isUnlocked ? 'inline-block' : 'none';
+            if (isUnlocked) {
+                matrixDot.classList.remove('hide');
+                matrixDot.style.display = 'inline-block';
+            } else {
+                matrixDot.classList.add('hide');
+                matrixDot.style.display = 'none';
+            }
         }
 
         // Footer heart link toggle
@@ -5119,7 +5166,27 @@
         if (!isUnlocked) {
             sessionStorage.setItem('cheatcode_unlocked', 'true');
             if (msgEl) {
-                msgEl.innerHTML = '&gt; CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Matrix Theme & Projects unlocked! Click heart in footer.</em></span>';
+                msgEl.innerHTML = '&gt; CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Matrix Theme & Daft Punk track unlocked! Click heart in footer.</em></span>';
+            }
+            updateCheatCodeUI();
+
+            // Automatically switch to Matrix theme!
+            const matrixDot = document.getElementById('matrixThemeDot');
+            if (matrixDot) {
+                matrixDot.click();
+            }
+
+            // Automatically trigger music playback if not already playing!
+            const musicBtn = document.getElementById('musicToggleBtn');
+            if (musicBtn && !musicBtn.classList.contains('playing')) {
+                musicBtn.click();
+            }
+
+            // Expand theme switcher widget to highlight the new green Matrix dot
+            const switcher = document.querySelector('.theme-switcher');
+            if (switcher) {
+                switcher.classList.add('expanded');
+                setTimeout(() => switcher.classList.remove('expanded'), 4000);
             }
         } else {
             sessionStorage.removeItem('cheatcode_unlocked');
@@ -5131,8 +5198,8 @@
                 const tealDot = document.querySelector('.theme-dot[data-theme="teal"]');
                 if (tealDot) tealDot.click();
             }
+            updateCheatCodeUI();
         }
-        updateCheatCodeUI();
         open();
     }
 

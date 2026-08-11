@@ -1,0 +1,7 @@
+{
+  "css.lint.duplicateProperties": "ignore",
+  "html.validate.styles": false,
+  "htmlhint.options": {
+    "inline-style-disabled": false
+  }
+}

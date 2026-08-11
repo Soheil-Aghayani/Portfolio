@@ -3,7 +3,7 @@ import { SnakeGame } from './snake.js?v=6.4';
 import { BlackjackGame } from './blackjack.js?v=6.4';
 import { TetrisGame } from './tetris.js?v=6.4';
 import { Game2048 } from './2048.js?v=6.4';
-import { MinesweeperGame } from './minesweeper.js?v=6.4';
+import { MinesweeperGame } from './minesweeper.js?v=9.0';
 import { BreakoutGame } from './breakout.js?v=6.4';
 import { InvadersGame } from './invaders.js?v=6.4';
 
@@ -113,7 +113,7 @@ export class GameLauncher {
         backBtn.setAttribute('aria-label', 'Back to Game Menu');
         backBtn.setAttribute('title', 'Back to Game Menu');
         backBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Back to Menu';
-        backBtn.onclick = () => this.showMenu();
+        backBtn.onclick = () => this.confirmExit(() => this.showMenu());
 
         const pauseBtn = document.createElement('button');
         pauseBtn.className = 'game-pause-btn';
@@ -395,7 +395,7 @@ export class GameLauncher {
                     this.updatePauseButtonState(pauseBtn, isPaused);
                 }
             });
-            this.activeGame.start();
+            // The constructor calls showStartMenu() — no need to call .start() here
         }
         else if (id === 'breakout') {
             const savedHighScore = localStorage.getItem('breakout_high_score') || 0;
@@ -646,6 +646,68 @@ export class GameLauncher {
             this.activeGame.start();
             content.focus();
         }
+    }
+
+    isGameActive() {
+        if (!this.activeGame) return false;
+        if (this.activeGame.gameOverState) return false;
+        // Minesweeper check: active if firstClick is false (sweep started)
+        if (typeof this.activeGame.firstClick === 'boolean') {
+            return this.activeGame.firstClick === false;
+        }
+        if (this.activeGame.running || this.activeGame.inHand) return true;
+        if (typeof this.activeGame.score === 'number' && this.activeGame.score > 0) return true;
+        return true;
+    }
+
+    confirmExit(onConfirm) {
+        if (!this.isGameActive()) {
+            if (onConfirm) onConfirm();
+            return;
+        }
+
+        if (this.activeGame && typeof this.activeGame.togglePause === 'function' && !this.activeGame.isPaused) {
+            this.activeGame.togglePause();
+        }
+
+        let confirmOverlay = this.container.querySelector('#gameConfirmOverlay');
+        if (!confirmOverlay) {
+            confirmOverlay = document.createElement('div');
+            confirmOverlay.id = 'gameConfirmOverlay';
+            confirmOverlay.className = 'game-confirm-overlay';
+            confirmOverlay.innerHTML = `
+                <div class="game-confirm-box">
+                    <div class="game-confirm-icon">⚠️</div>
+                    <div class="game-confirm-title">QUIT CURRENT GAME?</div>
+                    <div class="game-confirm-msg">You have a game run in progress. Exiting now will discard your current active progress.</div>
+                    <div class="game-confirm-actions">
+                        <button class="ms-btn game-confirm-resume-btn" id="gameConfirmResumeBtn" type="button">RESUME GAME</button>
+                        <button class="ms-btn game-confirm-quit-btn" id="gameConfirmQuitBtn" type="button">QUIT SESSION</button>
+                    </div>
+                </div>
+            `;
+            const appBodyDiv = this.container.querySelector('.app-body') || this.container;
+            appBodyDiv.appendChild(confirmOverlay);
+        }
+
+        const resumeBtn = confirmOverlay.querySelector('#gameConfirmResumeBtn');
+        const quitBtn   = confirmOverlay.querySelector('#gameConfirmQuitBtn');
+
+        const hideModal = () => confirmOverlay.classList.remove('show');
+
+        resumeBtn.onclick = () => {
+            hideModal();
+            if (this.activeGame && typeof this.activeGame.togglePause === 'function' && this.activeGame.isPaused) {
+                this.activeGame.togglePause();
+            }
+        };
+
+        quitBtn.onclick = () => {
+            hideModal();
+            if (onConfirm) onConfirm();
+        };
+
+        confirmOverlay.classList.add('show');
     }
 
     showMenu() {

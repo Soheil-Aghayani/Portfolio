@@ -106,9 +106,16 @@ class WindowManager {
         if (app.options.onOpen) app.options.onOpen(...args);
     }
 
-    close(id) {
+    close(id, force = false) {
         const app = this.apps[id];
         if (!app) return;
+
+        if (!force && id === 'games' && window.gameLauncherInstance && typeof window.gameLauncherInstance.confirmExit === 'function') {
+            if (window.gameLauncherInstance.isGameActive()) {
+                window.gameLauncherInstance.confirmExit(() => this.close(id, true));
+                return;
+            }
+        }
 
         app.wrap.classList.remove('open');
         app.wrap.setAttribute('aria-hidden', 'true');
@@ -163,32 +170,48 @@ class WindowManager {
 // Global instance
 window.OS = new WindowManager();
 
+// Helper to check scrollability efficiently without layout thrashing
+function isScrollableNode(node, winBoundary) {
+    let current = node;
+    while (current && current !== winBoundary) {
+        if (current.scrollHeight > current.clientHeight) {
+            if (current.classList && (
+                current.classList.contains('os-term-out') ||
+                current.classList.contains('notes-content') ||
+                current.classList.contains('notes-sidebar') ||
+                current.classList.contains('app-body') ||
+                current.classList.contains('ms-board-scroll-wrapper') ||
+                current.classList.contains('scrollable')
+            )) {
+                return true;
+            }
+            const inlineOverflow = current.style.overflowY || current.style.overflow;
+            if (inlineOverflow === 'auto' || inlineOverflow === 'scroll') {
+                return true;
+            }
+            const style = window.getComputedStyle(current);
+            const overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
+            if (overflowY === 'auto' || overflowY === 'scroll') {
+                return true;
+            }
+        }
+        current = current.parentElement;
+    }
+    return false;
+}
+
 // Prevent background scrolling on touch devices and desktop when an app window is active
 document.addEventListener('touchmove', (e) => {
     if (window.OS && window.OS.activeApp) {
         const app = window.OS.apps[window.OS.activeApp];
         if (app && app.wrap && app.win) {
-            // If touch is outside the modal window, block it completely
             const isInsideWin = app.win.contains(e.target);
             if (!isInsideWin) {
                 if (e.cancelable) e.preventDefault();
                 return;
             }
 
-            // If inside the window, check if it's in a scrollable element
-            let current = e.target;
-            let isScrollable = false;
-            while (current && current !== app.win) {
-                const style = window.getComputedStyle(current);
-                const overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
-                if ((overflowY === 'auto' || overflowY === 'scroll') && current.scrollHeight > current.clientHeight) {
-                    isScrollable = true;
-                    break;
-                }
-                current = current.parentElement;
-            }
-
-            if (!isScrollable) {
+            if (!isScrollableNode(e.target, app.win)) {
                 if (e.cancelable) e.preventDefault();
             }
         }
@@ -205,23 +228,11 @@ document.addEventListener('wheel', (e) => {
                 return;
             }
 
-            // If inside, check if the wheel target is scrollable
-            let current = e.target;
-            let isScrollable = false;
-            while (current && current !== app.win) {
-                const style = window.getComputedStyle(current);
-                const overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
-                if ((overflowY === 'auto' || overflowY === 'scroll') && current.scrollHeight > current.clientHeight) {
-                    isScrollable = true;
-                    break;
-                }
-                current = current.parentElement;
-            }
-
-            if (!isScrollable) {
+            if (!isScrollableNode(e.target, app.win)) {
                 if (e.cancelable) e.preventDefault();
             }
         }
     }
 }, { passive: false });
+
 

@@ -41,9 +41,10 @@ const initApp = () => {
         }
     });
 
-    import('./games/launcher.js?v=6.4')
+    import('./games/launcher.js?v=9.0')
         .then(({ GameLauncher }) => {
             const launcher = new GameLauncher('appBody');
+            window.gameLauncherInstance = launcher;
             launcher.render();
 
             window.OS.register('games', 'appWrap', 'appWin', {

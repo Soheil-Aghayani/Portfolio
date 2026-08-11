@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "no-inline-style": "error"
+  },
+  "override": [
+    {
+      "includeFiles": ["Email/**/*.html"],
+      "rules": {
+        "no-inline-style": "off"
+      }
+    }
+  ]
+}
