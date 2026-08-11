@@ -87,7 +87,7 @@ class Terminal {
         const val = this.input.value.trim().toLowerCase();
         if (!val) return;
 
-        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', '2048', 'minesweeper', 'breakout', 'invaders', 'shooter'];
+        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', 'screensaver', 'ss', '2048', 'minesweeper', 'breakout', 'invaders', 'shooter'];
         const matches = commands.filter(c => c.startsWith(val));
 
         if (matches.length === 1) {
@@ -272,6 +272,10 @@ class Terminal {
             case 'cd':
                 await this.cmdCd(args);
                 break;
+            case 'screensaver':
+            case 'ss':
+                await this.cmdScreensaver(args);
+                break;
             default:
                 await this.typeLine(`command not found: ${main}`, 'os-bad');
         }
@@ -365,6 +369,7 @@ class Terminal {
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
         await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
+        await this.typeLine('- screensaver: Launch multi-theme screensaver', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);
     }
@@ -433,6 +438,32 @@ class Terminal {
             return;
         }
         this.updatePrompt();
+    }
+
+    async cmdScreensaver(args) {
+        const mode = (args[0] || '').toLowerCase().trim();
+        if (mode === 'list' || mode === 'help') {
+            await this.typeLine('Available screensaver themes:', 'os-warn');
+            await this.typeLine('- starfield: Drifting star field & clock', 'os-dim');
+            await this.typeLine('- matrix: Cyberpunk code rain', 'os-dim');
+            await this.typeLine('- dvd: Bouncing logo emblem', 'os-dim');
+            await this.typeLine('- synthwave: 80s Cyberpunk grid & sun', 'os-dim');
+            await this.typeLine('- quantum: Connected energy nodes mesh', 'os-dim');
+            await this.typeLine('Usage: "screensaver" or "screensaver <mode>"', 'os-dim');
+            return;
+        }
+
+        if (window.Screensaver && typeof window.Screensaver.activate === 'function') {
+            const valid = ['starfield', 'matrix', 'dvd', 'synthwave', 'quantum'];
+            if (mode && !valid.includes(mode)) {
+                await this.typeLine(`Unknown mode: "${mode}". Available: ${valid.join(', ')}`, 'os-bad');
+                return;
+            }
+            window.Screensaver.activate(mode || undefined);
+            await this.typeLine(`Screensaver activated${mode ? ' [' + mode + ']' : ''}.`, 'os-ok');
+        } else {
+            await this.typeLine('Screensaver engine not initialized.', 'os-bad');
+        }
     }
 
     safeUrl(u) {
