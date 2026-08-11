@@ -829,8 +829,8 @@
             align-items: center;
             gap: 6px;
             background: rgba(15, 23, 42, 0.78);
-            backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 9999px;
             padding: 5px 8px;
@@ -838,7 +838,10 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             max-width: calc(100vw - 48px);
             overflow-x: auto;
-            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        @supports (scrollbar-width: none) {
+            .ss-hud { scrollbar-width: none; }
         }
         .ss-hud::-webkit-scrollbar { display: none; }
         .ss-hud-btn {
@@ -855,6 +858,7 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
+            -webkit-user-select: none;
             user-select: none;
         }
         .ss-hud-btn:hover {
