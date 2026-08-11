@@ -819,62 +819,42 @@
             0%,100% { opacity: 0.3; } 50% { opacity: 0.85; }
         }
 
-        /* Glassmorphism Control HUD */
-        .ss-hud {
+        /* Screensaver Theme Badge (Bottom-Left) */
+        .ss-badge {
             position: absolute;
-            top: 24px;
-            right: 24px;
+            bottom: 24px;
+            left: 24px;
             z-index: 10;
             display: flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(15, 23, 42, 0.78);
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.75);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 9999px;
-            padding: 5px 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            max-width: calc(100vw - 48px);
-            overflow-x: auto;
-            -ms-overflow-style: none;
-        }
-        @supports (scrollbar-width: none) {
-            .ss-hud { scrollbar-width: none; }
-        }
-        .ss-hud::-webkit-scrollbar { display: none; }
-        .ss-hud-btn {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.65);
             padding: 6px 14px;
-            border-radius: 9999px;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.78rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
+            letter-spacing: 0.05em;
+            pointer-events: none;
             -webkit-user-select: none;
             user-select: none;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
         }
-        .ss-hud-btn:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.12);
+        .ss-badge-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
         }
-        .ss-hud-btn.active {
-            color: #030712;
-            background: var(--primary, #2dd4bf);
-            box-shadow: 0 0 16px var(--primary, #2dd4bf);
-            font-weight: 700;
-        }
-        .ss-hud-btn.auto-active {
-            color: #ffffff;
-            background: rgba(244, 63, 94, 0.75);
-            box-shadow: 0 0 14px rgba(244, 63, 94, 0.5);
+        .ss-badge-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
         }
 
 
@@ -4780,13 +4760,9 @@
         <div class="ss-name" id="ssName">Soheil Aghayani</div>
         <div class="ss-hint" id="ssHint">Move mouse or press any key to continue</div>
     </div>
-    <div class="ss-hud" id="ssHUD" aria-label="Screensaver Theme Selector">
-        <button type="button" class="ss-hud-btn active" data-mode="starfield" title="Starfield Clock">⭐ Starfield</button>
-        <button type="button" class="ss-hud-btn" data-mode="matrix" title="Matrix Code Rain">🟢 Matrix</button>
-        <button type="button" class="ss-hud-btn" data-mode="dvd" title="Bouncing DVD Emblem">📀 DVD</button>
-        <button type="button" class="ss-hud-btn" data-mode="synthwave" title="Synthwave 80s Grid">🌅 Synthwave</button>
-        <button type="button" class="ss-hud-btn" data-mode="quantum" title="Quantum Constellation">✨ Quantum</button>
-        <button type="button" class="ss-hud-btn" id="ssAutoToggle" title="Auto-Rotate Themes Every 30s">🔄 Auto</button>
+    <div class="ss-badge" id="ssBadge" aria-hidden="true">
+        <span class="ss-badge-icon" id="ssBadgeIcon"></span>
+        <span class="ss-badge-label" id="ssBadgeLabel">Starfield</span>
     </div>
 </div>
 
@@ -5056,7 +5032,7 @@
 })();
 
 /* =============================================
-   2. SCREENSAVER SUITE
+   2. SCREENSAVER ENGINE (RANDOM ACTIVATION & FAST EXIT)
 ============================================= */
 (function() {
     const ss     = document.getElementById('screensaver');
@@ -5064,22 +5040,46 @@
     const clock  = document.getElementById('ssClock');
     const dateEl = document.getElementById('ssDate');
     const center = document.getElementById('ssCenter');
-    const hud    = document.getElementById('ssHUD');
-    const autoBtn= document.getElementById('ssAutoToggle');
+    const badge  = document.getElementById('ssBadge');
+    const bIcon  = document.getElementById('ssBadgeIcon');
+    const bLabel = document.getElementById('ssBadgeLabel');
     if (!ss || !canvas || !clock) return;
 
     const ctx = canvas.getContext('2d');
     const TIMEOUT = 120000; // 2 minutes inactivity
     let timer, ssActive = false, animId;
-    let autoRotate = false, autoRotateTimer = null;
+    let ignoreEvents = false, ignoreTimer = null;
     let mouseX = -1000, mouseY = -1000;
 
-    // Supported modes: 'starfield', 'matrix', 'dvd', 'synthwave', 'quantum'
     const MODES = ['starfield', 'matrix', 'dvd', 'synthwave', 'quantum'];
-    let currentMode = localStorage.getItem('portfolio_screensaver_mode') || 'starfield';
-    if (!MODES.includes(currentMode)) currentMode = 'starfield';
+    const MODE_META = {
+        starfield: { title: 'Starfield', icon: 'assets/icons/starfield.svg' },
+        matrix: { title: 'Matrix Code Rain', icon: 'assets/icons/matrix.svg' },
+        dvd: { title: 'Bouncing DVD', icon: 'assets/icons/dvd.svg' },
+        synthwave: { title: '80s Synthwave', icon: 'assets/icons/sunrise.svg' },
+        quantum: { title: 'Quantum Constellation', icon: 'assets/icons/ai-line.svg' }
+    };
+    let currentMode = 'starfield';
 
-    // Update Date & Clock
+    // SVG icon cache
+    const svgCache = {};
+    Object.keys(MODE_META).forEach(key => {
+        fetch(MODE_META[key].icon)
+            .then(res => res.text())
+            .then(svgText => {
+                svgCache[key] = svgText;
+                if (currentMode === key && bIcon) {
+                    bIcon.innerHTML = svgText;
+                }
+            })
+            .catch(() => {});
+    });
+
+    function getRandomMode() {
+        const idx = Math.floor(Math.random() * MODES.length);
+        return MODES[idx];
+    }
+
     function updateTimeDisplay() {
         const now = new Date();
         clock.textContent = now.toLocaleTimeString('en-US', { hour12: false });
@@ -5223,7 +5223,6 @@
 
         const color = dvdColors[s.colorIdx];
 
-        // Draw Bouncing Glass Badge
         ctx.save();
         ctx.shadowColor = color;
         ctx.shadowBlur = 25;
@@ -5232,7 +5231,6 @@
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         
-        // Rounded rectangle
         const r = 16;
         ctx.beginPath();
         ctx.moveTo(s.x + r, s.y);
@@ -5248,7 +5246,6 @@
         ctx.fill();
         ctx.stroke();
 
-        // Text inside badge
         ctx.fillStyle = color;
         ctx.font = 'bold 1.2rem "Courier New", monospace';
         ctx.textAlign = 'center';
@@ -5266,7 +5263,6 @@
         const W = canvas.width, H = canvas.height;
         synthOffset = (synthOffset + 0.8) % 40;
 
-        // Sky Gradient
         const sky = ctx.createLinearGradient(0, 0, 0, H * 0.6);
         sky.addColorStop(0, '#09021a');
         sky.addColorStop(0.6, '#260845');
@@ -5274,11 +5270,9 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, W, H * 0.6);
 
-        // Ground Void
         ctx.fillStyle = '#05020c';
         ctx.fillRect(0, H * 0.6, W, H * 0.4);
 
-        // Retro Sun
         const horizon = H * 0.6;
         const sunRadius = Math.min(W, H) * 0.18;
         const sunY = horizon - sunRadius * 0.3;
@@ -5297,7 +5291,6 @@
         ctx.fill();
         ctx.restore();
 
-        // Sun Scanlines
         ctx.fillStyle = '#260845';
         for (let i = 0; i < 6; i++) {
             const lineY = sunY + (i * 12) + 10;
@@ -5306,14 +5299,12 @@
             }
         }
 
-        // Perspective 3D Grid
         ctx.save();
         ctx.strokeStyle = 'rgba(244, 63, 94, 0.6)';
         ctx.lineWidth = 1.5;
         ctx.shadowColor = '#f43f5e';
         ctx.shadowBlur = 10;
 
-        // Vanishing Perspective Lines
         const vpX = W / 2, vpY = horizon;
         const lineCount = 24;
         for (let i = -lineCount / 2; i <= lineCount / 2; i++) {
@@ -5324,7 +5315,6 @@
             ctx.stroke();
         }
 
-        // Horizontal Grid Lines with movement
         for (let y = synthOffset; y < H * 0.4; y += 14) {
             const normY = y / (H * 0.4);
             const gridY = horizon + Math.pow(normY, 1.8) * (H * 0.4);
@@ -5343,7 +5333,6 @@
         const W = canvas.width, H = canvas.height;
         const maxDist = 120;
 
-        // Move nodes & mouse interaction
         quantumNodes.forEach(node => {
             node.x += node.vx;
             node.y += node.vy;
@@ -5351,7 +5340,6 @@
             if (node.x < 0 || node.x > W) node.vx *= -1;
             if (node.y < 0 || node.y > H) node.vy *= -1;
 
-            // Mouse Repulsion
             const dx = node.x - mouseX;
             const dy = node.y - mouseY;
             const dist = Math.sqrt(dx * dx + dy * dy);
@@ -5369,7 +5357,6 @@
             ctx.fill();
         });
 
-        // Draw connecting mesh lines
         for (let i = 0; i < quantumNodes.length; i++) {
             for (let j = i + 1; j < quantumNodes.length; j++) {
                 const n1 = quantumNodes[i];
@@ -5391,7 +5378,6 @@
         }
     }
 
-    // Master Render Loop
     function loop() {
         if (!ssActive) return;
 
@@ -5405,15 +5391,16 @@
     }
 
     function applyModeUI() {
-        // Update active class on HUD buttons
-        if (hud) {
-            hud.querySelectorAll('.ss-hud-btn[data-mode]').forEach(btn => {
-                const isCur = btn.getAttribute('data-mode') === currentMode;
-                btn.classList.toggle('active', isCur);
-            });
+        const meta = MODE_META[currentMode] || MODE_META.starfield;
+        if (bLabel) bLabel.textContent = meta.title;
+        if (bIcon) {
+            if (svgCache[currentMode]) {
+                bIcon.innerHTML = svgCache[currentMode];
+            } else {
+                fetch(meta.icon).then(r => r.text()).then(t => { bIcon.innerHTML = t; });
+            }
         }
 
-        // Apply theme-specific typography overlay styling
         if (clock) {
             if (currentMode === 'matrix') {
                 clock.style.color = '#10b981';
@@ -5430,7 +5417,6 @@
             }
         }
 
-        // Hide main center text during DVD mode so bouncing emblem is focus
         if (center) {
             if (currentMode === 'dvd') {
                 center.style.opacity = '0.35';
@@ -5443,9 +5429,8 @@
     }
 
     function setMode(mode) {
-        if (!MODES.includes(mode)) return;
+        if (!MODES.includes(mode)) mode = getRandomMode();
         currentMode = mode;
-        localStorage.setItem('portfolio_screensaver_mode', mode);
         initCurrentModeData();
         applyModeUI();
     }
@@ -5456,60 +5441,39 @@
         setTimeout(tickClock, 1000);
     }
 
-    function startAutoRotate() {
-        stopAutoRotate();
-        autoRotateTimer = setInterval(() => {
-            if (!ssActive) return;
-            const idx = (MODES.indexOf(currentMode) + 1) % MODES.length;
-            setMode(MODES[idx]);
-        }, 30000);
-    }
-
-    function stopAutoRotate() {
-        if (autoRotateTimer) {
-            clearInterval(autoRotateTimer);
-            autoRotateTimer = null;
-        }
-    }
-
-    function toggleAutoRotate() {
-        autoRotate = !autoRotate;
-        if (autoBtn) autoBtn.classList.toggle('auto-active', autoRotate);
-        if (autoRotate) startAutoRotate();
-        else stopAutoRotate();
-    }
-
     function activate(modeOverride) {
         if (isGameOpen()) {
             resetTimer();
             return;
         }
 
-        if (modeOverride && MODES.includes(modeOverride)) {
-            setMode(modeOverride);
-        } else {
-            applyModeUI();
-        }
+        // Random mode unless explicit mode is specified
+        const selected = (modeOverride && MODES.includes(modeOverride)) ? modeOverride : getRandomMode();
+        setMode(selected);
 
         ssActive = true;
         ss.setAttribute('aria-hidden', 'false');
         ss.classList.add('active');
 
+        // Ignore input events for 600ms so launching keypress/click doesn't instantly close screensaver
+        ignoreEvents = true;
+        clearTimeout(ignoreTimer);
+        ignoreTimer = setTimeout(() => {
+            ignoreEvents = false;
+        }, 600);
+
         resize();
         updateTimeDisplay();
         loop();
         tickClock();
-
-        if (autoRotate) startAutoRotate();
     }
 
     function deactivate() {
-        if (!ssActive) return;
+        if (!ssActive || ignoreEvents) return;
         ssActive = false;
         ss.classList.remove('active');
         ss.setAttribute('aria-hidden', 'true');
         cancelAnimationFrame(animId);
-        stopAutoRotate();
         resetTimer();
     }
 
@@ -5518,42 +5482,19 @@
         timer = setTimeout(activate, TIMEOUT);
     }
 
-    // Mouse position tracking for Quantum mode
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
     }, { passive: true });
 
-    // Activity listener to deactivate screensaver
+    // Instantly exit screensaver on mouse move, keydown, click, touch, scroll
     ['mousemove','mousedown','keydown','touchstart','scroll'].forEach(ev => {
-        document.addEventListener(ev, (e) => {
-            // Ignore events originating inside the HUD controls so clicks don't close screensaver
-            if (hud && hud.contains(e.target)) return;
+        document.addEventListener(ev, () => {
             deactivate();
         }, { passive: true });
     });
 
-    ss.addEventListener('click', (e) => {
-        if (hud && hud.contains(e.target)) return;
-        deactivate();
-    });
-
-    // HUD Button Interactions
-    if (hud) {
-        hud.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const btn = e.target.closest('.ss-hud-btn');
-            if (!btn) return;
-
-            if (btn.id === 'ssAutoToggle') {
-                toggleAutoRotate();
-                return;
-            }
-
-            const mode = btn.getAttribute('data-mode');
-            if (mode) setMode(mode);
-        });
-    }
+    ss.addEventListener('click', deactivate);
 
     resize();
     window.addEventListener('resize', resize);
@@ -5565,8 +5506,7 @@
         deactivate: () => deactivate(),
         setMode: (mode) => setMode(mode),
         getMode: () => currentMode,
-        listModes: () => [...MODES],
-        toggleAutoRotate: () => toggleAutoRotate()
+        listModes: () => [...MODES]
     };
 })();
 
