@@ -4,7 +4,7 @@
 ### **Bridging Environmental Engineering & Advanced Software Architecture**
 
 [![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-Visit_Site-0969DA?style=for-the-badge&logoColor=white)](https://soheil-aghayani.github.io/Portfolio/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/AgSeyl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/agseyl/)
 [![Telegram](https://img.shields.io/badge/Telegram-Chat-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/AgSeyl)
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:soheil.aghayani@ut.ac.ir)
 
@@ -33,6 +33,16 @@
 </p>
 
 </div>
+
+## Analytics setup
+
+Google Analytics is opt-in and disabled by default. To enable privacy-conscious GA4 page views and interaction events for the deployed site, set the web data stream ID in `js/site-config.js`:
+
+```js
+analyticsMeasurementId: 'G-XXXXXXXXXX'
+```
+
+The client disables Google signals and ad personalization, does not send analytics requests in local previews or forks without a valid ID, and excludes email and telephone links from interaction tracking.
 
 ---
 

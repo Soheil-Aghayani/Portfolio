@@ -41,7 +41,10 @@
             target.innerHTML = buildSvg(name, options);
         },
         hydrate(root = document) {
-            root.querySelectorAll('[data-icon]').forEach(target => {
+            const targets = [];
+            if (root.matches?.('[data-icon]')) targets.push(root);
+            targets.push(...root.querySelectorAll('[data-icon]'));
+            targets.forEach(target => {
                 const name = target.getAttribute('data-icon');
                 const label = target.getAttribute('data-icon-label') || '';
                 const size = target.getAttribute('data-icon-size') || '';
@@ -52,5 +55,24 @@
     };
 
     window.IconRegistry = IconRegistry;
-    document.addEventListener('DOMContentLoaded', () => IconRegistry.hydrate());
+
+    function start() {
+        IconRegistry.hydrate();
+
+        // Dynamic game and flowchart controls can add data-icon nodes after boot.
+        const observer = new MutationObserver((records) => {
+            records.forEach(record => {
+                record.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE) IconRegistry.hydrate(node);
+                });
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+        start();
+    }
 })(window, document);

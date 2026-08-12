@@ -1,11 +1,13 @@
 
-import { SnakeGame } from './snake.js?v=6.4';
-import { BlackjackGame } from './blackjack.js?v=6.4';
-import { TetrisGame } from './tetris.js?v=6.4';
-import { Game2048 } from './2048.js?v=6.4';
-import { MinesweeperGame } from './minesweeper.js?v=9.0';
-import { BreakoutGame } from './breakout.js?v=6.4';
-import { InvadersGame } from './invaders.js?v=6.4';
+const GAME_LOADERS = {
+    snake: () => import('./snake.js?v=6.4').then(module => module.SnakeGame),
+    blackjack: () => import('./blackjack.js?v=6.4').then(module => module.BlackjackGame),
+    tetris: () => import('./tetris.js?v=6.4').then(module => module.TetrisGame),
+    g2048: () => import('./2048.js?v=6.4').then(module => module.Game2048),
+    minesweeper: () => import('./minesweeper.js?v=9.0').then(module => module.MinesweeperGame),
+    breakout: () => import('./breakout.js?v=6.4').then(module => module.BreakoutGame),
+    invaders: () => import('./invaders.js?v=6.4').then(module => module.InvadersGame)
+};
 
 const localIcon = (name, options = {}) => window.IconRegistry
     ? window.IconRegistry.svg(name, options)
@@ -62,7 +64,7 @@ export class GameLauncher {
                     ${this.games.map(g => `
                         <div class="game-icon" data-id="${g.id}" role="button" tabindex="0" aria-label="Launch ${g.name}">
                             <div class="game-icon-img">
-                                <img src="${g.img}" alt="${g.name}" draggable="false" />
+                            <img src="${g.img}" alt="${g.name}" loading="lazy" decoding="async" draggable="false" />
                             </div>
                             <span class="game-icon-name">${g.name}</span>
                         </div>
@@ -87,7 +89,19 @@ export class GameLauncher {
         });
     }
 
-    launch(id) {
+    async launch(id) {
+        const loadGame = GAME_LOADERS[id];
+        if (!loadGame) return;
+
+        let GameClass;
+        try {
+            GameClass = await loadGame();
+        } catch (error) {
+            console.error(`Failed to load ${id} game`, error);
+            this.showMenu();
+            return;
+        }
+
         const stage = this.container.querySelector('#gameStage');
         const menu = this.container.querySelector('#gameMenu');
 
@@ -205,7 +219,7 @@ export class GameLauncher {
             snakeContainer.appendChild(controls);
             content.appendChild(snakeContainer);
 
-            this.activeGame = new SnakeGame(canvas, {
+            this.activeGame = new GameClass(canvas, {
                 onScore: (score) => {
                     document.getElementById('snakeScore').textContent = score;
                     const curHigh = parseInt(localStorage.getItem('snake_high_score') || 0);
@@ -319,7 +333,7 @@ export class GameLauncher {
             tetrisContainer.appendChild(controls);
             content.appendChild(tetrisContainer);
 
-            this.activeGame = new TetrisGame(canvas, {
+            this.activeGame = new GameClass(canvas, {
                 onScore: (score, level) => {
                     document.getElementById('tetrisScore').textContent = score;
                     document.getElementById('tetrisLevel').textContent = level;
@@ -379,15 +393,15 @@ export class GameLauncher {
             content.focus();
         }
         else if (id === 'blackjack') {
-            this.activeGame = new BlackjackGame(content);
+            this.activeGame = new GameClass(content);
             this.activeGame.start();
         }
         else if (id === 'g2048') {
-            this.activeGame = new Game2048(content);
+            this.activeGame = new GameClass(content);
             this.activeGame.start();
         }
         else if (id === 'minesweeper') {
-            this.activeGame = new MinesweeperGame(content, {
+            this.activeGame = new GameClass(content, {
                 onStart: () => {
                     pauseBtn.style.display = 'inline-flex';
                     this.updatePauseButtonState(pauseBtn, false);
@@ -444,7 +458,7 @@ export class GameLauncher {
             breakoutContainer.appendChild(canvasWrapper);
             content.appendChild(breakoutContainer);
 
-            this.activeGame = new BreakoutGame(canvas, {
+            this.activeGame = new GameClass(canvas, {
                 onScore: (score, level) => {
                     document.getElementById('breakoutScore').textContent = score;
                     if (document.getElementById('breakoutLevel')) {
@@ -596,7 +610,7 @@ export class GameLauncher {
 
             content.appendChild(invadersContainer);
 
-            this.activeGame = new InvadersGame(canvas, {
+            this.activeGame = new GameClass(canvas, {
                 onScore: (score, level) => {
                     document.getElementById('invadersScore').textContent = score;
                     if (document.getElementById('invadersLevel')) {

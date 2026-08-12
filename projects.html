@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        if (sessionStorage.getItem('cheatcode_unlocked') !== 'true') {
-            window.location.replace('index.html');
-        }
         if (localStorage.getItem('theme-accent') === 'matrix') {
             document.documentElement.style.setProperty('--bg-dark', '#000000');
             document.documentElement.style.setProperty('--primary', '#00ff66');
@@ -15,12 +12,75 @@
             document.documentElement.style.setProperty('--card-bg', 'rgba(0, 20, 0, 0.6)');
         }
     </script>
-    <title>Soheil Aghayani - Web Projects Showcase</title>
+    <title>Soheil Aghayani | Web Projects and Portfolio</title>
+    <meta name="description" content="Explore Soheil Aghayani's web projects, interactive tools, design experiments, and science-focused applications built for speed and usability." />
+    <meta name="author" content="Soheil Aghayani" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#070b13" />
+    <link rel="canonical" href="https://soheil-aghayani.github.io/Portfolio/projects.html" />
+    <meta property="og:title" content="Soheil Aghayani | Web Projects and Portfolio" />
+    <meta property="og:description" content="Interactive tools, design experiments, and science-focused web applications by Soheil Aghayani." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://soheil-aghayani.github.io/Portfolio/projects.html" />
+    <meta property="og:image" content="https://soheil-aghayani.github.io/Portfolio/assets/images/portfolio/welcome.webp" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1792" />
+    <meta property="og:image:height" content="2400" />
+    <meta property="og:image:alt" content="Soheil Aghayani in a pixel-art cyberpunk portrait" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Soheil Aghayani | Web Projects and Portfolio" />
+    <meta name="twitter:description" content="Interactive tools, design experiments, and science-focused web applications by Soheil Aghayani." />
+    <meta name="twitter:image" content="https://soheil-aghayani.github.io/Portfolio/assets/images/portfolio/welcome.webp" />
+    <meta name="twitter:image:alt" content="Soheil Aghayani in a pixel-art cyberpunk portrait" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "@id": "https://soheil-aghayani.github.io/Portfolio/projects.html#projects",
+          "url": "https://soheil-aghayani.github.io/Portfolio/projects.html",
+          "name": "Soheil Aghayani | Web Projects and Portfolio",
+          "description": "Interactive tools, design experiments, and science-focused web applications by Soheil Aghayani.",
+          "isPartOf": { "@id": "https://soheil-aghayani.github.io/Portfolio/#website" },
+          "about": { "@id": "https://soheil-aghayani.github.io/Portfolio/#person" },
+          "mainEntity": { "@id": "https://soheil-aghayani.github.io/Portfolio/projects.html#project-list" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://soheil-aghayani.github.io/Portfolio/projects.html#project-list",
+          "name": "Soheil Aghayani web projects",
+          "numberOfItems": 7,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Egg Timer", "url": "https://soheil-aghayani.github.io/egg-timer/" },
+            { "@type": "ListItem", "position": 2, "name": "Design Suite", "url": "https://soheil-aghayani.github.io/Design-Suite/" },
+            { "@type": "ListItem", "position": 3, "name": "Food Recipe", "url": "https://soheil-aghayani.github.io/food-recipe/" },
+            { "@type": "ListItem", "position": 4, "name": "Iriswa", "url": "https://soheil-aghayani.github.io/iriswa/" },
+            { "@type": "ListItem", "position": 5, "name": "Pahlavan", "url": "https://soheil-aghayani.github.io/pahlavan/" },
+            { "@type": "ListItem", "position": 6, "name": "NCBI Tool", "url": "https://soheil-aghayani.github.io/ncbi/" },
+            { "@type": "ListItem", "position": 7, "name": "Laboratory Rules", "url": "https://soheil-aghayani.github.io/Laboratory-Rules/" }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script defer src="js/icons.js?v=3.0"></script>
+    <script defer src="js/site-config.js?v=1.0"></script>
+    <script defer src="js/analytics.js?v=1.0"></script>
         <style>
+        @font-face {
+            font-family: 'Outfit Stable';
+            font-style: normal;
+            font-weight: 300 800;
+            font-display: optional;
+            src: url('https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtq.woff2') format('woff2');
+        }
+
         :root {
             --bg-dark: #070b13;
             --card-bg: rgba(15, 23, 42, 0.45);
@@ -39,6 +99,22 @@
             align-items: center;
             justify-content: center;
             line-height: 0;
+            min-width: 1.25em;
+            min-height: 1.25em;
+        }
+
+        /* Projects is a standalone page, so keep the shared sprite sizing local. */
+        .svg-icon {
+            width: 1.25em;
+            height: 1.25em;
+            display: inline-block;
+            vertical-align: -0.15em;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
         }
 
         .project-card.theme-amber { --hover-color: #fbbf24; --hover-glow: rgba(251, 191, 36, 0.25); }
@@ -57,11 +133,12 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit Stable', 'Outfit', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            overflow-x: clip;
             position: relative;
             transition: background-color 0.5s ease;
         }
@@ -635,18 +712,22 @@
             gap: 12px;
         }
         .drawer-feature-list li {
-            position: relative;
-            padding-left: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.5;
         }
         .drawer-feature-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0; top: 0;
+            content: none;
+        }
+        .drawer-feature-icon {
+            width: 1.1rem;
+            height: 1.1rem;
+            margin-top: 0.2em;
             color: var(--primary);
-            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* Footer */
@@ -661,7 +742,8 @@
 
         footer a {
             color: var(--primary);
-            text-decoration: none;
+            text-decoration: underline;
+            text-underline-offset: 0.18em;
             transition: color 0.2s ease;
         }
 
@@ -795,10 +877,10 @@
                     Back to OS Desktop
                 </a>
                 <div class="sound-panel">
-                    <button class="sound-toggle-btn" id="soundToggle" title="Toggle Sound FX">
+                    <button class="sound-toggle-btn" id="soundToggle" type="button" aria-label="Toggle sound effects" title="Toggle Sound FX">
                         <span class="svg-icon-slot" data-icon="ui/volume-up" id="soundIcon" aria-hidden="true"></span>
                     </button>
-                    <input type="range" min="0" max="1" step="0.1" value="0.3" id="volumeSlider" class="volume-slider" title="Adjust Volume">
+                    <input type="range" min="0" max="1" step="0.1" value="0.3" id="volumeSlider" class="volume-slider" aria-label="Adjust sound effects volume" title="Adjust Volume">
                 </div>
             </div>
             <div class="header-content">
@@ -810,8 +892,8 @@
         <!-- Filter & Search Toolbar -->
         <section class="toolbar">
             <div class="search-wrapper">
-                <span class="svg-icon-slot search-icon" data-icon="ui/search"></span>
-                <input type="text" id="searchInput" placeholder="Search projects by name, tags, or description...">
+                <span class="svg-icon-slot search-icon" data-icon="ui/search" aria-hidden="true"></span>
+                <input type="text" id="searchInput" aria-label="Search projects" placeholder="Search projects by name, tags, or description...">
             </div>
             <div class="filter-options">
                 <button class="filter-btn active" data-filter="all">All</button>
@@ -852,10 +934,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="egg-timer">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/egg-timer/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/egg-timer/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Egg Timer" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/egg-timer/" data-title="Egg Timer" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/egg-timer/" data-title="Egg Timer" aria-label="Preview Egg Timer" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -896,10 +978,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="design-suite">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/Design-Suite/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/Design-Suite/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Design Suite" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Design-Suite/" data-title="Design Suite" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Design-Suite/" data-title="Design Suite" aria-label="Preview Design Suite" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -933,10 +1015,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="food-recipe">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/food-recipe/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/food-recipe/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Food Recipe" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/food-recipe/" data-title="Food Recipe" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/food-recipe/" data-title="Food Recipe" aria-label="Preview Food Recipe" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -969,10 +1051,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="iriswa">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/iriswa/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/iriswa/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Iriswa" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/iriswa/" data-title="Iriswa" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/iriswa/" data-title="Iriswa" aria-label="Preview Iriswa" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -1005,10 +1087,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="pahlavan">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/pahlavan/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/pahlavan/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Pahlavan" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/pahlavan/" data-title="Pahlavan" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/pahlavan/" data-title="Pahlavan" aria-label="Preview Pahlavan" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -1043,10 +1125,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="ncbi">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/ncbi/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/ncbi/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch NCBI Tool" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/ncbi/" data-title="NCBI Tool" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/ncbi/" data-title="NCBI Tool" aria-label="Preview NCBI Tool" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -1079,10 +1161,10 @@
                     <div class="action-row">
                         <button class="action-btn-card details-btn" data-id="lab-rules">Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/Laboratory-Rules/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/Laboratory-Rules/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Laboratory Rules" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Laboratory-Rules/" data-title="Laboratory Rules" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Laboratory-Rules/" data-title="Laboratory Rules" aria-label="Preview Laboratory Rules" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -1103,21 +1185,21 @@
             <div class="preview-header">
                 <span id="previewTitle" class="preview-title">Project Live Preview</span>
                 <div class="device-controls">
-                    <button class="device-btn active" data-device="desktop" title="Desktop view">
+                    <button class="device-btn active" data-device="desktop" type="button" aria-label="Preview on desktop" title="Desktop view">
                         <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                     </button>
-                    <button class="device-btn" data-device="tablet" title="Tablet view">
+                    <button class="device-btn" data-device="tablet" type="button" aria-label="Preview on tablet" title="Tablet view">
                         <span class="svg-icon-slot" data-icon="ui/tablet" aria-hidden="true"></span>
                     </button>
-                    <button class="device-btn" data-device="mobile" title="Mobile view">
+                    <button class="device-btn" data-device="mobile" type="button" aria-label="Preview on mobile" title="Mobile view">
                         <span class="svg-icon-slot" data-icon="ui/smartphone" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="header-actions">
-                    <a id="previewExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn-top" title="Open in new tab">
+                    <a id="previewExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn-top" aria-label="Open project in new tab" title="Open in new tab">
                         <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                     </a>
-                    <button id="closePreviewBtn" class="action-btn-top close-btn" title="Close preview">
+                    <button id="closePreviewBtn" class="action-btn-top close-btn" type="button" aria-label="Close project preview" title="Close preview">
                         <span class="svg-icon-slot" data-icon="ui/close" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -1530,7 +1612,11 @@
                 drawerFeatures.innerHTML = '';
                 data.features.forEach(f => {
                     const li = document.createElement('li');
-                    li.textContent = f;
+                    const icon = document.createElement('span');
+                    icon.className = 'svg-icon-slot drawer-feature-icon';
+                    icon.dataset.icon = 'ui/check';
+                    icon.setAttribute('aria-hidden', 'true');
+                    li.append(icon, document.createTextNode(f));
                     drawerFeatures.appendChild(li);
                 });
 
@@ -1635,17 +1721,29 @@
             const activeTheme = localStorage.getItem('theme-accent');
             const trackUrl = activeTheme === 'matrix' ? matrixTrack : tracks[0];
 
-            let audio = new Audio(trackUrl);
-            audio.loop = true;
+            let audio = new Audio();
+            audio.preload = 'none';
+            let audioLoaded = false;
             let isPlaying = false;
+
+            function loadAudio() {
+                if (!audioLoaded) {
+                    audio.src = trackUrl;
+                    audio.preload = 'auto';
+                    audio.load();
+                    audioLoaded = true;
+                }
+                return audio;
+            }
 
             function setPlaying(play) {
                 isPlaying = play;
                 sessionStorage.setItem('music_playing', play ? 'true' : 'false');
                 if (play) {
+                    const player = loadAudio();
                     muteIcon.style.display = 'none';
                     wave.style.display = 'flex';
-                    audio.play().catch(e => console.log('Autoplay prevented:', e));
+                    player.play().catch(e => console.log('Autoplay prevented:', e));
                 } else {
                     muteIcon.style.display = 'flex';
                     wave.style.display = 'none';

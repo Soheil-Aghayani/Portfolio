@@ -1,0 +1,23 @@
+# Soheil Aghayani
+
+> Official portfolio of Soheil Aghayani, an environmental engineer, sustainability researcher, and software developer.
+
+## Primary pages
+
+- [Portfolio](https://soheil-aghayani.github.io/Portfolio/): Professional profile, education, research, certifications, training, skills, and contact information.
+- [Web projects](https://soheil-aghayani.github.io/Portfolio/projects.html): Interactive tools, design experiments, and science-focused web applications.
+
+## Identity
+
+- Primary name: Soheil Aghayani
+- Alternate search names: Soheyl Aghayani, Aghayani, Soheyl, Soheil
+- Persian name: سهیل آقاییانی
+- Affiliation: University of Tehran
+- Public profiles: [LinkedIn](https://www.linkedin.com/in/agseyl/), [GitHub](https://github.com/Soheil-Aghayani), [Telegram](https://t.me/AgSeyl)
+
+## Expertise
+
+- Environmental engineering and sustainability research
+- Biofuel production from waste cooking oil
+- Life cycle assessment and SimaPro
+- Python development, data analysis, and web applications

@@ -118,7 +118,7 @@ class NotesApp {
     openEditor() {
         this.lastFocus = document.activeElement;
         this.editorModal.classList.add('open');
-        this.editorModal.setAttribute('aria-hidden', 'false');
+        this.editorModal.removeAttribute('inert');
         if(this.nameCount) this.nameCount.textContent = `${this.nameIn.value.length}/80`;
         if(this.descCount) this.descCount.textContent = `${this.descIn.innerText.length}/280`;
         this.nameIn.focus();
@@ -126,7 +126,7 @@ class NotesApp {
 
     closeEditor() {
         this.editorModal.classList.remove('open');
-        this.editorModal.setAttribute('aria-hidden', 'true');
+        this.editorModal.setAttribute('inert', '');
         this.nameIn.value = '';
         this.descIn.innerHTML = '';
         this.linkIn.value = '';

@@ -11,9 +11,8 @@ class Terminal {
         this.CONTACTS = {
             email: 'soheil.aghayani@ut.ac.ir',
             phone: '+989120543587',
-            linkedin: 'https://linkedin.com/in/AgSeyl',
-            telegram: 'https://t.me/AgSeyl',
-            resume: 'https://drive.google.com/file/d/1GZ7ax2uNbPelLVPA_eVCbk2uX2dVmjXw/view?usp=sharing'
+            linkedin: 'https://www.linkedin.com/in/agseyl/',
+            telegram: 'https://t.me/AgSeyl'
         };
 
         this.THESIS = 'Biofuel Production from Waste Cooking Oil through Transesterification Process in the Presence of a Catalyst Synthesized from Waste Seashells';
@@ -200,8 +199,7 @@ class Terminal {
                 await this.cmdContact();
                 break;
             case 'resume':
-                window.open(this.CONTACTS.resume, '_blank');
-                await this.typeLine('Opening resume...', 'os-ok');
+                await this.typeLine('Resume link is currently unavailable. Use contact to request a copy.', 'os-warn');
                 break;
             case 'clear':
             case 'cls':
@@ -379,7 +377,7 @@ class Terminal {
         await this.typeLine('- thesis: Research topic', 'os-dim', speed);
         await this.typeLine('- skills: Technical stack', 'os-dim', speed);
         await this.typeLine('- contact: Contact links', 'os-dim', speed);
-        await this.typeLine('- resume: Open resume link', 'os-dim', speed);
+        await this.typeLine('- resume: Request a resume by email', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
         await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
@@ -490,6 +488,14 @@ class Terminal {
 
     async cmdNotes(args) {
         const sub = (args[0] || '').toLowerCase();
+
+        if (!window.NotesApp && typeof window.ensureNotesApp === 'function') {
+            try {
+                await window.ensureNotesApp();
+            } catch (err) {
+                console.error('Notes failed to initialize:', err);
+            }
+        }
 
         if (!window.NotesApp) {
             await this.typeLine('Notes system not initialized.', 'os-bad');

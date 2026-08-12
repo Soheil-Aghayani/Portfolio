@@ -88,7 +88,7 @@ class WindowManager {
         // Let's keep it simple: just open.
 
         app.wrap.classList.add('open');
-        app.wrap.setAttribute('aria-hidden', 'false');
+        app.wrap.removeAttribute('inert');
         app.win.classList.remove('max'); // Reset max state on open usually
         app.isOpen = true;
         this.activeApp = id;
@@ -118,7 +118,7 @@ class WindowManager {
         }
 
         app.wrap.classList.remove('open');
-        app.wrap.setAttribute('aria-hidden', 'true');
+        app.wrap.setAttribute('inert', '');
         app.isOpen = false;
 
         if (this.activeApp === id) this.activeApp = null;
