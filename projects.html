@@ -16,11 +16,11 @@
         }
     </script>
     <title>Soheil Aghayani - Web Projects Showcase</title>
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <style>
+    <script defer src="js/icons.js?v=3.0"></script>
+        <style>
         :root {
             --bg-dark: #070b13;
             --card-bg: rgba(15, 23, 42, 0.45);
@@ -32,6 +32,13 @@
             --text-muted: #94a3b8;
             --theme-color: #2dd4bf;
             --theme-glow: rgba(45, 212, 191, 0.25);
+        }
+
+        .svg-icon-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
         }
 
         .project-card.theme-amber { --hover-color: #fbbf24; --hover-glow: rgba(251, 191, 36, 0.25); }
@@ -784,12 +791,12 @@
         <header>
             <div class="header-actions-main">
                 <a href="index.html" class="back-btn">
-                    <span class="material-symbols-rounded">arrow_back</span>
+                    <span class="svg-icon-slot" data-icon="games/shared/arrow-back" aria-hidden="true"></span>
                     Back to OS Desktop
                 </a>
                 <div class="sound-panel">
                     <button class="sound-toggle-btn" id="soundToggle" title="Toggle Sound FX">
-                        <span class="material-symbols-rounded" id="soundIcon">volume_up</span>
+                        <span class="svg-icon-slot" data-icon="ui/volume-up" id="soundIcon" aria-hidden="true"></span>
                     </button>
                     <input type="range" min="0" max="1" step="0.1" value="0.3" id="volumeSlider" class="volume-slider" title="Adjust Volume">
                 </div>
@@ -803,7 +810,7 @@
         <!-- Filter & Search Toolbar -->
         <section class="toolbar">
             <div class="search-wrapper">
-                <span class="material-symbols-rounded search-icon">search</span>
+                <span class="svg-icon-slot search-icon" data-icon="ui/search"></span>
                 <input type="text" id="searchInput" placeholder="Search projects by name, tags, or description...">
             </div>
             <div class="filter-options">
@@ -846,10 +853,10 @@
                         <button class="action-btn-card details-btn" data-id="egg-timer">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/egg-timer/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/egg-timer/" data-title="Egg Timer" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -890,10 +897,10 @@
                         <button class="action-btn-card details-btn" data-id="design-suite">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/Design-Suite/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Design-Suite/" data-title="Design Suite" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -927,10 +934,10 @@
                         <button class="action-btn-card details-btn" data-id="food-recipe">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/food-recipe/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/food-recipe/" data-title="Food Recipe" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -963,10 +970,10 @@
                         <button class="action-btn-card details-btn" data-id="iriswa">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/iriswa/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/iriswa/" data-title="Iriswa" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -999,10 +1006,10 @@
                         <button class="action-btn-card details-btn" data-id="pahlavan">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/pahlavan/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/pahlavan/" data-title="Pahlavan" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -1037,10 +1044,10 @@
                         <button class="action-btn-card details-btn" data-id="ncbi">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/ncbi/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/ncbi/" data-title="NCBI Tool" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -1073,10 +1080,10 @@
                         <button class="action-btn-card details-btn" data-id="lab-rules">Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/Laboratory-Rules/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" title="Launch Website">
-                                <span class="material-symbols-rounded">open_in_new</span>
+                                <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                             <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Laboratory-Rules/" data-title="Laboratory Rules" title="Live Preview">
-                                <span class="material-symbols-rounded">visibility</span>
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -1097,21 +1104,21 @@
                 <span id="previewTitle" class="preview-title">Project Live Preview</span>
                 <div class="device-controls">
                     <button class="device-btn active" data-device="desktop" title="Desktop view">
-                        <span class="material-symbols-rounded">desktop_windows</span>
+                        <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                     </button>
                     <button class="device-btn" data-device="tablet" title="Tablet view">
-                        <span class="material-symbols-rounded">tablet_mac</span>
+                        <span class="svg-icon-slot" data-icon="ui/tablet" aria-hidden="true"></span>
                     </button>
                     <button class="device-btn" data-device="mobile" title="Mobile view">
-                        <span class="material-symbols-rounded">smartphone</span>
+                        <span class="svg-icon-slot" data-icon="ui/smartphone" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="header-actions">
                     <a id="previewExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="action-btn-top" title="Open in new tab">
-                        <span class="material-symbols-rounded">open_in_new</span>
+                        <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                     </a>
                     <button id="closePreviewBtn" class="action-btn-top close-btn" title="Close preview">
-                        <span class="material-symbols-rounded">close</span>
+                        <span class="svg-icon-slot" data-icon="ui/close" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
@@ -1127,7 +1134,7 @@
         <div class="drawer-header">
             <span class="drawer-title" id="drawerTitle">Project Details</span>
             <button class="drawer-close" id="closeDrawerBtn" aria-label="Close panel">
-                <span class="material-symbols-rounded">close</span>
+                <span class="svg-icon-slot" data-icon="ui/close" aria-hidden="true"></span>
             </button>
         </div>
         <div class="drawer-body">
@@ -1216,13 +1223,19 @@
             if (volumeSlider) volumeSlider.value = soundVolume;
             if (soundIcon) {
                 if (!soundEnabled || soundVolume === 0) {
-                    soundIcon.textContent = 'volume_off';
+                    soundIcon.innerHTML = window.IconRegistry
+                        ? window.IconRegistry.svg('ui/volume-off', { className: 'projects-sound-icon', label: 'Sound off' })
+                        : '';
                     soundIcon.style.color = '#ef4444';
                 } else if (soundVolume < 0.5) {
-                    soundIcon.textContent = 'volume_down';
+                    soundIcon.innerHTML = window.IconRegistry
+                        ? window.IconRegistry.svg('ui/sound-volume-1', { className: 'projects-sound-icon', label: 'Low volume' })
+                        : '';
                     soundIcon.style.color = 'var(--primary)';
                 } else {
-                    soundIcon.textContent = 'volume_up';
+                    soundIcon.innerHTML = window.IconRegistry
+                        ? window.IconRegistry.svg('ui/volume-up', { className: 'projects-sound-icon', label: 'Sound on' })
+                        : '';
                     soundIcon.style.color = 'var(--primary)';
                 }
             }
@@ -1250,6 +1263,7 @@
         }
 
         updateSoundUI();
+        document.addEventListener('DOMContentLoaded', updateSoundUI, { once: true });
 
         // --- 1. THEME SYNCHRONIZATION FROM OS DESKTOP ---
         const root = document.documentElement;
@@ -1597,7 +1611,7 @@
 
     <!-- FLOATING MUSIC TOGGLE BUTTON -->
     <button class="music-toggle-btn" id="musicToggleBtn" type="button" aria-label="Toggle background music" title="Toggle background music">
-        <span class="material-symbols-rounded" id="musicMuteIcon">volume_off</span>
+        <span class="svg-icon-slot" data-icon="ui/music-off" id="musicMuteIcon" aria-hidden="true"></span>
         <div id="musicWave">
             <span></span>
             <span></span>
@@ -1613,11 +1627,11 @@
             if (!btn) return;
 
             const tracks = [
-                "assets/warm-cup-of-coffee.mp3",
-                "assets/monday-routine.mp3",
-                "assets/kyoto.mp3"
+                "assets/audio/warm-cup-of-coffee.mp3",
+                "assets/audio/monday-routine.mp3",
+                "assets/audio/kyoto.mp3"
             ];
-            const matrixTrack = "assets/daft-punk-veridis-quo.mp3";
+            const matrixTrack = "assets/audio/daft-punk-veridis-quo.mp3";
             const activeTheme = localStorage.getItem('theme-accent');
             const trackUrl = activeTheme === 'matrix' ? matrixTrack : tracks[0];
 

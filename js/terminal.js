@@ -5,6 +5,7 @@ class Terminal {
         this.input = document.getElementById('osTermInput');
         this.promptEl = document.getElementById('osPrompt');
         this.printing = false;
+        this.pendingCommands = [];
         this.cwd = '~';
 
         this.CONTACTS = {
@@ -100,6 +101,13 @@ class Terminal {
         }
     }
 
+    drainPendingCommands() {
+        const next = this.pendingCommands.shift();
+        if (next) {
+            queueMicrotask(() => this.run(next));
+        }
+    }
+
     async boot() {
         if (this.printing) return;
         this.printing = true;
@@ -116,6 +124,7 @@ class Terminal {
             this.addLine('', '');
             this.printing = false;
             this.out.scrollTop = this.out.scrollHeight;
+            this.drainPendingCommands();
             return;
         }
 
@@ -154,15 +163,19 @@ class Terminal {
 
         this.printing = false;
         this.out.scrollTop = this.out.scrollHeight;
+        this.drainPendingCommands();
     }
 
     async run(raw) {
         const cmdRaw = String(raw || '').trim();
         if (!cmdRaw) return;
 
-        this.addLine(`${this.getPrompt()} ${cmdRaw}`, 'os-dim');
+        if (this.printing) {
+            this.pendingCommands.push(cmdRaw);
+            return;
+        }
 
-        if (this.printing) return;
+        this.addLine(`${this.getPrompt()} ${cmdRaw}`, 'os-dim');
         this.printing = true;
 
         const parts = cmdRaw.split(/\s+/);
@@ -283,6 +296,7 @@ class Terminal {
         this.printing = false;
         // Scroll to bottom
         this.out.scrollTop = this.out.scrollHeight;
+        this.drainPendingCommands();
     }
 
     async cmdMatrix() {
@@ -459,8 +473,8 @@ class Terminal {
                 await this.typeLine(`Unknown mode: "${mode}". Available: ${valid.join(', ')}`, 'os-bad');
                 return;
             }
-            window.Screensaver.activate(mode || undefined);
             await this.typeLine(`Screensaver activated${mode ? ' [' + mode + ']' : ''}.`, 'os-ok');
+            window.Screensaver.activate(mode || undefined);
         } else {
             await this.typeLine('Screensaver engine not initialized.', 'os-bad');
         }

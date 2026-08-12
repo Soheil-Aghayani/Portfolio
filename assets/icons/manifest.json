@@ -1,0 +1,1686 @@
+{
+  "version": 1,
+  "sprite": "assets/icons/sprite.svg",
+  "suppliedDirectory": "external-supplied-folder",
+  "licenseNotes": {
+    "suppliedSvg": "License information was not included with the supplied folder; confirm ownership or license before redistribution.",
+    "fallbackCatalog": "All SVG Icons was researched only as a fallback. No fallback asset is imported or fetched at runtime.",
+    "fallbackUrl": "https://allsvgicons.com/compare/svgrepo-alternatives/"
+  },
+  "records": [
+    {
+      "key": "brand/favicon",
+      "path": "assets/icons/brand/favicon.svg",
+      "source": "existing-canonical",
+      "spriteId": "brand-favicon",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "brand/github",
+      "path": "assets/icons/brand/github.svg",
+      "source": "existing-canonical",
+      "spriteId": "brand-github",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "brand/linkedin-circle",
+      "path": "assets/icons/brand/linkedin-circle.svg",
+      "source": "existing-canonical",
+      "spriteId": "brand-linkedin-circle",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "brand/telegram",
+      "path": "assets/icons/brand/telegram.svg",
+      "source": "existing-canonical",
+      "spriteId": "brand-telegram",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/blackjack/gift-linear",
+      "path": "assets/icons/games/blackjack/gift-linear.svg",
+      "source": "provided-folder",
+      "original": "gift-linear.svg",
+      "reused": true,
+      "spriteId": "games-blackjack-gift-linear",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/blackjack/reward-12-regular",
+      "path": "assets/icons/games/blackjack/reward-12-regular.svg",
+      "source": "provided-folder",
+      "original": "reward-12-regular.svg",
+      "reused": true,
+      "spriteId": "games-blackjack-reward-12-regular",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/blackjack/suitcase",
+      "path": "assets/icons/games/blackjack/suitcase.svg",
+      "source": "provided-folder",
+      "original": "suitcase-linear.svg",
+      "reused": true,
+      "spriteId": "games-blackjack-suitcase",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/blackjack/tag",
+      "path": "assets/icons/games/blackjack/tag.svg",
+      "source": "provided-folder",
+      "original": "tag-linear.svg",
+      "reused": true,
+      "spriteId": "games-blackjack-tag",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/bomb-bold",
+      "path": "assets/icons/games/minesweeper/bomb-bold.svg",
+      "source": "provided-folder",
+      "original": "bomb-bold.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-bomb-bold",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/click-tap",
+      "path": "assets/icons/games/minesweeper/click-tap.svg",
+      "source": "provided-folder",
+      "original": "click-tap.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-click-tap",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/flag-filled",
+      "path": "assets/icons/games/minesweeper/flag-filled.svg",
+      "source": "provided-folder",
+      "original": "flag-filled.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-flag-filled",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pause-linear",
+      "path": "assets/icons/games/minesweeper/pause-linear.svg",
+      "source": "provided-folder",
+      "original": "pause-linear.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pause-linear",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pickaxe",
+      "path": "assets/icons/games/minesweeper/pickaxe.svg",
+      "source": "provided-folder",
+      "original": "pickaxe.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pickaxe",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-canoe-on-water",
+      "path": "assets/icons/games/minesweeper/pixel-canoe-on-water.svg",
+      "source": "provided-folder",
+      "original": "pixel-canoe-on-water.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-canoe-on-water",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-invader",
+      "path": "assets/icons/games/minesweeper/pixel-invader.svg",
+      "source": "provided-folder",
+      "original": "pixel-invader.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-invader",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-map-pin",
+      "path": "assets/icons/games/minesweeper/pixel-map-pin.svg",
+      "source": "provided-folder",
+      "original": "pixel-map-pin.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-map-pin",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-map-pin-with-dot",
+      "path": "assets/icons/games/minesweeper/pixel-map-pin-with-dot.svg",
+      "source": "provided-folder",
+      "original": "pixel-map-pin-with-dot.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-map-pin-with-dot",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-skull",
+      "path": "assets/icons/games/minesweeper/pixel-skull.svg",
+      "source": "provided-folder",
+      "original": "pixel-skull.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-skull",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/pixel-star",
+      "path": "assets/icons/games/minesweeper/pixel-star.svg",
+      "source": "provided-folder",
+      "original": "pixel-star.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-pixel-star",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/play-duotone",
+      "path": "assets/icons/games/minesweeper/play-duotone.svg",
+      "source": "provided-folder",
+      "original": "play-line-duotone.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-play-duotone",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/radar-light",
+      "path": "assets/icons/games/minesweeper/radar-light.svg",
+      "source": "provided-folder",
+      "original": "radar-light.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-radar-light",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/smiley-happy",
+      "path": "assets/icons/games/minesweeper/smiley-happy.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-minesweeper-smiley-happy",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/minesweeper/smiley-lose",
+      "path": "assets/icons/games/minesweeper/smiley-lose.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-minesweeper-smiley-lose",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/minesweeper/smiley-win",
+      "path": "assets/icons/games/minesweeper/smiley-win.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-minesweeper-smiley-win",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/minesweeper/zoom-in-broken",
+      "path": "assets/icons/games/minesweeper/zoom-in-broken.svg",
+      "source": "provided-folder",
+      "original": "zoom-in-broken-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-zoom-in-broken",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/zoom-out-broken",
+      "path": "assets/icons/games/minesweeper/zoom-out-broken.svg",
+      "source": "provided-folder",
+      "original": "zoom-out-broken-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "games-minesweeper-zoom-out-broken",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/shared/arrow-back",
+      "path": "assets/icons/games/shared/arrow-back.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-arrow-back",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/arrow-down",
+      "path": "assets/icons/games/shared/arrow-down.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-arrow-down",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/arrow-left",
+      "path": "assets/icons/games/shared/arrow-left.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-arrow-left",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/arrow-right",
+      "path": "assets/icons/games/shared/arrow-right.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-arrow-right",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/arrow-up",
+      "path": "assets/icons/games/shared/arrow-up.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-arrow-up",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/gamepad",
+      "path": "assets/icons/games/shared/gamepad.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-gamepad",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/keyboard-arrow-down",
+      "path": "assets/icons/games/shared/keyboard-arrow-down.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-keyboard-arrow-down",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/keyboard-arrow-left",
+      "path": "assets/icons/games/shared/keyboard-arrow-left.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-keyboard-arrow-left",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/keyboard-arrow-right",
+      "path": "assets/icons/games/shared/keyboard-arrow-right.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-keyboard-arrow-right",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/keyboard-arrow-up",
+      "path": "assets/icons/games/shared/keyboard-arrow-up.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-keyboard-arrow-up",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/pause",
+      "path": "assets/icons/games/shared/pause.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-pause",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/play",
+      "path": "assets/icons/games/shared/play.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-play",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/play-arrow",
+      "path": "assets/icons/games/shared/play-arrow.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-play-arrow",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/reset",
+      "path": "assets/icons/games/shared/reset.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-reset",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/restart-alt",
+      "path": "assets/icons/games/shared/restart-alt.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-restart-alt",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/rotate",
+      "path": "assets/icons/games/shared/rotate.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-rotate",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/rotate-right",
+      "path": "assets/icons/games/shared/rotate-right.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-rotate-right",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/sports-esports",
+      "path": "assets/icons/games/shared/sports-esports.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-sports-esports",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/sports-soccer",
+      "path": "assets/icons/games/shared/sports-soccer.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-sports-soccer",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/zoom-in",
+      "path": "assets/icons/games/shared/zoom-in.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-zoom-in",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "games/shared/zoom-out",
+      "path": "assets/icons/games/shared/zoom-out.svg",
+      "source": "existing-canonical",
+      "spriteId": "games-shared-zoom-out",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "screensavers/ai-line",
+      "path": "assets/icons/screensavers/ai-line.svg",
+      "source": "existing-canonical",
+      "spriteId": "screensavers-ai-line",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "screensavers/dvd",
+      "path": "assets/icons/screensavers/dvd.svg",
+      "source": "existing-canonical",
+      "spriteId": "screensavers-dvd",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "screensavers/matrix",
+      "path": "assets/icons/screensavers/matrix.svg",
+      "source": "existing-canonical",
+      "spriteId": "screensavers-matrix",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "screensavers/starfield",
+      "path": "assets/icons/screensavers/starfield.svg",
+      "source": "existing-canonical",
+      "spriteId": "screensavers-starfield",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "screensavers/sunrise",
+      "path": "assets/icons/screensavers/sunrise.svg",
+      "source": "existing-canonical",
+      "spriteId": "screensavers-sunrise",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/bachelor-cap-two",
+      "path": "assets/icons/states/bachelor-cap-two.svg",
+      "source": "provided-folder",
+      "original": "bachelor-cap-two.svg",
+      "reused": true,
+      "spriteId": "states-bachelor-cap-two",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/check-circle",
+      "path": "assets/icons/states/check-circle.svg",
+      "source": "existing-canonical",
+      "spriteId": "states-check-circle",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/compass",
+      "path": "assets/icons/states/compass.svg",
+      "source": "provided-folder",
+      "original": "compass.svg",
+      "reused": true,
+      "spriteId": "states-compass",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/conference",
+      "path": "assets/icons/states/conference.svg",
+      "source": "provided-folder",
+      "original": "conference.svg",
+      "reused": true,
+      "spriteId": "states-conference",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/external-link-rounded",
+      "path": "assets/icons/states/external-link-rounded.svg",
+      "source": "provided-folder",
+      "original": "external-link-rounded.svg",
+      "reused": true,
+      "spriteId": "states-external-link-rounded",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/flowchart-outline-sharp",
+      "path": "assets/icons/states/flowchart-outline-sharp.svg",
+      "source": "provided-folder",
+      "original": "flowchart-outline-sharp.svg",
+      "reused": true,
+      "spriteId": "states-flowchart-outline-sharp",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/go-back",
+      "path": "assets/icons/states/go-back.svg",
+      "source": "provided-folder",
+      "original": "go-back.svg",
+      "reused": true,
+      "spriteId": "states-go-back",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/hacker",
+      "path": "assets/icons/states/hacker.svg",
+      "source": "provided-folder",
+      "original": "hacker.svg",
+      "reused": true,
+      "spriteId": "states-hacker",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/heart-bold",
+      "path": "assets/icons/states/heart-bold.svg",
+      "source": "existing-canonical",
+      "spriteId": "states-heart-bold",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/info",
+      "path": "assets/icons/states/info.svg",
+      "source": "existing-canonical",
+      "spriteId": "states-info",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/people-team-24-filled",
+      "path": "assets/icons/states/people-team-24-filled.svg",
+      "source": "provided-folder",
+      "original": "people-team-24-filled.svg",
+      "reused": true,
+      "spriteId": "states-people-team-24-filled",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/security-check",
+      "path": "assets/icons/states/security-check.svg",
+      "source": "provided-folder",
+      "original": "security-check.svg",
+      "reused": true,
+      "spriteId": "states-security-check",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/university",
+      "path": "assets/icons/states/university.svg",
+      "source": "provided-folder",
+      "original": "university.svg",
+      "reused": true,
+      "spriteId": "states-university",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/verified",
+      "path": "assets/icons/states/verified.svg",
+      "source": "existing-canonical",
+      "spriteId": "states-verified",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/verified-user",
+      "path": "assets/icons/states/verified-user.svg",
+      "source": "existing-canonical",
+      "spriteId": "states-verified-user",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "states/vpn",
+      "path": "assets/icons/states/vpn.svg",
+      "source": "provided-folder",
+      "original": "vpn.svg",
+      "reused": true,
+      "spriteId": "states-vpn",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/warning",
+      "path": "assets/icons/states/warning.svg",
+      "source": "provided-folder",
+      "original": "warning.svg",
+      "reused": true,
+      "spriteId": "states-warning",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "states/x",
+      "path": "assets/icons/states/x.svg",
+      "source": "provided-folder",
+      "original": "x.svg",
+      "reused": true,
+      "spriteId": "states-x",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/account-balance",
+      "path": "assets/icons/ui/account-balance.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-account-balance",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/add",
+      "path": "assets/icons/ui/add.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-add",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/arrow-next",
+      "path": "assets/icons/ui/arrow-next.svg",
+      "source": "provided-folder",
+      "original": "arrow-next-small-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-arrow-next",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/arrow-prev",
+      "path": "assets/icons/ui/arrow-prev.svg",
+      "source": "provided-folder",
+      "original": "arrow-prev-small-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-arrow-prev",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/bar-chart",
+      "path": "assets/icons/ui/bar-chart.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-bar-chart",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/bar-chart-rounded",
+      "path": "assets/icons/ui/bar-chart-rounded.svg",
+      "source": "provided-folder",
+      "original": "bar-chart-rounded.svg",
+      "reused": true,
+      "spriteId": "ui-bar-chart-rounded",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/book",
+      "path": "assets/icons/ui/book.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-book",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/check",
+      "path": "assets/icons/ui/check.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-check",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/chemistry-light",
+      "path": "assets/icons/ui/chemistry-light.svg",
+      "source": "provided-folder",
+      "original": "chemistry-light.svg",
+      "reused": true,
+      "spriteId": "ui-chemistry-light",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/close",
+      "path": "assets/icons/ui/close.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-close",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/close-rounded",
+      "path": "assets/icons/ui/close-rounded.svg",
+      "source": "provided-folder",
+      "original": "close-rounded.svg",
+      "reused": true,
+      "spriteId": "ui-close-rounded",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/co-present",
+      "path": "assets/icons/ui/co-present.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-co-present",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/code",
+      "path": "assets/icons/ui/code.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-code",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/coding-apps-websites-plugin",
+      "path": "assets/icons/ui/coding-apps-websites-plugin.svg",
+      "source": "provided-folder",
+      "original": "coding-apps-websites-plugin.svg",
+      "reused": true,
+      "spriteId": "ui-coding-apps-websites-plugin",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/contrast",
+      "path": "assets/icons/ui/contrast.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-contrast",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/contrast-round",
+      "path": "assets/icons/ui/contrast-round.svg",
+      "source": "provided-folder",
+      "original": "round-contrast.svg",
+      "reused": true,
+      "spriteId": "ui-contrast-round",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/de",
+      "path": "assets/icons/ui/de.svg",
+      "source": "provided-folder",
+      "original": "de.svg",
+      "reused": true,
+      "spriteId": "ui-de",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/delete",
+      "path": "assets/icons/ui/delete.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-delete",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/description",
+      "path": "assets/icons/ui/description.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-description",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/desktop",
+      "path": "assets/icons/ui/desktop.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-desktop",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/desktop-windows",
+      "path": "assets/icons/ui/desktop-windows.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-desktop-windows",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/diversity-3",
+      "path": "assets/icons/ui/diversity-3.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-diversity-3",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/drop",
+      "path": "assets/icons/ui/drop.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-drop",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/eco",
+      "path": "assets/icons/ui/eco.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-eco",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution",
+      "path": "assets/icons/ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution.svg",
+      "source": "provided-folder",
+      "original": "ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution.svg",
+      "reused": true,
+      "spriteId": "ui-ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/edit",
+      "path": "assets/icons/ui/edit.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-edit",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/english-input",
+      "path": "assets/icons/ui/english-input.svg",
+      "source": "provided-folder",
+      "original": "english-input.svg",
+      "reused": true,
+      "spriteId": "ui-english-input",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/expand-less",
+      "path": "assets/icons/ui/expand-less.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-expand-less",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/expand-more",
+      "path": "assets/icons/ui/expand-more.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-expand-more",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/eye",
+      "path": "assets/icons/ui/eye.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-eye",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/eye-broken",
+      "path": "assets/icons/ui/eye-broken.svg",
+      "source": "provided-folder",
+      "original": "eye-broken.svg",
+      "reused": true,
+      "spriteId": "ui-eye-broken",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/filter",
+      "path": "assets/icons/ui/filter.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-filter",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/filter-alt",
+      "path": "assets/icons/ui/filter-alt.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-filter-alt",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/filter-alt-off",
+      "path": "assets/icons/ui/filter-alt-off.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-filter-alt-off",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/filter-off",
+      "path": "assets/icons/ui/filter-off.svg",
+      "source": "provided-folder",
+      "original": "filter-off.svg",
+      "reused": true,
+      "spriteId": "ui-filter-off",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/globe",
+      "path": "assets/icons/ui/globe.svg",
+      "source": "provided-folder",
+      "original": "globe.svg",
+      "reused": true,
+      "spriteId": "ui-globe",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/info-svgrepo-com",
+      "path": "assets/icons/ui/info-svgrepo-com.svg",
+      "source": "provided-folder",
+      "original": "info-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-info-svgrepo-com",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/journal",
+      "path": "assets/icons/ui/journal.svg",
+      "source": "provided-folder",
+      "original": "journal.svg",
+      "reused": true,
+      "spriteId": "ui-journal",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/lang-en-us",
+      "path": "assets/icons/ui/lang-en-us.svg",
+      "source": "provided-folder",
+      "original": "lang-en-us.svg",
+      "reused": true,
+      "spriteId": "ui-lang-en-us",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/language",
+      "path": "assets/icons/ui/language.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-language",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/leaf",
+      "path": "assets/icons/ui/leaf.svg",
+      "source": "provided-folder",
+      "original": "leaf.svg",
+      "reused": true,
+      "spriteId": "ui-leaf",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/leaf-variant",
+      "path": "assets/icons/ui/leaf-variant.svg",
+      "source": "provided-folder",
+      "original": "leaf (1).svg",
+      "reused": true,
+      "spriteId": "ui-leaf-variant",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/link",
+      "path": "assets/icons/ui/link.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-link",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/mail",
+      "path": "assets/icons/ui/mail.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-mail",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/menu-book",
+      "path": "assets/icons/ui/menu-book.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-menu-book",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/mobile-svgrepo-com",
+      "path": "assets/icons/ui/mobile-svgrepo-com.svg",
+      "source": "provided-folder",
+      "original": "mobile-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-mobile-svgrepo-com",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/music-off",
+      "path": "assets/icons/ui/music-off.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-music-off",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/music-off-round",
+      "path": "assets/icons/ui/music-off-round.svg",
+      "source": "provided-folder",
+      "original": "round-music-off.svg",
+      "reused": true,
+      "spriteId": "ui-music-off-round",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-01",
+      "path": "assets/icons/ui/note-01.svg",
+      "source": "provided-folder",
+      "original": "note-01.svg",
+      "reused": true,
+      "spriteId": "ui-note-01",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-05",
+      "path": "assets/icons/ui/note-05.svg",
+      "source": "provided-folder",
+      "original": "note-05.svg",
+      "reused": true,
+      "spriteId": "ui-note-05",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-add",
+      "path": "assets/icons/ui/note-add.svg",
+      "source": "provided-folder",
+      "original": "note-add (1).svg",
+      "reused": true,
+      "spriteId": "ui-note-add",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-done",
+      "path": "assets/icons/ui/note-done.svg",
+      "source": "provided-folder",
+      "original": "note-done.svg",
+      "reused": true,
+      "spriteId": "ui-note-done",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-edit",
+      "path": "assets/icons/ui/note-edit.svg",
+      "source": "provided-folder",
+      "original": "note-edit.svg",
+      "reused": true,
+      "spriteId": "ui-note-edit",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-remove",
+      "path": "assets/icons/ui/note-remove.svg",
+      "source": "provided-folder",
+      "original": "note-remove.svg",
+      "reused": true,
+      "spriteId": "ui-note-remove",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/note-stack",
+      "path": "assets/icons/ui/note-stack.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-note-stack",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/notes",
+      "path": "assets/icons/ui/notes.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-notes",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/notes-outline",
+      "path": "assets/icons/ui/notes-outline.svg",
+      "source": "provided-folder",
+      "original": "notes-outline.svg",
+      "reused": true,
+      "spriteId": "ui-notes-outline",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/oil-barrel",
+      "path": "assets/icons/ui/oil-barrel.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-oil-barrel",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/oil-barrel-outline-rounded",
+      "path": "assets/icons/ui/oil-barrel-outline-rounded.svg",
+      "source": "provided-folder",
+      "original": "oil-barrel-outline-rounded.svg",
+      "reused": true,
+      "spriteId": "ui-oil-barrel-outline-rounded",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/open-in-new",
+      "path": "assets/icons/ui/open-in-new.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-open-in-new",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/palette",
+      "path": "assets/icons/ui/palette.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-palette",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/palette-broken",
+      "path": "assets/icons/ui/palette-broken.svg",
+      "source": "provided-folder",
+      "original": "pallete-2-broken.svg",
+      "reused": true,
+      "spriteId": "ui-palette-broken",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/paper",
+      "path": "assets/icons/ui/paper.svg",
+      "source": "provided-folder",
+      "original": "paper.svg",
+      "reused": true,
+      "spriteId": "ui-paper",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/presentation",
+      "path": "assets/icons/ui/presentation.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-presentation",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/public",
+      "path": "assets/icons/ui/public.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-public",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/python",
+      "path": "assets/icons/ui/python.svg",
+      "source": "provided-folder",
+      "original": "python.svg",
+      "reused": true,
+      "spriteId": "ui-python",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/qr-code",
+      "path": "assets/icons/ui/qr-code.svg",
+      "source": "provided-folder",
+      "original": "qr-code.svg",
+      "reused": true,
+      "spriteId": "ui-qr-code",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/qr-code-2",
+      "path": "assets/icons/ui/qr-code-2.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-qr-code-2",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/recycling",
+      "path": "assets/icons/ui/recycling.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-recycling",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/schedule",
+      "path": "assets/icons/ui/schedule.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-schedule",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/school",
+      "path": "assets/icons/ui/school.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-school",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/science",
+      "path": "assets/icons/ui/science.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-science",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/search",
+      "path": "assets/icons/ui/search.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-search",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/send",
+      "path": "assets/icons/ui/send.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-send",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/send-solid",
+      "path": "assets/icons/ui/send-solid.svg",
+      "source": "provided-folder",
+      "original": "send-solid.svg",
+      "reused": true,
+      "spriteId": "ui-send-solid",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/share",
+      "path": "assets/icons/ui/share.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-share",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/share-round",
+      "path": "assets/icons/ui/share-round.svg",
+      "source": "provided-folder",
+      "original": "round-share.svg",
+      "reused": true,
+      "spriteId": "ui-share-round",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/smartphone",
+      "path": "assets/icons/ui/smartphone.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-smartphone",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/sound-minus-svgrepo-com",
+      "path": "assets/icons/ui/sound-minus-svgrepo-com.svg",
+      "source": "provided-folder",
+      "original": "sound-minus-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-minus-svgrepo-com",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/sound-off",
+      "path": "assets/icons/ui/sound-off.svg",
+      "source": "provided-folder",
+      "original": "sound-off-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-off",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/sound-off-alt",
+      "path": "assets/icons/ui/sound-off-alt.svg",
+      "source": "provided-folder",
+      "original": "sound-off-2-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-off-alt",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/sound-plus-svgrepo-com",
+      "path": "assets/icons/ui/sound-plus-svgrepo-com.svg",
+      "source": "provided-folder",
+      "original": "sound-plus-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-plus-svgrepo-com",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/sound-volume-1",
+      "path": "assets/icons/ui/sound-volume-1.svg",
+      "source": "provided-folder",
+      "original": "sound-volume-1-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-volume-1",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/sound-volume-2",
+      "path": "assets/icons/ui/sound-volume-2.svg",
+      "source": "provided-folder",
+      "original": "sound-volume-2-svgrepo-com.svg",
+      "reused": true,
+      "spriteId": "ui-sound-volume-2",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/tablet",
+      "path": "assets/icons/ui/tablet.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-tablet",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/tablet-mac",
+      "path": "assets/icons/ui/tablet-mac.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-tablet-mac",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/terminal",
+      "path": "assets/icons/ui/terminal.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-terminal",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/time",
+      "path": "assets/icons/ui/time.svg",
+      "source": "provided-folder",
+      "original": "time.svg",
+      "reused": true,
+      "spriteId": "ui-time",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/touch-app",
+      "path": "assets/icons/ui/touch-app.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-touch-app",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/translate",
+      "path": "assets/icons/ui/translate.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-translate",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/vertical-align-bottom",
+      "path": "assets/icons/ui/vertical-align-bottom.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-vertical-align-bottom",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/visibility",
+      "path": "assets/icons/ui/visibility.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-visibility",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/volume-off",
+      "path": "assets/icons/ui/volume-off.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-volume-off",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/volume-up",
+      "path": "assets/icons/ui/volume-up.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-volume-up",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/volunteer-activism",
+      "path": "assets/icons/ui/volunteer-activism.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-volunteer-activism",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    },
+    {
+      "key": "ui/work",
+      "path": "assets/icons/ui/work.svg",
+      "source": "existing-canonical",
+      "spriteId": "ui-work",
+      "sourceCategory": "existing-canonical",
+      "license": "existing-project-asset"
+    }
+  ],
+  "duplicates": [
+    {
+      "key": "ui/arrow-down",
+      "path": "",
+      "source": "provided-folder",
+      "original": "arrow-down-svgrepo-com.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/arrow-up",
+      "path": "",
+      "source": "provided-folder",
+      "original": "arrow-up-svgrepo-com.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/check",
+      "path": "",
+      "source": "provided-folder",
+      "original": "check.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/desktop",
+      "path": "",
+      "source": "provided-folder",
+      "original": "desktop-svgrepo-com.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/desktop",
+      "path": "",
+      "source": "provided-folder",
+      "original": "desktop.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "screensavers/dvd",
+      "path": "",
+      "source": "provided-folder",
+      "original": "dvd (1).svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/filter",
+      "path": "",
+      "source": "provided-folder",
+      "original": "filter.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/gamepad",
+      "path": "",
+      "source": "provided-folder",
+      "original": "gamepad.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/language",
+      "path": "",
+      "source": "provided-folder",
+      "original": "language.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/link",
+      "path": "",
+      "source": "provided-folder",
+      "original": "link.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/linkedin-with-circle",
+      "path": "",
+      "source": "provided-folder",
+      "original": "linkedin-with-circle.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "brand/linkedin",
+      "path": "",
+      "source": "provided-folder",
+      "original": "linkedin.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/mail-alt",
+      "path": "",
+      "source": "provided-folder",
+      "original": "mail (1).svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/mail",
+      "path": "",
+      "source": "provided-folder",
+      "original": "mail.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/recycle",
+      "path": "",
+      "source": "provided-folder",
+      "original": "recycle.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/reset",
+      "path": "",
+      "source": "provided-folder",
+      "original": "reset.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/rotate",
+      "path": "",
+      "source": "provided-folder",
+      "original": "rotate.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/smartphone",
+      "path": "",
+      "source": "provided-folder",
+      "original": "smartphone-linear.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "games/minesweeper/sport-soccer-16-filled",
+      "path": "",
+      "source": "provided-folder",
+      "original": "sport-soccer-16-filled.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "brand/telegram",
+      "path": "",
+      "source": "provided-folder",
+      "original": "telegram.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/terminal",
+      "path": "",
+      "source": "provided-folder",
+      "original": "terminal.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    },
+    {
+      "key": "ui/volunteer-activism-outline",
+      "path": "",
+      "source": "provided-folder",
+      "original": "volunteer-activism-outline.svg",
+      "duplicateOf": "existing-canonical",
+      "sourceCategory": "supplied-svg",
+      "license": "unverified-user-supplied"
+    }
+  ]
+}

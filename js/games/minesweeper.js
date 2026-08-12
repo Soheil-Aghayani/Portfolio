@@ -1,13 +1,14 @@
-const SMILEY_SVG_HAPPY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`;
-const SMILEY_SVG_WIN   = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:var(--primary);"><circle cx="12" cy="12" r="10"></circle><path d="M6 9h12l-1.5 4h-9L6 9z" fill="currentColor" opacity="0.3"></path><line x1="6" y1="9" x2="18" y2="9"></line><path d="M9 15s1.5 1.5 3 1.5 3-1.5 3-1.5"></path></svg>`;
-const SMILEY_SVG_LOSE  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#ef4444;"><circle cx="12" cy="12" r="10"></circle><path d="M9 9l2 2m-2 0l2-2"></path><path d="M13 9l2 2m-2 0l2-2"></path><circle cx="12" cy="15" r="1.5"></circle></svg>`;
-const FLAG_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#fb7185;filter:drop-shadow(0 0 4px rgba(251,113,133,0.6));"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="rgba(251,113,133,0.4)"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>`;
-const MINE_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#ef4444;filter:drop-shadow(0 0 6px rgba(239,68,68,0.7));"><circle cx="12" cy="12" r="8" fill="rgba(239,68,68,0.25)"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line><line x1="19.07" y1="4.93" x2="17.66" y2="6.34"></line><line x1="6.34" y1="17.66" x2="4.93" y2="19.07"></line><circle cx="10" cy="10" r="1.2" fill="#fff" stroke="none"></circle></svg>`;
+const localIcon = (name, options = {}) => window.IconRegistry ? window.IconRegistry.svg(name, options) : '';
+const SMILEY_SVG_HAPPY = localIcon('games/minesweeper/smiley-happy', { className: 'ms-state-icon' });
+const SMILEY_SVG_WIN   = localIcon('games/minesweeper/smiley-win', { className: 'ms-state-icon' });
+const SMILEY_SVG_LOSE  = localIcon('games/minesweeper/smiley-lose', { className: 'ms-state-icon ms-state-icon-lose' });
+const FLAG_SVG = localIcon('games/minesweeper/flag-filled', { className: 'ms-cell-icon ms-flag-icon' });
+const MINE_SVG = localIcon('games/minesweeper/bomb-bold', { className: 'ms-cell-icon ms-mine-icon' });
 
 const MODES = [
-    { id: 'zen',        icon: '🧘', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
-    { id: 'time-trial', icon: '⚡', name: 'TIME',     sub: 'TRIAL',     desc: 'Race the clock! Hacks off on Hard.',   hasDiff: true  },
-    { id: 'endless',    icon: '♾️', name: 'ENDLESS',  sub: 'DRIFT',     desc: 'Infinite sector drift! Clear safe tiles to expand.', hasDiff: false }
+    { id: 'zen',        icon: 'states/compass', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
+    { id: 'time-trial', icon: 'ui/time', name: 'TIME',     sub: 'TRIAL',     desc: 'Race the clock! Hacks off on Hard.',   hasDiff: true  },
+    { id: 'endless',    icon: 'games/minesweeper/pixel-map-pin', name: 'ENDLESS',  sub: 'DRIFT',     desc: 'Infinite sector drift! Clear safe tiles to expand.', hasDiff: false }
 ];
 
 export class MinesweeperGame {
@@ -61,7 +62,7 @@ export class MinesweeperGame {
             <div class="ms-modal" id="msTutorialModal">
                 <div class="ms-modal-content">
                     <div class="ms-modal-header">
-                        <div class="ms-modal-title">🛠️ MINER's MANUAL</div>
+                        <div class="ms-modal-title">${localIcon('games/minesweeper/pickaxe', { className: 'ms-inline-icon' })} MINER's MANUAL</div>
                         <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button">&times;</button>
                     </div>
                     <div class="ms-modal-body">
@@ -70,9 +71,9 @@ export class MinesweeperGame {
                         </div>
                         <div class="ms-modal-text" id="msModalText" style="color:#e2e8f0;font-size:0.85rem;line-height:1.4;margin-bottom:12px;"></div>
                         <div class="ms-modal-nav" style="display:flex;justify-content:space-between;gap:8px;">
-                            <button class="ms-btn" id="msModalPrevBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">◀ PREV</button>
+                            <button class="ms-btn" id="msModalPrevBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} PREV</button>
                             <span style="color:var(--text-muted);font-size:0.8rem;font-family:monospace;align-self:center;" id="msModalProgress">1/6</span>
-                            <button class="ms-btn" id="msModalNextBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">NEXT ▶</button>
+                            <button class="ms-btn" id="msModalNextBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">NEXT ${localIcon('games/shared/arrow-right', { className: 'ms-inline-icon' })}</button>
                         </div>
                     </div>
                 </div>
@@ -118,8 +119,8 @@ export class MinesweeperGame {
                 </div>
 
                 <div class="ms-menu-actions">
-                    <button class="ms-btn ms-start-btn" id="msStartBtn" type="button">▶ START SWEEP</button>
-                    <button class="ms-btn ms-manual-btn" id="msManualBtn" type="button" title="How to Play">❓</button>
+                    <button class="ms-btn ms-start-btn" id="msStartBtn" type="button">${localIcon('games/shared/play', { className: 'ms-inline-icon' })} START SWEEP</button>
+                    <button class="ms-btn ms-manual-btn" id="msManualBtn" type="button" title="How to Play">${localIcon('states/info', { className: 'ms-inline-icon' })}</button>
                 </div>
             </div>
         `;
@@ -135,16 +136,16 @@ export class MinesweeperGame {
             const animClass = dir >= 0 ? 'ms-slide-right' : 'ms-slide-left';
             track.innerHTML = `
                 <div class="ms-mode-card ${animClass}">
-                    <div class="ms-mode-icon">${m.icon}</div>
+                    <div class="ms-mode-icon">${localIcon(m.icon, { className: 'ms-mode-svg' })}</div>
                     <div class="ms-mode-name">${m.name} <span class="ms-mode-sub-label">${m.sub}</span></div>
                     <div class="ms-mode-desc">${m.desc}</div>
                     ${m.hasDiff ? `
                     <div class="ms-diff-row">
-                        <button class="ms-icon-diff ${this.difficulty==='easy'   ? 'selected':''}" data-diff="easy"   type="button" title="Easy">🟢</button>
-                        <button class="ms-icon-diff ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium">🟡</button>
-                        <button class="ms-icon-diff ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard">🔴</button>
+                        <button class="ms-icon-diff ms-diff-easy ${this.difficulty==='easy'   ? 'selected':''}" data-diff="easy"   type="button" title="Easy"><span class="ms-difficulty-dot"></span></button>
+                        <button class="ms-icon-diff ms-diff-medium ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium"><span class="ms-difficulty-dot"></span></button>
+                        <button class="ms-icon-diff ms-diff-hard ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard"><span class="ms-difficulty-dot"></span></button>
                     </div>
-                    ` : `<div class="ms-mode-badge">∞ INFINITE SECTOR DRIFT</div>`}
+                    ` : `<div class="ms-mode-badge">${localIcon('games/minesweeper/pixel-map-pin-with-dot', { className: 'ms-inline-icon' })} INFINITE SECTOR DRIFT</div>`}
                 </div>
             `;
 
@@ -216,21 +217,21 @@ export class MinesweeperGame {
                 </div>
                 <!-- Tap Input Mode Switch (Dig vs Flag) -->
                 <button class="ms-tool-toggle-btn active-dig" id="msToolToggleBtn" type="button" title="Toggle Dig / Flag Mode">
-                    <span class="ms-tool-icon" id="msToolIcon">⛏️</span>
+                    <span class="ms-tool-icon" id="msToolIcon">${localIcon('games/minesweeper/pickaxe', { className: 'ms-inline-icon' })}</span>
                     <span class="ms-tool-label" id="msToolLabel">DIG</span>
                 </button>
             </div>
 
             <!-- ── Hacks row ── -->
             <div class="ms-hacks-bar">
-                <button class="ms-hack-btn disabled" id="msHackShield" type="button" title="Shield absorbs 1 mine hit">🛡️ SHIELD</button>
-                <button class="ms-hack-btn disabled" id="msHackPing"   type="button" title="Reveal one safe cell">📡 PING</button>
+                <button class="ms-hack-btn disabled" id="msHackShield" type="button" title="Shield absorbs 1 mine hit">${localIcon('states/security-check', { className: 'ms-inline-icon' })} SHIELD</button>
+                <button class="ms-hack-btn disabled" id="msHackPing"   type="button" title="Reveal one safe cell">${localIcon('games/minesweeper/radar-light', { className: 'ms-inline-icon' })} PING</button>
             </div>
 
             <!-- ── Viewport (fills remaining space) ── -->
             <div class="ms-viewport" id="msViewport">
                 <!-- Floating back-to-menu pill -->
-                <button class="ms-float-btn" id="msFloatMenuBtn" type="button" title="Back to mode select">◀ MENU</button>
+                <button class="ms-float-btn" id="msFloatMenuBtn" type="button" title="Back to mode select">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} MENU</button>
 
                 <!-- Milestone Toast Popup -->
                 <div class="ms-toast-banner" id="msToastBanner"></div>
@@ -240,9 +241,9 @@ export class MinesweeperGame {
 
                 <!-- Zoom HUD -->
                 <div class="ms-zoom-hud">
-                    <button class="ms-zoom-btn" id="msZoomOut"  type="button" title="Zoom Out">−</button>
+                    <button class="ms-zoom-btn" id="msZoomOut"  type="button" title="Zoom Out">${localIcon('games/minesweeper/zoom-out-broken', { className: 'ms-inline-icon' })}</button>
                     <button class="ms-zoom-btn ms-zoom-fit" id="msZoomFit" type="button" title="Center & Fit Board">FIT</button>
-                    <button class="ms-zoom-btn" id="msZoomIn"   type="button" title="Zoom In">＋</button>
+                    <button class="ms-zoom-btn" id="msZoomIn"   type="button" title="Zoom In">${localIcon('games/minesweeper/zoom-in-broken', { className: 'ms-inline-icon' })}</button>
                 </div>
 
                 <!-- Game-over / pause overlay -->
@@ -251,7 +252,7 @@ export class MinesweeperGame {
                     <div class="ms-overlay-msg"   id="msOverlayMsg">—</div>
                     <button class="ms-btn" id="msOverlayBtn" type="button">Play Again</button>
                     <button class="ms-btn" id="msOverlayMenuBtn" type="button"
-                        style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">◀ MENU</button>
+                        style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} MENU</button>
                 </div>
             </div>
         `;
@@ -277,12 +278,12 @@ export class MinesweeperGame {
             if (this.inputTool === 'dig') {
                 this.inputTool = 'flag';
                 toolBtn.className = 'ms-tool-toggle-btn active-flag';
-                toolIcon.textContent = '🚩';
+                toolIcon.innerHTML = localIcon('games/minesweeper/flag-filled', { className: 'ms-inline-icon' });
                 toolLabel.textContent = 'FLAG';
             } else {
                 this.inputTool = 'dig';
                 toolBtn.className = 'ms-tool-toggle-btn active-dig';
-                toolIcon.textContent = '⛏️';
+                toolIcon.innerHTML = localIcon('games/minesweeper/pickaxe', { className: 'ms-inline-icon' });
                 toolLabel.textContent = 'DIG';
             }
         };
@@ -625,7 +626,7 @@ export class MinesweeperGame {
                 this.lastMilestone = Math.floor(depth / 30) * 30;
                 this.pingCharges++;
                 this.updateHacksUI();
-                this.showToast(`🏆 DEPTH MILESTONE: ${this.lastMilestone}m! +1 PING!`);
+                this.showToast(`${localIcon('games/minesweeper/pixel-star', { className: 'ms-inline-icon' })} DEPTH MILESTONE: ${this.lastMilestone}m! +1 PING!`);
             }
         }
 
@@ -847,9 +848,9 @@ export class MinesweeperGame {
         if (!shieldBtn || !pingBtn) return;
         const off = this.gameOverState || this.isPaused;
         shieldBtn.className = `ms-hack-btn${this.shieldActive && !off ? ' active' : ' disabled'}`;
-        shieldBtn.textContent = this.shieldActive ? '🛡️ SHIELD (READY)' : '🛡️ SHIELD (USED)';
+        shieldBtn.innerHTML = `${localIcon('states/security-check', { className: 'ms-inline-icon' })} SHIELD (${this.shieldActive ? 'READY' : 'USED'})`;
         pingBtn.className   = `ms-hack-btn${this.pingCharges > 0 && !off ? ' active' : ' disabled'}`;
-        pingBtn.textContent   = `📡 PING (${this.pingCharges})`;
+        pingBtn.innerHTML   = `${localIcon('games/minesweeper/radar-light', { className: 'ms-inline-icon' })} PING (${this.pingCharges})`;
     }
 
     // ─────────────────────────── PAINT CELL ───────────────────────────
@@ -887,7 +888,8 @@ export class MinesweeperGame {
 
     // ─────────────────────────── MASCOT / COMMENTS ───────────────────────────
     getMinerImgSrc(type) {
-        return `assets/minesweeper.webp`;
+        const safeType = String(type || 'tutorial_1').replace(/[^a-z0-9_-]/gi, '');
+        return `assets/images/miner/${safeType}.webp`;
     }
 
     getMinerComment(success, reason) {
@@ -906,7 +908,7 @@ export class MinesweeperGame {
 
         const pages = [
             "Welcome to Cyber Deck Mines! Your goal is to clear all safe cells without detonating any hidden mines.",
-            "Use the ⛏️ DIG / 🚩 FLAG mode toggle in the top bar to easily switch between digging cells and placing warning flags.",
+            "Use the DIG / FLAG mode toggle in the top bar to easily switch between digging cells and placing warning flags.",
             "On touch devices, long-pressing any cell for 180ms also instantly toggles a flag on that cell.",
             "Drag anywhere on the board or use two fingers to pan around. Use the ＋ and − controls in the bottom right to zoom.",
             "Click FIT in the bottom right anytime to center and auto-scale the entire board inside your view!",
@@ -919,7 +921,7 @@ export class MinesweeperGame {
             text.textContent = pages[page];
             prog.textContent = `${page+1}/${pages.length}`;
             prev.style.display = page === 0 ? 'none' : 'inline-block';
-            next.textContent   = page === pages.length - 1 ? 'GOT IT!' : 'NEXT ▶';
+            next.innerHTML   = page === pages.length - 1 ? 'GOT IT!' : `NEXT ${localIcon('games/shared/arrow-right', { className: 'ms-inline-icon' })}`;
         };
 
         prev.onclick = () => { if (page > 0) { page--; update(); } };

@@ -137,7 +137,7 @@ export class BlackjackGame {
 
                 <!-- Heart Warming Gift Modal Popup -->
                 <div class="bj-comp-gift" id="bjCompGift">
-                    <div class="bj-gift-emoji">🎁</div>
+                    <div class="bj-gift-icon">${window.IconRegistry ? window.IconRegistry.svg('games/blackjack/gift-linear', { className: 'bj-gift-svg', label: 'Gift credits' }) : ''}</div>
                     <div class="bj-gift-title" id="bjGiftTitle">COMP COMPASSION</div>
                     <div class="bj-gift-msg" id="bjGiftMsg">The House stands with you. Here is a gift of $100 credits!</div>
                 </div>
@@ -175,7 +175,7 @@ export class BlackjackGame {
                             <div class="bj-bankroll">
                                 CREDITS: <span id="bjBankroll">$${this.bankroll}</span>
                                 <button id="bjResign" class="bj-resign-icon-btn" type="button" title="Resign & Reset Bankroll">
-                                    <span class="material-symbols-rounded">restart_alt</span>
+                                    ${window.IconRegistry ? window.IconRegistry.svg('games/shared/reset', { className: 'bj-reset-svg', label: 'Reset bankroll' }) : ''}
                                 </button>
                             </div>
                             <div class="bj-current-bet-display" id="bjCurrentBetDisplay" style="display:none;">
@@ -213,7 +213,7 @@ export class BlackjackGame {
                 <div class="bj-reg-modal" id="bjRegModal">
                     <div class="bj-reg-content">
                         <div class="bj-reg-left">
-                            <img id="bjRegImg" src="assets/name.webp" alt="Casino Boss" class="bj-reg-avatar" />
+                            <img id="bjRegImg" src="assets/images/portfolio/name.webp" alt="Casino Boss" class="bj-reg-avatar" />
                         </div>
                         <div class="bj-reg-right">
                             <div class="bj-reg-title">REGISTRATION REQUIRED</div>
@@ -351,7 +351,7 @@ export class BlackjackGame {
             
             // Reset modal state
             modal.classList.add('show');
-            avatar.src = 'assets/name.webp';
+            avatar.src = 'assets/images/portfolio/name.webp';
             input.value = '';
             input.disabled = false;
             submitBtn.disabled = false;
@@ -390,7 +390,7 @@ export class BlackjackGame {
                 // Transition Avatar to Welcome!
                 avatar.classList.add('fade-out');
                 await this.sleep(150);
-                avatar.src = 'assets/welcome.webp';
+            avatar.src = 'assets/images/portfolio/welcome.webp';
                 avatar.classList.remove('fade-out');
                 
                 // Update text

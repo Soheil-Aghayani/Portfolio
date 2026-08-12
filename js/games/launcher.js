@@ -7,6 +7,10 @@ import { MinesweeperGame } from './minesweeper.js?v=9.0';
 import { BreakoutGame } from './breakout.js?v=6.4';
 import { InvadersGame } from './invaders.js?v=6.4';
 
+const localIcon = (name, options = {}) => window.IconRegistry
+    ? window.IconRegistry.svg(name, options)
+    : '';
+
 export class GameLauncher {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
@@ -14,37 +18,37 @@ export class GameLauncher {
             {
                 id: 'snake',
                 name: 'Snake',
-                img: 'assets/snake.webp'
+                img: 'assets/images/games/snake.webp'
             },
             {
                 id: 'blackjack',
                 name: 'Blackjack',
-                img: 'assets/blackjack.webp'
+                img: 'assets/images/games/blackjack.webp'
             },
             {
                 id: 'tetris',
                 name: 'Tetris',
-                img: 'assets/tetris.webp'
+                img: 'assets/images/games/tetris.webp'
             },
             {
                 id: 'g2048',
                 name: '2048',
-                img: 'assets/2048.webp'
+                img: 'assets/images/games/2048.webp'
             },
             {
                 id: 'minesweeper',
                 name: 'Minesweeper',
-                img: 'assets/minesweeper.webp'
+                img: 'assets/images/games/minesweeper.webp'
             },
             {
                 id: 'breakout',
                 name: 'Breakout',
-                img: 'assets/breakout.webp'
+                img: 'assets/images/games/breakout.webp'
             },
             {
                 id: 'invaders',
                 name: 'Space Shooter',
-                img: 'assets/invaders.webp'
+                img: 'assets/images/games/invaders.webp'
             }
         ];
 
@@ -112,7 +116,7 @@ export class GameLauncher {
         backBtn.type = 'button';
         backBtn.setAttribute('aria-label', 'Back to Game Menu');
         backBtn.setAttribute('title', 'Back to Game Menu');
-        backBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Back to Menu';
+        backBtn.innerHTML = `${localIcon('games/shared/arrow-back', { label: 'Back' })} Back to Menu`;
         backBtn.onclick = () => this.confirmExit(() => this.showMenu());
 
         const pauseBtn = document.createElement('button');
@@ -121,7 +125,7 @@ export class GameLauncher {
         pauseBtn.style.display = 'none'; // Hidden by default, shown for pause-supporting games
         pauseBtn.setAttribute('aria-label', 'Pause game');
         pauseBtn.setAttribute('title', 'Pause game');
-        pauseBtn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">pause</span> Pause';
+        pauseBtn.innerHTML = `${localIcon('games/shared/pause', { label: 'Pause' })} Pause`;
         pauseBtn.onclick = () => {
             if (this.activeGame && typeof this.activeGame.togglePause === 'function') {
                 this.activeGame.togglePause();
@@ -190,11 +194,11 @@ export class GameLauncher {
             controls.className = 'snake-controls';
             controls.innerHTML = `
                 <div></div>
-                <button class="snake-btn" data-dir="up" type="button" aria-label="Move up" title="Move up"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span></button>
+                <button class="snake-btn" data-dir="up" type="button" aria-label="Move up" title="Move up">${localIcon('games/shared/arrow-up', { label: 'Move up' })}</button>
                 <div></div>
-                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_left</span></button>
-                <button class="snake-btn" data-dir="down" type="button" aria-label="Move down" title="Move down"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span></button>
-                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
+                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left">${localIcon('games/shared/arrow-left', { label: 'Move left' })}</button>
+                <button class="snake-btn" data-dir="down" type="button" aria-label="Move down" title="Move down">${localIcon('games/shared/arrow-down', { label: 'Move down' })}</button>
+                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right">${localIcon('games/shared/arrow-right', { label: 'Move right' })}</button>
             `;
 
             snakeContainer.appendChild(canvasWrapper);
@@ -303,12 +307,12 @@ export class GameLauncher {
             const controls = document.createElement('div');
             controls.className = 'snake-controls';
             controls.innerHTML = `
-                <button class="snake-btn" data-action="rotate" type="button" aria-label="Rotate block" title="Rotate block"><span class="material-symbols-rounded" aria-hidden="true">rotate_right</span></button>
-                <button class="snake-btn" data-action="drop" type="button" aria-label="Soft drop" title="Soft drop"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span></button>
-                <button class="snake-btn" data-action="hard" type="button" aria-label="Hard drop" title="Hard drop"><span class="material-symbols-rounded" aria-hidden="true">vertical_align_bottom</span></button>
-                <button class="snake-btn" data-action="left" type="button" aria-label="Move left" title="Move left"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_left</span></button>
+                <button class="snake-btn" data-action="rotate" type="button" aria-label="Rotate block" title="Rotate block">${localIcon('games/shared/rotate', { label: 'Rotate block' })}</button>
+                <button class="snake-btn" data-action="drop" type="button" aria-label="Soft drop" title="Soft drop">${localIcon('games/shared/arrow-down', { label: 'Soft drop' })}</button>
+                <button class="snake-btn" data-action="hard" type="button" aria-label="Hard drop" title="Hard drop">${localIcon('games/shared/arrow-down', { label: 'Hard drop' })}</button>
+                <button class="snake-btn" data-action="left" type="button" aria-label="Move left" title="Move left">${localIcon('games/shared/arrow-left', { label: 'Move left' })}</button>
                 <div></div>
-                <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right"><span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_right</span></button>
+                <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right">${localIcon('games/shared/arrow-right', { label: 'Move right' })}</button>
             `;
 
             tetrisContainer.appendChild(canvasWrapper);
@@ -560,12 +564,12 @@ export class GameLauncher {
             `;
 
             const leftBtn = document.createElement('button');
-            leftBtn.innerHTML = '◀';
+            leftBtn.innerHTML = localIcon('games/shared/arrow-left', { label: 'Move left' });
             leftBtn.style.cssText = btnStyle('#2dd4bf');
             leftBtn.setAttribute('aria-label', 'Move Left');
 
             const rightBtn = document.createElement('button');
-            rightBtn.innerHTML = '▶';
+            rightBtn.innerHTML = localIcon('games/shared/arrow-right', { label: 'Move right' });
             rightBtn.style.cssText = btnStyle('#2dd4bf');
             rightBtn.setAttribute('aria-label', 'Move Right');
 
@@ -581,7 +585,7 @@ export class GameLauncher {
             rightBtn.addEventListener('mouseup',    ()  => { if(this.activeGame) this.activeGame.rightPressed = false; });
 
             const infoLabel = document.createElement('div');
-            infoLabel.innerHTML = '🚀 AUTO-FIRE ACTIVE';
+            infoLabel.innerHTML = `${localIcon('games/minesweeper/pixel-invader', { className: 'game-inline-icon', label: 'Auto-fire' })} AUTO-FIRE ACTIVE`;
             infoLabel.style.cssText = 'color: #10b981; font-size: 10px; font-weight: 800; letter-spacing: 1px; font-family: monospace; text-shadow: 0 0 6px rgba(16,185,129,0.4);';
 
             buttonsRow.appendChild(leftBtn);
@@ -677,7 +681,7 @@ export class GameLauncher {
             confirmOverlay.className = 'game-confirm-overlay';
             confirmOverlay.innerHTML = `
                 <div class="game-confirm-box">
-                    <div class="game-confirm-icon">⚠️</div>
+                    <div class="game-confirm-icon">${localIcon('states/warning', { label: 'Warning' })}</div>
                     <div class="game-confirm-title">QUIT CURRENT GAME?</div>
                     <div class="game-confirm-msg">You have a game run in progress. Exiting now will discard your current active progress.</div>
                     <div class="game-confirm-actions">
@@ -733,10 +737,10 @@ export class GameLauncher {
     updatePauseButtonState(btn, isPaused) {
         if (!btn) return;
         if (isPaused) {
-            btn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">play_arrow</span> Resume';
+            btn.innerHTML = `${localIcon('games/shared/play', { label: 'Resume' })} Resume`;
             btn.classList.add('paused');
         } else {
-            btn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">pause</span> Pause';
+            btn.innerHTML = `${localIcon('games/shared/pause', { label: 'Pause' })} Pause`;
             btn.classList.remove('paused');
         }
     }

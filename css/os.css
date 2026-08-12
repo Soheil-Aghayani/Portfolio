@@ -1,3 +1,24 @@
+/* --- LOCAL SOLAR OUTLINE SVG ICON SYSTEM --- */
+.svg-icon {
+    width: 1.25em;
+    height: 1.25em;
+    display: inline-block;
+    vertical-align: -0.15em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, stroke 0.2s ease;
+}
+.svg-icon-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
 /* --- Hello World Button / Trigger --- */
 .hello-world {
     display: inline-flex;
@@ -843,7 +864,7 @@ html.os-active, body.os-active {
     inset: 3px;
     border: 1px solid rgba(56, 189, 248, 0.15);
     border-radius: 4px;
-    background-image: 
+    background-image:
         radial-gradient(var(--suit-color) 0.6px, transparent 0.6px),
         linear-gradient(45deg, transparent 48%, rgba(56, 189, 248, 0.08) 48%, rgba(56, 189, 248, 0.08) 52%, transparent 52%),
         linear-gradient(-45deg, transparent 48%, rgba(56, 189, 248, 0.08) 48%, rgba(56, 189, 248, 0.08) 52%, transparent 52%);
@@ -1109,40 +1130,40 @@ html.os-active, body.os-active {
 .chip-10 {
     background: radial-gradient(circle, #fef08a 0%, #ca8a04 100%);
     border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 1px 0 #a16207, 
-        0 2px 0 #854d0e, 
-        0 3px 0 #713f12, 
+    box-shadow:
+        0 1px 0 #a16207,
+        0 2px 0 #854d0e,
+        0 3px 0 #713f12,
         0 4px 5px rgba(0, 0, 0, 0.45);
     color: #fff !important;
 }
 .chip-50 {
     background: radial-gradient(circle, #fda4af 0%, #e11d48 100%);
     border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 1px 0 #be123c, 
-        0 2px 0 #9f1239, 
-        0 3px 0 #881337, 
+    box-shadow:
+        0 1px 0 #be123c,
+        0 2px 0 #9f1239,
+        0 3px 0 #881337,
         0 4px 5px rgba(0, 0, 0, 0.45);
     color: #fff !important;
 }
 .chip-100 {
     background: radial-gradient(circle, #7dd3fc 0%, #0284c7 100%);
     border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 1px 0 #0369a1, 
-        0 2px 0 #075985, 
-        0 3px 0 #0c4a6e, 
+    box-shadow:
+        0 1px 0 #0369a1,
+        0 2px 0 #075985,
+        0 3px 0 #0c4a6e,
         0 4px 5px rgba(0, 0, 0, 0.45);
     color: #fff !important;
 }
 .chip-200 {
     background: radial-gradient(circle, #d8b4fe 0%, #7c3aed 100%);
     border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 1px 0 #6d28d9, 
-        0 2px 0 #5b21b6, 
-        0 3px 0 #4c1d95, 
+    box-shadow:
+        0 1px 0 #6d28d9,
+        0 2px 0 #5b21b6,
+        0 3px 0 #4c1d95,
         0 4px 5px rgba(0, 0, 0, 0.45);
     color: #fff !important;
 }
@@ -1974,7 +1995,7 @@ html.os-active, body.os-active {
     color: #f43f5e; /* Rose Red */
     transform: rotate(-90deg);
 }
-.bj-resign-icon-btn .material-symbols-rounded {
+.bj-resign-icon-btn .svg-icon {
     font-size: 0.95rem !important;
 }
 
@@ -2017,11 +2038,20 @@ html.os-active, body.os-active {
     transform: translate(-50%, -50%) scale(1.0);
     animation: bj-gift-bounce 0.5s ease-out;
 }
-.bj-gift-emoji {
-    font-size: 2.4rem;
-    line-height: 1;
+.bj-gift-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f472b6;
     margin-bottom: 8px;
     animation: bj-gift-pulse 1.2s infinite alternate ease-in-out;
+}
+.bj-gift-icon .svg-icon {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
 }
 .bj-gift-title {
     font-family: 'Outfit', sans-serif;
@@ -2448,7 +2478,15 @@ html.os-active, body.os-active {
     gap: 8px;
     box-shadow: 0 0 16px rgba(45,212,191,0.15);
 }
-.ms-mode-icon { font-size: 2.2rem; line-height: 1; }
+.ms-mode-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.ms-mode-svg { width: 100%; height: 100%; }
 .ms-mode-name {
     font-family: monospace;
     font-weight: 900;
@@ -2490,6 +2528,33 @@ html.os-active, body.os-active {
     background: rgba(255,255,255,0.08);
     transform: scale(1.12);
     box-shadow: 0 0 12px rgba(45,212,191,0.35);
+}
+.ms-difficulty-dot {
+    width: 14px;
+    height: 14px;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+.ms-diff-easy { color: #22c55e; }
+.ms-diff-medium { color: #f59e0b; }
+.ms-diff-hard { color: #ef4444; }
+.ms-state-icon {
+    width: 22px;
+    height: 22px;
+}
+.ms-state-icon-lose { color: #ef4444; }
+.ms-cell-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+.ms-flag-icon { color: #fb7185; }
+.ms-mine-icon { color: #ef4444; }
+.ms-mode-badge .svg-icon,
+.ms-modal-title .svg-icon {
+    width: 1.05em;
+    height: 1.05em;
 }
 .ms-carousel-dots { display: flex; gap: 6px; align-items: center; justify-content: center; }
 .ms-dot {
@@ -2577,7 +2642,18 @@ html.os-active, body.os-active {
     color: #fb7185;
     box-shadow: 0 0 10px rgba(251,113,133,0.3);
 }
-.ms-tool-icon { font-size: 1.05rem; line-height: 1; }
+.ms-tool-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.ms-tool-icon .svg-icon,
+.ms-inline-icon {
+    width: 1.05em;
+    height: 1.05em;
+    vertical-align: -0.14em;
+}
 .ms-tool-label { letter-spacing: 1px; }
 
 /* — Hacks row — */
@@ -2969,6 +3045,16 @@ html[data-theme="matrix"] body, [data-theme="matrix"] {
     backface-visibility: hidden;
 }
 
+/* The screensaver covers the page completely. Keep the underlying page out
+   of the paint/compositing path while the saver is running. */
+html.screensaver-active body > :not(#screensaver) {
+    visibility: hidden;
+}
+
+html.screensaver-active .aurora-blob {
+    animation-play-state: paused;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -3047,8 +3133,16 @@ html {
     animation: ms-fade-in 0.25s ease;
 }
 .game-confirm-icon {
-    font-size: 2.2rem;
-    line-height: 1;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f59e0b;
+}
+.game-confirm-icon .svg-icon {
+    width: 100%;
+    height: 100%;
 }
 .game-confirm-title {
     font-family: monospace;
@@ -3082,4 +3176,4 @@ html {
 }
 .game-confirm-quit-btn:hover {
     background: #991b1b !important;
-}
+}

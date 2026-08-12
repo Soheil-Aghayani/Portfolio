@@ -1,4 +1,8 @@
 
+const localIcon = (name, options = {}) => window.IconRegistry
+    ? window.IconRegistry.svg(name, options)
+    : '';
+
 export class Game2048 {
     constructor(container, callbacks = {}) {
         this.container = container;
@@ -33,7 +37,7 @@ export class Game2048 {
                     </div>
                     <div class="g2048-score-box" id="g2048UndoBox" style="display: none; cursor: pointer; border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.1);">
                         <div class="g2048-score-label" style="color: #10b981;">Cheat Mode</div>
-                        <div id="g2048UndoBtn" class="g2048-score-value" style="font-size: 0.95rem; line-height: 1.8; color: #10b981;">UNDO ↺</div>
+                        <div id="g2048UndoBtn" class="g2048-score-value" style="font-size: 0.95rem; line-height: 1.8; color: #10b981;">${localIcon('games/shared/rotate', { className: 'g2048-inline-icon', label: 'Undo' })} UNDO</div>
                     </div>
                     <div class="g2048-score-box">
                         <div class="g2048-score-label">Best</div>

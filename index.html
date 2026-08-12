@@ -15,11 +15,10 @@
     <meta property="og:video:width" content="1280" />
     <meta property="og:video:height" content="720" />
 
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="css/os.css" />
+        <link rel="stylesheet" href="css/os.css" />
 
     <style>
         /* --- VARIABLES --- */
@@ -281,6 +280,31 @@
         #flowchartCanvas:active {
             cursor: grabbing;
         }
+        .flowchart-lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 6;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, calc(-50% - 54px)) scale(0.8);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            filter: drop-shadow(0 0 18px currentColor);
+        }
+        .flowchart-lock-icon.show {
+            opacity: 1;
+            transform: translate(-50%, calc(-50% - 54px)) scale(1);
+        }
+        .flowchart-lock-icon .svg-icon {
+            width: 100%;
+            height: 100%;
+        }
         .flowchart-badge {
             position: absolute;
             top: 16px;
@@ -504,8 +528,10 @@
             color: #fff;
             opacity: 1;
         }
-        .load-more-btn .material-symbols-rounded,
-        .load-less-btn .material-symbols-rounded {
+        .load-more-btn .svg-icon,
+        .load-less-btn .svg-icon,
+        .load-more-btn .svg-icon,
+        .load-less-btn .svg-icon {
             font-size: 1rem;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -685,8 +711,10 @@
             border-color: var(--primary);
             box-shadow: 0 0 18px rgba(45,212,191,0.25);
         }
-        .share-toggle-btn .material-symbols-rounded { font-size: 1.25rem; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
-        .share-widget.open .share-toggle-btn .material-symbols-rounded { transform: rotate(45deg); }
+        .share-toggle-btn .svg-icon,
+        .share-toggle-btn .svg-icon { font-size: 1.25rem; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+        .share-widget.open .share-toggle-btn .svg-icon,
+        .share-widget.open .share-toggle-btn .svg-icon { transform: rotate(45deg); }
         .share-tray {
             display: flex;
             flex-direction: column;
@@ -757,12 +785,11 @@
             inset: 0;
             z-index: 9999;
             background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s ease;
+            transition: none;
+            isolation: isolate;
+            contain: strict;
         }
         .screensaver.active {
             opacity: 1;
@@ -774,18 +801,58 @@
             width: 100%;
             height: 100%;
         }
+        .ss-dvd-logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 220px;
+            height: 100px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dvd-color, var(--primary, #2dd4bf));
+            pointer-events: none;
+            will-change: transform, color, width, height;
+            filter: drop-shadow(0 0 12px currentColor);
+        }
+        .ss-dvd-logo .svg-icon {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            fill: none;
+        }
+        .ss-dvd-logo[hidden] { display: none; }
         .ss-center {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
             text-align: center;
             -webkit-user-select: none;
             user-select: none;
-            transition: all 0.5s ease;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .ss-center.synthwave-active {
+            background: rgba(10, 4, 24, 0.45);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 42, 109, 0.3);
+            border-radius: 24px;
+            padding: 28px 48px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 42, 109, 0.2);
+        }
+        .ss-center.synthwave-active .ss-date {
+            color: rgba(255, 120, 190, 0.95);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.6);
+        }
+        .ss-center.synthwave-active .ss-name {
+            color: rgba(255, 160, 210, 0.7);
         }
         .ss-center.matrix-active {
             background: rgba(4, 18, 10, 0.82);
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
             border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 24px;
             padding: 32px 54px;
@@ -810,6 +877,7 @@
             font-weight: 600;
             margin-bottom: 10px;
             font-family: 'Inter', system-ui, sans-serif;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
         }
         .ss-name {
             font-size: 1.1rem;
@@ -817,6 +885,7 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             margin-bottom: 32px;
+            transition: color 0.4s ease;
         }
         .ss-hint {
             font-size: 0.75rem;
@@ -838,8 +907,6 @@
             align-items: center;
             gap: 8px;
             background: rgba(15, 23, 42, 0.75);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 9999px;
             padding: 6px 14px;
@@ -892,10 +959,20 @@
             padding: 40px;
         }
         .konami-art {
-            font-size: 5rem;
+            width: 5rem;
+            height: 5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             line-height: 1;
             margin-bottom: 24px;
             animation: konamiSpin 1.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+        }
+        .konami-art .svg-icon {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            filter: drop-shadow(0 0 16px currentColor);
         }
         @keyframes konamiSpin {
             0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
@@ -1075,7 +1152,7 @@
     <!-- Theme Switcher Widget -->
     <div class="theme-switcher" id="themeSwitcher">
         <button class="theme-btn trigger" id="themeTrigger" aria-label="Open Theme Settings" title="Change Accent Theme">
-            <span class="material-symbols-rounded" aria-hidden="true">palette</span>
+            <span class="svg-icon-slot" data-icon="ui/palette" aria-hidden="true"></span>
         </button>
         <div class="theme-options">
             <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
@@ -1092,8 +1169,8 @@
 <style>
     /* --- DESKTOP & GLOBAL STYLES --- */
     .hide { display: none !important; }
-    .btn-hero-primary .material-symbols-rounded { font-size: 1.2rem; margin-left: 8px; }
-    .edu-school .material-symbols-rounded { font-size: 1.1em; }
+    .btn-hero-primary .svg-icon, .btn-hero-primary .svg-icon { font-size: 1.2rem; margin-left: 8px; }
+    .edu-school .svg-icon, .edu-school .svg-icon { font-size: 1.1em; }
     .timeline-dot-secondary { border-color: var(--secondary) !important; box-shadow: 0 0 10px var(--secondary) !important; }
     .gpa-badge-secondary { color: var(--secondary) !important; background: rgba(96, 165, 250, 0.1) !important; border-color: rgba(96, 165, 250, 0.2) !important; }
     .card-list { list-style: none; padding: 0; margin-top: 15px; }
@@ -1116,18 +1193,18 @@
     .thesis-desc { color: var(--text-main); font-weight: 500; margin-bottom: 5px; }
     .thesis-supervisors { font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
     .email-link { color: var(--secondary); text-decoration: none; display: inline-flex; align-items: center; }
-    .email-link .material-symbols-rounded { font-size: 1.1rem; }
+    .email-link .svg-icon, .email-link .svg-icon { font-size: 1.1rem; }
     .pipe-sep { margin: 0 5px; }
     .btn-flowchart { padding: 10px 20px; font-size: 0.9rem; width: auto; display: inline-flex; align-items: center; gap: 8px; }
     .flowchart-viewer { display: none; margin-top: 25px; position: relative; }
-    .flowchart-badge .material-symbols-rounded { font-size: 1.1rem; color: var(--primary); }
+    .flowchart-badge .svg-icon, .flowchart-badge .svg-icon { font-size: 1.1rem; color: var(--primary); }
     .pub-section-subtitle { color: var(--text-main); font-size: 1.5rem; }
     .pub-journal-subtitle { margin: 30px 0 20px; }
     .pub-conf-subtitle { margin: 50px 0 20px; }
     .pub-link-icon { font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary); }
     .card-header-flex { display: flex; justify-content: space-between; margin-bottom: 10px; }
     .btn-verify { padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: #fff; }
-    .btn-verify .material-symbols-rounded { font-size: 14px; vertical-align: middle; }
+    .btn-verify .svg-icon, .btn-verify .svg-icon { font-size: 14px; vertical-align: middle; }
     .cop29-card { margin-bottom: 50px; padding: 0; overflow: hidden; border: 1px solid var(--primary); }
     .cop29-header { padding: 20px; background: rgba(16, 185, 129, 0.1); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 10px; }
     .cop29-icon { color: var(--primary); font-size: 2rem; }
@@ -1136,7 +1213,7 @@
     .cop29-body { padding: 20px; max-height: 250px; overflow-y: auto; background: rgba(0,0,0,0.3); }
     .cop29-list { list-style: none; padding: 0; }
     .cop29-item { margin-bottom: 12px; color: var(--text-muted); font-family: monospace; }
-    .nav-hint .material-symbols-rounded { vertical-align: middle; font-size: 1rem; }
+    .nav-hint .svg-icon, .nav-hint .svg-icon { vertical-align: middle; font-size: 1rem; }
     .skill-card p { font-size: 0.85rem; color: var(--text-muted); }
     .flex-align-center-gap { display: flex; align-items: center; gap: 10px; }
     .text-white { color: #fff !important; }
@@ -1174,7 +1251,7 @@
         -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
-    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: 0.5; animation: floatBlob 10s infinite alternate; will-change: transform; }
     .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent 70%); animation-delay: 0s; }
     .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary), transparent 70%); animation-delay: -5s; }
     .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.3; animation: floatBlob 15s infinite alternate-reverse; }
@@ -1314,10 +1391,10 @@
 
     <div class="social-dock">
         <a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
         </a>
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0 12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
         </a>
     </div>
 
@@ -1338,15 +1415,15 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <span class="material-symbols-rounded" aria-hidden="true">send</span>
+                Get in Touch <span class="svg-icon-slot" data-icon="ui/send" aria-hidden="true"></span>
             </a>
 
             <div class="mobile-socials">
                 <a href="https://linkedin.com/in/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0a12 12 0 0 0-12 12 12 12 0 0 0 12 12 12 12 0 0 0 12-12 12 12 0 0 0 12-12zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
@@ -1354,7 +1431,7 @@
 
     <a href="#education" class="scroll-down" aria-label="Scroll down to explore content">
         <span>Scroll to Explore</span>
-        <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
+        <span class="svg-icon-slot" data-icon="games/shared/arrow-down" aria-hidden="true"></span>
     </a>
 
     <script>
@@ -1442,7 +1519,7 @@
         line-height: 1;
     }
 
-    .section-title .material-symbols-rounded {
+    .section-title .svg-icon {
         font-size: 2.5rem; 
         width: 2.5rem;
         height: 2.5rem;
@@ -1594,7 +1671,7 @@
 <div id="education">
     <div class="section-header reveal-on-scroll">
         <h2 class="section-title">
-            <span class="material-symbols-rounded" aria-hidden="true">school</span>
+            <span class="svg-icon-slot" data-icon="ui/school" aria-hidden="true"></span>
             Education History
         </h2>
     </div>
@@ -1607,7 +1684,7 @@
                 <div class="edu-degree">Master of Science, Env. Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="material-symbols-rounded" aria-hidden="true">account_balance</span>
+                    <span class="svg-icon-slot" data-icon="ui/account-balance" aria-hidden="true"></span>
                     University of Tehran
                     <span class="edu-time">2022 - Present</span>
                 </div>
@@ -1633,7 +1710,7 @@
                 <div class="edu-degree">Bachelor of Science, Civil Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="material-symbols-rounded" aria-hidden="true">architecture</span>
+                    <span class="svg-icon-slot" data-icon="states/university" aria-hidden="true"></span>
                     Shahed University
                     <span class="edu-time">2018 - 2022</span>
                 </div>
@@ -1662,7 +1739,7 @@
 </script>
         
         
-        <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">work</span> Professional Experience</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/work" aria-hidden="true"></span> Professional Experience</h2>
         <div class="grid">
             
             <div class="card">
@@ -1672,11 +1749,11 @@
                 
                 <ul class="card-list">
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         Responsible for HSE checklists and providing safety training to construction workers.
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         Contributed to the R&D department in designing energy-efficient buildings.
                     </li>
                 </ul>
@@ -1689,7 +1766,7 @@
                 
                 <ul class="card-list">
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         Supervised the construction process of a factory for manufacturing electronic thermal devices.
                     </li>
                 </ul>
@@ -1698,7 +1775,7 @@
         </div>
 
 
-<h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">science</span> Research & Publications</h2>
+<h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/science" aria-hidden="true"></span> Research & Publications</h2>
 
         <div class="card card-primary-border mb-40">
             <div class="flex-space-between">
@@ -1714,35 +1791,36 @@
                 
                 <span>R. Samie Zafraghandi</span>
                 <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" class="email-link">
-                    <span class="material-symbols-rounded" aria-hidden="true">mail</span>
+                    <span class="svg-icon-slot" data-icon="ui/mail" aria-hidden="true"></span>
                 </a>
                 
                 <span class="pipe-sep">|</span>
                 
                 <span>M. Baghdadi</span>
                 <a href="mailto:soheil.aghayani@ut.ac.ir" aria-label="Email Supervisor" title="Email Supervisor" class="email-link">
-                    <span class="material-symbols-rounded" aria-hidden="true">mail</span>
+                    <span class="svg-icon-slot" data-icon="ui/mail" aria-hidden="true"></span>
                 </a>
             </p>
 
             <div class="mt-20">
                 <button type="button" class="btn-hero-primary btn-flowchart" id="toggleFlowchartBtn">
-                    <span class="material-symbols-rounded" aria-hidden="true">filter_alt</span> View Process Flowchart
+                    <span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span> View Process Flowchart
                 </button>
             </div>
             
             <div id="flowchartViewer" class="flowchart-viewer">
                 <div class="flowchart-wrap" id="flowchartWrap">
                     <div class="flowchart-badge">
-                        <span class="material-symbols-rounded" aria-hidden="true">info</span>
+                        <span class="svg-icon-slot" data-icon="states/flowchart-outline-sharp" data-icon-label="Flowchart"></span>
                         Drag to Pan • Scroll to Zoom • Double-Click to Reset
                     </div>
                     <canvas id="flowchartCanvas" width="800" height="480"></canvas>
+                    <div class="flowchart-lock-icon" id="flowchartLockIcon" aria-hidden="true"></div>
                     <div class="flowchart-controls">
-                        <button type="button" class="fc-btn" id="fcToggleTheme" title="Toggle Diagram Dark Mode"><span class="material-symbols-rounded" aria-hidden="true">contrast</span></button>
-                        <button type="button" class="fc-btn" id="fcZoomIn" title="Zoom In"><span class="material-symbols-rounded" aria-hidden="true">zoom_in</span></button>
-                        <button type="button" class="fc-btn" id="fcZoomOut" title="Zoom Out"><span class="material-symbols-rounded" aria-hidden="true">zoom_out</span></button>
-                        <button type="button" class="fc-btn" id="fcReset" title="Reset View"><span class="material-symbols-rounded" aria-hidden="true">restart_alt</span></button>
+                        <button type="button" class="fc-btn" id="fcToggleTheme" title="Toggle Diagram Dark Mode"><span class="svg-icon-slot" data-icon="ui/contrast" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcZoomIn" title="Zoom In"><span class="svg-icon-slot" data-icon="games/shared/zoom-in" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcZoomOut" title="Zoom Out"><span class="svg-icon-slot" data-icon="games/shared/zoom-out" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcReset" title="Reset View"><span class="svg-icon-slot" data-icon="games/shared/reset" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
@@ -1760,7 +1838,7 @@
         <ul id="pub-journal-list" class="pub-list">
             <li class="pub-item" data-category="journal" data-tags="aop,catalysis,advanced oxidation">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">menu_book</span>
+                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1778,14 +1856,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="lca,msw,biofuel">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">menu_book</span>
+                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Biomass Resources in Iran and Worldwide: Diversity Analysis in Rural Areas with a Focus on Municipal Solid Waste and Livestock Manure
-                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1799,14 +1877,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="lca,emissions,msw">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">menu_book</span>
+                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://aet.irost.ir/article_1686.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
-                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1820,14 +1898,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="siting,msw">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">menu_book</span>
+                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" rel="noopener noreferrer">
                                 Siting a Waste Transfer Station in District 6 of Karaj Municipality
-                                <span class="material-symbols-rounded pub-link-icon" aria-hidden="true">open_in_new</span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -1844,7 +1922,7 @@
         <ul id="pub-conference-list" class="pub-list">
             <li class="pub-item" data-category="conference" data-tags="biofuel,energy">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1859,7 +1937,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1874,7 +1952,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1889,7 +1967,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1904,7 +1982,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1919,7 +1997,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1934,7 +2012,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1949,7 +2027,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="material-symbols-rounded">co_present</span>
+                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -1981,7 +2059,7 @@
             }
         </style>
 
-        <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">verified_user</span> Certifications & Continuous Learning</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="states/verified" aria-hidden="true"></span> Certifications & Continuous Learning</h2>
 
         <div class="grid mb-50">
             
@@ -1993,7 +2071,7 @@
                 <h3>Life Cycle Assessment</h3>
                 <p class="mb-20">Mastered LCA methodology and SimaPro tools. Verified by Coursera.</p>
                 <a href="https://coursera.org/verify/TSN51X42BCZR" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
-                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
+                    Verify Credential <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                 </a>
             </div>
 
@@ -2005,14 +2083,14 @@
                 <h3>Sustainable Regional Principles</h3>
                 <p class="mb-20">Planning and Transportation systems for sustainable development.</p>
                 <a href="https://www.coursera.org/account/accomplishments/verify/97ENWJ7STLNH" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
-                    Verify Credential <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
+                    Verify Credential <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
 
         <div class="card cop29-card">
             <div class="cop29-header">
-                <span class="material-symbols-rounded cop29-icon" aria-hidden="true">public</span>
+                <span class="svg-icon-slot cop29-icon" data-icon="ui/public" aria-hidden="true"></span>
                 <div>
                     <h3 class="cop29-title">COP29 Summit Delegation</h3>
                     <span class="cop29-sub">Baku, Azerbaijan | Nov 2024</span>
@@ -2153,7 +2231,7 @@
         flex-shrink: 0; /* Prevents shrinking */
     }
 
-    .training-icon-box .material-symbols-rounded {
+    .training-icon-box .svg-icon {
         font-size: 2rem;
         color: var(--primary);
     }
@@ -2223,7 +2301,7 @@
         line-height: 1;
     }
 
-    .section-title .material-symbols-rounded {
+    .section-title .svg-icon {
         font-size: 2.5rem;
         color: var(--primary);
         text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
@@ -2331,7 +2409,7 @@
         gap: 8px;
     }
 
-    .t-card-back li span.material-symbols-rounded {
+    .t-card-back li span.svg-icon {
         color: var(--primary);
         font-size: 1rem;
         flex-shrink: 0;
@@ -2425,7 +2503,7 @@
 <div id="training">
     <div class="section-header">
         <h2 class="section-title">
-            <span class="material-symbols-rounded" aria-hidden="true">verified_user</span>
+            <span class="svg-icon-slot" data-icon="states/verified" aria-hidden="true"></span>
             Professional Training
         </h2>
     </div>
@@ -2435,13 +2513,13 @@
         <div class="t-card center" onclick="selectCard(0)" role="button" tabindex="0" aria-label="Training card: Life Cycle Assessment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="material-symbols-rounded" aria-hidden="true">recycling</span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/recycling" aria-hidden="true"></span></div>
             <div class="tc-title">Life Cycle Assessment</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Nov 2024</div>
                         </div>
                 <div class="t-card-back">
-                    <h4>Life Cycle Assessment</h4><ul><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Evaluated environmental impacts of products and processes.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Conducted comprehensive data collection and analysis.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Developed sustainable strategies based on LCA outcomes.</li></ul>
+                    <h4>Life Cycle Assessment</h4><ul><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Evaluated environmental impacts of products and processes.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Conducted comprehensive data collection and analysis.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Developed sustainable strategies based on LCA outcomes.</li></ul>
                 </div>
             </div>
         </div>
@@ -2449,13 +2527,13 @@
         <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="material-symbols-rounded" aria-hidden="true">sports_soccer</span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="games/shared/sports-soccer" aria-hidden="true"></span></div>
             <div class="tc-title">Waste Mgmt in Sports</div>
             <div class="tc-org">Olympic Academy</div>
             <div class="tc-date">Nov 2024</div>
                         </div>
                 <div class="t-card-back">
-                    <h4>Waste Mgmt in Sports</h4><ul><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Designed waste reduction programs for athletic events.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Coordinated recycling initiatives at sports facilities.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Promoted eco-friendly practices among staff and attendees.</li></ul>
+                    <h4>Waste Mgmt in Sports</h4><ul><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Designed waste reduction programs for athletic events.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Coordinated recycling initiatives at sports facilities.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Promoted eco-friendly practices among staff and attendees.</li></ul>
                 </div>
             </div>
         </div>
@@ -2463,13 +2541,13 @@
         <div class="t-card back" onclick="selectCard(2)" role="button" tabindex="0" aria-label="Training card: Nat. Conf. on Environment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="material-symbols-rounded" aria-hidden="true">diversity_3</span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/diversity-3" aria-hidden="true"></span></div>
             <div class="tc-title">Nat. Conf. on Environment</div>
             <div class="tc-org">University of Tehran</div>
             <div class="tc-date">Oct 2024</div>
                         </div>
                 <div class="t-card-back">
-                    <h4>Nat. Conf. on Environment</h4><ul><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Participated in discussions on modern environmental policies.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Networked with experts in sustainability and conservation.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Explored innovative solutions for environmental challenges.</li></ul>
+                    <h4>Nat. Conf. on Environment</h4><ul><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Participated in discussions on modern environmental policies.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Networked with experts in sustainability and conservation.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Explored innovative solutions for environmental challenges.</li></ul>
                 </div>
             </div>
         </div>
@@ -2477,13 +2555,13 @@
         <div class="t-card back" onclick="selectCard(3)" role="button" tabindex="0" aria-label="Training card: Hazardous Waste (Oil)" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="material-symbols-rounded" aria-hidden="true">oil_barrel</span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/oil-barrel" aria-hidden="true"></span></div>
             <div class="tc-title">Hazardous Waste (Oil)</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Aug 2024</div>
                         </div>
                 <div class="t-card-back">
-                    <h4>Hazardous Waste (Oil)</h4><ul><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Studied safe handling and disposal methods for oily waste.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Assessed regulatory compliance and safety protocols.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Analyzed case studies on environmental impact mitigation.</li></ul>
+                    <h4>Hazardous Waste (Oil)</h4><ul><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Studied safe handling and disposal methods for oily waste.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Assessed regulatory compliance and safety protocols.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Analyzed case studies on environmental impact mitigation.</li></ul>
                 </div>
             </div>
         </div>
@@ -2491,13 +2569,13 @@
         <div class="t-card left" onclick="selectCard(4)" role="button" tabindex="0" aria-label="Training card: Waste Coding Methods" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="material-symbols-rounded" aria-hidden="true">qr_code_2</span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/qr-code-2" aria-hidden="true"></span></div>
             <div class="tc-title">Waste Coding Methods</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Mar 2024</div>
                         </div>
                 <div class="t-card-back">
-                    <h4>Waste Coding Methods</h4><ul><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Learned standardized classification systems for waste.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Applied coding methods to improve tracking accuracy.</li><li><span class="material-symbols-rounded" aria-hidden="true">check</span> Facilitated better waste management reporting.</li></ul>
+                    <h4>Waste Coding Methods</h4><ul><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Learned standardized classification systems for waste.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Applied coding methods to improve tracking accuracy.</li><li><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span> Facilitated better waste management reporting.</li></ul>
                 </div>
             </div>
         </div>
@@ -2505,7 +2583,7 @@
     </div>
 
     <div class="nav-hint">
-        <span class="material-symbols-rounded" aria-hidden="true">touch_app</span> Click stack or swipe to view
+        <span class="svg-icon-slot" data-icon="ui/touch-app" aria-hidden="true"></span> Click stack or swipe to view
     </div>
 </div>
 
@@ -2581,7 +2659,7 @@
     });
 </script>
 
-        <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">terminal</span> Computer Skills</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span> Computer Skills</h2>
         
         <style>
             /* Specific Styles for Skill Cards */
@@ -2638,25 +2716,25 @@
         <div class="skill-grid">
             
             <div class="skill-card skill-simapro">
-                <span class="material-symbols-rounded skill-icon">eco</span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/eco"></span>
                 <h3>SimaPro</h3>
                 <p>LCA Modeling</p>
             </div>
 
             <div class="skill-card skill-landgem">
-                <span class="material-symbols-rounded skill-icon">bar_chart</span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/bar-chart"></span>
                 <h3>LandGEM</h3>
                 <p>Landfill Gas Emission</p>
             </div>
 
             <div class="skill-card skill-python">
-                <span class="material-symbols-rounded skill-icon">code</span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/code"></span>
                 <h3>Python</h3>
                 <p>Automation & Scripts</p>
             </div>
 
             <div class="skill-card skill-chemdraw">
-                <span class="material-symbols-rounded skill-icon">science</span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/science"></span>
                 <h3>ChemDraw</h3>
                 <p>Molecular Structures</p>
             </div>
@@ -2664,11 +2742,11 @@
         </div>
 
         
-        <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">language</span> Language Skills</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/language" aria-hidden="true"></span> Language Skills</h2>
         <div class="grid">
             <div class="card reveal-on-scroll">
                 <h3 class="flex-align-center-gap">
-                    <span class="material-symbols-rounded text-primary" aria-hidden="true">translate</span>
+                    <span class="svg-icon-slot text-primary" data-icon="ui/translate" aria-hidden="true"></span>
                     English
                 </h3>
                 <p class="mt-10 text-muted">Overall score: <b class="text-white">7.0</b></p>
@@ -2676,14 +2754,14 @@
 
             <div class="card reveal-on-scroll">
                 <h3 class="flex-align-center-gap">
-                    <span class="material-symbols-rounded text-primary" aria-hidden="true">translate</span>
+                    <span class="svg-icon-slot text-primary" data-icon="ui/translate" aria-hidden="true"></span>
                     German
                 </h3>
                 <p class="mt-10 text-muted">Current Level: <b class="text-white">B1.1</b></p>
             </div>
         </div>
 
-        <h2 class="section-title"><span class="material-symbols-rounded" aria-hidden="true">volunteer_activism</span> Volunteer Experience</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/volunteer-activism" aria-hidden="true"></span> Volunteer Experience</h2>
         <div class="grid">
             
             <div class="card">
@@ -2692,15 +2770,15 @@
                 
                 <ul class="card-list">
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Managed member registration processes and maintained document archives.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Designed promotional materials such as posters and brochures for events.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Provided guidance and support to members and participants during events.</span>
                     </li>
                 </ul>
@@ -2712,15 +2790,15 @@
                 
                 <ul class="card-list">
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Organized and coordinated courses, ensuring smooth execution of sessions.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Assisted instructors with logistics and provided necessary guidance.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Managed attendance lists and supported participants throughout the program.</span>
                     </li>
                 </ul>
@@ -2732,15 +2810,15 @@
 
                 <ul class="card-list">
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Assisted in initial screening of submitted manuscripts and checked adherence to journal guidelines.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Communicated with authors and reviewers regarding submission status and minor revisions.</span>
                     </li>
                     <li class="card-list-item">
-                        <span class="material-symbols-rounded card-list-item-icon" aria-hidden="true">check_circle</span>
+                        <span class="svg-icon-slot card-list-item-icon" data-icon="states/check-circle" aria-hidden="true"></span>
                         <span>Helped organize and maintain the journal’s manuscript tracking records and documentation.</span>
                     </li>
                 </ul>
@@ -3591,12 +3669,12 @@
 
         <div class="footer-info">
             <div class="eco-badge">
-                <span class="material-symbols-rounded" aria-hidden="true">eco</span>
+                <span class="svg-icon-slot" data-icon="ui/eco" aria-hidden="true"></span>
                 <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
             </div>
             
             <p class="footer-time-wrap">
-                <span class="material-symbols-rounded footer-time-icon" aria-hidden="true">schedule</span>
+                <span class="svg-icon-slot footer-time-icon" data-icon="ui/schedule" aria-hidden="true"></span>
                 Tehran Time: <span id="local-time" class="text-white">--:--</span>
             </p>
 
@@ -3668,7 +3746,7 @@
 
 <div class="copyright">
     <span class="shimmer-text">
-        &copy; <span id="year"></span> Soheil Aghayani. Engineered for a sustainable future. Built with <span class="heart-beat">♥</span> and code.
+        &copy; <span id="year"></span> Soheil Aghayani. Engineered for a sustainable future. Built with <span class="heart-beat" data-icon="states/heart-bold" data-icon-label="Secret projects link"></span> and code.
     </span>
 </div>
 </footer>
@@ -3719,7 +3797,7 @@
           <div class="notes-top-title">Notes</div>
           <div class="notes-top-actions">
             <button class="notes-add" id="notesAddBtn" type="button" aria-label="Add note" title="Add note">
-              <span class="material-symbols-rounded" aria-hidden="true">add</span>
+              <span class="svg-icon-slot" data-icon="ui/add" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -3791,13 +3869,24 @@
         // This moves the radial gradient background based on your mouse position
         const spotlight = document.querySelector('.spotlight');
         
-        window.addEventListener('mousemove', e => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            
-            spotlight.style.setProperty('--x', `${x}%`);
-            spotlight.style.setProperty('--y', `${y}%`);
-        });
+        let spotlightFrame = null;
+        let pendingSpotlightEvent = null;
+
+        function paintSpotlight() {
+            spotlightFrame = null;
+            if (!pendingSpotlightEvent || document.documentElement.classList.contains('screensaver-active')) return;
+
+            const { clientX, clientY } = pendingSpotlightEvent;
+            pendingSpotlightEvent = null;
+            spotlight.style.setProperty('--x', `${clientX}px`);
+            spotlight.style.setProperty('--y', `${clientY}px`);
+        }
+
+        window.addEventListener('pointermove', e => {
+            if (document.documentElement.classList.contains('screensaver-active')) return;
+            pendingSpotlightEvent = e;
+            if (spotlightFrame === null) spotlightFrame = requestAnimationFrame(paintSpotlight);
+        }, { passive: true });
     </script>
 
 
@@ -3952,6 +4041,7 @@
     const zoomOut = document.getElementById('fcZoomOut');
     const reset = document.getElementById('fcReset');
     const toggleTheme = document.getElementById('fcToggleTheme');
+    const lockIcon = document.getElementById('flowchartLockIcon');
 
     if (!btn || !viewer || !canvas) return;
 
@@ -3973,6 +4063,7 @@
 
     img.onload = () => {
         imgLoaded = true;
+        if (!isViewerVisible()) return;
         resizeCanvas();
         resetView(true);
         startAnimationLoop();
@@ -3981,7 +4072,7 @@
     // Select image based on window viewport size
     function updateFlowchartSrc() {
         const isMobile = window.innerWidth <= 768;
-        const targetSrc = isMobile ? 'assets/flowchart-phone.webp' : 'assets/flowchart.webp';
+        const targetSrc = isMobile ? 'assets/images/portfolio/flowchart-phone.webp' : 'assets/images/portfolio/flowchart.webp';
         if (!img.src.endsWith(targetSrc)) {
             imgLoaded = false;
             img.src = targetSrc;
@@ -3990,8 +4081,27 @@
     
     updateFlowchartSrc();
 
+    function isViewerVisible() {
+        return viewer.style.display !== 'none' &&
+            getComputedStyle(viewer).display !== 'none' &&
+            !document.hidden &&
+            !document.documentElement.classList.contains('screensaver-active');
+    }
+
+    function stopAnimationLoop() {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+    }
+
     function startAnimationLoop() {
+        if (animationFrameId || !isViewerVisible()) return;
+
         function update() {
+            animationFrameId = null;
+            if (!isViewerVisible()) return;
+
             if (!isBlurred) {
                 transform.x += (targetTransform.x - transform.x) * 0.15;
                 transform.y += (targetTransform.y - transform.y) * 0.15;
@@ -4000,7 +4110,6 @@
             }
             animationFrameId = requestAnimationFrame(update);
         }
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(update);
     }
 
@@ -4041,7 +4150,7 @@
         const isHidden = viewer.style.display === 'none' || getComputedStyle(viewer).display === 'none';
         if (isHidden) {
             viewer.style.display = 'block';
-            btn.innerHTML = '<span class="material-symbols-rounded">filter_alt_off</span> Hide Flowchart';
+            btn.innerHTML = '<span class="svg-icon-slot" data-icon="ui/filter-alt-off" aria-hidden="true"></span> Hide Flowchart';
             updateFlowchartSrc();
             setTimeout(() => {
                 resizeCanvas();
@@ -4052,11 +4161,8 @@
             }, 50);
         } else {
             viewer.style.display = 'none';
-            btn.innerHTML = '<span class="material-symbols-rounded">filter_alt</span> View Process Flowchart';
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
+            btn.innerHTML = '<span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span> View Process Flowchart';
+            stopAnimationLoop();
         }
     });
 
@@ -4071,6 +4177,16 @@
             updateFlowchartSrc();
             resizeCanvas();
         }
+    });
+
+    window.addEventListener('screensaver-visibilitychange', (event) => {
+        if (event.detail && event.detail.active) stopAnimationLoop();
+        else startAnimationLoop();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAnimationLoop();
+        else startAnimationLoop();
     });
 
     canvas.addEventListener('mousedown', (e) => {
@@ -4196,13 +4312,13 @@
     }
 
     const EASTER_EGG_REACTIONS = [
-        { title: "🕵️ Look at you! You sneaky hacker...", sub: "(Focus this window to unmask the secret blueprint)" },
-        { title: "🕶️ Neo, is that you? The Matrix has you...", sub: "(Click back into this window to take the red pill)" },
-        { title: "💻 Access Denied: Mainframe is watching you!", sub: "(Focus window to resume top-secret operation)" },
-        { title: "🚀 Unauthorized tab switching detected!", sub: "(Return to base to decrypt the master diagram)" },
-        { title: "🍕 Shhh! The blueprint is hiding from your tabs!", sub: "(Focus this window to reveal the classified flow)" },
-        { title: "🤖 Beep Boop! Are you inspecting my source code?", sub: "(Click back to disarm the cyber security field)" },
-        { title: "🏆 Level 99 Cyber Detective Discovered!", sub: "(Focus window to claim your reward and unmask data)" }
+        { icon: 'states/hacker', title: 'Look at you! You sneaky hacker...', sub: '(Focus this window to unmask the secret blueprint)' },
+        { icon: 'states/vpn', title: 'Neo, is that you? The Matrix has you...', sub: '(Click back into this window to take the red pill)' },
+        { icon: 'states/security-check', title: 'Access Denied: Mainframe is watching you!', sub: '(Focus window to resume top-secret operation)' },
+        { icon: 'states/external-link-rounded', title: 'Unauthorized tab switching detected!', sub: '(Return to base to decrypt the master diagram)' },
+        { icon: 'states/flowchart-outline-sharp', title: 'The blueprint is hiding from your tabs!', sub: '(Focus this window to reveal the classified flow)' },
+        { icon: 'states/verified-user', title: 'Are you inspecting my source code?', sub: '(Click back to disarm the cyber security field)' },
+        { icon: 'games/blackjack/reward-12-regular', title: 'Level 99 Cyber Detective Discovered!', sub: '(Focus window to claim your reward and unmask data)' }
     ];
 
     function lockScreen() {
@@ -4213,6 +4329,13 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         const reaction = EASTER_EGG_REACTIONS[Math.floor(Math.random() * EASTER_EGG_REACTIONS.length)];
+
+        if (lockIcon) {
+            lockIcon.innerHTML = window.IconRegistry
+                ? window.IconRegistry.svg(reaction.icon, { className: 'flowchart-lock-svg', label: 'Flowchart focus lock' })
+                : '';
+            lockIcon.classList.add('show');
+        }
 
         ctx.fillStyle = 'rgba(45, 212, 191, 0.95)';
         ctx.font = 'bold 18px Outfit, sans-serif';
@@ -4226,6 +4349,7 @@
 
     function unlockScreen() {
         isBlurred = false;
+        if (lockIcon) lockIcon.classList.remove('show');
         draw();
     }
 
@@ -4264,17 +4388,18 @@
     row.className = 'pub-load-row';
 
     const remaining = allItems.length - LOAD_MORE_STEP;
+    const localIcon = name => window.IconRegistry ? window.IconRegistry.svg(name) : '';
 
     const moreBtn = document.createElement('button');
     moreBtn.className = 'load-more-btn';
-    moreBtn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_more</span> Load More <span class="load-count">(${remaining} remaining)</span>`;
+    moreBtn.innerHTML = `${localIcon('ui/expand-more')} Load More <span class="load-count">(${remaining} remaining)</span>`;
     row.appendChild(moreBtn);
 
     // Load Less button — hidden until at least one extra batch is shown
     const lessBtn = document.createElement('button');
     lessBtn.className = 'load-less-btn';
     lessBtn.style.display = 'none';
-    lessBtn.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">expand_less</span> Load Less`;
+    lessBtn.innerHTML = `${localIcon('ui/expand-less')} Load Less`;
     row.appendChild(lessBtn);
 
     moreBtn.addEventListener('click', () => {
@@ -4285,7 +4410,7 @@
       moreBtn.addEventListener('animationend', () => moreBtn.classList.remove('bouncing'), { once: true });
 
       // Spin the chevron down
-      const moreBtnIcon = moreBtn.querySelector('.material-symbols-rounded');
+      const moreBtnIcon = moreBtn.querySelector('.svg-icon');
       if (moreBtnIcon) moreBtnIcon.style.transform = 'rotate(360deg)';
       setTimeout(() => { if (moreBtnIcon) moreBtnIcon.style.transform = ''; }, 350);
 
@@ -4308,7 +4433,7 @@
       const countEl = moreBtn.querySelector('.load-count');
       if (stillHidden.length === 0) {
         moreBtn.classList.add('all-loaded');
-        if (moreBtnIcon) moreBtnIcon.textContent = 'done_all';
+        if (moreBtnIcon && window.IconRegistry) moreBtnIcon.outerHTML = window.IconRegistry.svg('states/check-circle');
         if (countEl) countEl.textContent = '(all shown)';
         moreBtn.disabled = true;
         moreBtn.style.cursor = 'default';
@@ -4326,7 +4451,7 @@
       lessBtn.addEventListener('animationend', () => lessBtn.classList.remove('bouncing'), { once: true });
 
       // Spin the chevron up
-      const lessBtnIcon = lessBtn.querySelector('.material-symbols-rounded');
+      const lessBtnIcon = lessBtn.querySelector('.svg-icon');
       if (lessBtnIcon) lessBtnIcon.style.transform = 'rotate(-360deg)';
       setTimeout(() => { if (lessBtnIcon) lessBtnIcon.style.transform = ''; }, 350);
 
@@ -4351,8 +4476,8 @@
         moreBtn.classList.remove('all-loaded');
         moreBtn.disabled = false;
         moreBtn.style.cursor = '';
-        const moreBtnIcon = moreBtn.querySelector('.material-symbols-rounded');
-        if (moreBtnIcon) moreBtnIcon.textContent = 'expand_more';
+        const moreBtnIcon = moreBtn.querySelector('.svg-icon');
+        if (moreBtnIcon && window.IconRegistry) moreBtnIcon.outerHTML = window.IconRegistry.svg('ui/expand-more');
         const countEl = moreBtn.querySelector('.load-count');
         if (countEl) countEl.textContent = `(${remaining} remaining)`;
       }, collapseDuration);
@@ -4456,11 +4581,11 @@
 
     // Playlist tracks
     const tracks = [
-        "assets/warm-cup-of-coffee.mp3",
-        "assets/monday-routine.mp3",
-        "assets/kyoto.mp3"
+        "assets/audio/warm-cup-of-coffee.mp3",
+        "assets/audio/monday-routine.mp3",
+        "assets/audio/kyoto.mp3"
     ];
-    const matrixTrack = "assets/daft-punk-veridis-quo.mp3";
+    const matrixTrack = "assets/audio/daft-punk-veridis-quo.mp3";
     let currentTrackIdx = 0;
     let preloadedNext = false; // prevents redundant trigger calls
     
@@ -4744,17 +4869,17 @@
 <!-- Share Button -->
 <div id="shareWidget" class="share-widget" aria-label="Share this portfolio">
     <button id="shareToggle" class="share-toggle-btn" aria-label="Share" title="Share Portfolio">
-        <span class="material-symbols-rounded">share</span>
+        <span class="svg-icon-slot" data-icon="ui/share" aria-hidden="true"></span>
     </button>
     <div class="share-tray" id="shareTray">
         <button class="share-opt" id="shareCopy" title="Copy link" aria-label="Copy link">
-            <span class="material-symbols-rounded">link</span>
+            <span class="svg-icon-slot" data-icon="ui/link" aria-hidden="true"></span>
         </button>
         <a class="share-opt" id="shareLinkedIn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsoheila.example.com" target="_blank" rel="noopener" title="Share on LinkedIn" aria-label="Share on LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
         </a>
         <a class="share-opt" id="shareTwitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsoheila.example.com&text=Check+out+this+portfolio!" target="_blank" rel="noopener" title="Share on X" aria-label="Share on X (Twitter)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.738-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span class="svg-icon-slot" data-icon="states/x" aria-hidden="true"></span>
         </a>
     </div>
     <div class="share-toast" id="shareToast">Link copied!</div>
@@ -4763,6 +4888,7 @@
 <!-- Screensaver -->
 <div id="screensaver" class="screensaver" aria-hidden="true">
     <canvas id="ssCanvas"></canvas>
+    <div id="ssDvdLogo" class="ss-dvd-logo" aria-hidden="true"></div>
     <div class="ss-center" id="ssCenter">
         <div class="ss-clock" id="ssClock">00:00:00</div>
         <div class="ss-date" id="ssDate">Mon, Aug 11</div>
@@ -4787,7 +4913,7 @@
 <!-- Minimalist Lo-Fi Music Widget -->
 <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Background Music" title="Play Background Music">
     <div class="music-mute-icon" id="musicMuteIcon">
-        <span class="material-symbols-rounded">music_off</span>
+        <span class="svg-icon-slot" data-icon="ui/music-off" aria-hidden="true"></span>
     </div>
     <div class="music-wave" id="musicWave">
         <span></span>
@@ -4797,6 +4923,7 @@
     </div>
 </button>
 
+<script defer src="js/icons.js?v=3.0"></script>
 <script defer src="js/os.js?v=2.2"></script>
 <script defer src="js/terminal.js?v=2.2"></script>
 <script defer src="js/notes.js?v=2.2"></script>
@@ -4881,40 +5008,43 @@
         matrixDrops = Array(cols).fill(1);
     }
 
-    let lastMatrixFrameTime = 0;
+    let lastParticleFrameTime = 0;
+    let particleAnimationId = null;
+    let pausedForScreensaver = false;
 
     function tick(timestamp) {
-        const ss = document.getElementById('screensaver');
-        if (document.hidden || (ss && ss.classList.contains('active'))) {
-            requestAnimationFrame(tick);
+        particleAnimationId = null;
+        if (document.hidden || pausedForScreensaver) {
+            lastParticleFrameTime = 0;
             return;
         }
 
+        const now = Number.isFinite(timestamp) ? timestamp : performance.now();
+        const frameScale = lastParticleFrameTime
+            ? Math.min(2.5, Math.max(0.5, (now - lastParticleFrameTime) / 16.6667))
+            : 1;
+        lastParticleFrameTime = now;
+
         if (isMatrixTheme) {
-            // Capped at ~30 FPS for extreme performance & low CPU/RAM
-            if (!timestamp || timestamp - lastMatrixFrameTime > 33) {
-                lastMatrixFrameTime = timestamp || 0;
+            if (matrixDrops.length === 0) initMatrixDrops();
 
-                if (matrixDrops.length === 0) initMatrixDrops();
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.12)';
+            ctx.fillRect(0, 0, W, H);
 
-                ctx.fillStyle = 'rgba(2, 6, 23, 0.12)';
-                ctx.fillRect(0, 0, W, H);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = matrixFontSize + 'px monospace';
 
-                ctx.fillStyle = '#00ff00';
-                ctx.font = matrixFontSize + 'px monospace';
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                const x = i * matrixFontSize;
+                const y = matrixDrops[i] * matrixFontSize;
 
-                for (let i = 0; i < matrixDrops.length; i++) {
-                    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                    const x = i * matrixFontSize;
-                    const y = matrixDrops[i] * matrixFontSize;
+                ctx.fillText(text, x, y);
 
-                    ctx.fillText(text, x, y);
-
-                    if (y > H && Math.random() > 0.975) {
-                        matrixDrops[i] = 0;
-                    }
-                    matrixDrops[i]++;
+                if (y > H && Math.random() > 0.975) {
+                    matrixDrops[i] = 0;
                 }
+                matrixDrops[i] += frameScale;
             }
         } else {
             matrixDrops = []; // Reset when leaving matrix theme
@@ -4929,8 +5059,8 @@
                 const oy = (mouse.y - cy) * p.parallax;
 
                 // Drift
-                p.x += p.vx;
-                p.y += p.vy;
+                p.x += p.vx * frameScale;
+                p.y += p.vy * frameScale;
 
                 // Mouse repulsion
                 const dx = p.x - mouse.x;
@@ -4938,8 +5068,8 @@
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < REPEL_DIST && dist > 0.1) {
                     const force = (1 - dist / REPEL_DIST) * REPEL_FORCE;
-                    p.x += (dx / dist) * force;
-                    p.y += (dy / dist) * force;
+                    p.x += (dx / dist) * force * frameScale;
+                    p.y += (dy / dist) * force * frameScale;
                 }
 
                 // Wrap edges with slight margin
@@ -4950,7 +5080,7 @@
                 else if (p.y > H + m) p.y = -m;
 
                 // Twinkle
-                p.alpha += p.twinkleSpeed * p.twinkleDir;
+                p.alpha += p.twinkleSpeed * p.twinkleDir * frameScale;
                 if (p.alpha >= p.baseAlpha + 0.15) { p.alpha = p.baseAlpha + 0.15; p.twinkleDir = -1; }
                 if (p.alpha <= p.baseAlpha - 0.12) { p.alpha = p.baseAlpha - 0.12; p.twinkleDir = 1; }
                 const alpha = Math.max(0, Math.min(1, p.alpha));
@@ -4975,8 +5105,21 @@
             }
         }
 
-        requestAnimationFrame(tick);
+        particleAnimationId = requestAnimationFrame(tick);
     }
+
+    function scheduleParticleFrame() {
+        if (!particleAnimationId && !document.hidden && !pausedForScreensaver) {
+            particleAnimationId = requestAnimationFrame(tick);
+        }
+    }
+
+    window.addEventListener('screensaver-visibilitychange', (event) => {
+        pausedForScreensaver = Boolean(event.detail && event.detail.active);
+        if (!pausedForScreensaver) scheduleParticleFrame();
+    });
+
+    document.addEventListener('visibilitychange', scheduleParticleFrame);
 
     // Mouse tracking across full window
     window.addEventListener('mousemove', e => {
@@ -5050,40 +5193,28 @@
     const clock  = document.getElementById('ssClock');
     const dateEl = document.getElementById('ssDate');
     const center = document.getElementById('ssCenter');
+    const dvdLogo = document.getElementById('ssDvdLogo');
     const badge  = document.getElementById('ssBadge');
     const bIcon  = document.getElementById('ssBadgeIcon');
     const bLabel = document.getElementById('ssBadgeLabel');
     if (!ss || !canvas || !clock) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
     const TIMEOUT = 120000; // 2 minutes inactivity
     let timer, ssActive = false, animId;
-    let ignoreEvents = false, ignoreTimer = null;
+    let ignoreEvents = false;
+    let launchGuardTimer = null;
     let mouseX = -1000, mouseY = -1000;
 
     const MODES = ['starfield', 'matrix', 'dvd', 'synthwave', 'quantum'];
     const MODE_META = {
-        starfield: { title: 'Starfield', icon: 'assets/icons/starfield.svg' },
-        matrix: { title: 'Matrix Code Rain', icon: 'assets/icons/matrix.svg' },
-        dvd: { title: 'Bouncing DVD', icon: 'assets/icons/dvd.svg' },
-        synthwave: { title: '80s Synthwave', icon: 'assets/icons/sunrise.svg' },
-        quantum: { title: 'Quantum Constellation', icon: 'assets/icons/ai-line.svg' }
+        starfield: { title: 'Starfield', icon: 'assets/icons/screensavers/starfield.svg', iconName: 'screensavers/starfield' },
+        matrix: { title: 'Matrix Code Rain', icon: 'assets/icons/screensavers/matrix.svg', iconName: 'screensavers/matrix' },
+        dvd: { title: 'Bouncing DVD', icon: 'assets/icons/screensavers/dvd.svg', iconName: 'screensavers/dvd' },
+        synthwave: { title: '80s Synthwave', icon: 'assets/icons/screensavers/sunrise.svg', iconName: 'screensavers/sunrise' },
+        quantum: { title: 'Quantum Constellation', icon: 'assets/icons/screensavers/ai-line.svg', iconName: 'screensavers/ai-line' }
     };
     let currentMode = 'starfield';
-
-    // SVG icon cache
-    const svgCache = {};
-    Object.keys(MODE_META).forEach(key => {
-        fetch(MODE_META[key].icon)
-            .then(res => res.text())
-            .then(svgText => {
-                svgCache[key] = svgText;
-                if (currentMode === key && bIcon) {
-                    bIcon.innerHTML = svgText;
-                }
-            })
-            .catch(() => {});
-    });
 
     function getRandomMode() {
         const idx = Math.floor(Math.random() * MODES.length);
@@ -5110,14 +5241,21 @@
     function resize() {
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
+        const minSide = Math.min(canvas.width, canvas.height);
+        dvdState.w = Math.min(300, Math.max(150, minSide * 0.34));
+        dvdState.h = dvdState.w * 0.44;
+        dvdState.x = Math.min(Math.max(0, dvdState.x), Math.max(0, canvas.width - dvdState.w));
+        dvdState.y = Math.min(Math.max(0, dvdState.y), Math.max(0, canvas.height - dvdState.h));
     }
 
     // Dynamic State for Renderers
     const stars = [];
     const matrixStreams = [];
     let dvdState = { x: 100, y: 100, vx: 3.5, vy: 2.5, w: 220, h: 90, colorIdx: 0, bounceCount: 0 };
+    const dvdTrail = [];
     const dvdColors = ['#2dd4bf', '#ec4899', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ef4444', '#f43f5e'];
     let synthOffset = 0;
+    let lastFrameTime = 0;
     const quantumNodes = [];
 
     function initCurrentModeData() {
@@ -5151,8 +5289,9 @@
                 });
             }
         } else if (currentMode === 'dvd') {
-            dvdState.x = Math.random() * Math.max(50, W - 250);
-            dvdState.y = Math.random() * Math.max(50, H - 120);
+            dvdTrail.length = 0;
+            dvdState.x = Math.random() * Math.max(0, W - dvdState.w);
+            dvdState.y = Math.random() * Math.max(0, H - dvdState.h);
             dvdState.vx = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 1.5 + 2.5);
             dvdState.vy = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 1.5 + 2.0);
         } else if (currentMode === 'quantum') {
@@ -5173,25 +5312,27 @@
     }
 
     // Mode Renderers
-    function renderStarfield() {
+    function renderStarfield(frameScale = 1) {
         ctx.fillStyle = '#030712';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ffffff';
 
         stars.forEach(s => {
-            s.alpha += s.dA;
+            s.alpha += s.dA * frameScale;
             if (s.alpha > 1) { s.alpha = 1; s.dA *= -1; }
             if (s.alpha < 0) { s.alpha = 0; s.dA *= -1; }
-            s.y -= s.speed;
+            s.y -= s.speed * frameScale;
             if (s.y < -2) s.y = canvas.height + 2;
 
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha * 0.75})`;
+            ctx.globalAlpha = s.alpha * 0.75;
             ctx.fill();
         });
+        ctx.globalAlpha = 1;
     }
 
-    function renderMatrix() {
+    function renderMatrix(frameScale = 1) {
         ctx.fillStyle = 'rgba(3, 8, 5, 0.18)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -5200,7 +5341,7 @@
         const allChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾜ';
 
         matrixStreams.forEach(stream => {
-            stream.y += stream.speed * 6;
+            stream.y += stream.speed * 6 * frameScale;
 
             for (let j = 0; j < stream.length; j++) {
                 const charY = stream.y - j * fontSize;
@@ -5233,65 +5374,57 @@
         });
     }
 
-    function renderDVD() {
-        ctx.fillStyle = '#05050a';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    function renderDVD(frameScale = 1) {
         const W = canvas.width, H = canvas.height;
         const s = dvdState;
+        const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
 
-        s.x += s.vx;
-        s.y += s.vy;
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.34)';
+        ctx.fillRect(0, 0, W, H);
+
+        s.x += s.vx * frameScale;
+        s.y += s.vy * frameScale;
 
         let bounced = false;
-        if (s.x <= 0) { s.x = 0; s.vx *= -1; bounced = true; }
-        if (s.x + s.w >= W) { s.x = W - s.w; s.vx *= -1; bounced = true; }
-        if (s.y <= 0) { s.y = 0; s.vy *= -1; bounced = true; }
-        if (s.y + s.h >= H) { s.y = H - s.h; s.vy *= -1; bounced = true; }
+        if (s.x <= 0) { s.x = 0; s.vx = Math.abs(s.vx); bounced = true; }
+        if (s.x + s.w >= W) { s.x = Math.max(0, W - s.w); s.vx = -Math.abs(s.vx); bounced = true; }
+        if (s.y <= 0) { s.y = 0; s.vy = Math.abs(s.vy); bounced = true; }
+        if (s.y + s.h >= H) { s.y = Math.max(0, H - s.h); s.vy = -Math.abs(s.vy); bounced = true; }
 
         if (bounced) {
             s.colorIdx = (s.colorIdx + 1) % dvdColors.length;
             s.bounceCount++;
         }
 
-        const color = dvdColors[s.colorIdx];
+        const color = s.bounceCount % 5 === 0 && primary ? primary : dvdColors[s.colorIdx];
+        dvdTrail.push({ x: s.x + s.w / 2, y: s.y + s.h / 2, color });
+        while (dvdTrail.length > 18) dvdTrail.shift();
 
         ctx.save();
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        
-        const r = 16;
-        ctx.beginPath();
-        ctx.moveTo(s.x + r, s.y);
-        ctx.lineTo(s.x + s.w - r, s.y);
-        ctx.quadraticCurveTo(s.x + s.w, s.y, s.x + s.w, s.y + r);
-        ctx.lineTo(s.x + s.w, s.y + s.h - r);
-        ctx.quadraticCurveTo(s.x + s.w, s.y + s.h, s.x + s.w - r, s.y + s.h);
-        ctx.lineTo(s.x + r, s.y + s.h);
-        ctx.quadraticCurveTo(s.x, s.y + s.h, s.x, s.y + s.h - r);
-        ctx.lineTo(s.x, s.y + r);
-        ctx.quadraticCurveTo(s.x, s.y, s.x + r, s.y);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = color;
-        ctx.font = 'bold 1.2rem "Courier New", monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('SOHEIL OS', s.x + s.w / 2, s.y + s.h / 2 - 8);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.font = '0.7rem sans-serif';
-        ctx.fillText(`BOUNCES: ${s.bounceCount}`, s.x + s.w / 2, s.y + s.h / 2 + 14);
-
+        dvdTrail.forEach((point, index) => {
+            const alpha = (index + 1) / dvdTrail.length * 0.18;
+            const radius = 8 + (index / dvdTrail.length) * 18;
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = point.color;
+            ctx.shadowColor = point.color;
+            ctx.shadowBlur = 24;
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
         ctx.restore();
+
+        if (dvdLogo) {
+            dvdLogo.style.setProperty('--dvd-color', color);
+            dvdLogo.style.width = `${s.w}px`;
+            dvdLogo.style.height = `${s.h}px`;
+            dvdLogo.style.transform = `translate3d(${s.x}px, ${s.y}px, 0)`;
+        }
     }
 
-    function renderSynthwave() {
+    function renderSynthwave(frameScale = 1) {
         const W = canvas.width, H = canvas.height;
-        synthOffset = (synthOffset + 0.8) % 40;
+        synthOffset = (synthOffset + 0.8 * frameScale) % 40;
 
         const sky = ctx.createLinearGradient(0, 0, 0, H * 0.6);
         sky.addColorStop(0, '#09021a');
@@ -5327,41 +5460,38 @@
             }
         }
 
-        ctx.save();
         ctx.strokeStyle = 'rgba(244, 63, 94, 0.65)';
         ctx.lineWidth = 1.5;
+        ctx.beginPath();
 
         const vpX = W / 2, vpY = horizon;
         const lineCount = 24;
         for (let i = -lineCount / 2; i <= lineCount / 2; i++) {
             const targetX = vpX + i * (W / 10);
-            ctx.beginPath();
             ctx.moveTo(vpX, vpY);
             ctx.lineTo(targetX, H);
-            ctx.stroke();
         }
 
         for (let y = synthOffset; y < H * 0.4; y += 14) {
             const normY = y / (H * 0.4);
             const gridY = horizon + Math.pow(normY, 1.8) * (H * 0.4);
-            ctx.beginPath();
             ctx.moveTo(0, gridY);
             ctx.lineTo(W, gridY);
-            ctx.stroke();
         }
-        ctx.restore();
+        ctx.stroke();
     }
 
-    function renderQuantum() {
+    function renderQuantum(frameScale = 1) {
         ctx.fillStyle = '#080d1a';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         const W = canvas.width, H = canvas.height;
         const maxDist = 120;
+        const maxDistSq = maxDist * maxDist;
 
         quantumNodes.forEach(node => {
-            node.x += node.vx;
-            node.y += node.vy;
+            node.x += node.vx * frameScale;
+            node.y += node.vy * frameScale;
 
             if (node.x < 0 || node.x > W) node.vx *= -1;
             if (node.y < 0 || node.y > H) node.vy *= -1;
@@ -5371,45 +5501,63 @@
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 100 && dist > 0) {
                 const force = (100 - dist) / 100;
-                node.x += (dx / dist) * force * 3;
-                node.y += (dy / dist) * force * 3;
+                node.x += (dx / dist) * force * 3 * frameScale;
+                node.y += (dy / dist) * force * 3 * frameScale;
             }
-
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(45, 212, 191, ${node.alpha})`;
-            ctx.fill();
         });
 
+        // Draw all nodes in one path instead of one fill operation per node.
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(45, 212, 191, 0.82)';
+        quantumNodes.forEach(node => {
+            ctx.moveTo(node.x + node.r, node.y);
+            ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        });
+        ctx.fill();
+
+        const linePaths = [new Path2D(), new Path2D(), new Path2D()];
         for (let i = 0; i < quantumNodes.length; i++) {
             for (let j = i + 1; j < quantumNodes.length; j++) {
                 const n1 = quantumNodes[i];
                 const n2 = quantumNodes[j];
                 const dx = n1.x - n2.x;
                 const dy = n1.y - n2.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+                const distSq = dx * dx + dy * dy;
+                if (distSq >= maxDistSq) continue;
 
-                if (dist < maxDist) {
-                    const alpha = (1 - dist / maxDist) * 0.45;
-                    ctx.beginPath();
-                    ctx.moveTo(n1.x, n1.y);
-                    ctx.lineTo(n2.x, n2.y);
-                    ctx.strokeStyle = `rgba(45, 212, 191, ${alpha})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
+                const bucket = distSq < 2304 ? 0 : (distSq < 7056 ? 1 : 2);
+                linePaths[bucket].moveTo(n1.x, n1.y);
+                linePaths[bucket].lineTo(n2.x, n2.y);
             }
         }
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(45, 212, 191, 0.38)';
+        ctx.stroke(linePaths[0]);
+        ctx.strokeStyle = 'rgba(45, 212, 191, 0.24)';
+        ctx.stroke(linePaths[1]);
+        ctx.strokeStyle = 'rgba(45, 212, 191, 0.12)';
+        ctx.stroke(linePaths[2]);
     }
 
-    function loop() {
-        if (!ssActive) return;
+    function loop(timestamp) {
+        if (!ssActive) {
+            animId = null;
+            lastFrameTime = 0;
+            return;
+        }
 
-        if (currentMode === 'starfield') renderStarfield();
-        else if (currentMode === 'matrix') renderMatrix();
-        else if (currentMode === 'dvd') renderDVD();
-        else if (currentMode === 'synthwave') renderSynthwave();
-        else if (currentMode === 'quantum') renderQuantum();
+        const now = Number.isFinite(timestamp) ? timestamp : performance.now();
+        const frameScale = lastFrameTime
+            ? Math.min(2.5, Math.max(0.5, (now - lastFrameTime) / 16.6667))
+            : 1;
+        lastFrameTime = now;
+
+        if (currentMode === 'starfield') renderStarfield(frameScale);
+        else if (currentMode === 'matrix') renderMatrix(frameScale);
+        else if (currentMode === 'dvd') renderDVD(frameScale);
+        else if (currentMode === 'synthwave') renderSynthwave(frameScale);
+        else if (currentMode === 'quantum') renderQuantum(frameScale);
 
         animId = requestAnimationFrame(loop);
     }
@@ -5418,11 +5566,18 @@
         const meta = MODE_META[currentMode] || MODE_META.starfield;
         if (bLabel) bLabel.textContent = meta.title;
         if (bIcon) {
-            if (svgCache[currentMode]) {
-                bIcon.innerHTML = svgCache[currentMode];
+            if (window.IconRegistry) {
+                bIcon.innerHTML = window.IconRegistry.svg(meta.iconName, { label: meta.title });
             } else {
-                fetch(meta.icon).then(r => r.text()).then(t => { bIcon.innerHTML = t; });
+                bIcon.textContent = '';
             }
+        }
+
+        if (dvdLogo) {
+            dvdLogo.hidden = currentMode !== 'dvd';
+            dvdLogo.innerHTML = currentMode === 'dvd' && window.IconRegistry
+                ? window.IconRegistry.svg('screensavers/dvd', { className: 'ss-dvd-svg', label: 'Bouncing DVD logo' })
+                : '';
         }
 
         if (clock) {
@@ -5443,12 +5598,16 @@
 
         if (center) {
             center.classList.toggle('matrix-active', currentMode === 'matrix');
+            center.classList.toggle('synthwave-active', currentMode === 'synthwave');
             if (currentMode === 'dvd') {
                 center.style.opacity = '0.35';
-                center.style.transform = 'scale(0.85)';
+                center.style.transform = '';
+            } else if (currentMode === 'synthwave') {
+                center.style.opacity = '1';
+                center.style.transform = '';
             } else {
                 center.style.opacity = '1';
-                center.style.transform = 'scale(1)';
+                center.style.transform = '';
             }
         }
     }
@@ -5477,15 +5636,17 @@
         setMode(selected);
 
         ssActive = true;
+        lastFrameTime = 0;
         ss.setAttribute('aria-hidden', 'false');
         ss.classList.add('active');
+        document.documentElement.classList.add('screensaver-active');
+        window.dispatchEvent(new CustomEvent('screensaver-visibilitychange', { detail: { active: true } }));
 
-        // Ignore input events for 600ms so launching keypress/click doesn't instantly close screensaver
+        // Terminal boot can finish with a programmatic scroll. Keep that event from
+        // being mistaken for the user's first screensaver interaction.
         ignoreEvents = true;
-        clearTimeout(ignoreTimer);
-        ignoreTimer = setTimeout(() => {
-            ignoreEvents = false;
-        }, 600);
+        clearTimeout(launchGuardTimer);
+        launchGuardTimer = setTimeout(() => { ignoreEvents = false; }, 350);
 
         resize();
         updateTimeDisplay();
@@ -5493,12 +5654,17 @@
         tickClock();
     }
 
-    function deactivate() {
+    function deactivate(event) {
         if (!ssActive || ignoreEvents) return;
+        if (event && event.type === 'scroll' && event.isTrusted === false) return;
         ssActive = false;
         ss.classList.remove('active');
         ss.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('screensaver-active');
+        window.dispatchEvent(new CustomEvent('screensaver-visibilitychange', { detail: { active: false } }));
         cancelAnimationFrame(animId);
+        animId = null;
+        lastFrameTime = 0;
         resetTimer();
     }
 
@@ -5512,14 +5678,14 @@
         mouseY = e.clientY;
     }, { passive: true });
 
-    // Instantly exit screensaver on mouse move, keydown, click, touch, scroll
-    ['mousemove','mousedown','keydown','touchstart','scroll'].forEach(ev => {
-        document.addEventListener(ev, () => {
-            deactivate();
+    // Exit only for genuine interaction; programmatic terminal scroll is ignored.
+    ['mousemove','mousedown','keydown','touchstart','pointerdown','wheel','scroll'].forEach(ev => {
+        document.addEventListener(ev, (event) => {
+            deactivate(event);
         }, { passive: true });
     });
 
-    ss.addEventListener('click', deactivate);
+    ss.addEventListener('click', (event) => deactivate(event));
 
     resize();
     window.addEventListener('resize', resize);
@@ -5546,7 +5712,18 @@
     if (!overlay) return;
 
     const SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    const EMOJIS   = ['🎮','🌟','🚀','🔥','💎','⚡','🎯','🌈','💫','🏆'];
+    const CHEAT_ICONS = [
+        'games/shared/gamepad',
+        'games/minesweeper/pixel-star',
+        'states/vpn',
+        'games/minesweeper/pixel-skull',
+        'games/minesweeper/pixel-canoe-on-water',
+        'games/minesweeper/pixel-invader',
+        'games/minesweeper/pixel-map-pin',
+        'states/verified',
+        'states/heart-bold',
+        'games/blackjack/reward-12-regular'
+    ];
     let pos = 0;
 
     const isTyping = (e) => {
@@ -5655,8 +5832,12 @@
     }
 
     function open() {
-        const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-        if (art) art.textContent = emoji;
+        const iconName = CHEAT_ICONS[Math.floor(Math.random() * CHEAT_ICONS.length)];
+        if (art) {
+            art.innerHTML = window.IconRegistry
+                ? window.IconRegistry.svg(iconName, { className: 'konami-icon', label: 'Cheat code state' })
+                : '';
+        }
         overlay.setAttribute('aria-hidden', 'false');
         overlay.classList.add('active');
     }
