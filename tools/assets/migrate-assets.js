@@ -262,9 +262,28 @@ const selectedIconDestinationPaths = new Set(
     selectedIconImports.map(({ destination }) => destination.replace(/^icons[\\/]/, '').replace(/\\/g, '/'))
 );
 
-// Match the heavier visual weight of the supplied filled icons without
-// changing the favicon or large game illustrations.
-const RENDER_STROKE_WIDTH = '2.2';
+// Keep interface icons crisp at the small sizes used throughout the site.
+const RENDER_STROKE_WIDTH = '1.65';
+
+// These local variants were redrawn to match the site's outline icon language.
+// Keep them canonical when the broader migration is rerun instead of restoring
+// the heavier files from the owner's original import folders.
+const opticallyRefinedIcons = new Set([
+    'icons/brand/github.svg',
+    'icons/brand/linkedin-circle.svg',
+    'icons/brand/telegram.svg',
+    'icons/games/minesweeper/sport-soccer-16-filled.svg',
+    'icons/states/conference.svg',
+    'icons/states/volunteer-activism-outline.svg',
+    'icons/states/x.svg',
+    'icons/ui/bar-chart-rounded.svg',
+    'icons/ui/leaf-variant.svg',
+    'icons/ui/leaf.svg',
+    'icons/ui/music-off-round.svg',
+    'icons/ui/oil-barrel-outline-rounded.svg',
+    'icons/ui/qr-code.svg',
+    'icons/ui/recycle.svg'
+]);
 
 function ensureDirectories() {
     iconDirectories.forEach(relative => {
@@ -351,6 +370,11 @@ function copyProvidedIcons(records) {
         const canonicalName = providedRenames[sourceName] || sourceName;
         const key = `${category}/${canonicalName.replace(/\.svg$/i, '')}`;
         const target = path.join(iconsDir, category, canonicalName);
+        const refinedDestination = `icons/${path.relative(iconsDir, target).replace(/\\/g, '/')}`;
+        if (opticallyRefinedIcons.has(refinedDestination) && fs.existsSync(target)) {
+            records.push({ key, path: path.relative(repo, target).replace(/\\/g, '/'), source: 'existing-canonical', original: sourceName, reused: true });
+            continue;
+        }
         if (providedDuplicateNames.has(sourceName)) {
             records.push({ key, path: '', source: 'provided-folder', original: sourceName, duplicateOf: 'existing-canonical' });
             continue;
@@ -378,6 +402,17 @@ function copySelectedIcons(records) {
     for (const selection of selectedIconImports) {
         const source = path.resolve(selection.source);
         const target = path.join(assetsDir, selection.destination);
+        if (opticallyRefinedIcons.has(selection.destination) && fs.existsSync(target)) {
+            records.push({
+                key: selection.destination.replace(/^icons\//, '').replace(/\.svg$/i, ''),
+                path: path.relative(repo, target).replace(/\\/g, '/'),
+                source: 'existing-canonical',
+                sourceCategory: 'optically-refined-local-variant',
+                selection: 'optically-refined-local-variant',
+                reused: true
+            });
+            continue;
+        }
         if (!fs.existsSync(source)) throw new Error(`Selected icon source does not exist: ${source}`);
 
         const raw = fs.readFileSync(source, 'utf8');
@@ -462,7 +497,7 @@ function buildSprite(records) {
             .trim();
         if (relative !== 'brand/favicon.svg') {
             innerContent = innerContent.replace(
-                /(\bstroke-width\s*=\s*["'])(?:1\.5|1\.8|2)(["'])/gi,
+                /(\bstroke-width\s*=\s*["'])(?:1\.5|1\.8|2\.2|2)(["'])/gi,
                 `$1${RENDER_STROKE_WIDTH}$2`
             );
         }
