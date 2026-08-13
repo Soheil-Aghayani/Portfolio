@@ -4,4 +4,4 @@ Disallow: /tools/
 Disallow: /node_modules/
 Disallow: /.git/
 
-Sitemap: https://soheil-aghayani.github.io/Portfolio/sitemap.xml
+Sitemap: https://soheil-aghayani.github.io/sitemap.xml

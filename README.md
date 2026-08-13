@@ -3,7 +3,7 @@
 # <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/solar:bolt-linear.svg?color=%2300F2FE"><source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/solar:bolt-linear.svg?color=%230969DA"><img alt="Solar Bolt" src="https://api.iconify.design/solar:bolt-linear.svg?color=%230969DA" width="36" height="36"></picture> SOHEIL AGHAYANI
 ### **Bridging Environmental Engineering & Advanced Software Architecture**
 
-[![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-Visit_Site-0969DA?style=for-the-badge&logoColor=white)](https://soheil-aghayani.github.io/Portfolio/)
+[![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-Visit_Site-0969DA?style=for-the-badge&logoColor=white)](https://soheil-aghayani.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/agseyl/)
 [![Telegram](https://img.shields.io/badge/Telegram-Chat-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/AgSeyl)
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:soheil.aghayani@ut.ac.ir)
