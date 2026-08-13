@@ -34,17 +34,20 @@
     {
       "key": "brand/linkedin-circle",
       "path": "assets/icons/brand/linkedin-circle.svg",
-      "source": "existing-canonical",
+      "source": "user-selected-file",
+      "sourceCategory": "explicit-user-selection",
+      "sourceFile": "Downloads/linkedin-round-svgrepo-com.svg",
+      "selection": "explicit-user-selection",
+      "reused": true,
       "spriteId": "brand-linkedin-circle",
-      "sourceCategory": "existing-canonical",
-      "license": "existing-project-asset"
+      "license": "unverified-user-supplied"
     },
     {
       "key": "brand/telegram",
       "path": "assets/icons/brand/telegram.svg",
       "source": "user-selected-file",
       "sourceCategory": "explicit-user-selection",
-      "sourceFile": "Port icon/telegram.svg",
+      "sourceFile": "Downloads/telegram-svgrepo-com.svg",
       "selection": "explicit-user-selection",
       "reused": true,
       "spriteId": "brand-telegram",

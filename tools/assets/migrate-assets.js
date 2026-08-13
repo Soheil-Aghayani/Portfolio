@@ -195,7 +195,8 @@ const providedRenames = {
 // the selected SVG content is copied into the canonical asset tree.
 const selectedIconImports = [
     { source: String.raw`C:\Users\Soheil\Desktop\Port icon\x.svg`, destination: 'icons/states/x.svg' },
-    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\telegram.svg`, destination: 'icons/brand/telegram.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\linkedin-round-svgrepo-com.svg`, destination: 'icons/brand/linkedin-circle.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\telegram-svgrepo-com.svg`, destination: 'icons/brand/telegram.svg' },
     { source: String.raw`C:\Users\Soheil\Desktop\Port icon\compass.svg`, destination: 'icons/states/compass.svg' },
     { source: String.raw`C:\Users\Soheil\Desktop\Port icon\leaf.svg`, destination: 'icons/ui/leaf.svg' },
     { source: String.raw`C:\Users\Soheil\Desktop\Port icon\suitcase-linear.svg`, destination: 'icons/games/blackjack/suitcase.svg' },
@@ -440,6 +441,9 @@ function buildSprite(records) {
         if (known.has(key)) throw new Error(`Duplicate sprite key: ${key}`);
         known.add(key);
         let svg = fs.readFileSync(file, 'utf8');
+        if (relative !== 'brand/favicon.svg') {
+            svg = normalizeMonochrome(svg, 'ui');
+        }
         const viewBox = getAttr(svg, 'viewBox') || '0 0 24 24';
         // Source icons can contain an XML declaration and a nested SVG root.
         // A nested document is invalid inside a sprite symbol and renders blank
