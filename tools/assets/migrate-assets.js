@@ -331,11 +331,26 @@ function buildSprite(records) {
         known.add(key);
         let svg = fs.readFileSync(file, 'utf8');
         const viewBox = getAttr(svg, 'viewBox') || '0 0 24 24';
-        const inner = svg
-            .replace(/^\s*<svg[^>]*>/i, '')
+        // Source icons can contain an XML declaration and a nested SVG root.
+        // A nested document is invalid inside a sprite symbol and renders blank
+        // in Chromium, so keep only the outer document's contents.
+        const svgRoot = svg.match(/<svg\b[^>]*>/i);
+        const rootMarkup = svgRoot ? svgRoot[0] : '';
+        const rootFill = getAttr(rootMarkup, 'fill') || (getAttr(rootMarkup, 'style').match(/(?:^|;)\s*fill\s*:\s*([^;]+)/i) || [])[1] || '';
+        const rootStroke = getAttr(rootMarkup, 'stroke') || (getAttr(rootMarkup, 'style').match(/(?:^|;)\s*stroke\s*:\s*([^;]+)/i) || [])[1] || '';
+        const innerContent = (svgRoot
+            ? svg.slice((svgRoot.index || 0) + svgRoot[0].length)
+            : svg)
             .replace(/<\/svg>\s*$/i, '')
+            .replace(/<\?xml[\s\S]*?\?>/gi, '')
+            .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
             .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, '')
             .trim();
+        const inheritedAttrs = [
+            rootFill ? `fill="${rootFill}"` : '',
+            rootStroke ? `stroke="${rootStroke}"` : ''
+        ].filter(Boolean).join(' ');
+        const inner = inheritedAttrs ? `<g ${inheritedAttrs}>${innerContent}</g>` : innerContent;
         symbols.push(`<symbol id="${key}" viewBox="${viewBox}">${inner}</symbol>`);
         const record = records.find(item => item.path === path.join('assets', 'icons', relative).replace(/\\/g, '/'));
         if (!record) records.push({ key: relative.replace(/\.svg$/i, ''), path: `assets/icons/${relative}`, source: 'existing-canonical' });

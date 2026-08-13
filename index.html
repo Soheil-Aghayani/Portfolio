@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soheil Aghayani | Environmental Engineer &amp; Developer</title>
-    <meta name="description" content="Soheil Aghayani (سهیل آقایانی) is an environmental engineer, sustainability researcher, and software developer using Python, SimaPro, and web technology." />
+    <meta name="description" content="Soheil Aghayani is an environmental engineer, sustainability researcher, and software developer using Python, SimaPro, and web technology." />
     <meta name="author" content="Soheil Aghayani" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#0f172a" />
     <link rel="canonical" href="https://soheil-aghayani.github.io/" />
+    <meta name="google-site-verification" content="7-4SyC3dIa22dol5nliSdIpmsi0yftu2dxFk527zMCU" />
     <link rel="me" href="https://github.com/Soheil-Aghayani" />
     <link rel="me" href="https://www.linkedin.com/in/agseyl/" />
     <link rel="me" href="https://t.me/AgSeyl" />
@@ -53,7 +54,7 @@
           "@type": "Person",
           "@id": "https://soheil-aghayani.github.io/#person",
           "name": "Soheil Aghayani",
-          "alternateName": ["Soheyl Aghayani", "Aghayani", "Soheyl", "Soheil", "سهیل آقایانی"],
+          "alternateName": ["Soheyl Aghayani", "Aghayani", "Soheyl", "Soheil"],
           "url": "https://soheil-aghayani.github.io/",
           "image": "https://soheil-aghayani.github.io/assets/images/portfolio/welcome.webp",
           "jobTitle": "Environmental Engineer and Software Developer",
@@ -92,6 +93,7 @@
 
     <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
+    <link rel="preload" href="assets/icons/sprite.svg" as="image" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <style>
@@ -123,6 +125,13 @@
             line-height: 0;
             min-width: 1.25em;
             min-height: 1.25em;
+        }
+
+        /* The hero is the first paint; defer expensive work below it. */
+        #main-content,
+        footer {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 6000px;
         }
         /* Keep inactive OS windows out of layout until their stylesheet is
            loaded on first interaction. */
@@ -1386,7 +1395,8 @@
         -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
-    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: 0.5; animation: floatBlob 10s infinite alternate; will-change: transform; }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
+    html:not(.landing-effects-ready) .aurora-blob { animation-play-state: paused; }
     .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent 70%); animation-delay: 0s; }
     .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary), transparent 70%); animation-delay: -5s; }
     .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.3; animation: floatBlob 15s infinite alternate-reverse; }
@@ -1447,15 +1457,6 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -2px;
-    }
-
-    .hero-native-name {
-        color: var(--text-muted);
-        direction: rtl;
-        font-size: 1.05rem;
-        letter-spacing: 0.04em;
-        margin: -2px auto 24px;
-        opacity: 0.86;
     }
 
     .hero-roles { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px; min-height: 1.5em; display: flex; justify-content: center; align-items: center; }
@@ -1535,10 +1536,10 @@
 
     <div class="social-dock">
         <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
-            <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-linkedin-circle"></use></svg>
         </a>
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-telegram"></use></svg>
         </a>
     </div>
 
@@ -1546,8 +1547,6 @@
             <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" title="Open Interactive Terminal" onclick="if(window.OS && window.OS.open) window.OS.open('terminal');">&gt; Hello_World</span>
         
         <h1 id="heroName">Soheil Aghayani</h1>
-        <p class="hero-native-name" lang="fa" dir="rtl">سهیل آقایانی</p>
-        
         <div class="hero-roles">
             <span>I am <span id="article-text">an</span></span>
             <span class="typing-text" id="role-typer">Environmental Engineer</span>
@@ -1560,15 +1559,15 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <span class="svg-icon-slot" data-icon="ui/send" aria-hidden="true"></span>
+                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#ui-send"></use></svg>
             </a>
 
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
-                    <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-linkedin-circle"></use></svg>
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-telegram"></use></svg>
                 </a>
             </div>
         </div>
@@ -1576,7 +1575,7 @@
 
     <a href="#education" class="scroll-down" aria-label="Scroll to Explore">
         <span>Scroll to Explore</span>
-        <span class="svg-icon-slot" data-icon="games/shared/arrow-down" aria-hidden="true"></span>
+        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#games-shared-arrow-down"></use></svg>
     </a>
 
     <script>
@@ -5245,7 +5244,7 @@
     }
 
     function scheduleParticleFrame() {
-        if (!particleAnimationId && !document.hidden && !pausedForScreensaver) {
+        if (particlesStarted && !particleAnimationId && !document.hidden && !pausedForScreensaver) {
             particleAnimationId = requestAnimationFrame(tick);
         }
     }
@@ -5273,12 +5272,38 @@
         mouse.y = t.clientY;
     }, { passive: true });
 
-    window.addEventListener('resize', resize);
-    resize();
-    // Start the decorative canvas after the first contentful paint. It is
-    // visual polish and should not compete with the hero for the first frame.
-    setTimeout(() => tick(), 1200);
+    let particlesStarted = false;
+    window.addEventListener('resize', () => {
+        if (particlesStarted) resize();
+    }, { passive: true });
+
+    function startParticles() {
+        if (particlesStarted) return;
+        particlesStarted = true;
+        resize();
+        scheduleParticleFrame();
+    }
+
+    // Decorative particles are intentionally idle until the browser has a
+    // chance to paint the hero and settle the first interaction.
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(startParticles, { timeout: 1200 });
+    } else {
+        setTimeout(startParticles, 1200);
+    }
 })();
+</script>
+
+<script>
+    // Enable ambient motion after the first paint instead of competing with it.
+    (() => {
+        const enable = () => document.documentElement.classList.add('landing-effects-ready');
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(enable, { timeout: 900 });
+        } else {
+            setTimeout(enable, 900);
+        }
+    })();
 </script>
 
 
