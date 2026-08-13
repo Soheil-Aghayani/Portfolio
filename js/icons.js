@@ -1,7 +1,9 @@
 (function (window, document) {
     'use strict';
 
-    const SPRITE_URL = 'assets/icons/sprite.svg';
+    // Bump this whenever the generated sprite changes so browsers do not keep
+    // serving an older icon set from GitHub Pages' cache.
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=82ad327';
 
     function escapeAttribute(value) {
         return String(value == null ? '' : value)

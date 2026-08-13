@@ -93,7 +93,7 @@
 
     <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
-    <link rel="preload" href="assets/icons/sprite.svg" as="image" type="image/svg+xml" />
+    <link rel="preload" href="assets/icons/sprite.svg?v=82ad327" as="image" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <style>
@@ -1417,7 +1417,23 @@
     .social-dock::before { content: ''; position: absolute; left: 50%; top: -60px; width: 1px; height: 50px; background: linear-gradient(to top, var(--glass-border), transparent); }
     .social-dock::after { content: ''; position: absolute; left: 50%; bottom: -60px; width: 1px; height: 50px; background: linear-gradient(to bottom, var(--glass-border), transparent); }
 
-    .dock-link { color: var(--text-muted); font-size: 1.4rem; transition: all 0.3s; opacity: 0.7; }
+    .dock-link {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        line-height: 0;
+        transition: all 0.3s;
+        opacity: 0.9;
+    }
+    .dock-link .svg-icon {
+        width: 32px;
+        height: 32px;
+        display: block;
+        vertical-align: initial;
+    }
     .dock-link:hover { opacity: 1; transform: scale(1.2) translateX(5px); }
     .dock-link.linkedin:hover { color: var(--secondary); }
     .dock-link.telegram:hover { color: var(--primary); }
@@ -1534,10 +1550,10 @@
 
     <div class="social-dock">
         <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-linkedin-circle"></use></svg>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#brand-linkedin-circle"></use></svg>
         </a>
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-telegram"></use></svg>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#brand-telegram"></use></svg>
         </a>
     </div>
 
@@ -1557,15 +1573,15 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#ui-send"></use></svg>
+                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#ui-send"></use></svg>
             </a>
 
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-linkedin-circle"></use></svg>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#brand-linkedin-circle"></use></svg>
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#brand-telegram"></use></svg>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#brand-telegram"></use></svg>
                 </a>
             </div>
         </div>
@@ -1573,7 +1589,7 @@
 
     <a href="#education" class="scroll-down" aria-label="Scroll to Explore">
         <span>Scroll to Explore</span>
-        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#games-shared-arrow-down"></use></svg>
+        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=82ad327#games-shared-arrow-down"></use></svg>
     </a>
 
     <script>
@@ -5058,7 +5074,7 @@
 
 <script defer src="js/site-config.js?v=1.0"></script>
 <script defer src="js/analytics.js?v=1.0"></script>
-<script defer src="js/icons.js?v=3.0"></script>
+<script defer src="js/icons.js?v=4.0"></script>
 <script defer src="js/os.js?v=2.2"></script>
 <script type="module" src="js/app.js?v=2.2"></script>
 
