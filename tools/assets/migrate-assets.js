@@ -261,6 +261,10 @@ const selectedIconDestinationPaths = new Set(
     selectedIconImports.map(({ destination }) => destination.replace(/^icons[\\/]/, '').replace(/\\/g, '/'))
 );
 
+// Match the heavier visual weight of the supplied filled icons without
+// changing logo artwork or large game illustrations.
+const RENDER_STROKE_WIDTH = '2.2';
+
 function ensureDirectories() {
     iconDirectories.forEach(relative => {
         fs.mkdirSync(path.join(iconsDir, relative), { recursive: true });
@@ -444,7 +448,7 @@ function buildSprite(records) {
         const rootMarkup = svgRoot ? svgRoot[0] : '';
         const rootFill = getAttr(rootMarkup, 'fill') || (getAttr(rootMarkup, 'style').match(/(?:^|;)\s*fill\s*:\s*([^;]+)/i) || [])[1] || '';
         const rootStroke = getAttr(rootMarkup, 'stroke') || (getAttr(rootMarkup, 'style').match(/(?:^|;)\s*stroke\s*:\s*([^;]+)/i) || [])[1] || '';
-        const innerContent = (svgRoot
+        let innerContent = (svgRoot
             ? svg.slice((svgRoot.index || 0) + svgRoot[0].length)
             : svg)
             .replace(/<\/svg>\s*$/i, '')
@@ -452,6 +456,12 @@ function buildSprite(records) {
             .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
             .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, '')
             .trim();
+        if (!relative.startsWith('brand/')) {
+            innerContent = innerContent.replace(
+                /(\bstroke-width\s*=\s*["'])(?:1\.5|1\.8|2)(["'])/gi,
+                `$1${RENDER_STROKE_WIDTH}$2`
+            );
+        }
         const inheritedAttrs = [
             rootFill ? `fill="${rootFill}"` : '',
             rootStroke ? `stroke="${rootStroke}"` : ''
@@ -511,6 +521,10 @@ function main() {
     const manifest = {
         version: 1,
         sprite: 'assets/icons/sprite.svg',
+        rendering: {
+            strokeWidth: RENDER_STROKE_WIDTH,
+            note: 'Applied to non-brand sprite strokes only; filled icons keep their original geometry.'
+        },
         suppliedDirectory: 'external-supplied-folder',
         licenseNotes: {
             suppliedSvg: 'License information was not included with the supplied folder; confirm ownership or license before redistribution.',

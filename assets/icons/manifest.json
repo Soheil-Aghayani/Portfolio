@@ -1,6 +1,10 @@
 {
   "version": 1,
   "sprite": "assets/icons/sprite.svg",
+  "rendering": {
+    "strokeWidth": "2.2",
+    "note": "Applied to non-brand sprite strokes only; filled icons keep their original geometry."
+  },
   "suppliedDirectory": "external-supplied-folder",
   "licenseNotes": {
     "suppliedSvg": "License information was not included with the supplied folder; confirm ownership or license before redistribution.",
