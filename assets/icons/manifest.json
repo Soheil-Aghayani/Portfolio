@@ -3,7 +3,7 @@
   "sprite": "assets/icons/sprite.svg",
   "rendering": {
     "strokeWidth": "2.2",
-    "note": "Applied to non-brand sprite strokes only; filled icons keep their original geometry."
+    "note": "Applied to normal icon strokes except the favicon; filled icons keep their original geometry."
   },
   "suppliedDirectory": "external-supplied-folder",
   "licenseNotes": {

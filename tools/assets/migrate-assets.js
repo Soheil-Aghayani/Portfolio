@@ -262,7 +262,7 @@ const selectedIconDestinationPaths = new Set(
 );
 
 // Match the heavier visual weight of the supplied filled icons without
-// changing logo artwork or large game illustrations.
+// changing the favicon or large game illustrations.
 const RENDER_STROKE_WIDTH = '2.2';
 
 function ensureDirectories() {
@@ -456,7 +456,7 @@ function buildSprite(records) {
             .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
             .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, '')
             .trim();
-        if (!relative.startsWith('brand/')) {
+        if (relative !== 'brand/favicon.svg') {
             innerContent = innerContent.replace(
                 /(\bstroke-width\s*=\s*["'])(?:1\.5|1\.8|2)(["'])/gi,
                 `$1${RENDER_STROKE_WIDTH}$2`
@@ -523,7 +523,7 @@ function main() {
         sprite: 'assets/icons/sprite.svg',
         rendering: {
             strokeWidth: RENDER_STROKE_WIDTH,
-            note: 'Applied to non-brand sprite strokes only; filled icons keep their original geometry.'
+            note: 'Applied to normal icon strokes except the favicon; filled icons keep their original geometry.'
         },
         suppliedDirectory: 'external-supplied-folder',
         licenseNotes: {
