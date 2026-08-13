@@ -130,7 +130,7 @@ export class GameLauncher {
         backBtn.type = 'button';
         backBtn.setAttribute('aria-label', 'Back to Game Menu');
         backBtn.setAttribute('title', 'Back to Game Menu');
-        backBtn.innerHTML = `${localIcon('games/shared/arrow-back', { label: 'Back' })} Back to Menu`;
+        backBtn.innerHTML = `${localIcon('states/go-back', { label: 'Back' })} Back to Menu`;
         backBtn.onclick = () => this.confirmExit(() => this.showMenu());
 
         const pauseBtn = document.createElement('button');
@@ -210,9 +210,9 @@ export class GameLauncher {
                 <div></div>
                 <button class="snake-btn" data-dir="up" type="button" aria-label="Move up" title="Move up">${localIcon('games/shared/arrow-up', { label: 'Move up' })}</button>
                 <div></div>
-                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left">${localIcon('games/shared/arrow-left', { label: 'Move left' })}</button>
+                <button class="snake-btn" data-dir="left" type="button" aria-label="Move left" title="Move left">${localIcon('ui/arrow-prev', { label: 'Move left' })}</button>
                 <button class="snake-btn" data-dir="down" type="button" aria-label="Move down" title="Move down">${localIcon('games/shared/arrow-down', { label: 'Move down' })}</button>
-                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right">${localIcon('games/shared/arrow-right', { label: 'Move right' })}</button>
+                <button class="snake-btn" data-dir="right" type="button" aria-label="Move right" title="Move right">${localIcon('ui/arrow-next', { label: 'Move right' })}</button>
             `;
 
             snakeContainer.appendChild(canvasWrapper);
@@ -324,9 +324,9 @@ export class GameLauncher {
                 <button class="snake-btn" data-action="rotate" type="button" aria-label="Rotate block" title="Rotate block">${localIcon('games/shared/rotate', { label: 'Rotate block' })}</button>
                 <button class="snake-btn" data-action="drop" type="button" aria-label="Soft drop" title="Soft drop">${localIcon('games/shared/arrow-down', { label: 'Soft drop' })}</button>
                 <button class="snake-btn" data-action="hard" type="button" aria-label="Hard drop" title="Hard drop">${localIcon('games/shared/arrow-down', { label: 'Hard drop' })}</button>
-                <button class="snake-btn" data-action="left" type="button" aria-label="Move left" title="Move left">${localIcon('games/shared/arrow-left', { label: 'Move left' })}</button>
+                <button class="snake-btn" data-action="left" type="button" aria-label="Move left" title="Move left">${localIcon('ui/arrow-prev', { label: 'Move left' })}</button>
                 <div></div>
-                <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right">${localIcon('games/shared/arrow-right', { label: 'Move right' })}</button>
+                <button class="snake-btn" data-action="right" type="button" aria-label="Move right" title="Move right">${localIcon('ui/arrow-next', { label: 'Move right' })}</button>
             `;
 
             tetrisContainer.appendChild(canvasWrapper);
@@ -578,12 +578,12 @@ export class GameLauncher {
             `;
 
             const leftBtn = document.createElement('button');
-            leftBtn.innerHTML = localIcon('games/shared/arrow-left', { label: 'Move left' });
+            leftBtn.innerHTML = localIcon('ui/arrow-prev', { label: 'Move left' });
             leftBtn.style.cssText = btnStyle('#2dd4bf');
             leftBtn.setAttribute('aria-label', 'Move Left');
 
             const rightBtn = document.createElement('button');
-            rightBtn.innerHTML = localIcon('games/shared/arrow-right', { label: 'Move right' });
+            rightBtn.innerHTML = localIcon('ui/arrow-next', { label: 'Move right' });
             rightBtn.style.cssText = btnStyle('#2dd4bf');
             rightBtn.setAttribute('aria-label', 'Move Right');
 

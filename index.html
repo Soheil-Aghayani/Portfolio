@@ -1296,7 +1296,7 @@
     <!-- Theme Switcher Widget -->
     <div class="theme-switcher" id="themeSwitcher">
         <button class="theme-btn trigger" id="themeTrigger" aria-label="Open Theme Settings" title="Change Accent Theme">
-            <span class="svg-icon-slot" data-icon="ui/palette" aria-hidden="true"></span>
+            <span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>
         </button>
         <div class="theme-options">
             <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
@@ -1395,8 +1395,8 @@
         -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
-    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
-    html:not(.landing-effects-ready) .aurora-blob { animation-play-state: paused; }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
+    html:not(.landing-effects-ready) .aurora-blob { animation-play-state: paused; filter: none; opacity: 0.16; }
     .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent 70%); animation-delay: 0s; }
     .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary), transparent 70%); animation-delay: -5s; }
     .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.3; animation: floatBlob 15s infinite alternate-reverse; }
@@ -1425,9 +1425,7 @@
     .hero-card {
         position: relative;
         z-index: 2;
-        background: rgba(15, 23, 42, 0.3);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
+        background: rgba(15, 23, 42, 0.72);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 26px;
         padding: 36px 32px;
@@ -1438,7 +1436,6 @@
         opacity: 1;
         animation: heroRise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
-
     .hero-greeting { font-family: 'Courier New', monospace; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: inline-block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s ease; cursor: pointer; }
     .hero-greeting:hover {
         transform: translateY(-2px);
@@ -1460,7 +1457,7 @@
     }
 
     .hero-roles { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px; min-height: 1.5em; display: flex; justify-content: center; align-items: center; }
-    .typing-text { color: var(--secondary); font-weight: 600; border-right: 2px solid var(--primary); padding-right: 5px; white-space: nowrap; overflow: hidden; animation: blinkCursor 0.75s step-end infinite; margin-left: 8px; min-width: 22ch; text-align: left; }
+    .typing-text { color: var(--secondary); font-weight: 600; border-right: 2px solid var(--primary); padding-right: 5px; white-space: nowrap; overflow: hidden; animation: blinkCursor 0.75s step-end infinite; margin-left: 8px; min-width: 0; width: auto; flex: 0 0 auto; text-align: left; }
 
     .hero-desc { color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
@@ -1834,7 +1831,7 @@
                 <div class="edu-degree">Master of Science, Env. Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="svg-icon-slot" data-icon="ui/account-balance" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="ui/leaf" aria-hidden="true"></span>
                     University of Tehran
                     <span class="edu-time">2022 - Present</span>
                 </div>
@@ -1860,7 +1857,7 @@
                 <div class="edu-degree">Bachelor of Science, Civil Engineering</div>
                 
                 <div class="edu-school">
-                    <span class="svg-icon-slot" data-icon="states/university" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/compass" aria-hidden="true"></span>
                     Shahed University
                     <span class="edu-time">2018 - 2022</span>
                 </div>
@@ -1889,7 +1886,7 @@
 </script>
         
         
-        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/work" aria-hidden="true"></span> Professional Experience</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="games/blackjack/suitcase" aria-hidden="true"></span> Professional Experience</h2>
         <div class="grid">
             
             <div class="card">
@@ -1925,7 +1922,7 @@
         </div>
 
 
-<h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/science" aria-hidden="true"></span> Research & Publications</h2>
+<h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution" aria-hidden="true"></span> Research & Publications</h2>
 
         <div class="card card-primary-border mb-40">
             <div class="flex-space-between">
@@ -1962,16 +1959,16 @@
                 <div class="flowchart-wrap" id="flowchartWrap">
                     <div class="flowchart-badge">
                         <span class="svg-icon-slot" data-icon="states/flowchart-outline-sharp" data-icon-label="Flowchart"></span>
-                        <span class="flowchart-tip"><span class="svg-icon-slot" data-icon="ui/touch-app" aria-hidden="true"></span>Drag to Pan</span>
-                        <span class="flowchart-tip"><span class="svg-icon-slot" data-icon="games/shared/zoom-in" aria-hidden="true"></span>Scroll to Zoom</span>
+                        <span class="flowchart-tip"><span class="svg-icon-slot" data-icon="ui/outline-pan-tool" aria-hidden="true"></span>Drag to Pan</span>
+                        <span class="flowchart-tip"><span class="svg-icon-slot" data-icon="games/minesweeper/zoom-in-broken" aria-hidden="true"></span>Scroll to Zoom</span>
                         <span class="flowchart-tip"><span class="svg-icon-slot" data-icon="games/shared/reset" aria-hidden="true"></span>Double-Click to Reset</span>
                     </div>
                     <canvas id="flowchartCanvas" width="800" height="480"></canvas>
                     <div class="flowchart-lock-icon" id="flowchartLockIcon" aria-hidden="true"></div>
                     <div class="flowchart-controls">
-                        <button type="button" class="fc-btn" id="fcToggleTheme" aria-label="Toggle diagram dark mode" title="Toggle Diagram Dark Mode"><span class="svg-icon-slot" data-icon="ui/contrast" aria-hidden="true"></span></button>
-                        <button type="button" class="fc-btn" id="fcZoomIn" aria-label="Zoom in on flowchart" title="Zoom In"><span class="svg-icon-slot" data-icon="games/shared/zoom-in" aria-hidden="true"></span></button>
-                        <button type="button" class="fc-btn" id="fcZoomOut" aria-label="Zoom out of flowchart" title="Zoom Out"><span class="svg-icon-slot" data-icon="games/shared/zoom-out" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcToggleTheme" aria-label="Toggle diagram dark mode" title="Toggle Diagram Dark Mode"><span class="svg-icon-slot" data-icon="ui/contrast-round" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcZoomIn" aria-label="Zoom in on flowchart" title="Zoom In"><span class="svg-icon-slot" data-icon="games/minesweeper/zoom-in-broken" aria-hidden="true"></span></button>
+                        <button type="button" class="fc-btn" id="fcZoomOut" aria-label="Zoom out of flowchart" title="Zoom Out"><span class="svg-icon-slot" data-icon="games/minesweeper/zoom-out-broken" aria-hidden="true"></span></button>
                         <button type="button" class="fc-btn" id="fcReset" aria-label="Reset flowchart view" title="Reset View"><span class="svg-icon-slot" data-icon="games/shared/reset" aria-hidden="true"></span></button>
                     </div>
                 </div>
@@ -1990,7 +1987,7 @@
         <ul id="pub-journal-list" class="pub-list">
             <li class="pub-item" data-category="journal" data-tags="aop,catalysis,advanced oxidation">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="ui/journal" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2008,14 +2005,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="lca,msw,biofuel">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="ui/journal" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://jpoll.ut.ac.ir/article_105139.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Biomass Resources in Iran and Worldwide: Diversity Analysis in Rural Areas with a Focus on Municipal Solid Waste and Livestock Manure
-                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -2029,14 +2026,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="lca,emissions,msw">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="ui/journal" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://aet.irost.ir/article_1686.html" target="_blank" rel="noopener noreferrer">
                                 Assessment of Landfill Gas Production in Saveh City Using the LandGEM Model
-                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -2050,14 +2047,14 @@
 
             <li class="pub-item" data-category="journal" data-tags="siting,msw">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/book" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="ui/journal" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
                         <h4 class="pub-title">
                             <a href="https://jpoll.ut.ac.ir/article_101760.html" target="_blank" rel="noopener noreferrer">
                                 Siting a Waste Transfer Station in District 6 of Karaj Municipality
-                                <span class="svg-icon-slot pub-link-icon" data-icon="ui/open-in-new" aria-hidden="true"></span>
+                                <span class="svg-icon-slot pub-link-icon" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                             </a>
                         </h4>
                         <span class="badge badge-pub">Published</span>
@@ -2074,7 +2071,7 @@
         <ul id="pub-conference-list" class="pub-list">
             <li class="pub-item" data-category="conference" data-tags="biofuel,energy">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2089,7 +2086,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2104,7 +2101,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2119,7 +2116,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="waste">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2134,7 +2131,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2149,7 +2146,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2164,7 +2161,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2179,7 +2176,7 @@
 
             <li class="pub-item" data-category="conference" data-tags="facade,engineering">
                 <div class="pub-icon" aria-hidden="true">
-                    <span class="svg-icon-slot" data-icon="ui/co-present" aria-hidden="true"></span>
+                    <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                 </div>
                 <div class="pub-content">
                     <div class="pub-header">
@@ -2223,7 +2220,7 @@
                 <h3>Life Cycle Assessment</h3>
                 <p class="mb-20">Mastered LCA methodology and SimaPro tools. Verified by Coursera.</p>
                 <a href="https://coursera.org/verify/TSN51X42BCZR" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
-                    Verify Credential <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
+                                Verify Credential <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                 </a>
             </div>
 
@@ -2235,14 +2232,14 @@
                 <h3>Sustainable Regional Principles</h3>
                 <p class="mb-20">Planning and Transportation systems for sustainable development.</p>
                 <a href="https://www.coursera.org/account/accomplishments/verify/97ENWJ7STLNH" target="_blank" rel="noopener noreferrer" class="btn btn-verify">
-                    Verify Credential <span class="svg-icon-slot" data-icon="ui/open-in-new" aria-hidden="true"></span>
+                                Verify Credential <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
 
         <div class="card cop29-card">
             <div class="cop29-header">
-                <span class="svg-icon-slot cop29-icon" data-icon="ui/public" aria-hidden="true"></span>
+                <span class="svg-icon-slot cop29-icon" data-icon="ui/globe" aria-hidden="true"></span>
                 <div>
                     <h3 class="cop29-title">COP29 Summit Delegation</h3>
                     <span class="cop29-sub">Baku, Azerbaijan | Nov 2024</span>
@@ -2665,7 +2662,7 @@
         <div class="t-card center" onclick="selectCard(0)" role="button" tabindex="0" aria-label="Training card: Life Cycle Assessment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/recycling" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/recycle" aria-hidden="true"></span></div>
             <div class="tc-title">Life Cycle Assessment</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Nov 2024</div>
@@ -2679,7 +2676,7 @@
         <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="games/shared/sports-soccer" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="games/minesweeper/sport-soccer-16-filled" aria-hidden="true"></span></div>
             <div class="tc-title">Waste Mgmt in Sports</div>
             <div class="tc-org">Olympic Academy</div>
             <div class="tc-date">Nov 2024</div>
@@ -2693,7 +2690,7 @@
         <div class="t-card back" onclick="selectCard(2)" role="button" tabindex="0" aria-label="Training card: Nat. Conf. on Environment" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/diversity-3" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/leaf" aria-hidden="true"></span></div>
             <div class="tc-title">Nat. Conf. on Environment</div>
             <div class="tc-org">University of Tehran</div>
             <div class="tc-date">Oct 2024</div>
@@ -2707,7 +2704,7 @@
         <div class="t-card back" onclick="selectCard(3)" role="button" tabindex="0" aria-label="Training card: Hazardous Waste (Oil)" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/oil-barrel" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/oil-barrel-outline-rounded" aria-hidden="true"></span></div>
             <div class="tc-title">Hazardous Waste (Oil)</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Aug 2024</div>
@@ -2721,7 +2718,7 @@
         <div class="t-card left" onclick="selectCard(4)" role="button" tabindex="0" aria-label="Training card: Waste Coding Methods" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/qr-code-2" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/qr-code" aria-hidden="true"></span></div>
             <div class="tc-title">Waste Coding Methods</div>
             <div class="tc-org">Iranian Society of Waste Eng.</div>
             <div class="tc-date">Mar 2024</div>
@@ -2735,7 +2732,7 @@
     </div>
 
     <div class="nav-hint">
-        <span class="svg-icon-slot" data-icon="ui/touch-app" aria-hidden="true"></span> Click stack or swipe to view
+        <span class="svg-icon-slot" data-icon="games/minesweeper/click-tap" aria-hidden="true"></span> Click stack or swipe to view
     </div>
 </div>
 
@@ -2868,25 +2865,25 @@
         <div class="skill-grid">
             
             <div class="skill-card skill-simapro">
-                <span class="svg-icon-slot skill-icon" data-icon="ui/eco"></span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/leaf-variant"></span>
                 <h3>SimaPro</h3>
                 <p>LCA Modeling</p>
             </div>
 
             <div class="skill-card skill-landgem">
-                <span class="svg-icon-slot skill-icon" data-icon="ui/bar-chart"></span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/bar-chart-rounded"></span>
                 <h3>LandGEM</h3>
                 <p>Landfill Gas Emission</p>
             </div>
 
             <div class="skill-card skill-python">
-                <span class="svg-icon-slot skill-icon" data-icon="ui/code"></span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/python"></span>
                 <h3>Python</h3>
                 <p>Automation & Scripts</p>
             </div>
 
             <div class="skill-card skill-chemdraw">
-                <span class="svg-icon-slot skill-icon" data-icon="ui/science"></span>
+                <span class="svg-icon-slot skill-icon" data-icon="ui/chemistry-light"></span>
                 <h3>ChemDraw</h3>
                 <p>Molecular Structures</p>
             </div>
@@ -2898,7 +2895,7 @@
         <div class="grid">
             <div class="card reveal-on-scroll">
                 <h3 class="flex-align-center-gap">
-                    <span class="svg-icon-slot text-primary" data-icon="ui/translate" aria-hidden="true"></span>
+                    <span class="svg-icon-slot text-primary" data-icon="ui/lang-en-us" aria-hidden="true"></span>
                     English
                 </h3>
                 <p class="mt-10 text-muted">Overall score: <b class="text-white">7.0</b></p>
@@ -2906,14 +2903,14 @@
 
             <div class="card reveal-on-scroll">
                 <h3 class="flex-align-center-gap">
-                    <span class="svg-icon-slot text-primary" data-icon="ui/translate" aria-hidden="true"></span>
+                    <span class="svg-icon-slot text-primary" data-icon="ui/de" aria-hidden="true"></span>
                     German
                 </h3>
                 <p class="mt-10 text-muted">Current Level: <b class="text-white">B1.1</b></p>
             </div>
         </div>
 
-        <h2 class="section-title"><span class="svg-icon-slot" data-icon="ui/volunteer-activism" aria-hidden="true"></span> Volunteer Experience</h2>
+        <h2 class="section-title"><span class="svg-icon-slot" data-icon="states/volunteer-activism-outline" aria-hidden="true"></span> Volunteer Experience</h2>
         <div class="grid">
             
             <div class="card">
@@ -3824,7 +3821,7 @@
 
         <div class="footer-info">
             <div class="eco-badge">
-                <span class="svg-icon-slot" data-icon="ui/eco" aria-hidden="true"></span>
+                <span class="svg-icon-slot" data-icon="ui/leaf" aria-hidden="true"></span>
                 <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
             </div>
             
@@ -3951,7 +3948,7 @@
           <div class="notes-top-title">Notes</div>
           <div class="notes-top-actions">
             <button class="notes-add" id="notesAddBtn" type="button" aria-label="Add note" title="Add note">
-              <span class="svg-icon-slot" data-icon="ui/add" aria-hidden="true"></span>
+              <span class="svg-icon-slot" data-icon="ui/note-add" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -4283,7 +4280,7 @@
         const isHidden = viewer.style.display === 'none' || getComputedStyle(viewer).display === 'none';
         if (isHidden) {
             viewer.style.display = 'block';
-            btn.innerHTML = '<span class="svg-icon-slot" data-icon="ui/filter-alt-off" aria-hidden="true"></span> Hide Flowchart';
+            btn.innerHTML = '<span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span> Hide Flowchart';
             updateFlowchartSrc();
             setTimeout(() => {
                 resizeCanvas();
@@ -5004,7 +5001,7 @@
 <!-- Share Button -->
 <div id="shareWidget" class="share-widget" aria-label="Share this portfolio">
     <button id="shareToggle" class="share-toggle-btn" aria-label="Share" title="Share Portfolio">
-        <span class="svg-icon-slot" data-icon="ui/share" aria-hidden="true"></span>
+        <span class="svg-icon-slot" data-icon="ui/share-round" aria-hidden="true"></span>
     </button>
     <div class="share-tray" id="shareTray">
         <button class="share-opt" id="shareCopy" title="Copy link" aria-label="Copy link">
@@ -5048,7 +5045,7 @@
 <!-- Minimalist Lo-Fi Music Widget -->
 <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Background Music" title="Play Background Music">
     <div class="music-mute-icon" id="musicMuteIcon">
-        <span class="svg-icon-slot" data-icon="ui/music-off" aria-hidden="true"></span>
+        <span class="svg-icon-slot" data-icon="ui/music-off-round" aria-hidden="true"></span>
     </div>
     <div class="music-wave" id="musicWave">
         <span></span>
@@ -5875,18 +5872,7 @@
     if (!overlay) return;
 
     const SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    const CHEAT_ICONS = [
-        'games/shared/gamepad',
-        'games/minesweeper/pixel-star',
-        'states/vpn',
-        'games/minesweeper/pixel-skull',
-        'games/minesweeper/pixel-canoe-on-water',
-        'games/minesweeper/pixel-invader',
-        'games/minesweeper/pixel-map-pin',
-        'states/verified',
-        'states/heart-bold',
-        'games/blackjack/reward-12-regular'
-    ];
+    const CHEAT_ICON = 'states/hacker';
     let pos = 0;
 
     const isTyping = (e) => {
@@ -6008,7 +5994,7 @@
     }
 
     function open() {
-        const iconName = CHEAT_ICONS[Math.floor(Math.random() * CHEAT_ICONS.length)];
+        const iconName = CHEAT_ICON;
         if (art) {
             art.innerHTML = window.IconRegistry
                 ? window.IconRegistry.svg(iconName, { className: 'konami-icon', label: 'Cheat code state' })

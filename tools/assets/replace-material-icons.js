@@ -4,13 +4,13 @@ const path = require('path');
 const repo = path.resolve(__dirname, '..', '..');
 const iconMap = {
     check_circle: 'states/check-circle',
-    open_in_new: 'ui/open-in-new',
-    public: 'ui/public',
-    eco: 'ui/eco',
-    bar_chart: 'ui/bar-chart',
-    code: 'ui/code',
-    science: 'ui/science',
-    translate: 'ui/translate',
+    open_in_new: 'states/external-link-rounded',
+    public: 'ui/globe',
+    eco: 'ui/leaf',
+    bar_chart: 'ui/bar-chart-rounded',
+    code: 'ui/python',
+    science: 'ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution',
+    translate: 'ui/language',
     schedule: 'ui/schedule',
     search: 'ui/search'
 };

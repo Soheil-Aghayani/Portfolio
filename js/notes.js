@@ -183,7 +183,7 @@ class NotesApp {
         ].sort((a,b) => (b.ts || 0) - (a.ts || 0));
 
         if (list.length === 0) {
-            this.listEl.innerHTML = `<div class="note-item" style="text-align: center; padding: 40px 20px;">${localIcon('ui/notes', { label: 'Notes' })}<div style="color: var(--text-muted); margin-bottom: 5px;">No notes yet</div><div style="font-size: 0.85rem; color: var(--text-muted); opacity: 0.7;">Click the ${localIcon('ui/add', { label: 'Add note' })} button above to create one</div></div>`;
+            this.listEl.innerHTML = `<div class="note-item" style="text-align: center; padding: 40px 20px;">${localIcon('ui/notes-outline', { label: 'Notes' })}<div style="color: var(--text-muted); margin-bottom: 5px;">No notes yet</div><div style="font-size: 0.85rem; color: var(--text-muted); opacity: 0.7;">Click the ${localIcon('ui/note-add', { label: 'Add note' })} button above to create one</div></div>`;
             return;
         }
 
@@ -196,8 +196,8 @@ class NotesApp {
                     <div class="note-badges">
                         <span class="note-badge">${n.src}</span>
                         ${n.src === 'local' && this.isAuthed() ? `
-                            <button class="note-edit" data-id="${n.id}" aria-label="Edit note" title="Edit note">${localIcon('ui/edit', { label: 'Edit note' })}</button>
-                            <button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note">${localIcon('ui/delete', { label: 'Delete note' })}</button>
+                            <button class="note-edit" data-id="${n.id}" aria-label="Edit note" title="Edit note">${localIcon('ui/note-edit', { label: 'Edit note' })}</button>
+                            <button class="note-del" data-id="${n.id}" aria-label="Delete note" title="Delete note">${localIcon('ui/note-remove', { label: 'Delete note' })}</button>
                         ` : ''}
                     </div>
                 </div>

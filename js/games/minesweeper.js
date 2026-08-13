@@ -6,9 +6,9 @@ const FLAG_SVG = localIcon('games/minesweeper/flag-filled', { className: 'ms-cel
 const MINE_SVG = localIcon('games/minesweeper/bomb-bold', { className: 'ms-cell-icon ms-mine-icon' });
 
 const MODES = [
-    { id: 'zen',        icon: 'states/compass', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
+    { id: 'zen',        icon: 'games/minesweeper/zazen-fill', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
     { id: 'time-trial', icon: 'ui/time', name: 'TIME',     sub: 'TRIAL',     desc: 'Race the clock! Hacks off on Hard.',   hasDiff: true  },
-    { id: 'endless',    icon: 'games/minesweeper/pixel-map-pin', name: 'ENDLESS',  sub: 'DRIFT',     desc: 'Infinite sector drift! Clear safe tiles to expand.', hasDiff: false }
+    { id: 'endless',    icon: 'games/minesweeper/endless-sky', name: 'ENDLESS',  sub: 'DRIFT',     desc: 'Infinite sector drift! Clear safe tiles to expand.', hasDiff: false }
 ];
 
 export class MinesweeperGame {
@@ -63,7 +63,7 @@ export class MinesweeperGame {
                 <div class="ms-modal-content">
                     <div class="ms-modal-header">
                         <div class="ms-modal-title">${localIcon('games/minesweeper/pickaxe', { className: 'ms-inline-icon' })} MINER's MANUAL</div>
-                        <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button">&times;</button>
+                        <button class="ms-modal-close-btn" id="msModalCloseBtn" type="button" aria-label="Close manual" title="Close manual">${localIcon('ui/close-rounded', { className: 'ms-inline-icon', label: 'Close manual' })}</button>
                     </div>
                     <div class="ms-modal-body">
                         <div style="width:90px;height:90px;border-radius:10px;border:2px solid var(--primary);overflow:hidden;flex-shrink:0;background:#fff;margin:0 auto 10px;">
@@ -71,9 +71,9 @@ export class MinesweeperGame {
                         </div>
                         <div class="ms-modal-text" id="msModalText" style="color:#e2e8f0;font-size:0.85rem;line-height:1.4;margin-bottom:12px;"></div>
                         <div class="ms-modal-nav" style="display:flex;justify-content:space-between;gap:8px;">
-                            <button class="ms-btn" id="msModalPrevBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} PREV</button>
+                            <button class="ms-btn" id="msModalPrevBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">${localIcon('ui/arrow-prev', { className: 'ms-inline-icon', label: 'Previous' })} PREV</button>
                             <span style="color:var(--text-muted);font-size:0.8rem;font-family:monospace;align-self:center;" id="msModalProgress">1/6</span>
-                            <button class="ms-btn" id="msModalNextBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">NEXT ${localIcon('games/shared/arrow-right', { className: 'ms-inline-icon' })}</button>
+                            <button class="ms-btn" id="msModalNextBtn" type="button" style="padding:6px 12px;font-size:0.75rem;">NEXT ${localIcon('ui/arrow-next', { className: 'ms-inline-icon', label: 'Next' })}</button>
                         </div>
                     </div>
                 </div>
@@ -109,9 +109,9 @@ export class MinesweeperGame {
                 </div>
 
                 <div class="ms-carousel">
-                    <button class="ms-carousel-arrow" id="msPrev" type="button" aria-label="Previous mode">&#9664;</button>
+                    <button class="ms-carousel-arrow" id="msPrev" type="button" aria-label="Previous mode">${localIcon('ui/arrow-prev', { className: 'ms-inline-icon', label: 'Previous mode' })}</button>
                     <div class="ms-carousel-track" id="msCarouselTrack"></div>
-                    <button class="ms-carousel-arrow" id="msNext" type="button" aria-label="Next mode">&#9654;</button>
+                    <button class="ms-carousel-arrow" id="msNext" type="button" aria-label="Next mode">${localIcon('ui/arrow-next', { className: 'ms-inline-icon', label: 'Next mode' })}</button>
                 </div>
 
                 <div class="ms-carousel-dots" id="msCarouselDots">
@@ -120,7 +120,7 @@ export class MinesweeperGame {
 
                 <div class="ms-menu-actions">
                     <button class="ms-btn ms-start-btn" id="msStartBtn" type="button">${localIcon('games/shared/play', { className: 'ms-inline-icon' })} START SWEEP</button>
-                    <button class="ms-btn ms-manual-btn" id="msManualBtn" type="button" title="How to Play">${localIcon('states/info', { className: 'ms-inline-icon' })}</button>
+                    <button class="ms-btn ms-manual-btn" id="msManualBtn" type="button" title="How to Play">${localIcon('ui/info-svgrepo-com', { className: 'ms-inline-icon', label: 'How to play' })}</button>
                 </div>
             </div>
         `;
@@ -145,7 +145,7 @@ export class MinesweeperGame {
                         <button class="ms-icon-diff ms-diff-medium ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium"><span class="ms-difficulty-dot"></span></button>
                         <button class="ms-icon-diff ms-diff-hard ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard"><span class="ms-difficulty-dot"></span></button>
                     </div>
-                    ` : `<div class="ms-mode-badge">${localIcon('games/minesweeper/pixel-map-pin-with-dot', { className: 'ms-inline-icon' })} INFINITE SECTOR DRIFT</div>`}
+                    ` : `<div class="ms-mode-badge">${localIcon('games/minesweeper/endless-sky', { className: 'ms-inline-icon' })} INFINITE SECTOR DRIFT</div>`}
                 </div>
             `;
 
@@ -231,7 +231,7 @@ export class MinesweeperGame {
             <!-- ── Viewport (fills remaining space) ── -->
             <div class="ms-viewport" id="msViewport">
                 <!-- Floating back-to-menu pill -->
-                <button class="ms-float-btn" id="msFloatMenuBtn" type="button" title="Back to mode select">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} MENU</button>
+                <button class="ms-float-btn" id="msFloatMenuBtn" type="button" title="Back to mode select">${localIcon('states/go-back', { className: 'ms-inline-icon', label: 'Back to mode select' })} MENU</button>
 
                 <!-- Milestone Toast Popup -->
                 <div class="ms-toast-banner" id="msToastBanner"></div>
@@ -252,7 +252,7 @@ export class MinesweeperGame {
                     <div class="ms-overlay-msg"   id="msOverlayMsg">—</div>
                     <button class="ms-btn" id="msOverlayBtn" type="button">Play Again</button>
                     <button class="ms-btn" id="msOverlayMenuBtn" type="button"
-                        style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">${localIcon('games/shared/arrow-left', { className: 'ms-inline-icon' })} MENU</button>
+                        style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">${localIcon('states/go-back', { className: 'ms-inline-icon', label: 'Back to mode select' })} MENU</button>
                 </div>
             </div>
         `;
@@ -910,7 +910,7 @@ export class MinesweeperGame {
             "Welcome to Cyber Deck Mines! Your goal is to clear all safe cells without detonating any hidden mines.",
             "Use the DIG / FLAG mode toggle in the top bar to easily switch between digging cells and placing warning flags.",
             "On touch devices, long-pressing any cell for 180ms also instantly toggles a flag on that cell.",
-            "Drag anywhere on the board or use two fingers to pan around. Use the ＋ and − controls in the bottom right to zoom.",
+            "Drag anywhere on the board or use two fingers to pan around. Use the zoom controls in the bottom right.",
             "Click FIT in the bottom right anytime to center and auto-scale the entire board inside your view!",
             "SHIELD absorbs 1 accidental mine hit! PING reveals a guaranteed safe cell when you get stuck.",
             "Try Endless Mode for infinite expansion! Earn PING rewards every 30m depth!"
@@ -921,7 +921,7 @@ export class MinesweeperGame {
             text.textContent = pages[page];
             prog.textContent = `${page+1}/${pages.length}`;
             prev.style.display = page === 0 ? 'none' : 'inline-block';
-            next.innerHTML   = page === pages.length - 1 ? 'GOT IT!' : `NEXT ${localIcon('games/shared/arrow-right', { className: 'ms-inline-icon' })}`;
+            next.innerHTML   = page === pages.length - 1 ? 'GOT IT!' : `NEXT ${localIcon('ui/arrow-next', { className: 'ms-inline-icon', label: 'Next' })}`;
         };
 
         prev.onclick = () => { if (page > 0) { page--; update(); } };

@@ -1,8 +1,8 @@
 # Asset Attribution and License Notes
 
-## Supplied icon folder
+## Supplied and owner-selected SVGs
 
-The supplied SVG set was provided locally at `C:\Users\Soheil\Desktop\Port icon`. Imported files are recorded in `assets/icons/manifest.json` with `sourceCategory: supplied`. The source license was not included with the folder, so these files should be treated as project-provided assets until the owner confirms their license.
+The supplied SVG set was provided locally at `C:\Users\Soheil\Desktop\Port icon`, with additional explicit selections from `C:\Users\Soheil\Downloads`. Imported files are recorded in `assets/icons/manifest.json` with their canonical path, source file, duplicate decision, and source category. The source license was not included with the folders, so these files should be treated as project-provided assets until the owner confirms their license.
 
 ## Existing and canonical assets
 
@@ -14,5 +14,3 @@ Existing project assets were preserved when a supplied icon was a semantic dupli
 
 - [All SVG Icons](https://allsvgicons.com/)
 - [Licensing comparison guidance](https://allsvgicons.com/compare/svgrepo-alternatives/)
-- [Material Symbols pack license](https://allsvgicons.com/pack/material-symbols/)
-- [Lucide pack license](https://allsvgicons.com/pack/lucide/)

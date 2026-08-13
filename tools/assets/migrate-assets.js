@@ -156,6 +156,8 @@ const providedDuplicateNames = new Set([
     'rotate.svg',
     'smartphone-linear.svg',
     'sport-soccer-16-filled.svg',
+    'sound-off-2-svgrepo-com.svg',
+    'sound-minus-svgrepo-com.svg',
     'telegram.svg',
     'terminal.svg',
     'volunteer-activism-outline.svg'
@@ -187,6 +189,77 @@ const providedRenames = {
     'zoom-in-broken-svgrepo-com.svg': 'zoom-in-broken.svg',
     'zoom-out-broken-svgrepo-com.svg': 'zoom-out-broken.svg'
 };
+
+// Explicit selections supplied by the owner take precedence over an older
+// canonical duplicate. The source paths stay outside the repository; only
+// the selected SVG content is copied into the canonical asset tree.
+const selectedIconImports = [
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\x.svg`, destination: 'icons/states/x.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\telegram.svg`, destination: 'icons/brand/telegram.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\compass.svg`, destination: 'icons/states/compass.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\leaf.svg`, destination: 'icons/ui/leaf.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\suitcase-linear.svg`, destination: 'icons/games/blackjack/suitcase.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution.svg`, destination: 'icons/ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\filter.svg`, destination: 'icons/ui/filter.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\journal.svg`, destination: 'icons/ui/journal.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\conference.svg`, destination: 'icons/states/conference.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\external-link-rounded.svg`, destination: 'icons/states/external-link-rounded.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\globe.svg`, destination: 'icons/ui/globe.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\recycle.svg`, destination: 'icons/ui/recycle.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\qr-code.svg`, destination: 'icons/ui/qr-code.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\sport-soccer-16-filled.svg`, destination: 'icons/games/minesweeper/sport-soccer-16-filled.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\terminal.svg`, destination: 'icons/ui/terminal.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\leaf (1).svg`, destination: 'icons/ui/leaf-variant.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\bar-chart-rounded.svg`, destination: 'icons/ui/bar-chart-rounded.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\python.svg`, destination: 'icons/ui/python.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\chemistry-light.svg`, destination: 'icons/ui/chemistry-light.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\language.svg`, destination: 'icons/ui/language.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\lang-en-us.svg`, destination: 'icons/ui/lang-en-us.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\de.svg`, destination: 'icons/ui/de.svg' },
+    { source: String.raw`C:\Users\Soheil\Desktop\Port icon\volunteer-activism-outline.svg`, destination: 'icons/states/volunteer-activism-outline.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\heart-bold.svg`, destination: 'icons/states/heart-bold.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\zazen-fill (1).svg`, destination: 'icons/games/minesweeper/zazen-fill.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\endless-sky.svg`, destination: 'icons/games/minesweeper/endless-sky.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\time.svg`, destination: 'icons/ui/time.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\info-svgrepo-com.svg`, destination: 'icons/ui/info-svgrepo-com.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\bomb-bold.svg`, destination: 'icons/games/minesweeper/bomb-bold.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\flag-filled.svg`, destination: 'icons/games/minesweeper/flag-filled.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\radar-light.svg`, destination: 'icons/games/minesweeper/radar-light.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\pause-linear.svg`, destination: 'icons/games/shared/pause.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\play-line-duotone.svg`, destination: 'icons/games/shared/play.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\reset.svg`, destination: 'icons/games/shared/reset.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\zoom-out-broken-svgrepo-com.svg`, destination: 'icons/games/minesweeper/zoom-out-broken.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\zoom-in-broken-svgrepo-com.svg`, destination: 'icons/games/minesweeper/zoom-in-broken.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\arrow-down-svgrepo-com.svg`, destination: 'icons/games/shared/arrow-down.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\arrow-up-svgrepo-com.svg`, destination: 'icons/games/shared/arrow-up.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\arrow-prev-small-svgrepo-com.svg`, destination: 'icons/ui/arrow-prev.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\arrow-next-small-svgrepo-com.svg`, destination: 'icons/ui/arrow-next.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\note-01.svg`, destination: 'icons/ui/note-01.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\note-add (1).svg`, destination: 'icons/ui/note-add.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\note-edit.svg`, destination: 'icons/ui/note-edit.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\note-remove.svg`, destination: 'icons/ui/note-remove.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\notes-outline.svg`, destination: 'icons/ui/notes-outline.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\gamepad.svg`, destination: 'icons/games/shared/gamepad.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\flowchart-outline-sharp.svg`, destination: 'icons/states/flowchart-outline-sharp.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\go-back.svg`, destination: 'icons/states/go-back.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\hacker.svg`, destination: 'icons/states/hacker.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\check.svg`, destination: 'icons/ui/check.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\click-tap.svg`, destination: 'icons/games/minesweeper/click-tap.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\gift-linear.svg`, destination: 'icons/games/blackjack/gift-linear.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\github.svg`, destination: 'icons/brand/github.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\outline-pan-tool.svg`, destination: 'icons/ui/outline-pan-tool.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\round-share.svg`, destination: 'icons/ui/share-round.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\sound-volume-2-svgrepo-com.svg`, destination: 'icons/ui/sound-volume-2.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\sound-volume-1-svgrepo-com.svg`, destination: 'icons/ui/sound-volume-1.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\sound-off-2-svgrepo-com.svg`, destination: 'icons/ui/sound-off-2.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\sound-minus-svgrepo-com.svg`, destination: 'icons/ui/sound-minus.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\close-rounded.svg`, destination: 'icons/ui/close-rounded.svg' },
+    { source: String.raw`C:\Users\Soheil\Downloads\round-contrast.svg`, destination: 'icons/ui/contrast-round.svg' }
+];
+
+const selectedIconDestinationPaths = new Set(
+    selectedIconImports.map(({ destination }) => destination.replace(/^icons[\\/]/, '').replace(/\\/g, '/'))
+);
 
 function ensureDirectories() {
     iconDirectories.forEach(relative => {
@@ -277,6 +350,10 @@ function copyProvidedIcons(records) {
             records.push({ key, path: '', source: 'provided-folder', original: sourceName, duplicateOf: 'existing-canonical' });
             continue;
         }
+        if (selectedIconDestinationPaths.has(path.relative(iconsDir, target).replace(/\\/g, '/'))) {
+            records.push({ key, path: '', source: 'provided-folder', original: sourceName, duplicateOf: 'explicit-user-selection' });
+            continue;
+        }
 
         const raw = fs.readFileSync(path.join(providedDir, sourceName), 'utf8');
         if (!getAttr(raw, 'viewBox')) throw new Error(`Missing viewBox in supplied icon: ${sourceName}`);
@@ -289,6 +366,35 @@ function copyProvidedIcons(records) {
         }
         fs.writeFileSync(target, normalized, 'utf8');
         records.push({ key, path: path.relative(repo, target).replace(/\\/g, '/'), source: 'provided-folder', original: sourceName });
+    }
+}
+
+function copySelectedIcons(records) {
+    for (const selection of selectedIconImports) {
+        const source = path.resolve(selection.source);
+        const target = path.join(assetsDir, selection.destination);
+        if (!fs.existsSync(source)) throw new Error(`Selected icon source does not exist: ${source}`);
+
+        const raw = fs.readFileSync(source, 'utf8');
+        if (!getAttr(raw, 'viewBox')) throw new Error(`Missing viewBox in selected icon: ${source}`);
+
+        const previousHash = fs.existsSync(target)
+            ? require('crypto').createHash('sha256').update(fs.readFileSync(target)).digest('hex')
+            : '';
+        const selectedHash = require('crypto').createHash('sha256').update(raw).digest('hex');
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        if (previousHash !== selectedHash) fs.writeFileSync(target, raw, 'utf8');
+
+        records.push({
+            key: selection.destination.replace(/^icons\//, '').replace(/\.svg$/i, ''),
+            path: path.relative(repo, target).replace(/\\/g, '/'),
+            source: 'user-selected-file',
+            sourceCategory: 'explicit-user-selection',
+            sourceFile: `${selection.source.includes('Downloads') ? 'Downloads' : 'Port icon'}/${path.basename(source)}`,
+            selection: 'explicit-user-selection',
+            reused: previousHash === selectedHash,
+            replacedCanonicalHash: previousHash && previousHash !== selectedHash ? previousHash : undefined
+        });
     }
 }
 
@@ -376,6 +482,7 @@ function main() {
     const records = [];
     moveExistingIcons(records);
     copyProvidedIcons(records);
+    copySelectedIcons(records);
     moveRootMedia();
     removeStaleDirectories();
     buildSprite(records);
@@ -393,8 +500,8 @@ function main() {
 
     const addLicenseMetadata = (record) => ({
         ...record,
-        sourceCategory: record.source === 'provided-folder' ? 'supplied-svg' : 'existing-canonical',
-        license: record.source === 'provided-folder'
+        sourceCategory: record.sourceCategory || (record.source === 'provided-folder' ? 'supplied-svg' : 'existing-canonical'),
+        license: record.source === 'provided-folder' || record.source === 'user-selected-file'
             ? 'unverified-user-supplied'
             : 'existing-project-asset'
     });
