@@ -77,7 +77,8 @@
             "https://github.com/Soheil-Aghayani",
             "https://github.com/Soheil-Aghayani/Soheil-Aghayani",
             "https://t.me/AgSeyl"
-          ]
+          ],
+          "subjectOf": { "@id": "https://soheil-aghayani.github.io/Coffpen/#website" }
         },
         {
           "@type": "WebSite",
@@ -86,6 +87,15 @@
           "name": "Soheil Aghayani Portfolio",
           "publisher": { "@id": "https://soheil-aghayani.github.io/#person" },
           "inLanguage": "en"
+        },
+        {
+          "@type": "Blog",
+          "@id": "https://soheil-aghayani.github.io/Coffpen/#website",
+          "url": "https://soheil-aghayani.github.io/Coffpen/",
+          "name": "کاف‌پن (Coffpen) | سیاه و قلم",
+          "description": "وبلاگ مستقل سهیل آقایانی برای داستان‌های کوتاه فارسی، مجموعه‌های داستانی و دل‌نوشته‌ها.",
+          "inLanguage": "fa-IR",
+          "creator": { "@id": "https://soheil-aghayani.github.io/#person" }
         }
       ]
     }
@@ -1511,6 +1521,21 @@
         text-decoration: none !important; border-bottom: none; display: inline-flex; align-items: center; justify-content: center;
     }
     .btn-hero-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); text-decoration: none; }
+    .btn-hero-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 28px;
+        border: 1px solid rgba(45, 212, 191, 0.45);
+        border-radius: 50px;
+        color: var(--primary);
+        background: rgba(45, 212, 191, 0.08);
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+    }
+    .btn-hero-secondary:hover { transform: translateY(-2px); background: rgba(45, 212, 191, 0.16); border-color: var(--primary); text-decoration: none; }
 
     .scroll-down { position: relative; margin-top: 28px; width: fit-content; margin-inline: auto; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.6; animation: bounce 2s infinite; z-index: 3; text-decoration: none; transition: opacity 0.3s, color 0.3s; transform: none; }
     .scroll-down:hover { opacity: 1; color: var(--primary); }
@@ -1598,6 +1623,9 @@
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
                 Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#ui-send"></use></svg>
+            </a>
+            <a href="https://soheil-aghayani.github.io/Coffpen/" class="btn-hero-secondary" lang="fa" hreflang="fa" aria-label="Visit Coffpen Persian storytelling blog">
+                کاف‌پن — داستان و دل‌نوشتهٔ فارسی
             </a>
 
             <div class="mobile-socials">
