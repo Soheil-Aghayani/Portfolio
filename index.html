@@ -364,6 +364,13 @@
             flex-shrink: 0;
             will-change: transform;
         }
+        .theme-dot .svg-icon {
+            width: 13px;
+            height: 13px;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            pointer-events: none;
+        }
         .theme-dot:hover {
             transform: scale(1.15);
             border-color: rgba(255, 255, 255, 0.6);
@@ -1299,16 +1306,16 @@
 
     <!-- Theme Switcher Widget -->
     <div class="theme-switcher" id="themeSwitcher">
-        <button class="theme-btn trigger" id="themeTrigger" aria-label="Open Theme Settings" title="Change Accent Theme">
+        <button class="theme-btn trigger" id="themeTrigger" type="button" aria-label="Open Theme Settings" title="Change Accent Theme">
             <span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>
         </button>
         <div class="theme-options">
-            <button class="theme-dot" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
-            <button class="theme-dot" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"></button>
-            <button class="theme-dot" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
-            <button class="theme-dot" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
-            <button class="theme-dot" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
-            <button class="theme-dot hide" id="matrixThemeDot" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain"></button>
+            <button class="theme-dot" type="button" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot" type="button" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot" type="button" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot" type="button" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot" type="button" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot hide" id="matrixThemeDot" type="button" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
         </div>
     </div>
 
@@ -1440,6 +1447,7 @@
     .dock-link:hover { opacity: 1; transform: scale(1.2) translateX(5px); }
     .dock-link.linkedin:hover { color: var(--secondary); }
     .dock-link.telegram:hover { color: var(--primary); }
+    .dock-link.github:hover { color: var(--text-main); }
 
     /* 3. HERO CARD */
     .hero-card {
@@ -1537,6 +1545,7 @@
         }
         .mobile-social-icon.linkedin:hover { color: var(--secondary); }
         .mobile-social-icon.telegram:hover { color: var(--primary); }
+        .mobile-social-icon.github:hover { color: var(--text-main); }
     }
 
     /* Hide Mobile Socials on Desktop */
@@ -1558,10 +1567,13 @@
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
             <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-telegram"></use></svg>
         </a>
+        <a href="https://github.com/Soheil-Aghayani" target="_blank" rel="noopener noreferrer" class="dock-link github" title="GitHub" aria-label="GitHub Profile">
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-github"></use></svg>
+        </a>
     </div>
 
     <div class="hero-card">
-            <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" title="Open Interactive Terminal" onclick="if(window.OS && window.OS.open) window.OS.open('terminal');">&gt; Hello_World</span>
+            <span class="hero-greeting hello-world" id="helloWorld" role="button" tabindex="0" title="Open Interactive Terminal" onclick="if(window.OS && window.OS.open) window.OS.open('terminal');"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span> Hello_World</span>
         
         <h1 id="heroName">Soheil Aghayani</h1>
         <div class="hero-roles">
@@ -1585,6 +1597,9 @@
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
                     <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-telegram"></use></svg>
+                </a>
+                <a href="https://github.com/Soheil-Aghayani" target="_blank" rel="noopener noreferrer" class="mobile-social-icon github" aria-label="GitHub Profile">
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-github"></use></svg>
                 </a>
             </div>
         </div>
@@ -3431,6 +3446,16 @@
         text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
         transform: translateY(-3px);
     }
+    .footer-links .f-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .footer-links .f-link .svg-icon {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+    }
 
     /* 4. COPYRIGHT BAR */
     .copyright {
@@ -3851,10 +3876,10 @@
             </p>
 
             <div class="footer-links">
-                <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="f-link">LinkedIn</a>
-                <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="f-link">Telegram</a>
-                <a href="mailto:soheil.aghayani@ut.ac.ir" class="f-link">Email</a>
-                <a href="tel:+989120543587" class="f-link">Phone</a>
+                <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="f-link"><span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>LinkedIn</a>
+                <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="f-link"><span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>Telegram</a>
+                <a href="mailto:soheil.aghayani@ut.ac.ir" class="f-link"><span class="svg-icon-slot" data-icon="ui/mail" aria-hidden="true"></span>Email</a>
+                <a href="tel:+989120543587" class="f-link"><span class="svg-icon-slot" data-icon="ui/smartphone" aria-hidden="true"></span>Phone</a>
             </div>
         </div>
     </div>
@@ -3927,9 +3952,9 @@
   <div id="osTerm-win" class="os-term-win" role="dialog" aria-modal="true" aria-label="Terminal">
     <div class="os-term-top">
       <div class="os-dots">
-        <button class="os-dot red" id="osDotClose" type="button" aria-label="Close" title="Close"></button>
-        <button class="os-dot yellow" id="osDotMin" type="button" aria-label="Minimize" title="Minimize"></button>
-        <button class="os-dot green" id="osDotMax" type="button" aria-label="Fullscreen" title="Fullscreen"></button>
+        <button class="os-dot red" id="osDotClose" type="button" aria-label="Close" title="Close"><span class="svg-icon-slot" data-icon="states/x" aria-hidden="true"></span></button>
+        <button class="os-dot yellow" id="osDotMin" type="button" aria-label="Minimize" title="Minimize"><span class="svg-icon-slot" data-icon="ui/expand-less" aria-hidden="true"></span></button>
+        <button class="os-dot green" id="osDotMax" type="button" aria-label="Fullscreen" title="Fullscreen"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
       </div>
       <div class="os-term-title">soheil-os -- zsh</div>
     </div>
@@ -3946,9 +3971,9 @@
   <div id="appWin" class="app-win" role="dialog" aria-modal="true" aria-label="Game Center">
     <div class="app-top">
       <div class="os-dots">
-        <button class="os-dot red" type="button" aria-label="Close" title="Close"></button>
-        <button class="os-dot yellow" type="button" aria-label="Minimize" title="Minimize"></button>
-        <button class="os-dot green" type="button" aria-label="Fullscreen" title="Fullscreen"></button>
+        <button class="os-dot red" type="button" aria-label="Close" title="Close"><span class="svg-icon-slot" data-icon="states/x" aria-hidden="true"></span></button>
+        <button class="os-dot yellow" type="button" aria-label="Minimize" title="Minimize"><span class="svg-icon-slot" data-icon="ui/expand-less" aria-hidden="true"></span></button>
+        <button class="os-dot green" type="button" aria-label="Fullscreen" title="Fullscreen"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
       </div>
       <div class="app-title">Game Center</div>
     </div>
@@ -3962,8 +3987,8 @@
       <div id="notesWin" class="notes-win" role="dialog" aria-modal="true" aria-label="Notes">
         <div class="notes-top">
           <div class="notes-dots">
-            <button class="notes-dot red" id="notesClose" type="button" aria-label="Close notes" title="Close notes"></button>
-            <button class="notes-dot green" id="notesMax" type="button" aria-label="Maximize notes" title="Maximize notes"></button>
+            <button class="notes-dot red" id="notesClose" type="button" aria-label="Close notes" title="Close notes"><span class="svg-icon-slot" data-icon="states/x" aria-hidden="true"></span></button>
+            <button class="notes-dot green" id="notesMax" type="button" aria-label="Maximize notes" title="Maximize notes"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
           </div>
           <div class="notes-top-title">Notes</div>
           <div class="notes-top-actions">
@@ -5831,8 +5856,10 @@
     }
 
     function deactivate(event) {
-        if (!ssActive || ignoreEvents) return;
-        if (event && event.type === 'scroll' && event.isTrusted === false) return;
+        if (!ssActive) return;
+        // The launch guard only filters terminal's programmatic scroll. Genuine
+        // keyboard, pointer, touch, and wheel input must always exit immediately.
+        if (event && event.type === 'scroll' && (ignoreEvents || event.isTrusted === false)) return;
         ssActive = false;
         ss.classList.remove('active');
         ss.setAttribute('aria-hidden', 'true');

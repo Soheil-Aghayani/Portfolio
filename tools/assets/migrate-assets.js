@@ -265,9 +265,8 @@ const selectedIconDestinationPaths = new Set(
 // Keep interface icons crisp at the small sizes used throughout the site.
 const RENDER_STROKE_WIDTH = '1.65';
 
-// These local variants were redrawn to match the site's outline icon language.
-// Keep them canonical when the broader migration is rerun instead of restoring
-// the heavier files from the owner's original import folders.
+// Keep canonical paths stable during the broad folder scan. Explicit selections
+// below are the source of truth and are applied after duplicate discovery.
 const opticallyRefinedIcons = new Set([
     'icons/brand/github.svg',
     'icons/brand/linkedin-circle.svg',
@@ -402,17 +401,6 @@ function copySelectedIcons(records) {
     for (const selection of selectedIconImports) {
         const source = path.resolve(selection.source);
         const target = path.join(assetsDir, selection.destination);
-        if (opticallyRefinedIcons.has(selection.destination) && fs.existsSync(target)) {
-            records.push({
-                key: selection.destination.replace(/^icons\//, '').replace(/\.svg$/i, ''),
-                path: path.relative(repo, target).replace(/\\/g, '/'),
-                source: 'existing-canonical',
-                sourceCategory: 'optically-refined-local-variant',
-                selection: 'optically-refined-local-variant',
-                reused: true
-            });
-            continue;
-        }
         if (!fs.existsSync(source)) throw new Error(`Selected icon source does not exist: ${source}`);
 
         const raw = fs.readFileSync(source, 'utf8');

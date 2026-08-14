@@ -192,7 +192,7 @@ class NotesApp {
             div.className = 'note-item';
             div.innerHTML = `
                 <div class="note-top">
-                    <div class="note-name">${n.name || 'Untitled'}</div>
+                    <div class="note-name">${localIcon('ui/note-01', { className: 'note-inline-icon' })}${n.name || 'Untitled'}</div>
                     <div class="note-badges">
                         <span class="note-badge">${n.src}</span>
                         ${n.src === 'local' && this.isAuthed() ? `

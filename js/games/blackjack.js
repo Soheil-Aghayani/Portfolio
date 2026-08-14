@@ -192,10 +192,10 @@ export class BlackjackGame {
                         </div>
                         <div class="bj-bet-controls" id="bjBetControls">
                             <div class="bj-chips-row">
-                                <button class="bj-bet-btn chip-10" data-amount="10" type="button">10</button>
-                                <button class="bj-bet-btn chip-50" data-amount="50" type="button">50</button>
-                                <button class="bj-bet-btn chip-100" data-amount="100" type="button">100</button>
-                                <button class="bj-bet-btn chip-200" data-amount="200" type="button">200</button>
+                                <button class="bj-bet-btn chip-10" data-amount="10" type="button" aria-label="Bet 10 credits"><span class="bj-bet-icon">${localIcon('ui/hand-money', { className: 'bj-bet-chip-icon' })}</span><span class="bj-bet-value">10</span></button>
+                                <button class="bj-bet-btn chip-50" data-amount="50" type="button" aria-label="Bet 50 credits"><span class="bj-bet-icon">${localIcon('ui/hand-money', { className: 'bj-bet-chip-icon' })}</span><span class="bj-bet-value">50</span></button>
+                                <button class="bj-bet-btn chip-100" data-amount="100" type="button" aria-label="Bet 100 credits"><span class="bj-bet-icon">${localIcon('ui/hand-money', { className: 'bj-bet-chip-icon' })}</span><span class="bj-bet-value">100</span></button>
+                                <button class="bj-bet-btn chip-200" data-amount="200" type="button" aria-label="Bet 200 credits"><span class="bj-bet-icon">${localIcon('ui/hand-money', { className: 'bj-bet-chip-icon' })}</span><span class="bj-bet-value">200</span></button>
                             </div>
                             <div class="bj-actions-row">
                                 <button id="bjClear" class="bj-action-bet-btn clear" type="button" title="Clear current bet">${localIcon('ui/close-rounded', { label: 'Clear bet' })} Clear</button>

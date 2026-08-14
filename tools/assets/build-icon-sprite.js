@@ -8,11 +8,12 @@ const spritePath = path.join(iconsRoot, 'sprite.svg');
 const manifestPath = path.join(iconsRoot, 'manifest.json');
 
 // Keep the runtime sprite small: only icons reachable from the site are emitted.
-// Every source still comes from icon.md, so the build has no network dependency.
+// Canonical local SVGs win when present; icon.md remains the offline fallback source.
 const iconSources = [
     ['brand/favicon', 'leaf'],
-    ['brand/linkedin-circle', 'logos-linkedin'],
-    ['brand/telegram', 'selfhst-telegram'],
+    ['brand/github', 'github'],
+    ['brand/linkedin-circle', 'custom:linkedin-round'],
+    ['brand/telegram', 'custom:telegram-round'],
 
     ['ui/send', 'send'],
     ['ui/link', 'link-circle-linear'],
@@ -22,6 +23,7 @@ const iconSources = [
     ['ui/terminal', 'command-linear'],
     ['ui/gamepad', 'gamepad-old-outline'],
     ['ui/notes-outline', 'notes'],
+    ['ui/note-01', 'note-01'],
     ['ui/note-add', 'clipboard-add-linear'],
     ['ui/note-edit', 'pen-2-linear'],
     ['ui/note-remove', 'clipboard-remove-linear'],
@@ -64,6 +66,7 @@ const iconSources = [
     ['ui/question-circle', 'question-circle-outline'],
     ['ui/check', 'check-read-line-duotone'],
     ['ui/outline-pan-tool', 'hand'],
+    ['ui/hand-money', 'hand-money-linear'],
 
     ['states/x', 'x-logo'],
     ['states/check-circle', 'check-circle-linear'],
@@ -216,14 +219,17 @@ function main() {
     const seen = new Set();
 
     for (const [relativePath, sourceKey] of iconSources) {
-        const source = sourceMap.get(normalizeKey(sourceKey)) || sourceMap.get(basenameKey(sourceKey));
+        const outputPath = path.join(iconsRoot, `${relativePath}.svg`);
+        const canonicalSource = fs.existsSync(outputPath)
+            ? fs.readFileSync(outputPath, 'utf8')
+            : '';
+        const source = canonicalSource || sourceMap.get(normalizeKey(sourceKey)) || sourceMap.get(basenameKey(sourceKey));
         if (!source) throw new Error(`Missing icon.md source for ${relativePath}: ${sourceKey}`);
         const icon = toIconDocument(normalizeMonochrome(source));
         const spriteId = relativePath.replace(/\.svg$/i, '').replace(/\//g, '-');
         if (seen.has(spriteId)) throw new Error(`Duplicate sprite id: ${spriteId}`);
         seen.add(spriteId);
 
-        const outputPath = path.join(iconsRoot, `${relativePath}.svg`);
         fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         fs.writeFileSync(outputPath, `${icon.svg}\n`, 'utf8');
         symbols.push(`  <symbol id="${spriteId}" viewBox="${icon.viewBox}">${icon.content}</symbol>`);
@@ -232,11 +238,13 @@ function main() {
             path: path.relative(repo, outputPath).replace(/\\/g, '/'),
             spriteId,
             sourceCategory: relativePath.split('/').slice(0, -1).join('/'),
-            source: 'icon.md',
-            sourceIcon: sourceKey,
-            duplicateDecision: 'no-existing-canonical-file-overwritten',
-            license: 'unverified-icon-md-source',
-            externalLicense: 'not recorded in icon.md; verify source-pack license before redistribution'
+            source: canonicalSource ? 'canonical-local-svg' : 'icon.md',
+            sourceIcon: canonicalSource ? relativePath : sourceKey,
+            duplicateDecision: canonicalSource
+                ? 'canonical-local-svg-preserved-and-used-for-sprite'
+                : 'icon.md-fallback-generated-canonical',
+            license: 'unverified-local-svg-source',
+            externalLicense: 'license metadata was not included with the local source; verify before redistribution'
         });
     }
 
