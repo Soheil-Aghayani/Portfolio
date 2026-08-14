@@ -3,7 +3,7 @@
 
     // Bump this whenever the generated sprite changes so browsers do not keep
     // serving an older icon set from GitHub Pages' cache.
-    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.1-icon-md';
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.2-dvd';
 
     function escapeAttribute(value) {
         return String(value == null ? '' : value)
@@ -30,9 +30,12 @@
         const size = options.size ? ` width="${escapeAttribute(options.size)}" height="${escapeAttribute(options.size)}"` : '';
         const label = options.label ? ` role="img" aria-label="${escapeAttribute(options.label)}"` : ' aria-hidden="true"';
         const focusable = options.label ? ' focusable="false"' : ' focusable="false"';
+        const preserveAspectRatio = options.preserveAspectRatio
+            ? ` preserveAspectRatio="${escapeAttribute(options.preserveAspectRatio)}"`
+            : '';
 
         const useHref = `${SPRITE_URL}#${escapeAttribute(id)}`;
-        return `<svg class="${escapeAttribute(className)}" data-icon-name="${escapeAttribute(id)}"${size}${label}${focusable}><use href="${useHref}" xlink:href="${useHref}"></use></svg>`;
+        return `<svg class="${escapeAttribute(className)}" data-icon-name="${escapeAttribute(id)}"${size}${label}${focusable}${preserveAspectRatio}><use href="${useHref}" xlink:href="${useHref}"></use></svg>`;
     }
 
     const IconRegistry = {

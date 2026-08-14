@@ -119,7 +119,7 @@ const iconSources = [
 
     ['screensavers/starfield', 'arcticons-starfield'],
     ['screensavers/matrix', 'code-file-bold'],
-    ['screensavers/dvd', 'planet-3-linear'],
+    ['screensavers/dvd', 'dvd'],
     ['screensavers/sunrise', 'sunglasses'],
     ['screensavers/ai-line', 'atom-linear']
 ];

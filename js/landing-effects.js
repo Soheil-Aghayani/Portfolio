@@ -96,20 +96,56 @@
         canvas.height = window.innerHeight;
         const minSide = Math.min(canvas.width, canvas.height);
         dvdState.w = Math.min(300, Math.max(150, minSide * 0.34));
-        dvdState.h = dvdState.w * 0.44;
-        dvdState.x = Math.min(Math.max(0, dvdState.x), Math.max(0, canvas.width - dvdState.w));
-        dvdState.y = Math.min(Math.max(0, dvdState.y), Math.max(0, canvas.height - dvdState.h));
+        dvdState.h = dvdState.w * 0.45;
+        syncDvdVisualBounds();
+        clampDvdPosition();
     }
 
     // Dynamic State for Renderers
     const stars = [];
     const matrixStreams = [];
     let dvdState = { x: 100, y: 100, vx: 3.5, vy: 2.5, w: 220, h: 90, colorIdx: 0, bounceCount: 0 };
+    let dvdVisualBounds = { left: 0, top: 0, right: dvdState.w, bottom: dvdState.h };
     const dvdTrail = [];
     const dvdColors = ['#2dd4bf', '#ec4899', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ef4444', '#f43f5e'];
     let synthOffset = 0;
     let lastFrameTime = 0;
     const quantumNodes = [];
+
+    function syncDvdVisualBounds() {
+        dvdVisualBounds = { left: 0, top: 0, right: dvdState.w, bottom: dvdState.h };
+        const svg = dvdLogo && dvdLogo.querySelector('.ss-dvd-svg');
+        const viewBox = svg && svg.viewBox && svg.viewBox.baseVal;
+        const drawable = svg && svg.querySelector('use');
+        if (!viewBox || !viewBox.width || !viewBox.height || !drawable || typeof drawable.getBBox !== 'function') return;
+
+        let box;
+        try {
+            box = drawable.getBBox();
+        } catch (error) {
+            return;
+        }
+        if (!box || box.width <= 0 || box.height <= 0) return;
+
+        const scaleX = dvdState.w / viewBox.width;
+        const scaleY = dvdState.h / viewBox.height;
+        dvdVisualBounds = {
+            left: (box.x - viewBox.x) * scaleX,
+            top: (box.y - viewBox.y) * scaleY,
+            right: (box.x + box.width - viewBox.x) * scaleX,
+            bottom: (box.y + box.height - viewBox.y) * scaleY
+        };
+    }
+
+    // Collision uses the visible path bounds, not transparent SVG viewBox padding.
+    function clampDvdPosition() {
+        const minX = -dvdVisualBounds.left;
+        const minY = -dvdVisualBounds.top;
+        const maxX = Math.max(minX, canvas.width - dvdVisualBounds.right);
+        const maxY = Math.max(minY, canvas.height - dvdVisualBounds.bottom);
+        dvdState.x = Math.min(Math.max(minX, dvdState.x), maxX);
+        dvdState.y = Math.min(Math.max(minY, dvdState.y), maxY);
+    }
 
     function initCurrentModeData() {
         const W = canvas.width, H = canvas.height;
@@ -239,10 +275,26 @@
         s.y += s.vy * frameScale;
 
         let bounced = false;
-        if (s.x <= 0) { s.x = 0; s.vx = Math.abs(s.vx); bounced = true; }
-        if (s.x + s.w >= W) { s.x = Math.max(0, W - s.w); s.vx = -Math.abs(s.vx); bounced = true; }
-        if (s.y <= 0) { s.y = 0; s.vy = Math.abs(s.vy); bounced = true; }
-        if (s.y + s.h >= H) { s.y = Math.max(0, H - s.h); s.vy = -Math.abs(s.vy); bounced = true; }
+        if (s.x + dvdVisualBounds.left <= 0) {
+            s.x = -dvdVisualBounds.left;
+            s.vx = Math.abs(s.vx);
+            bounced = true;
+        }
+        if (s.x + dvdVisualBounds.right >= W) {
+            s.x = W - dvdVisualBounds.right;
+            s.vx = -Math.abs(s.vx);
+            bounced = true;
+        }
+        if (s.y + dvdVisualBounds.top <= 0) {
+            s.y = -dvdVisualBounds.top;
+            s.vy = Math.abs(s.vy);
+            bounced = true;
+        }
+        if (s.y + dvdVisualBounds.bottom >= H) {
+            s.y = H - dvdVisualBounds.bottom;
+            s.vy = -Math.abs(s.vy);
+            bounced = true;
+        }
 
         if (bounced) {
             s.colorIdx = (s.colorIdx + 1) % dvdColors.length;
@@ -429,7 +481,7 @@
         if (dvdLogo) {
             dvdLogo.hidden = currentMode !== 'dvd';
             dvdLogo.innerHTML = currentMode === 'dvd' && window.IconRegistry
-                ? window.IconRegistry.svg('screensavers/dvd', { className: 'ss-dvd-svg', label: 'Bouncing DVD logo' })
+                ? window.IconRegistry.svg('screensavers/dvd', { className: 'ss-dvd-svg', label: 'Bouncing DVD logo', preserveAspectRatio: 'none' })
                 : '';
         }
 

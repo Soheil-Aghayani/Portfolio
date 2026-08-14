@@ -23,6 +23,7 @@ This project uses the local SVG sprite as its only runtime icon source. The gene
 | Get in Touch | `ui/mail` | Replaced the pixel stair-step send symbol with a thin mail outline | The contact action should use a legible non-pixel icon. |
 | Music toggle | `ui/music-off-round` | Replaced the filled speaker/X artwork with a thin outline | The filled mark was too heavy in the floating control. |
 | Telegram social link | `brand/telegram` | Replaced the filled circular logo with a thin local paper-plane outline | The filled logo was visually heavier than the surrounding outline icons. |
+| DVD screensaver | `screensavers/dvd` | Uses the supplied local DVD wordmark and measures its drawable bounds for edge collisions | The previous planet fallback left large transparent side margins and bounced early. |
 | Hero terminal greeting | Literal `>` | No SVG icon | The natural terminal prompt is clearer than a decorative command icon. |
 | Terminal, Game Center, and Notes traffic lights | Empty `.os-dot` / `.notes-dot` buttons | No child icons | The colored controls already communicate their function and match the window convention. |
 | Browser and search favicon | `brand/favicon` plus `/favicon.png` | Explicit teal SVG with 48px and 180px PNG fallbacks | A crawlable raster fallback avoids a generic browser/search placeholder when an SVG is not rendered. |
