@@ -468,6 +468,16 @@ class Terminal {
             return;
         }
 
+        // The visual engine is loaded after the landing page is idle. Loading it
+        // on demand keeps the terminal command reliable even during first boot.
+        if (typeof window.ensureLandingEffects === 'function') {
+            try {
+                await window.ensureLandingEffects();
+            } catch (error) {
+                console.error('Screensaver engine failed to load:', error);
+            }
+        }
+
         if (window.Screensaver && typeof window.Screensaver.activate === 'function') {
             const valid = ['starfield', 'matrix', 'dvd', 'synthwave', 'quantum'];
             if (mode && !valid.includes(mode)) {
