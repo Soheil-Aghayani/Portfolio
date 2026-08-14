@@ -1,4 +1,8 @@
 // Audio Synth Engine using Web Audio API (Lazily initialized)
+const cardSuitIcon = (suit, label = '') => window.IconRegistry
+    ? window.IconRegistry.svg(`games/blackjack/${suit}`, { className: 'bj-suit-icon', label })
+    : '';
+
 class SoundEngine {
     constructor() {
         this.ctx = null;
@@ -1149,10 +1153,10 @@ export class BlackjackGame {
         let suitColor = '';
         let glowColor = '';
         
-        if (c.s === '♥') { suitName = 'hearts'; suitColor = '#fb7185'; glowColor = 'rgba(251, 113, 133, 0.45)'; }
-        else if (c.s === '♦') { suitName = 'diamonds'; suitColor = '#fb923c'; glowColor = 'rgba(251, 146, 60, 0.45)'; }
-        else if (c.s === '♠') { suitName = 'spades'; suitColor = '#38bdf8'; glowColor = 'rgba(56, 189, 248, 0.45)'; }
-        else if (c.s === '♣') { suitName = 'clubs'; suitColor = '#4ade80'; glowColor = 'rgba(74, 222, 128, 0.45)'; }
+        if (c.s === 'hearts') { suitName = 'hearts'; suitColor = '#fb7185'; glowColor = 'rgba(251, 113, 133, 0.45)'; }
+        else if (c.s === 'diamonds') { suitName = 'diamonds'; suitColor = '#fb923c'; glowColor = 'rgba(251, 146, 60, 0.45)'; }
+        else if (c.s === 'spades') { suitName = 'spades'; suitColor = '#38bdf8'; glowColor = 'rgba(56, 189, 248, 0.45)'; }
+        else if (c.s === 'clubs') { suitName = 'clubs'; suitColor = '#4ade80'; glowColor = 'rgba(74, 222, 128, 0.45)'; }
 
         if (isPeeked) {
             suitColor = '#2dd4bf';
@@ -1160,16 +1164,19 @@ export class BlackjackGame {
             suitName += ' hacked-card';
         }
 
+        const cornerSuitIcon = cardSuitIcon(c.s);
+        const centerSuitIcon = cardSuitIcon(c.s, `${suitName} suit`);
+
         return `
             <div class="bj-card ${suitName} ${isNew ? 'deal-animate' : ''}" style="--suit-color: ${suitColor}; --suit-glow: ${glowColor}">
                 <div class="bj-card-corner top-left">
                     <span class="rank">${c.r}</span>
-                    <span class="suit">${c.s}</span>
+                    <span class="suit">${cornerSuitIcon}</span>
                 </div>
-                <div class="bj-card-center-suit">${c.s}</div>
+                <div class="bj-card-center-suit">${centerSuitIcon}</div>
                 <div class="bj-card-corner bottom-right">
                     <span class="rank">${c.r}</span>
-                    <span class="suit">${c.s}</span>
+                    <span class="suit">${cornerSuitIcon}</span>
                 </div>
                 ${isPeeked ? '<div class="bj-card-peek-scan"></div>' : ''}
             </div>
@@ -1177,7 +1184,7 @@ export class BlackjackGame {
     }
 
     buildDeck() {
-        const suits = ['♠','♥','♦','♣'];
+        const suits = ['spades', 'hearts', 'diamonds', 'clubs'];
         const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
         const deck = [];
         for (const s of suits) for (const r of ranks) deck.push({ r, s });

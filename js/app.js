@@ -24,7 +24,7 @@ const initApp = () => {
     const ensureTerminal = () => {
         if (!terminalPromise) {
             terminalPromise = ensureOsStyles()
-                .then(() => import('./terminal.js?v=2.2'))
+                .then(() => import('./terminal.js?v=2.3'))
                 .then(() => window.TerminalApp)
                 .catch((err) => {
                     terminalPromise = null;

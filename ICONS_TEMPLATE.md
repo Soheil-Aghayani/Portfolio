@@ -5,7 +5,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 🌐 1. Navigation, OS Dock & UI Controls
+## 1. Navigation, OS Dock & UI Controls
 
 ### `ui/theme-palette` (Theme Switcher in Dock)
 ```xml
@@ -84,7 +84,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 🎓 2. Portfolio Main Sections & Credentials
+## 2. Portfolio Main Sections & Credentials
 
 ### `sections/hero-send` ("Get in Touch" Hero Button)
 ```xml
@@ -168,7 +168,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 🔬 3. Interactive Flowchart Tools
+## 3. Interactive Flowchart Tools
 
 ### `flowchart/filter` (Flowchart Viewer Toggle)
 ```xml
@@ -207,7 +207,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## ⚡ 4. Technical Skills & Training Cards
+## 4. Technical Skills & Training Cards
 
 ### `skills/eco` (Sustainability & Environmental Engineering Card)
 ```xml
@@ -256,7 +256,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 📁 5. Projects Showcase & Media Filters
+## 5. Projects Showcase & Media Filters
 
 ### `projects/search` (Search Input Icon)
 ```xml
@@ -285,7 +285,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 🎮 6. Mini Games & Easter Eggs
+## 6. Mini Games & Easter Eggs
 
 ### `games/minesweeper/pickaxe` (Minesweeper Dig Tool / Manual Icon)
 ```xml
@@ -374,7 +374,7 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 🖼️ 7. Screensavers Badges
+## 7. Screensavers Badges
 
 ### `screensavers/starfield` (Starfield Mode Icon)
 ```xml
@@ -408,24 +408,24 @@ Once ready, save this file as **`ICONS.md`** in the portfolio root folder (`Port
 
 ---
 
-## 😀 8. Emojis to Replace
+## 8. Pictographic Symbols to Replace
 
-### `emojis/hearts` (Card Suit: Hearts ♥)
+### `games/blackjack/hearts` (Card Suit: Hearts)
 ```xml
 <!-- Paste SVG here -->
 ```
 
-### `emojis/diamonds` (Card Suit: Diamonds ♦)
+### `games/blackjack/diamonds` (Card Suit: Diamonds)
 ```xml
 <!-- Paste SVG here -->
 ```
 
-### `emojis/spades` (Card Suit: Spades ♠)
+### `games/blackjack/spades` (Card Suit: Spades)
 ```xml
 <!-- Paste SVG here -->
 ```
 
-### `emojis/clubs` (Card Suit: Clubs ♣)
+### `games/blackjack/clubs` (Card Suit: Clubs)
 ```xml
 <!-- Paste SVG here -->
 ```

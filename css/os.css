@@ -844,13 +844,23 @@ html.os-active, body.os-active {
     align-items: flex-end;
     transform: rotate(180deg);
 }
+.bj-suit-icon {
+    width: 0.78rem;
+    height: 0.78rem;
+    display: block;
+    color: currentColor;
+    vertical-align: middle;
+}
 .bj-card-center-suit {
-    font-size: 1.5rem;
     align-self: center;
     margin-top: -6px;
     filter: drop-shadow(0 0 4px var(--suit-glow));
     -webkit-user-select: none;
     user-select: none;
+}
+.bj-card-center-suit .bj-suit-icon {
+    width: 1.65rem;
+    height: 1.65rem;
 }
 /* CARD BACK design */
 .bj-card-back {

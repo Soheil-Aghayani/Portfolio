@@ -3,7 +3,7 @@
 
     // Bump this whenever the generated sprite changes so browsers do not keep
     // serving an older icon set from GitHub Pages' cache.
-    const SPRITE_URL = 'assets/icons/sprite.svg?v=2.0-outline';
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.0-icon-md';
 
     function escapeAttribute(value) {
         return String(value == null ? '' : value)
@@ -31,7 +31,8 @@
         const label = options.label ? ` role="img" aria-label="${escapeAttribute(options.label)}"` : ' aria-hidden="true"';
         const focusable = options.label ? ' focusable="false"' : ' focusable="false"';
 
-        return `<svg class="${escapeAttribute(className)}"${size}${label}${focusable}><use href="${SPRITE_URL}#${escapeAttribute(id)}"></use></svg>`;
+        const useHref = `${SPRITE_URL}#${escapeAttribute(id)}`;
+        return `<svg class="${escapeAttribute(className)}" data-icon-name="${escapeAttribute(id)}"${size}${label}${focusable}><use href="${useHref}" xlink:href="${useHref}"></use></svg>`;
     }
 
     const IconRegistry = {

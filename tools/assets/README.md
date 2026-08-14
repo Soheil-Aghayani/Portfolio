@@ -1,6 +1,6 @@
 # Asset Migration Tools
 
-`migrate-assets.js` is the repeatable asset organizer. It moves canonical media into the `assets/` taxonomy, imports the supplied SVG folder without replacing semantic duplicates, normalizes monochrome fills, and regenerates:
+`build-icon-sprite.js` is the repeatable icon build. It reads `icon.md`, emits only the icons reachable from the site into the organized `assets/icons/` tree, and regenerates:
 
 - `assets/icons/sprite.svg`
 - `assets/icons/manifest.json`
@@ -8,7 +8,7 @@
 Run from the project root:
 
 ```powershell
-node tools/assets/migrate-assets.js
+node tools/assets/build-icon-sprite.js
 ```
 
-`replace-material-icons.js` is the one-time portfolio markup migration. The reviewed historical scripts are retained under `tools/assets/legacy/` for reference only.
+`migrate-assets.js` remains available for the older owner-supplied asset-folder migration. It is not part of the runtime build.

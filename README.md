@@ -1,6 +1,6 @@
 <div align="center">
 
-# <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/solar:bolt-linear.svg?color=%2300F2FE"><source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/solar:bolt-linear.svg?color=%230969DA"><img alt="Solar Bolt" src="https://api.iconify.design/solar:bolt-linear.svg?color=%230969DA" width="36" height="36"></picture> SOHEIL AGHAYANI
+# <img alt="Portfolio" src="assets/icons/brand/favicon.svg" width="36" height="36"> SOHEIL AGHAYANI
 ### **Bridging Environmental Engineering & Advanced Software Architecture**
 
 [![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-Visit_Site-0969DA?style=for-the-badge&logoColor=white)](https://soheil-aghayani.github.io/)
@@ -47,7 +47,7 @@ The client disables Google signals and ad personalization, does not send analyti
 
 ---
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/solar:wrench-linear.svg?color=%2300F2FE"><source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/solar:wrench-linear.svg?color=%230969DA"><img alt="Solar Wrench" src="https://api.iconify.design/solar:wrench-linear.svg?color=%230969DA" width="28" height="28"></picture> TECHNICAL ARSENAL & INTERACTIVE SKILLS MATRIX
+## <img alt="Technical tools" src="assets/icons/ui/terminal.svg" width="28" height="28"> TECHNICAL ARSENAL & INTERACTIVE SKILLS MATRIX
 
 <!-- ANIMATION 3: Dynamic Vibrant Vector Tech Grid -->
 <div align="center">
@@ -62,38 +62,38 @@ The client disables Google signals and ad personalization, does not send analyti
 
 | Domain | Specialized Tools, Software & Methodologies |
 | :--- | :--- |
-| **<img src="https://api.iconify.design/solar:laptop-linear.svg?color=%230969DA" width="18" height="18" align="text-bottom"> Software Engineering** | `Python` • `C#` • `WPF (.NET)` • `Git & GitHub` • `HTML5 / CSS3` • `Object-Oriented Programming (OOP)` • `Desktop Automation` |
-| **<img src="https://api.iconify.design/solar:globe-linear.svg?color=%231A7F37" width="18" height="18" align="text-bottom"> Environmental Modeling** | `SimaPro (Life Cycle Assessment)` • `LandGEM (Landfill Gas Modeling)` • `GIS Spatial Analysis` • `Solid Waste Siting` |
-| **<img src="https://api.iconify.design/solar:chart-square-linear.svg?color=%236E40C9" width="18" height="18" align="text-bottom"> Engineering Analytics** | `Reaction Kinetics Modeling` • `Heterogeneous Catalysis Synthesis` • `Data Processing (Pandas / NumPy)` • `Wet-Lab Testing` |
+| **<img src="assets/icons/ui/terminal.svg" width="18" height="18" align="text-bottom"> Software Engineering** | `Python` - `C#` - `WPF (.NET)` - `Git & GitHub` - `HTML5 / CSS3` - `Object-Oriented Programming (OOP)` - `Desktop Automation` |
+| **<img src="assets/icons/ui/globe.svg" width="18" height="18" align="text-bottom"> Environmental Modeling** | `SimaPro (Life Cycle Assessment)` - `LandGEM (Landfill Gas Modeling)` - `GIS Spatial Analysis` - `Solid Waste Siting` |
+| **<img src="assets/icons/ui/bar-chart-rounded.svg" width="18" height="18" align="text-bottom"> Engineering Analytics** | `Reaction Kinetics Modeling` - `Heterogeneous Catalysis Synthesis` - `Data Processing (Pandas / NumPy)` - `Wet-Lab Testing` |
 
 </div>
 
 ---
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/solar:diploma-linear.svg?color=%2300F2FE"><source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/solar:diploma-linear.svg?color=%230969DA"><img alt="Solar Diploma" src="https://api.iconify.design/solar:diploma-linear.svg?color=%230969DA" width="28" height="28"></picture> ACADEMIC JOURNEY & INDUSTRY LEADERSHIP
+## <img alt="Academic journey" src="assets/icons/states/verified.svg" width="28" height="28"> ACADEMIC JOURNEY & INDUSTRY LEADERSHIP
 
-### <img src="https://img.shields.io/badge/🎓_ENGINEERING_EDUCATION-0969DA?style=flat-square&labelColor=1A1A1A" height="22"/>
+### ENGINEERING EDUCATION
 
 <div align="center">
   <table>
     <tr>
       <td width="6%" align="center">
-        <img src="https://api.iconify.design/solar:users-group-rounded-linear.svg?color=%230969DA" width="26" height="26">
+        <img src="assets/icons/states/volunteer-activism-outline.svg" width="26" height="26" alt="People">
       </td>
       <td width="94%">
         <p><b>Master of Science in Environmental Engineering</b> | <i>University of Tehran (Present)</i><br>
-        ▪ <b>Academic Performance:</b> GPA 3.81 / 4.00 (19.06 / 20.00)<br>
-        ▪ <b>Core Research Areas:</b> Solid Waste Valorization, Biofuel Synthesis, Advanced Oxidation Processes (AOPs), and SimaPro LCA.</p>
+        - <b>Academic Performance:</b> GPA 3.81 / 4.00 (19.06 / 20.00)<br>
+        - <b>Core Research Areas:</b> Solid Waste Valorization, Biofuel Synthesis, Advanced Oxidation Processes (AOPs), and SimaPro LCA.</p>
       </td>
     </tr>
     <tr>
       <td width="6%" align="center">
-        <img src="https://api.iconify.design/solar:leaf-linear.svg?color=%231A7F37" width="26" height="26">
+        <img src="assets/icons/ui/leaf.svg" width="26" height="26" alt="Environmental research">
       </td>
       <td width="94%">
         <p><b>Bachelor of Science in Civil Engineering</b> | <i>Shahed University (2018 – 2022)</i><br>
-        ▪ <b>Academic Performance:</b> GPA 2.93 / 4.00<br>
-        ▪ <b>Foundational Training:</b> Structural Analysis, Environmental Hydraulics, Project Management, and Sustainable Urban Infrastructure.</p>
+        - <b>Academic Performance:</b> GPA 2.93 / 4.00<br>
+        - <b>Foundational Training:</b> Structural Analysis, Environmental Hydraulics, Project Management, and Sustainable Urban Infrastructure.</p>
       </td>
     </tr>
   </table>
@@ -101,13 +101,13 @@ The client disables Google signals and ad personalization, does not send analyti
 
 ---
 
-### <img src="https://img.shields.io/badge/💼_PROFESSIONAL_EXPERIENCE-1A7F37?style=flat-square&labelColor=1A1A1A" height="22"/>
+### PROFESSIONAL EXPERIENCE
 
 ```yaml
-▪ TECHNICAL EXPERT @ ARVIN SAROUJ PAY (TEHRAN | MAR 2024 – OCT 2025):
+- TECHNICAL EXPERT @ ARVIN SAROUJ PAY (TEHRAN | MAR 2024 – OCT 2025):
     - Spearheaded Health, Safety, and Environment (HSE) site compliance, conducting rigorous risk assessments and daily worker safety training.
     - Contributed directly to R&D engineering teams optimizing energy-efficient building layouts and sustainable material selection.
 
-▪ TECHNICAL EXPERT @ SEDNA (TEHRAN | MAY 2022 – APR 2024):
+- TECHNICAL EXPERT @ SEDNA (TEHRAN | MAY 2022 – APR 2024):
     - Supervised multi-disciplinary construction and installation workflows for an industrial factory manufacturing electronic thermal devices.
     - Managed project timelines, quality assurance check-sheets, and technical contractor coordination from foundation to commissioning.

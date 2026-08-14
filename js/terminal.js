@@ -399,7 +399,10 @@ class Terminal {
             const viewer = document.getElementById('flowchartViewer');
             const btn = document.getElementById('toggleFlowchartBtn');
             if (viewer && btn) {
-                if (viewer.style.display === 'none') {
+                if (getComputedStyle(viewer).display === 'none') {
+                    if (window.OS && typeof window.OS.close === 'function') {
+                        window.OS.close('terminal');
+                    }
                     btn.click();
                 }
                 viewer.scrollIntoView({ behavior: 'smooth', block: 'center' });
