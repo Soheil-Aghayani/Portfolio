@@ -6,8 +6,6 @@
 
 - [Portfolio](https://soheil-aghayani.github.io/): Professional profile, education, research, certifications, training, skills, and contact information.
 - [Web projects](https://soheil-aghayani.github.io/projects.html): Interactive tools, design experiments, and science-focused web applications.
-- [کافپن (کاف‌پن / Coffpen)](https://soheil-aghayani.github.io/Coffpen/): Independent Persian storytelling blog by Soheil Aghayani with short stories, serial collections, and personal notes.
-- [Coffpen repository](https://github.com/Soheil-Aghayani/Coffpen)
 ## Identity
 
 - Primary name: Soheil Aghayani
