@@ -423,12 +423,12 @@
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
     },
     {
-      "key": "ui/football-linear",
-      "path": "assets/icons/ui/football-linear.svg",
-      "spriteId": "ui-football-linear",
+      "key": "ui/sport-soccer-16-filled",
+      "path": "assets/icons/ui/sport-soccer-16-filled.svg",
+      "spriteId": "ui-sport-soccer-16-filled",
       "sourceCategory": "ui",
       "source": "canonical-local-svg",
-      "sourceIcon": "ui/football-linear",
+      "sourceIcon": "ui/sport-soccer-16-filled",
       "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
       "license": "unverified-local-svg-source",
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
@@ -1012,17 +1012,6 @@
       "sourceCategory": "games/minesweeper",
       "source": "canonical-local-svg",
       "sourceIcon": "games/minesweeper/smiley-win",
-      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
-      "license": "unverified-local-svg-source",
-      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
-    },
-    {
-      "key": "games/minesweeper/sport-soccer-16-filled",
-      "path": "assets/icons/games/minesweeper/sport-soccer-16-filled.svg",
-      "spriteId": "games-minesweeper-sport-soccer-16-filled",
-      "sourceCategory": "games/minesweeper",
-      "source": "canonical-local-svg",
-      "sourceIcon": "games/minesweeper/sport-soccer-16-filled",
       "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
       "license": "unverified-local-svg-source",
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"

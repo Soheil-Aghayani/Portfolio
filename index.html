@@ -349,6 +349,18 @@
             transition: background-color 0.2s ease, color 0.2s ease;
             flex-shrink: 0;
         }
+        .theme-btn.trigger .theme-trigger-icon {
+            width: 17px;
+            height: 17px;
+            min-width: 0;
+            min-height: 0;
+            color: rgba(7, 11, 19, 0.86);
+            pointer-events: none;
+        }
+        .theme-btn.trigger .theme-trigger-icon .svg-icon {
+            width: 17px;
+            height: 17px;
+        }
         .theme-btn.trigger:hover {
             filter: brightness(1.15);
             box-shadow: 0 0 12px var(--primary-glow);
@@ -1336,6 +1348,7 @@
     <!-- Theme Switcher Widget -->
     <div class="theme-switcher" id="themeSwitcher">
         <button class="theme-btn trigger" id="themeTrigger" type="button" aria-label="Open Theme Settings" title="Change Accent Theme">
+            <span class="svg-icon-slot theme-trigger-icon" data-icon="ui/palette-broken" aria-hidden="true"></span>
         </button>
         <div class="theme-options">
             <button class="theme-dot" type="button" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
@@ -1615,7 +1628,7 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#ui-send"></use></svg>
+                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#ui-mail"></use></svg>
             </a>
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
@@ -2737,7 +2750,7 @@
         <div class="t-card right" onclick="selectCard(1)" role="button" tabindex="0" aria-label="Training card: Waste Mgmt in Sports" aria-expanded="false">
             <div class="t-card-inner">
                 <div class="t-card-front">
-            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/football-linear" aria-hidden="true"></span></div>
+            <div class="tc-icon"><span class="svg-icon-slot" data-icon="ui/sport-soccer-16-filled" aria-hidden="true"></span></div>
             <div class="tc-title">Waste Mgmt in Sports</div>
             <div class="tc-org">Olympic Academy</div>
             <div class="tc-date">Nov 2024</div>
