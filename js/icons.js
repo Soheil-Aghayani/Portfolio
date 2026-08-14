@@ -3,7 +3,7 @@
 
     // Bump this whenever the generated sprite changes so browsers do not keep
     // serving an older icon set from GitHub Pages' cache.
-    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.0-icon-md';
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.1-icon-md';
 
     function escapeAttribute(value) {
         return String(value == null ? '' : value)

@@ -536,6 +536,10 @@ html.os-active, body.os-active {
     margin-top: 4px;
 }
 .notes-btn2{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     padding: 10px 14px;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.12);
@@ -962,6 +966,10 @@ html.os-active, body.os-active {
     background: rgba(255, 255, 255, 0.02);
     color: #fff;
     transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
 }
 .bj-hack-btn:hover:not(:disabled) {
     color: #0f172a;
@@ -1228,6 +1236,10 @@ html.os-active, body.os-active {
     text-transform: uppercase;
     transition: all 0.15s ease;
     outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
 }
 .bj-action-bet-btn.clear:hover:not(:disabled) {
     background: rgba(239, 68, 68, 0.2);
@@ -1270,6 +1282,10 @@ html.os-active, body.os-active {
 .bj-controls .btn {
     padding: 6px 15px;
     font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
 }
 
 /* Hacker Scanning Effects */
@@ -1619,6 +1635,10 @@ html.os-active, body.os-active {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
 }
 .g2048-btn:hover {
     transform: translateY(-2px);
@@ -1875,6 +1895,10 @@ html.os-active, body.os-active {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
 }
 .ms-btn:hover {
     transform: translateY(-2px);
@@ -1972,6 +1996,10 @@ html.os-active, body.os-active {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
 }
 .game-overlay-btn:hover {
     transform: translateY(-2px);
@@ -2208,6 +2236,10 @@ html.os-active, body.os-active {
     box-shadow: 0 0 10px rgba(45, 212, 191, 0.2), inset 0 0 10px rgba(45, 212, 191, 0.05);
     transition: all 0.2s ease;
     margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
 }
 .bj-reg-submit:hover:not(:disabled) {
     background: rgba(45, 212, 191, 0.12);
@@ -2541,6 +2573,10 @@ html.os-active, body.os-active {
     display: block;
     border-radius: 50%;
     box-shadow: 0 0 10px currentColor;
+}
+.ms-difficulty-icon {
+    width: 20px;
+    height: 20px;
 }
 .ms-diff-easy { color: #22c55e; }
 .ms-diff-medium { color: #f59e0b; }
@@ -3173,6 +3209,10 @@ html {
     flex: 1;
     padding: 10px 0;
     font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
 }
 .game-confirm-quit-btn {
     background: #7f1d1d !important;

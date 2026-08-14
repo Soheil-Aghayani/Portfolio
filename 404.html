@@ -11,14 +11,15 @@
         main { border: 1px solid #1e4650; border-radius: 1.25rem; max-width: 42rem; padding: 2.5rem; background: linear-gradient(145deg, #0d2830, #0a1721); box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .28); }
         h1 { align-items: center; display: flex; gap: .75rem; margin-top: 0; }
         .page-icon { color: #5eead4; height: 2rem; width: 2rem; }
+        .page-icon-inline { height: 1em; width: 1em; vertical-align: -.15em; }
         a { color: #7dd3fc; }
         a:focus-visible { outline: 2px solid #5eead4; outline-offset: 4px; }
     </style>
 </head>
 <body>
     <main>
-        <h1><svg class="page-icon" aria-hidden="true" focusable="false"><use href="/assets/icons/sprite.svg?v=3.0-icon-md#states-go-back"></use></svg>This page moved</h1>
-        <p>The portfolio now lives at <a id="portfolioLink" href="/">soheil-aghayani.github.io</a>.</p>
+        <h1><svg class="page-icon" aria-hidden="true" focusable="false"><use href="/assets/icons/sprite.svg?v=3.1-icon-md#states-go-back"></use></svg>This page moved</h1>
+        <p>The portfolio now lives at <a id="portfolioLink" href="/"><svg class="page-icon page-icon-inline" aria-hidden="true" focusable="false"><use href="/assets/icons/sprite.svg?v=3.1-icon-md#states-go-back"></use></svg>soheil-aghayani.github.io</a>.</p>
     </main>
     <script>
         (() => {

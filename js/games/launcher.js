@@ -4,7 +4,7 @@ const GAME_LOADERS = {
     blackjack: () => import('./blackjack.js?v=6.4').then(module => module.BlackjackGame),
     tetris: () => import('./tetris.js?v=6.4').then(module => module.TetrisGame),
     g2048: () => import('./2048.js?v=6.4').then(module => module.Game2048),
-    minesweeper: () => import('./minesweeper.js?v=9.0').then(module => module.MinesweeperGame),
+    minesweeper: () => import('./minesweeper.js?v=9.1').then(module => module.MinesweeperGame),
     breakout: () => import('./breakout.js?v=6.4').then(module => module.BreakoutGame),
     invaders: () => import('./invaders.js?v=6.4').then(module => module.InvadersGame)
 };
@@ -92,6 +92,12 @@ export class GameLauncher {
     async launch(id) {
         const loadGame = GAME_LOADERS[id];
         if (!loadGame) return;
+
+        // Stop any previous game before replacing its DOM and animation state.
+        if (this.activeGame && typeof this.activeGame.stop === 'function') {
+            this.activeGame.stop();
+        }
+        this.activeGame = null;
 
         let GameClass;
         try {
@@ -197,7 +203,7 @@ export class GameLauncher {
             overlay.innerHTML = `
                 <div class="game-overlay-title">GAME OVER</div>
                 <div class="game-overlay-msg" id="snakeOverlayMsg"></div>
-                <button class="game-overlay-btn" id="snakeOverlayBtn" type="button">Play Again</button>
+                <button class="game-overlay-btn" id="snakeOverlayBtn" type="button">${localIcon('games/shared/reset', { label: 'Play again' })} Play Again</button>
             `;
 
             canvasWrapper.appendChild(canvas);
@@ -311,7 +317,7 @@ export class GameLauncher {
             overlay.innerHTML = `
                 <div class="game-overlay-title" style="font-size:1.5rem;">GAME OVER</div>
                 <div class="game-overlay-msg" id="tetrisOverlayMsg" style="font-size:0.85rem;"></div>
-                <button class="game-overlay-btn" id="tetrisOverlayBtn" type="button" style="padding:10px 18px; font-size:0.85rem;">Play Again</button>
+                <button class="game-overlay-btn" id="tetrisOverlayBtn" type="button" style="padding:10px 18px; font-size:0.85rem;">${localIcon('games/shared/reset', { label: 'Play again' })} Play Again</button>
             `;
 
             canvasWrapper.appendChild(canvas);
@@ -449,7 +455,7 @@ export class GameLauncher {
             overlay.innerHTML = `
                 <div class="game-overlay-title" id="breakoutOverlayTitle">GAME OVER</div>
                 <div class="game-overlay-msg" id="breakoutOverlayMsg"></div>
-                <button class="game-overlay-btn" id="breakoutOverlayBtn" type="button">Play Again</button>
+                <button class="game-overlay-btn" id="breakoutOverlayBtn" type="button">${localIcon('games/shared/reset', { label: 'Play again' })} Play Again</button>
             `;
 
             canvasWrapper.appendChild(canvas);
@@ -548,7 +554,7 @@ export class GameLauncher {
             overlay.innerHTML = `
                 <div class="game-overlay-title" id="invadersOverlayTitle">GAME OVER</div>
                 <div class="game-overlay-msg" id="invadersOverlayMsg"></div>
-                <button class="game-overlay-btn" id="invadersOverlayBtn" type="button">Play Again</button>
+                <button class="game-overlay-btn" id="invadersOverlayBtn" type="button">${localIcon('games/shared/reset', { label: 'Play again' })} Play Again</button>
             `;
 
             canvasWrapper.appendChild(canvas);
@@ -699,8 +705,8 @@ export class GameLauncher {
                     <div class="game-confirm-title">QUIT CURRENT GAME?</div>
                     <div class="game-confirm-msg">You have a game run in progress. Exiting now will discard your current active progress.</div>
                     <div class="game-confirm-actions">
-                        <button class="ms-btn game-confirm-resume-btn" id="gameConfirmResumeBtn" type="button">RESUME GAME</button>
-                        <button class="ms-btn game-confirm-quit-btn" id="gameConfirmQuitBtn" type="button">QUIT SESSION</button>
+                        <button class="ms-btn game-confirm-resume-btn" id="gameConfirmResumeBtn" type="button">${localIcon('games/shared/play', { label: 'Resume game' })} RESUME GAME</button>
+                        <button class="ms-btn game-confirm-quit-btn" id="gameConfirmQuitBtn" type="button">${localIcon('states/go-back', { label: 'Quit session' })} QUIT SESSION</button>
                     </div>
                 </div>
             `;

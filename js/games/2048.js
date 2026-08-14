@@ -70,7 +70,7 @@ export class Game2048 {
                     <div class="g2048-overlay" id="g2048Overlay">
                         <div class="g2048-title" id="g2048OverlayTitle">Game Over</div>
                         <div class="g2048-msg" id="g2048OverlayMsg">No moves left!</div>
-                        <button class="g2048-btn" id="g2048RestartBtn" type="button">New Game</button>
+                        <button class="g2048-btn" id="g2048RestartBtn" type="button">${localIcon('games/shared/reset', { label: 'New game' })} New Game</button>
                     </div>
                 </div>
             </div>
@@ -480,7 +480,7 @@ export class Game2048 {
         this.overlayTitleEl.style.color = "var(--primary)";
         const updatedHigh = localStorage.getItem('2048_high_score') || 0;
         this.overlayMsgEl.innerHTML = `You reached the 2048 tile!<br>Score: ${this.score}<br>High Score: ${updatedHigh}`;
-        this.restartBtn.textContent = "Keep Playing";
+        this.restartBtn.innerHTML = `${localIcon('games/shared/play', { label: 'Keep playing' })} Keep Playing`;
         
         // Custom restart btn behavior for keep playing
         this.restartBtn.onclick = () => {
@@ -503,7 +503,7 @@ export class Game2048 {
         this.overlayTitleEl.style.color = "#ef4444";
         const updatedHigh = localStorage.getItem('2048_high_score') || 0;
         this.overlayMsgEl.innerHTML = `No moves left!<br>Score: ${this.score}<br>High Score: ${updatedHigh}`;
-        this.restartBtn.textContent = "Play Again";
+        this.restartBtn.innerHTML = `${localIcon('games/shared/reset', { label: 'Play again' })} Play Again`;
         this.restartBtn.onclick = () => this.start();
 
         this.overlayEl.classList.add('show');

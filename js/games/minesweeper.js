@@ -4,6 +4,7 @@ const SMILEY_SVG_WIN   = localIcon('games/minesweeper/smiley-win', { className: 
 const SMILEY_SVG_LOSE  = localIcon('games/minesweeper/smiley-lose', { className: 'ms-state-icon ms-state-icon-lose' });
 const FLAG_SVG = localIcon('games/minesweeper/flag-filled', { className: 'ms-cell-icon ms-flag-icon' });
 const MINE_SVG = localIcon('games/minesweeper/bomb-bold', { className: 'ms-cell-icon ms-mine-icon' });
+const QUESTION_SVG = localIcon('ui/question-circle', { className: 'ms-cell-icon ms-question-icon', label: 'Questioned cell' });
 
 const MODES = [
     { id: 'zen',        icon: 'games/minesweeper/zazen-fill', name: 'ZEN',      sub: 'PLAYLIST',  desc: 'Relaxed sweep, no time pressure.',     hasDiff: true  },
@@ -141,9 +142,9 @@ export class MinesweeperGame {
                     <div class="ms-mode-desc">${m.desc}</div>
                     ${m.hasDiff ? `
                     <div class="ms-diff-row">
-                        <button class="ms-icon-diff ms-diff-easy ${this.difficulty==='easy'   ? 'selected':''}" data-diff="easy"   type="button" title="Easy"><span class="ms-difficulty-dot"></span></button>
-                        <button class="ms-icon-diff ms-diff-medium ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium"><span class="ms-difficulty-dot"></span></button>
-                        <button class="ms-icon-diff ms-diff-hard ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard"><span class="ms-difficulty-dot"></span></button>
+                        <button class="ms-icon-diff ms-diff-easy ${this.difficulty==='easy'   ? 'selected':''}" data-diff="easy"   type="button" title="Easy" aria-label="Easy difficulty">${localIcon('games/minesweeper/smiley-happy', { className: 'ms-difficulty-icon', label: 'Easy difficulty' })}</button>
+                        <button class="ms-icon-diff ms-diff-medium ${this.difficulty==='medium' ? 'selected':''}" data-diff="medium" type="button" title="Medium" aria-label="Medium difficulty">${localIcon('states/warning', { className: 'ms-difficulty-icon', label: 'Medium difficulty' })}</button>
+                        <button class="ms-icon-diff ms-diff-hard ${this.difficulty==='hard'   ? 'selected':''}" data-diff="hard"   type="button" title="Hard" aria-label="Hard difficulty">${localIcon('games/minesweeper/bomb-bold', { className: 'ms-difficulty-icon', label: 'Hard difficulty' })}</button>
                     </div>
                     ` : `<div class="ms-mode-badge">${localIcon('games/minesweeper/endless-sky', { className: 'ms-inline-icon' })} INFINITE SECTOR DRIFT</div>`}
                 </div>
@@ -242,7 +243,7 @@ export class MinesweeperGame {
                 <!-- Zoom HUD -->
                 <div class="ms-zoom-hud">
                     <button class="ms-zoom-btn" id="msZoomOut"  type="button" title="Zoom Out">${localIcon('games/minesweeper/zoom-out-broken', { className: 'ms-inline-icon' })}</button>
-                    <button class="ms-zoom-btn ms-zoom-fit" id="msZoomFit" type="button" title="Center & Fit Board">FIT</button>
+                    <button class="ms-zoom-btn ms-zoom-fit" id="msZoomFit" type="button" title="Center & Fit Board">${localIcon('games/shared/rotate', { className: 'ms-inline-icon', label: 'Center and fit board' })} FIT</button>
                     <button class="ms-zoom-btn" id="msZoomIn"   type="button" title="Zoom In">${localIcon('games/minesweeper/zoom-in-broken', { className: 'ms-inline-icon' })}</button>
                 </div>
 
@@ -250,7 +251,7 @@ export class MinesweeperGame {
                 <div class="ms-overlay" id="msOverlay">
                     <div class="ms-overlay-title" id="msOverlayTitle">GAME OVER</div>
                     <div class="ms-overlay-msg"   id="msOverlayMsg">—</div>
-                    <button class="ms-btn" id="msOverlayBtn" type="button">Play Again</button>
+                    <button class="ms-btn" id="msOverlayBtn" type="button">${localIcon('games/shared/reset', { className: 'ms-inline-icon', label: 'Play again' })} Play Again</button>
                     <button class="ms-btn" id="msOverlayMenuBtn" type="button"
                         style="margin-top:6px;background:#334155;box-shadow:none;font-size:0.78rem;padding:8px 18px;">${localIcon('states/go-back', { className: 'ms-inline-icon', label: 'Back to mode select' })} MENU</button>
                 </div>
@@ -819,7 +820,10 @@ export class MinesweeperGame {
         if (!ov) return;
         tEl.textContent = title;
         mEl.innerHTML   = msg;
-        btn.textContent = btnText;
+        const actionIcon = btnText === 'Resume'
+            ? localIcon('games/shared/play', { className: 'ms-inline-icon', label: 'Resume game' })
+            : localIcon('games/shared/reset', { className: 'ms-inline-icon', label: 'Play again' });
+        btn.innerHTML = `${actionIcon} ${btnText}`;
         btn.onclick     = () => { ov.classList.remove('show'); if (onAction) onAction(); };
         ov.classList.add('show');
     }
@@ -882,7 +886,7 @@ export class MinesweeperGame {
             el.innerHTML = FLAG_SVG;
         } else if (cell.questioned) {
             el.classList.add('questioned');
-            el.textContent = '?';
+            el.innerHTML = QUESTION_SVG;
         }
     }
 

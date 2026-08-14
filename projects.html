@@ -69,7 +69,7 @@
     <link rel="icon" type="image/svg+xml" href="assets/icons/brand/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/icons/brand/favicon.svg" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script defer src="js/icons.js?v=4.2"></script>
+    <script defer src="js/icons.js?v=4.3"></script>
     <script defer src="js/site-config.js?v=1.0"></script>
     <script defer src="js/analytics.js?v=1.0"></script>
         <style>
@@ -305,6 +305,9 @@
         }
 
         .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
@@ -897,10 +900,10 @@
                 <input type="text" id="searchInput" aria-label="Search projects" placeholder="Search projects by name, tags, or description...">
             </div>
             <div class="filter-options">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="tools">Tools</button>
-                <button class="filter-btn" data-filter="designs">Designs</button>
-                <button class="filter-btn" data-filter="science">Science</button>
+                <button class="filter-btn active" data-filter="all"><span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span>All</button>
+                <button class="filter-btn" data-filter="tools"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span>Tools</button>
+                <button class="filter-btn" data-filter="designs"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>Designs</button>
+                <button class="filter-btn" data-filter="science"><span class="svg-icon-slot" data-icon="ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution" aria-hidden="true"></span>Science</button>
             </div>
         </section>
 
@@ -933,7 +936,7 @@
                         <span class="tag">Web Audio API</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="egg-timer">Details</button>
+                        <button class="action-btn-card details-btn" data-id="egg-timer"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/egg-timer/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Egg Timer" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -977,7 +980,7 @@
                         <span class="tag">Custom Utilities</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="design-suite">Details</button>
+                        <button class="action-btn-card details-btn" data-id="design-suite"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/Design-Suite/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Design Suite" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -1014,7 +1017,7 @@
                         <span class="tag">Dynamic Filter</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="food-recipe">Details</button>
+                        <button class="action-btn-card details-btn" data-id="food-recipe"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/food-recipe/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Food Recipe" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -1050,7 +1053,7 @@
                         <span class="tag">Interactive</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="iriswa">Details</button>
+                        <button class="action-btn-card details-btn" data-id="iriswa"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/iriswa/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Iriswa" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -1086,7 +1089,7 @@
                         <span class="tag">CSS Grid</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="pahlavan">Details</button>
+                        <button class="action-btn-card details-btn" data-id="pahlavan"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/pahlavan/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Pahlavan" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -1124,7 +1127,7 @@
                         <span class="tag">Search Tools</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="ncbi">Details</button>
+                        <button class="action-btn-card details-btn" data-id="ncbi"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/ncbi/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch NCBI Tool" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
@@ -1160,7 +1163,7 @@
                         <span class="tag">Documentation</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="lab-rules">Details</button>
+                        <button class="action-btn-card details-btn" data-id="lab-rules"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
                             <a href="https://soheil-aghayani.github.io/Laboratory-Rules/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Laboratory Rules" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>

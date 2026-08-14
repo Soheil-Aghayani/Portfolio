@@ -555,6 +555,17 @@
       "externalLicense": "not recorded in icon.md; verify source-pack license before redistribution"
     },
     {
+      "key": "ui/question-circle",
+      "path": "assets/icons/ui/question-circle.svg",
+      "spriteId": "ui-question-circle",
+      "sourceCategory": "ui",
+      "source": "icon.md",
+      "sourceIcon": "question-circle-outline",
+      "duplicateDecision": "no-existing-canonical-file-overwritten",
+      "license": "unverified-icon-md-source",
+      "externalLicense": "not recorded in icon.md; verify source-pack license before redistribution"
+    },
+    {
       "key": "ui/check",
       "path": "assets/icons/ui/check.svg",
       "spriteId": "ui-check",

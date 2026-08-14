@@ -1,3 +1,7 @@
+const localIcon = (name, options = {}) => window.IconRegistry
+    ? window.IconRegistry.svg(name, options)
+    : '';
+
 // Audio Synth Engine using Web Audio API (Lazily initialized)
 const cardSuitIcon = (suit, label = '') => window.IconRegistry
     ? window.IconRegistry.svg(`games/blackjack/${suit}`, { className: 'bj-suit-icon', label })
@@ -169,8 +173,8 @@ export class BlackjackGame {
                     <div class="bj-hud-hacks">
                         <div class="bj-energy-label">DECK: <span id="bjWinsCount" style="color:var(--text-muted);font-weight:normal;font-size:0.65rem;">(0/3)</span></div>
                         <div class="bj-energy-cells" id="bjEnergyCells"></div>
-                        <button id="bjPeek" class="bj-hack-btn peek" type="button">PEEK</button>
-                        <button id="bjGlitch" class="bj-hack-btn glitch" type="button">GLITCH</button>
+                        <button id="bjPeek" class="bj-hack-btn peek" type="button">${localIcon('ui/eye', { label: 'Peek' })} PEEK</button>
+                        <button id="bjGlitch" class="bj-hack-btn glitch" type="button">${localIcon('states/hacker', { label: 'Glitch' })} GLITCH</button>
                     </div>
 
                     <!-- Inline Betting & Credits HUD -->
@@ -194,7 +198,7 @@ export class BlackjackGame {
                                 <button class="bj-bet-btn chip-200" data-amount="200" type="button">200</button>
                             </div>
                             <div class="bj-actions-row">
-                                <button id="bjClear" class="bj-action-bet-btn clear" type="button" title="Clear current bet">Clear</button>
+                                <button id="bjClear" class="bj-action-bet-btn clear" type="button" title="Clear current bet">${localIcon('ui/close-rounded', { label: 'Clear bet' })} Clear</button>
                             </div>
                         </div>
                     </div>
@@ -202,15 +206,15 @@ export class BlackjackGame {
 
                 <div id="bjMsg" class="os-line" style="min-height: 20px; margin: 8px 0; font-size: 0.85rem;" role="status" aria-live="polite"></div>
                 <div class="bj-controls">
-                    <button id="bjHit" class="btn hit-btn">Hit</button>
-                    <button id="bjStand" class="btn stand-btn">Stand</button>
-                    <button id="bjDeal" class="btn deal-btn" style="display:none;">Deal</button>
+                    <button id="bjHit" class="btn hit-btn" type="button">${localIcon('games/minesweeper/click-tap', { label: 'Hit' })} Hit</button>
+                    <button id="bjStand" class="btn stand-btn" type="button">${localIcon('states/check-circle', { label: 'Stand' })} Stand</button>
+                    <button id="bjDeal" class="btn deal-btn" type="button" style="display:none;">${localIcon('games/shared/play', { label: 'Deal' })} Deal</button>
                 </div>
                 
                 <div class="game-overlay" id="bjOverlay">
                     <div class="game-overlay-title" id="bjOverlayTitle">BROKE!</div>
                     <div class="game-overlay-msg" id="bjOverlayMsg"></div>
-                    <button class="game-overlay-btn" id="bjOverlayBtn" type="button">Reset Bankroll</button>
+                    <button class="game-overlay-btn" id="bjOverlayBtn" type="button">${localIcon('games/shared/reset', { label: 'Reset bankroll' })} Reset Bankroll</button>
                 </div>
 
                 <!-- Cyberpunk Registration Modal -->
@@ -226,7 +230,7 @@ export class BlackjackGame {
                                 <input type="text" id="bjRegInput" maxlength="16" placeholder="Enter handle..." autofocus />
                                 <span class="bj-reg-error" id="bjRegError"></span>
                             </div>
-                            <button class="bj-reg-submit" id="bjRegSubmit" type="button">Enter the Lounge</button>
+                            <button class="bj-reg-submit" id="bjRegSubmit" type="button">${localIcon('states/verified-user', { label: 'Enter the lounge' })} Enter the Lounge</button>
                         </div>
                     </div>
                 </div>
@@ -359,7 +363,7 @@ export class BlackjackGame {
             input.value = '';
             input.disabled = false;
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Enter the Lounge';
+            submitBtn.innerHTML = `${localIcon('states/verified-user', { label: 'Enter the lounge' })} Enter the Lounge`;
             errorSpan.textContent = '';
             subtitle.textContent = 'Welcome to the lounge, runner. Provide your handle to register your Cyber Deck.';
             
@@ -399,7 +403,7 @@ export class BlackjackGame {
                 
                 // Update text
                 subtitle.textContent = `A pleasure, ${trimmed}. Let's see if you can break the bank tonight.`;
-                submitBtn.textContent = 'Access Granted';
+                submitBtn.innerHTML = `${localIcon('states/verified', { label: 'Access granted' })} Access Granted`;
                 
                 // Wait for player to read welcoming text
                 await this.sleep(1500);

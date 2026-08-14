@@ -61,6 +61,7 @@ const iconSources = [
     ['ui/sound-minus', 'volume-cross-line-duotone'],
     ['ui/time', 'alarm-linear'],
     ['ui/info-svgrepo-com', 'info-circle-outline'],
+    ['ui/question-circle', 'question-circle-outline'],
     ['ui/check', 'check-read-line-duotone'],
     ['ui/outline-pan-tool', 'hand'],
 

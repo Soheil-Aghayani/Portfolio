@@ -514,6 +514,9 @@
             flex-wrap: wrap;
         }
         .pub-filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
@@ -535,6 +538,7 @@
             border-color: var(--primary);
             box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
         }
+        .pub-filter-icon .svg-icon { width: 1em; height: 1em; }
         .pub-list { list-style: none; padding: 0; margin: 0; }
         .pub-item {
             display: flex;
@@ -1549,10 +1553,10 @@
 
     <div class="social-dock">
         <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#brand-linkedin-circle"></use></svg>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-linkedin-circle"></use></svg>
         </a>
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#brand-telegram"></use></svg>
+            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-telegram"></use></svg>
         </a>
     </div>
 
@@ -1572,15 +1576,15 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#ui-send"></use></svg>
+                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#ui-send"></use></svg>
             </a>
 
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#brand-linkedin-circle"></use></svg>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-linkedin-circle"></use></svg>
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#brand-telegram"></use></svg>
+                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-telegram"></use></svg>
                 </a>
             </div>
         </div>
@@ -1588,7 +1592,7 @@
 
     <a href="#education" class="scroll-down" aria-label="Scroll to Explore">
         <span>Scroll to Explore</span>
-        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.0-icon-md#games-shared-arrow-down"></use></svg>
+        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#games-shared-arrow-down"></use></svg>
     </a>
 
     <script>
@@ -1992,11 +1996,11 @@
         </div>
 
         <div class="pub-filters">
-            <button class="pub-filter-btn active" data-filter="all">All (12)</button>
-            <button class="pub-filter-btn" data-filter="journal">Journal Papers (4)</button>
-            <button class="pub-filter-btn" data-filter="conference">Conference (8)</button>
-            <button class="pub-filter-btn" data-filter="lca-waste">LCA & Waste Mgmt</button>
-            <button class="pub-filter-btn" data-filter="biofuels-facades">Biofuels & Facades</button>
+            <button class="pub-filter-btn active" data-filter="all"><span class="svg-icon-slot pub-filter-icon" data-icon="ui/filter" aria-hidden="true"></span>All (12)</button>
+            <button class="pub-filter-btn" data-filter="journal"><span class="svg-icon-slot pub-filter-icon" data-icon="ui/journal" aria-hidden="true"></span>Journal Papers (4)</button>
+            <button class="pub-filter-btn" data-filter="conference"><span class="svg-icon-slot pub-filter-icon" data-icon="states/conference" aria-hidden="true"></span>Conference (8)</button>
+            <button class="pub-filter-btn" data-filter="lca-waste"><span class="svg-icon-slot pub-filter-icon" data-icon="ui/recycle" aria-hidden="true"></span>LCA & Waste Mgmt</button>
+            <button class="pub-filter-btn" data-filter="biofuels-facades"><span class="svg-icon-slot pub-filter-icon" data-icon="ui/leaf" aria-hidden="true"></span>Biofuels & Facades</button>
         </div>
 
         <h3 id="pub-journal-title" class="pub-section-subtitle pub-journal-subtitle">Journal Papers</h3>
@@ -3983,8 +3987,8 @@
               <label class="notes-label" for="notesPass">Password <span class="notes-required-star" aria-hidden="true">*</span></label>
               <input id="notesPass" class="notes-input" type="password" autocomplete="current-password" required aria-required="true" />
               <div class="notes-form-actions">
-                <button id="notesAuthCancel" class="notes-btn2" type="button">Cancel</button>
-                <button id="notesAuthGo" class="notes-btn2 primary" type="submit">Login</button>
+                <button id="notesAuthCancel" class="notes-btn2" type="button"><span class="svg-icon-slot" data-icon="ui/close-rounded" aria-hidden="true"></span>Cancel</button>
+                <button id="notesAuthGo" class="notes-btn2 primary" type="submit"><span class="svg-icon-slot" data-icon="states/verified-user" aria-hidden="true"></span>Login</button>
               </div>
               <div id="notesAuthMsg" class="notes-msg" role="alert"></div>
             </form>
@@ -4008,8 +4012,8 @@
               <label class="notes-label" for="noteLink">Link</label>
               <input id="noteLink" class="notes-input" placeholder="https://..." />
               <div class="notes-form-actions">
-                <button id="notesEditCancel" class="notes-btn2" type="button">Cancel</button>
-                <button id="notesSave" class="notes-btn2 primary" type="submit">Save</button>
+                <button id="notesEditCancel" class="notes-btn2" type="button"><span class="svg-icon-slot" data-icon="ui/close-rounded" aria-hidden="true"></span>Cancel</button>
+                <button id="notesSave" class="notes-btn2 primary" type="submit"><span class="svg-icon-slot" data-icon="ui/check" aria-hidden="true"></span>Save</button>
               </div>
               <div id="notesEditMsg" class="notes-msg" role="alert"></div>
             </form>
@@ -5049,8 +5053,8 @@
 <div id="konamiOverlay" class="konami-overlay" inert>
     <div class="konami-inner">
         <div class="konami-art" id="konamiArt"></div>
-        <div class="konami-msg">&gt; CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Keep being awesome.</em></span></div>
-        <button class="konami-close" id="konamiClose" aria-label="Close">[ PRESS ANY KEY TO EXIT ]</button>
+        <div class="konami-msg"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span> CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Keep being awesome.</em></span></div>
+        <button class="konami-close" id="konamiClose" aria-label="Close"><span class="svg-icon-slot" data-icon="ui/close-rounded" aria-hidden="true"></span>Press any key to exit</button>
     </div>
 </div>
 
@@ -5069,9 +5073,9 @@
 
 <script defer src="js/site-config.js?v=1.0"></script>
 <script defer src="js/analytics.js?v=1.0"></script>
-<script defer src="js/icons.js?v=4.2"></script>
+<script defer src="js/icons.js?v=4.3"></script>
 <script defer src="js/os.js?v=2.3"></script>
-<script type="module" src="js/app.js?v=2.3"></script>
+<script type="module" src="js/app.js?v=2.4"></script>
 
 <script>
 (function initParticles() {
@@ -5968,7 +5972,7 @@
         if (!isUnlocked) {
             sessionStorage.setItem('cheatcode_unlocked', 'true');
             if (msgEl) {
-                msgEl.innerHTML = '&gt; CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Matrix Theme & Daft Punk track unlocked! Click heart in footer.</em></span>';
+                msgEl.innerHTML = '<span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span> CHEAT CODE ACTIVATED<br><span>Secret unlocked: <em>Matrix Theme & Daft Punk track unlocked! Click heart in footer.</em></span>';
             }
             updateCheatCodeUI();
 
@@ -5993,7 +5997,7 @@
         } else {
             sessionStorage.removeItem('cheatcode_unlocked');
             if (msgEl) {
-                msgEl.innerHTML = '&gt; CHEAT CODE DEACTIVATED<br><span>Secret locked: <em>Matrix Theme & Projects disabled.</em></span>';
+                msgEl.innerHTML = '<span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span> CHEAT CODE DEACTIVATED<br><span>Secret locked: <em>Matrix Theme & Projects disabled.</em></span>';
             }
             // Revert theme if matrix is active
             if (localStorage.getItem('theme-accent') === 'matrix') {
