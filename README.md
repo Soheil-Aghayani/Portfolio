@@ -1,113 +1,198 @@
 <div align="center">
+  <img src="assets/icons/brand/favicon.svg" width="72" height="72" alt="Soheil Aghayani portfolio mark">
 
-# <img alt="Portfolio" src="assets/icons/brand/favicon.svg" width="36" height="36"> SOHEIL AGHAYANI
-### **Bridging Environmental Engineering & Advanced Software Architecture**
+  # SOHEIL AGHAYANI
 
-[![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-Visit_Site-0969DA?style=for-the-badge&logoColor=white)](https://soheil-aghayani.github.io/)
-[![Profile](https://img.shields.io/badge/Profile-Soheil_Aghayani-0969DA?style=for-the-badge&logoColor=white)](https://github.com/Soheil-Aghayani/Soheil-Aghayani)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/agseyl/)
-[![Telegram](https://img.shields.io/badge/Telegram-Chat-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/AgSeyl)
-[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:soheil.aghayani@ut.ac.ir)
+  ### Environmental Engineering, Research, and Software Architecture
 
-<br/>
+  <p>
+    A living portfolio that turns environmental research into interactive systems,<br>
+    practical tools, and small experiments worth exploring.
+  </p>
 
-<!-- ANIMATION 1: Dynamic Typing Subtitle -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=00F2FE&center=true&vCenter=true&width=750&lines=M.Sc.+Environmental+Engineering+%40+University+of+Tehran;Biofuel+Synthesis+%26+Heterogeneous+Catalysis+Researcher;Python+%2C+C%23+%26+WPF+Custom+Software+Developer;Life+Cycle+Assessment+(LCA)+%26+SimaPro+Specialist">
-    <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=0969DA&center=true&vCenter=true&width=750&lines=M.Sc.+Environmental+Engineering+%40+University+of+Tehran;Biofuel+Synthesis+%26+Heterogeneous+Catalysis+Researcher;Python+%2C+C%23+%26+WPF+Custom+Software+Developer;Life+Cycle+Assessment+(LCA)+%26+SimaPro+Specialist">
-    <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=0969DA&center=true&vCenter=true&width=750&lines=M.Sc.+Environmental+Engineering+%40+University+of+Tehran;Biofuel+Synthesis+%26+Heterogeneous+Catalysis+Researcher;Python+%2C+C%23+%26+WPF+Custom+Software+Developer;Life+Cycle+Assessment+(LCA)+%26+SimaPro+Specialist">
-  </picture>
-</p>
+  <a href="https://soheil-aghayani.github.io/">
+    <img src="https://img.shields.io/badge/LIVE_PORTFOLIO-OPEN-2dd4bf?style=for-the-badge&labelColor=0f172a" alt="Open live portfolio">
+  </a>
+  <a href="https://soheil-aghayani.github.io/projects.html">
+    <img src="https://img.shields.io/badge/PROJECTS-EXPLORE-60a5fa?style=for-the-badge&labelColor=0f172a" alt="Explore projects">
+  </a>
+  <a href="https://github.com/Soheil-Aghayani">
+    <img src="https://img.shields.io/badge/GITHUB-PROFILE-f8fafc?style=for-the-badge&labelColor=0f172a" alt="Open GitHub profile">
+  </a>
+</div>
 
-<!-- ANIMATION 2: Animated GitHub Profile Trophies -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-trophy.vercel.app/?username=Soheil-Aghayani&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4">
-    <source media="(prefers-color-scheme: light)" srcset="https://github-profile-trophy.vercel.app/?username=Soheil-Aghayani&theme=flat&no-frame=true&no-bg=true&margin-w=4">
-    <img alt="GitHub Trophies" src="https://github-profile-trophy.vercel.app/?username=Soheil-Aghayani&theme=flat&no-frame=true&no-bg=true&margin-w=4" width="85%">
-  </picture>
-</p>
+<br>
 
-<p align="center">
-  <b>Transforming complex environmental data and chemical kinetics into sustainable solutions through computational simulation, custom software development, and experimental laboratory research.</b>
-</p>
+<div align="center">
+
+`RESEARCHER`  /  `ENGINEER`  /  `BUILDER`
+
+`Python`  `JavaScript`  `C#`  `WPF`  `SimaPro`  `LCA`
 
 </div>
 
-## Analytics setup
+## The idea
 
-Google Analytics is opt-in and disabled by default. To enable privacy-conscious GA4 page views and interaction events for the deployed site, set the web data stream ID in `js/site-config.js`:
+This repository powers the personal portfolio of **Soheil Aghayani**, an environmental engineer and software developer focused on sustainability research, waste valorization, biofuel production, life cycle assessment, data analysis, and usable software.
+
+The site is deliberately more than a list of credentials. It is a small interactive environment where the portfolio, research process, terminal, games, notes, and visual experiments share one coherent interface.
+
+```text
+$ whoami
+soheil-aghayani
+
+$ mission
+turn complex environmental data into clear, sustainable decisions
+
+$ medium
+research + software + visual systems
+```
+
+## Explore the site
+
+| Surface | What is inside |
+| --- | --- |
+| [Portfolio](https://soheil-aghayani.github.io/) | Education, professional experience, publications, training, skills, and contact details |
+| [Projects](https://soheil-aghayani.github.io/projects.html) | Interactive web projects, tools, design experiments, and science-focused applications |
+| Interactive terminal | Personal profile commands, research summary, contact links, notes, games, and screensavers |
+| Flowchart viewer | A pannable and zoomable view of the biodiesel research process |
+| Notes app | Browser-local notes with terminal listing and JSON export |
+| Game Center | Seven canvas-based games inside a macOS-inspired window |
+
+## Interactive systems
+
+### Terminal
+
+Open the `Hello_World` prompt or use the terminal trigger, then try:
+
+```text
+help
+bio
+thesis
+thesis flowchart
+skills
+contact
+play
+play minesweeper
+notes
+screensaver
+screensaver list
+screensaver dvd
+```
+
+`screensaver` without an argument selects a random theme. Explicit themes include `starfield`, `matrix`, `dvd`, `synthwave`, and `quantum`.
+
+### Game Center
+
+The launcher currently includes:
+
+- Snake
+- Blackjack
+- Tetris
+- 2048
+- Minesweeper
+- Breakout
+- Space Shooter
+
+Games are loaded on demand so the landing experience does not pay the cost of every game at first paint.
+
+### Research interaction
+
+The portfolio presents research as a process rather than a single paragraph. The flowchart viewer supports pan, zoom, reset, focus-loss feedback, and keyboard or pointer interaction. The thesis content covers calcium oxide catalysts derived from waste seashells, waste cooking oil conversion, biodiesel production, and life cycle assessment.
+
+## Engineering profile
+
+| Track | Focus |
+| --- | --- |
+| Environmental engineering | Solid waste management, circular economy, biofuel synthesis, environmental impact assessment |
+| Modeling and analysis | SimaPro, OpenLCA, LandGEM, GIS workflows, data processing, reaction kinetics |
+| Software engineering | Python, C#, WPF, JavaScript, HTML, CSS, canvas-based interfaces, automation |
+| Research practice | Heterogeneous catalysis, waste valorization, laboratory work, technical communication |
+
+## Technical shape
+
+The frontend is intentionally framework-free. It uses semantic HTML, custom CSS, modern browser APIs, and focused JavaScript modules rather than a large application runtime.
+
+```text
+index.html                  Main portfolio and interactive landing page
+projects.html               Standalone project showcase
+css/os.css                  Shared operating-system and game window styles
+js/
+  app.js                    Core page boot and UI wiring
+  icons.js                  Local SVG IconRegistry
+  os.js                     Window manager for terminal, notes, and games
+  terminal.js               Terminal command system
+  notes.js                  Browser-local notes application
+  landing-effects.js        Particle field and screensaver engine
+  games/                    Lazy-loaded game modules
+assets/
+  icons/                    Canonical SVGs, generated sprite, and manifest
+  images/                   Portfolio, game, and miner artwork
+  audio/                    Local audio tracks
+tools/assets/               Repeatable asset and sprite tooling
+server.js                   Small local development server
+```
+
+## Local SVG icon system
+
+Icons are part of the product surface, not a runtime dependency fetched from a font provider.
+
+- Canonical SVGs live under `assets/icons/`.
+- `assets/icons/sprite.svg` is the runtime sprite.
+- `assets/icons/manifest.json` records paths, source categories, and duplicate decisions.
+- `js/icons.js` exposes the shared `IconRegistry` for static and dynamically-created UI.
+- UI icon fonts, pictographic emoji, and runtime external SVG downloads are not used.
+
+After changing a canonical icon, rebuild the sprite from the repository root:
+
+```powershell
+node tools/assets/build-icon-sprite.js
+```
+
+Read [ICON_DECISIONS.md](ICON_DECISIONS.md) for the visual and licensing decisions behind the asset system.
+
+## Performance principles
+
+- Keep the landing page useful before non-critical interaction code arrives.
+- Defer heavy effects and game modules until they are needed.
+- Use local SVG sprite references instead of icon-font downloads.
+- Lazy-load game artwork and warm game modules during idle time.
+- Use `content-visibility` for below-the-fold content where appropriate.
+- Keep analytics opt-in and disabled by default in `js/site-config.js`.
+
+## Run locally
+
+Requirements: Node.js and npm.
+
+```powershell
+git clone https://github.com/Soheil-Aghayani/Soheil-Aghayani.github.io.git
+cd Soheil-Aghayani.github.io
+npm install
+npm start
+```
+
+Then open [http://127.0.0.1:8080](http://127.0.0.1:8080).
+
+The repository uses `main` as its single deployment branch. There is no frontend build step; the local server exists to provide correct static-file behavior during development.
+
+## Analytics and privacy
+
+Google Analytics is disabled by default. To opt in for the deployed site, set a valid measurement ID in `js/site-config.js`:
 
 ```js
 analyticsMeasurementId: 'G-XXXXXXXXXX'
 ```
 
-The client disables Google signals and ad personalization, does not send analytics requests in local previews or forks without a valid ID, and excludes email and telephone links from interaction tracking.
+Local notes stay in the browser until explicitly exported. No analytics requests are sent from local previews or forks without a valid ID.
 
----
+## Contact
 
-## <img alt="Technical tools" src="assets/icons/ui/terminal.svg" width="28" height="28"> TECHNICAL ARSENAL & INTERACTIVE SKILLS MATRIX
-
-<!-- ANIMATION 3: Dynamic Vibrant Vector Tech Grid -->
-<div align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=py,cs,dotnet,git,github,html,css,linux,windows,vscode&perline=10" alt="Animated Skills Grid" />
-  </a>
-</div>
-
-<br/>
+- [LinkedIn](https://www.linkedin.com/in/agseyl/)
+- [GitHub](https://github.com/Soheil-Aghayani)
+- [Telegram](https://t.me/AgSeyl)
+- [Email](mailto:soheil.aghayani@ut.ac.ir)
 
 <div align="center">
-
-| Domain | Specialized Tools, Software & Methodologies |
-| :--- | :--- |
-| **<img src="assets/icons/ui/terminal.svg" width="18" height="18" align="text-bottom"> Software Engineering** | `Python` - `C#` - `WPF (.NET)` - `Git & GitHub` - `HTML5 / CSS3` - `Object-Oriented Programming (OOP)` - `Desktop Automation` |
-| **<img src="assets/icons/ui/globe.svg" width="18" height="18" align="text-bottom"> Environmental Modeling** | `SimaPro (Life Cycle Assessment)` - `LandGEM (Landfill Gas Modeling)` - `GIS Spatial Analysis` - `Solid Waste Siting` |
-| **<img src="assets/icons/ui/bar-chart-rounded.svg" width="18" height="18" align="text-bottom"> Engineering Analytics** | `Reaction Kinetics Modeling` - `Heterogeneous Catalysis Synthesis` - `Data Processing (Pandas / NumPy)` - `Wet-Lab Testing` |
-
+  <br>
+  <sub>Built with curiosity, environmental science, and too many terminal experiments.</sub>
 </div>
-
----
-
-## <img alt="Academic journey" src="assets/icons/states/verified.svg" width="28" height="28"> ACADEMIC JOURNEY & INDUSTRY LEADERSHIP
-
-### ENGINEERING EDUCATION
-
-<div align="center">
-  <table>
-    <tr>
-      <td width="6%" align="center">
-        <img src="assets/icons/states/volunteer-activism-outline.svg" width="26" height="26" alt="People">
-      </td>
-      <td width="94%">
-        <p><b>Master of Science in Environmental Engineering</b> | <i>University of Tehran (Present)</i><br>
-        - <b>Academic Performance:</b> GPA 3.81 / 4.00 (19.06 / 20.00)<br>
-        - <b>Core Research Areas:</b> Solid Waste Valorization, Biofuel Synthesis, Advanced Oxidation Processes (AOPs), and SimaPro LCA.</p>
-      </td>
-    </tr>
-    <tr>
-      <td width="6%" align="center">
-        <img src="assets/icons/ui/leaf.svg" width="26" height="26" alt="Environmental research">
-      </td>
-      <td width="94%">
-        <p><b>Bachelor of Science in Civil Engineering</b> | <i>Shahed University (2018 – 2022)</i><br>
-        - <b>Academic Performance:</b> GPA 2.93 / 4.00<br>
-        - <b>Foundational Training:</b> Structural Analysis, Environmental Hydraulics, Project Management, and Sustainable Urban Infrastructure.</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-### PROFESSIONAL EXPERIENCE
-
-```yaml
-- TECHNICAL EXPERT @ ARVIN SAROUJ PAY (TEHRAN | MAR 2024 – OCT 2025):
-    - Spearheaded Health, Safety, and Environment (HSE) site compliance, conducting rigorous risk assessments and daily worker safety training.
-    - Contributed directly to R&D engineering teams optimizing energy-efficient building layouts and sustainable material selection.
-
-- TECHNICAL EXPERT @ SEDNA (TEHRAN | MAY 2022 – APR 2024):
-    - Supervised multi-disciplinary construction and installation workflows for an industrial factory manufacturing electronic thermal devices.
-    - Managed project timelines, quality assurance check-sheets, and technical contractor coordination from foundation to commissioning.
