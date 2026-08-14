@@ -1043,6 +1043,10 @@
             transition: color 0.4s ease;
         }
         .ss-hint {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             font-size: 0.75rem;
             color: rgba(255,255,255,0.35);
             letter-spacing: 0.12em;
@@ -1074,6 +1078,11 @@
             user-select: none;
             opacity: 0.85;
             transition: opacity 0.3s ease;
+        }
+        .ss-hint-icon {
+            width: 14px;
+            height: 14px;
+            flex: 0 0 auto;
         }
         .ss-badge-icon {
             display: inline-flex;
@@ -3956,7 +3965,7 @@
         <button class="os-dot yellow" id="osDotMin" type="button" aria-label="Minimize" title="Minimize"><span class="svg-icon-slot" data-icon="ui/expand-less" aria-hidden="true"></span></button>
         <button class="os-dot green" id="osDotMax" type="button" aria-label="Fullscreen" title="Fullscreen"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
       </div>
-      <div class="os-term-title">soheil-os -- zsh</div>
+      <div class="os-term-title"><span class="svg-icon-slot window-title-icon" data-icon="ui/terminal" aria-hidden="true"></span>soheil-os -- zsh</div>
     </div>
 
     <div id="osTermOut" class="os-term-out"></div>
@@ -3975,7 +3984,7 @@
         <button class="os-dot yellow" type="button" aria-label="Minimize" title="Minimize"><span class="svg-icon-slot" data-icon="ui/expand-less" aria-hidden="true"></span></button>
         <button class="os-dot green" type="button" aria-label="Fullscreen" title="Fullscreen"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
       </div>
-      <div class="app-title">Game Center</div>
+      <div class="app-title"><span class="svg-icon-slot window-title-icon" data-icon="ui/gamepad" aria-hidden="true"></span>Game Center</div>
     </div>
     <div id="appBody">
       <!-- Content injected by launcher.js -->
@@ -3990,7 +3999,7 @@
             <button class="notes-dot red" id="notesClose" type="button" aria-label="Close notes" title="Close notes"><span class="svg-icon-slot" data-icon="states/x" aria-hidden="true"></span></button>
             <button class="notes-dot green" id="notesMax" type="button" aria-label="Maximize notes" title="Maximize notes"><span class="svg-icon-slot" data-icon="ui/expand-more" aria-hidden="true"></span></button>
           </div>
-          <div class="notes-top-title">Notes</div>
+          <div class="notes-top-title"><span class="svg-icon-slot window-title-icon" data-icon="ui/notes-outline" aria-hidden="true"></span>Notes</div>
           <div class="notes-top-actions">
             <button class="notes-add" id="notesAddBtn" type="button" aria-label="Add note" title="Add note">
               <span class="svg-icon-slot" data-icon="ui/note-add" aria-hidden="true"></span>
@@ -5066,7 +5075,7 @@
         <div class="ss-clock" id="ssClock">00:00:00</div>
         <div class="ss-date" id="ssDate">Mon, Aug 11</div>
         <div class="ss-name" id="ssName">Soheil Aghayani</div>
-        <div class="ss-hint" id="ssHint">Move mouse or press any key to continue</div>
+        <div class="ss-hint" id="ssHint"><span class="svg-icon-slot ss-hint-icon" data-icon="games/minesweeper/click-tap" aria-hidden="true"></span>Move mouse or press any key to continue</div>
     </div>
     <div class="ss-badge" id="ssBadge" aria-hidden="true">
         <span class="ss-badge-icon" id="ssBadgeIcon"></span>

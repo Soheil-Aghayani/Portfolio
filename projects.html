@@ -232,6 +232,10 @@
         }
 
         .header-content h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             font-size: 3rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
@@ -240,6 +244,15 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
+        }
+
+        .page-title-icon {
+            width: 0.9em;
+            height: 0.9em;
+            flex: 0 0 auto;
+            color: var(--primary);
+            background: none;
+            -webkit-text-fill-color: var(--primary);
         }
 
         .header-content p {
@@ -888,7 +901,7 @@
                 </div>
             </div>
             <div class="header-content">
-                <h1>Web Projects Showcase</h1>
+                <h1><span class="svg-icon-slot page-title-icon" data-icon="brand/favicon" aria-hidden="true"></span><span>Web Projects Showcase</span></h1>
                 <p>A collection of interactive web applications, tools, and designs.</p>
             </div>
         </header>

@@ -180,6 +180,10 @@ html.os-active, body.os-active {
 
 /* Window Titles */
 .os-term-title, .notes-top-title, .app-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     text-align: center;
     font-size: 0.92rem;
     color: rgba(226,232,240,0.85);
@@ -387,6 +391,12 @@ html.os-active, body.os-active {
     color: rgba(226,232,240,0.92);
     font-size: 0.98rem;
     line-height: 1.2;
+}
+.window-title-icon {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 auto;
+    color: var(--primary);
 }
 .note-inline-icon{
     width: 15px;

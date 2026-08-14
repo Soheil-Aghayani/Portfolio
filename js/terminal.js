@@ -322,7 +322,7 @@ class Terminal {
         resize();
         window.addEventListener('resize', resize);
 
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ';
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 12;
         let columns = Math.floor(canvas.width / fontSize);
         let drops = Array(columns).fill(1);
