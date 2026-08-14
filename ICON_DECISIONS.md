@@ -8,6 +8,7 @@ This project uses the local SVG sprite as its only runtime icon source. The gene
 - Prefer a thin outline family for small controls and dense cards. Supplied filled game assets remain available for game-domain states where filled artwork is intentional.
 - Preserve intentional multi-color artwork. Monochrome control icons use `currentColor` so all themes can recolor them.
 - Do not use emoji, text-symbol controls, or Material Symbols as UI icons.
+- Theme switchers are color-only controls; never place an icon inside the theme trigger or theme color dots.
 
 ## Explicit Decisions
 
@@ -17,6 +18,7 @@ This project uses the local SVG sprite as its only runtime icon source. The gene
 | LCA training and publication filter | `ui/recycle-linear` | Added a thin outline recycle icon | The supplied filled recycle artwork was too heavy at card size. |
 | Waste Mgmt in Sports | `ui/football-linear` | Added a thin outline football icon | The supplied 16px filled football was difficult to read in the training card. |
 | Waste Coding Methods | `ui/qr-code-linear` | Added a thin outline QR icon | The supplied filled QR artwork was visually dense at card size. |
+| COP29 Summit Delegation | `ui/globe` | Replaced the filled globe artwork with the thin local earth outline | The filled pixel-style globe was too heavy beside the delegation heading. |
 | Hero terminal greeting | Literal `>` | No SVG icon | The natural terminal prompt is clearer than a decorative command icon. |
 | Terminal, Game Center, and Notes traffic lights | Empty `.os-dot` / `.notes-dot` buttons | No child icons | The colored controls already communicate their function and match the window convention. |
 | Browser and search favicon | `brand/favicon` plus `/favicon.png` | Explicit teal SVG with 48px and 180px PNG fallbacks | A crawlable raster fallback avoids a generic browser/search placeholder when an SVG is not rendered. |

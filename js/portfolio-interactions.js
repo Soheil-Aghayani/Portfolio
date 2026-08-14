@@ -61,6 +61,10 @@
     
     // Toggle expand (listen to entire switcher when collapsed, or trigger button when expanded)
     switcher.addEventListener('click', (e) => {
+        if (e.target.closest('.theme-dot')) {
+            e.stopPropagation();
+            return;
+        }
         if (!switcher.classList.contains('expanded')) {
             e.stopPropagation();
             switcher.classList.add('expanded');

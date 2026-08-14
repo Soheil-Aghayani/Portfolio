@@ -77,8 +77,7 @@
             "https://github.com/Soheil-Aghayani",
             "https://github.com/Soheil-Aghayani/Soheil-Aghayani",
             "https://t.me/AgSeyl"
-          ],
-          "subjectOf": { "@id": "https://soheil-aghayani.github.io/Coffpen/#website" }
+          ]
         },
         {
           "@type": "WebSite",
@@ -87,15 +86,6 @@
           "name": "Soheil Aghayani Portfolio",
           "publisher": { "@id": "https://soheil-aghayani.github.io/#person" },
           "inLanguage": "en"
-        },
-        {
-          "@type": "Blog",
-          "@id": "https://soheil-aghayani.github.io/Coffpen/#website",
-          "url": "https://soheil-aghayani.github.io/Coffpen/",
-          "name": "کاف‌پن (Coffpen) | سیاه و قلم",
-          "description": "وبلاگ مستقل سهیل آقایانی برای داستان‌های کوتاه فارسی، مجموعه‌های داستانی و دل‌نوشته‌ها.",
-          "inLanguage": "fa-IR",
-          "creator": { "@id": "https://soheil-aghayani.github.io/#person" }
         }
       ]
     }
@@ -134,6 +124,7 @@
             align-items: center;
             justify-content: center;
             line-height: 0;
+            vertical-align: middle;
             min-width: 1.15em;
             min-height: 1.15em;
         }
@@ -338,9 +329,8 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: rgba(226, 232, 240, 0.85);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -349,8 +339,8 @@
             flex-shrink: 0;
         }
         .theme-btn.trigger:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
+            filter: brightness(1.15);
+            box-shadow: 0 0 12px var(--primary-glow);
         }
         .theme-options {
             display: flex;
@@ -375,13 +365,6 @@
             position: relative;
             flex-shrink: 0;
             will-change: transform;
-        }
-        .theme-dot .svg-icon {
-            width: 13px;
-            height: 13px;
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            pointer-events: none;
         }
         .theme-dot:hover {
             transform: scale(1.15);
@@ -646,7 +629,10 @@
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
         .badge-pub { color: var(--primary); border-color: var(--primary); }
         .badge-sub { color: var(--accent); border-color: var(--accent); }
@@ -994,9 +980,14 @@
             position: absolute;
             top: 50%;
             left: 50%;
+            width: min(92vw, 760px);
+            box-sizing: border-box;
             transform: translate(-50%, -50%);
             z-index: 2;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             -webkit-user-select: none;
             user-select: none;
             transition: transform 0.5s ease, opacity 0.5s ease;
@@ -1034,6 +1025,8 @@
             letter-spacing: 0.08em;
             line-height: 1;
             margin-bottom: 12px;
+            width: 100%;
+            text-align: center;
             transition: color 0.4s ease, text-shadow 0.4s ease;
         }
         .ss-date {
@@ -1043,6 +1036,8 @@
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 10px;
+            width: 100%;
+            text-align: center;
             font-family: 'Inter', system-ui, sans-serif;
             transition: color 0.4s ease, text-shadow 0.4s ease;
         }
@@ -1052,6 +1047,8 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             margin-bottom: 32px;
+            width: 100%;
+            text-align: center;
             transition: color 0.4s ease;
         }
         .ss-hint {
@@ -1328,15 +1325,14 @@
     <!-- Theme Switcher Widget -->
     <div class="theme-switcher" id="themeSwitcher">
         <button class="theme-btn trigger" id="themeTrigger" type="button" aria-label="Open Theme Settings" title="Change Accent Theme">
-            <span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>
         </button>
         <div class="theme-options">
-            <button class="theme-dot" type="button" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
-            <button class="theme-dot" type="button" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
-            <button class="theme-dot" type="button" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
-            <button class="theme-dot" type="button" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
-            <button class="theme-dot" type="button" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
-            <button class="theme-dot hide" id="matrixThemeDot" type="button" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span></button>
+            <button class="theme-dot" type="button" data-theme="teal" aria-label="Teal Breeze Theme" title="Teal Breeze"></button>
+            <button class="theme-dot" type="button" data-theme="forest" aria-label="Caspian Forest Theme" title="Caspian Forest"></button>
+            <button class="theme-dot" type="button" data-theme="sunset" aria-label="Tehran Sunset Theme" title="Tehran Sunset"></button>
+            <button class="theme-dot" type="button" data-theme="frost" aria-label="Nordic Frost Theme" title="Nordic Frost"></button>
+            <button class="theme-dot" type="button" data-theme="amethyst" aria-label="Royal Amethyst Theme" title="Royal Amethyst"></button>
+            <button class="theme-dot hide" id="matrixThemeDot" type="button" data-theme="matrix" aria-label="Matrix Theme" title="Matrix Digital Rain"></button>
         </div>
     </div>
 
@@ -1377,10 +1373,10 @@
     .pub-section-subtitle { color: var(--text-main); font-size: 1.5rem; }
     .pub-journal-subtitle { margin: 30px 0 20px; }
     .pub-conf-subtitle { margin: 50px 0 20px; }
-    .pub-link-icon { font-size: 1rem; vertical-align: middle; margin-left: 2px; color: var(--secondary); }
+    .pub-link-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; vertical-align: middle; margin-left: 4px; color: var(--secondary); }
     .card-header-flex { display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .btn-verify { padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: var(--bg-dark); }
-    .btn-verify .svg-icon, .btn-verify .svg-icon { font-size: 14px; vertical-align: middle; }
+    .btn-verify { display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; padding: 8px 20px; font-size: 0.8rem; background: var(--secondary); color: var(--bg-dark); }
+    .btn-verify .svg-icon-slot { flex: 0 0 auto; }
     .cop29-card { margin-bottom: 50px; padding: 0; overflow: hidden; border: 1px solid var(--primary); }
     .cop29-header { padding: 20px; background: rgba(16, 185, 129, 0.1); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 10px; }
     .cop29-icon { color: var(--primary); font-size: 1.5rem; }
@@ -1394,8 +1390,8 @@
     .flex-align-center-gap { display: flex; align-items: center; gap: 10px; }
     .text-white { color: #fff !important; }
     .text-muted { color: var(--text-muted) !important; }
-    .footer-time-wrap { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-family: monospace; }
-    .footer-time-icon { font-size: 16px; vertical-align: middle; color: var(--secondary); margin-right: 5px; }
+    .footer-time-wrap { display: flex; align-items: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; font-family: monospace; }
+    .footer-time-icon { flex: 0 0 auto; font-size: 16px; color: var(--secondary); margin-right: 5px; }
     #appBody { height: 100%; overflow: hidden; }
     #musicWave { display: none; }
     header {
@@ -1523,22 +1519,6 @@
         text-decoration: none !important; border-bottom: none; display: inline-flex; align-items: center; justify-content: center;
     }
     .btn-hero-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); text-decoration: none; }
-    .btn-hero-secondary {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 12px 28px;
-        border: 1px solid rgba(45, 212, 191, 0.45);
-        border-radius: 50px;
-        color: var(--primary);
-        background: rgba(45, 212, 191, 0.08);
-        text-decoration: none;
-        font-weight: 600;
-        transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
-    }
-    .btn-hero-secondary:hover { transform: translateY(-2px); background: rgba(45, 212, 191, 0.16); border-color: var(--primary); text-decoration: none; }
-
     .scroll-down { position: relative; margin-top: 28px; width: fit-content; margin-inline: auto; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.6; animation: bounce 2s infinite; z-index: 3; text-decoration: none; transition: opacity 0.3s, color 0.3s; transform: none; }
     .scroll-down:hover { opacity: 1; color: var(--primary); }
 
@@ -1625,10 +1605,6 @@
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
                 Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#ui-send"></use></svg>
             </a>
-            <a href="https://soheil-aghayani.github.io/Coffpen/" class="btn-hero-secondary" lang="fa" hreflang="fa" aria-label="Visit Coffpen Persian storytelling blog">
-                کافپن (کاف‌پن / Coffpen) — داستان و دل‌نوشتهٔ فارسی
-            </a>
-
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
                     <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.1-icon-md#brand-linkedin-circle"></use></svg>
@@ -4409,8 +4385,13 @@
     }, { passive: true });
 
     let particlesStarted = false;
+    let particleResizeFrame = null;
     window.addEventListener('resize', () => {
-        if (particlesStarted) resize();
+        if (!particlesStarted || particleResizeFrame !== null) return;
+        particleResizeFrame = requestAnimationFrame(() => {
+            particleResizeFrame = null;
+            resize();
+        });
     }, { passive: true });
 
     function startParticles() {

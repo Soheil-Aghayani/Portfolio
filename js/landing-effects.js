@@ -54,7 +54,7 @@
 
     const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
     const TIMEOUT = 120000; // 2 minutes inactivity
-    let timer, ssActive = false, animId;
+    let timer, clockTimer = null, ssActive = false, animId;
     let ignoreEvents = false;
     let launchGuardTimer = null;
     let mouseX = -1000, mouseY = -1000;
@@ -473,14 +473,20 @@
     }
 
     function tickClock() {
+        clockTimer = null;
         if (!ssActive) return;
         updateTimeDisplay();
-        setTimeout(tickClock, 1000);
+        clockTimer = setTimeout(tickClock, 1000);
     }
 
     function activate(modeOverride) {
         if (isGameOpen()) {
             resetTimer();
+            return;
+        }
+
+        if (ssActive) {
+            if (modeOverride) setMode(modeOverride);
             return;
         }
 
@@ -490,6 +496,8 @@
 
         ssActive = true;
         lastFrameTime = 0;
+        clearTimeout(clockTimer);
+        clockTimer = null;
         ss.setAttribute('aria-hidden', 'false');
         ss.classList.add('active');
         document.documentElement.classList.add('screensaver-active');
@@ -519,6 +527,8 @@
         window.dispatchEvent(new CustomEvent('screensaver-visibilitychange', { detail: { active: false } }));
         cancelAnimationFrame(animId);
         animId = null;
+        clearTimeout(clockTimer);
+        clockTimer = null;
         lastFrameTime = 0;
         resetTimer();
     }
@@ -543,7 +553,14 @@
     ss.addEventListener('click', (event) => deactivate(event));
 
     resize();
-    window.addEventListener('resize', resize);
+    let resizeFrame = null;
+    window.addEventListener('resize', () => {
+        if (resizeFrame !== null) return;
+        resizeFrame = requestAnimationFrame(() => {
+            resizeFrame = null;
+            resize();
+        });
+    }, { passive: true });
     resetTimer();
 
     // Export Global Screensaver API

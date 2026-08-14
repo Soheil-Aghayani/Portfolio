@@ -11,11 +11,6 @@
 
 <br/>
 
-## Writing
-
-- [کافپن (کاف‌پن / Coffpen)](https://soheil-aghayani.github.io/Coffpen/) — the independent Persian storytelling blog of Soheil Aghayani, with short stories, serial collections, and personal notes.
-- [Coffpen repository](https://github.com/Soheil-Aghayani/Coffpen)
-
 <!-- ANIMATION 1: Dynamic Typing Subtitle -->
 <p align="center">
   <picture>
