@@ -87,7 +87,7 @@ class Terminal {
         const val = this.input.value.trim().toLowerCase();
         if (!val) return;
 
-        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'resume', 'notes', 'play', 'clear', 'exit', 'matrix', 'screensaver', 'ss', '2048', 'minesweeper', 'breakout', 'invaders', 'shooter'];
+        const commands = ['help', 'bio', 'thesis', 'skills', 'contact', 'notes', 'play', 'clear', 'exit', 'screensaver', 'ss', '2048', 'minesweeper', 'breakout', 'invaders', 'shooter'];
         const matches = commands.filter(c => c.startsWith(val));
 
         if (matches.length === 1) {
@@ -198,9 +198,6 @@ class Terminal {
             case 'contact':
                 await this.cmdContact();
                 break;
-            case 'resume':
-                await this.typeLine('Resume link is currently unavailable. Use contact to request a copy.', 'os-warn');
-                break;
             case 'clear':
             case 'cls':
                 this.clear();
@@ -208,9 +205,6 @@ class Terminal {
             case 'exit':
             case 'quit':
                 if (window.OS) window.OS.close('terminal');
-                break;
-            case 'matrix':
-                await this.cmdMatrix();
                 break;
             case 'snake':
                 if (window.OS) window.OS.open('games', 'snake');
@@ -297,79 +291,6 @@ class Terminal {
         this.drainPendingCommands();
     }
 
-    async cmdMatrix() {
-        await this.typeLine('Loading Matrix Digital Rain... Press "ESC" or "Q" to exit.', 'os-ok');
-        await this.sleep(400);
-
-        this.out.style.overflow = 'hidden';
-
-        const canvas = document.createElement('canvas');
-        canvas.style.position = 'absolute';
-        canvas.style.top = '46px';
-        canvas.style.left = '0';
-        canvas.style.width = '100%';
-        canvas.style.height = 'calc(100% - 46px)';
-        canvas.style.background = '#000';
-        canvas.style.zIndex = '90';
-        this.out.parentElement.appendChild(canvas);
-
-        const ctx = canvas.getContext('2d');
-        
-        const resize = () => {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight - 46;
-        };
-        resize();
-        window.addEventListener('resize', resize);
-
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const fontSize = 12;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = Array(columns).fill(1);
-
-        let animId;
-        const draw = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0f0';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const txt = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(txt, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-            animId = requestAnimationFrame(draw);
-        };
-        
-        draw();
-
-        const exitMatrix = () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resize);
-            document.removeEventListener('keydown', keyHandler);
-            canvas.remove();
-            this.out.style.overflow = 'auto';
-            this.addLine('Matrix session closed.', 'os-ok');
-            this.input.focus();
-        };
-
-        const keyHandler = (e) => {
-            if (e.key === 'Escape' || e.key === 'q' || e.key === 'Q') {
-                exitMatrix();
-            }
-        };
-
-        document.addEventListener('keydown', keyHandler);
-        canvas.addEventListener('click', exitMatrix);
-        canvas.addEventListener('touchstart', exitMatrix);
-    }
-
     async cmdHelp() {
         const speed = 100;
         await this.typeLine('Available commands:', 'os-dim', speed);
@@ -377,10 +298,8 @@ class Terminal {
         await this.typeLine('- thesis: Research topic', 'os-dim', speed);
         await this.typeLine('- skills: Technical stack', 'os-dim', speed);
         await this.typeLine('- contact: Contact links', 'os-dim', speed);
-        await this.typeLine('- resume: Request a resume by email', 'os-dim', speed);
         await this.typeLine('- notes: Open Notes App', 'os-dim', speed);
         await this.typeLine('- play: Games', 'os-dim', speed);
-        await this.typeLine('- matrix: Falling digital rain', 'os-dim', speed);
         await this.typeLine('- screensaver: Launch multi-theme screensaver', 'os-dim', speed);
         await this.typeLine('- clear: Wipe console', 'os-dim', speed);
         await this.typeLine('- exit: Close terminal', 'os-dim', speed);
@@ -388,8 +307,11 @@ class Terminal {
 
     async cmdBio() {
         await this.typeLine('Bio', 'os-warn');
-        await this.typeLine('Environmental Engineering. Solid Waste Management. LCA and emissions modeling.', 'os-dim');
-        await this.typeLine('I build workflows that turn complex data into decisions.', 'os-dim');
+        await this.typeLine('Soheil Aghayani | M.Sc. Environmental Engineering, University of Tehran.', 'os-dim');
+        await this.typeLine('Environmental engineer and sustainability researcher focused on solid waste management, biofuel synthesis, and life cycle assessment.', 'os-dim');
+        await this.typeLine('My research connects waste valorization with heterogeneous catalysis, converting waste cooking oil into biodiesel with calcium oxide catalysts derived from waste seashells.', 'os-dim');
+        await this.typeLine('I also build practical software and data workflows with Python, C#, WPF, web technologies, SimaPro, LandGEM, and OpenLCA.', 'os-dim');
+        await this.typeLine('My goal is to turn complex environmental data into clear, sustainable decisions.', 'os-dim');
     }
 
     async cmdThesis(args) {

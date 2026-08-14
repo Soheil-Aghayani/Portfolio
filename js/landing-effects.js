@@ -126,13 +126,13 @@
             }
         } else if (currentMode === 'matrix') {
             matrixStreams.length = 0;
-            const fontSize = 16;
+            const fontSize = 18;
             const cols = Math.floor(W / fontSize);
             const allChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
             for (let i = 0; i < cols; i++) {
                 const length = Math.floor(Math.random() * 20 + 10);
-                const speed = Math.random() * 1.5 + 0.8;
+                const speed = Math.random() * 0.45 + 0.35;
                 matrixStreams.push({
                     x: i * fontSize,
                     y: Math.random() * -600,
@@ -189,12 +189,12 @@
         ctx.fillStyle = 'rgba(3, 8, 5, 0.18)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontSize = 16;
+        const fontSize = 18;
         ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
         const allChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         matrixStreams.forEach(stream => {
-            stream.y += stream.speed * 6 * frameScale;
+            stream.y += stream.speed * 2.25 * frameScale;
 
             for (let j = 0; j < stream.length; j++) {
                 const charY = stream.y - j * fontSize;
@@ -221,7 +221,7 @@
 
             if (stream.y - stream.length * fontSize > canvas.height) {
                 stream.y = Math.random() * -300;
-                stream.speed = Math.random() * 1.5 + 0.8;
+                stream.speed = Math.random() * 0.45 + 0.35;
                 stream.length = Math.floor(Math.random() * 20 + 10);
             }
         });

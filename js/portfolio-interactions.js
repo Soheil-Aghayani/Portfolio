@@ -917,11 +917,6 @@
   }
 
   const initializeLandingInteractions = () => {
-    // Keep the identity text stable for first paint; the effect remains an
-    // interaction detail instead of delaying the largest contentful paint.
-    const heroName = document.getElementById('heroName');
-    heroName?.addEventListener('pointerenter', () => scrambleText(heroName, 1500), { once: true });
-
     setupSectionHeaders();
     setupFade();
     initThemeSwitcher();

@@ -9,6 +9,21 @@ const GAME_LOADERS = {
     invaders: () => import('./invaders.js?v=6.4').then(module => module.InvadersGame)
 };
 
+const GAME_CLASS_CACHE = new Map();
+
+function preloadGame(id) {
+    const loader = GAME_LOADERS[id];
+    if (!loader) return Promise.reject(new Error(`Unknown game: ${id}`));
+    if (!GAME_CLASS_CACHE.has(id)) {
+        const promise = loader().catch(error => {
+            GAME_CLASS_CACHE.delete(id);
+            throw error;
+        });
+        GAME_CLASS_CACHE.set(id, promise);
+    }
+    return GAME_CLASS_CACHE.get(id);
+}
+
 const localIcon = (name, options = {}) => window.IconRegistry
     ? window.IconRegistry.svg(name, options)
     : '';
@@ -75,11 +90,14 @@ export class GameLauncher {
         `;
 
         this.container.querySelectorAll('.game-icon').forEach(btn => {
+            const warmGame = () => preloadGame(btn.dataset.id).catch(() => {});
             const launchGame = () => {
                 this.lastFocusedGameIcon = btn;
                 this.launch(btn.dataset.id);
             };
             btn.addEventListener('click', launchGame);
+            btn.addEventListener('pointerenter', warmGame, { once: true });
+            btn.addEventListener('focus', warmGame, { once: true });
             btn.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault(); // Prevent scrolling on Space
@@ -87,11 +105,18 @@ export class GameLauncher {
                 }
             });
         });
+
+        // Paint the menu first, then warm the small game modules in idle time.
+        const warmAllGames = () => this.games.forEach(game => preloadGame(game.id).catch(() => {}));
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(warmAllGames, { timeout: 1200 });
+        } else {
+            window.setTimeout(warmAllGames, 250);
+        }
     }
 
     async launch(id) {
-        const loadGame = GAME_LOADERS[id];
-        if (!loadGame) return;
+        if (!GAME_LOADERS[id]) return;
 
         // Stop any previous game before replacing its DOM and animation state.
         if (this.activeGame && typeof this.activeGame.stop === 'function') {
@@ -101,7 +126,7 @@ export class GameLauncher {
 
         let GameClass;
         try {
-            GameClass = await loadGame();
+            GameClass = await preloadGame(id);
         } catch (error) {
             console.error(`Failed to load ${id} game`, error);
             this.showMenu();

@@ -390,12 +390,45 @@
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
     },
     {
+      "key": "ui/recycle-linear",
+      "path": "assets/icons/ui/recycle-linear.svg",
+      "spriteId": "ui-recycle-linear",
+      "sourceCategory": "ui",
+      "source": "canonical-local-svg",
+      "sourceIcon": "ui/recycle-linear",
+      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
+      "license": "unverified-local-svg-source",
+      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
+    },
+    {
       "key": "ui/qr-code",
       "path": "assets/icons/ui/qr-code.svg",
       "spriteId": "ui-qr-code",
       "sourceCategory": "ui",
       "source": "canonical-local-svg",
       "sourceIcon": "ui/qr-code",
+      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
+      "license": "unverified-local-svg-source",
+      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
+    },
+    {
+      "key": "ui/qr-code-linear",
+      "path": "assets/icons/ui/qr-code-linear.svg",
+      "spriteId": "ui-qr-code-linear",
+      "sourceCategory": "ui",
+      "source": "canonical-local-svg",
+      "sourceIcon": "ui/qr-code-linear",
+      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
+      "license": "unverified-local-svg-source",
+      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
+    },
+    {
+      "key": "ui/football-linear",
+      "path": "assets/icons/ui/football-linear.svg",
+      "spriteId": "ui-football-linear",
+      "sourceCategory": "ui",
+      "source": "canonical-local-svg",
+      "sourceIcon": "ui/football-linear",
       "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
       "license": "unverified-local-svg-source",
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
