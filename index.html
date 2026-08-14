@@ -1502,7 +1502,8 @@
     }
 
     .hero-roles { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px; min-height: 1.5em; display: flex; justify-content: center; align-items: center; }
-    .typing-text { color: var(--secondary); font-weight: 600; border-right: 2px solid var(--primary); padding-right: 5px; white-space: nowrap; overflow: hidden; animation: blinkCursor 0.75s step-end infinite; margin-left: 8px; min-width: 22ch; width: 22ch; flex: 0 0 22ch; text-align: left; }
+    /* Keep the typing cursor attached to the current label; a fixed width puts it far past short labels. */
+    .typing-text { color: var(--secondary); font-weight: 600; border-right: 2px solid var(--primary); padding-right: 3px; white-space: nowrap; overflow: hidden; animation: blinkCursor 0.75s step-end infinite; margin-left: 8px; min-width: 0; width: max-content; flex: 0 0 auto; text-align: left; }
 
     .hero-desc { color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
