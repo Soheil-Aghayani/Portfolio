@@ -1,4 +1,6 @@
 <div align="center">
+  <img src="assets/readme-hero.svg" alt="Portfolio OS visual hero" width="100%">
+
   <img src="assets/icons/brand/favicon.svg" width="72" height="72" alt="Soheil Aghayani portfolio mark">
 
   # SOHEIL AGHAYANI
