@@ -3426,3 +3426,156 @@ html {
 .game-confirm-quit-btn:hover {
     background: #991b1b !important;
 }
+
+/* Restrained synthwave glow for accent-colored app controls. */
+@keyframes accent-button-breathe {
+    0%,
+    100% {
+        opacity: 0.07;
+        transform: scale(0.99);
+    }
+
+    50% {
+        opacity: 0.18;
+        transform: scale(1.012);
+    }
+}
+
+:is(
+    .game-pause-btn.paused,
+    .notes-btn2.primary,
+    .bj-bet-btn.chip-10,
+    .bj-bet-btn.chip-50,
+    .bj-bet-btn.chip-100,
+    .bj-bet-btn.chip-200,
+    .bj-action-bet-btn.deal,
+    .bj-reg-submit,
+    .deal-btn,
+    .snake-restart-btn,
+    .g2048-btn,
+    .ms-btn,
+    .game-overlay-btn,
+    .ms-hack-btn.active,
+    .ms-nav-btn,
+    .ms-tool-toggle-btn.active-dig,
+    .ms-tool-toggle-btn.active-flag,
+    .ms-diff-btn.selected,
+    .game-confirm-quit-btn
+) {
+    position: relative;
+    isolation: isolate;
+    --accent-button-color: var(--primary);
+}
+
+.bj-bet-btn.chip-10 {
+    --accent-button-color: #fef08a;
+}
+
+.bj-bet-btn.chip-50 {
+    --accent-button-color: #fda4af;
+}
+
+.bj-bet-btn.chip-100 {
+    --accent-button-color: #7dd3fc;
+}
+
+.bj-bet-btn.chip-200 {
+    --accent-button-color: #d8b4fe;
+}
+
+.ms-tool-toggle-btn.active-flag {
+    --accent-button-color: #fb7185;
+}
+
+.game-confirm-quit-btn {
+    --accent-button-color: #ef4444;
+}
+
+.bj-hack-btn.peek:hover:not(:disabled) {
+    position: relative;
+    isolation: isolate;
+    --accent-button-color: #fb923c;
+}
+
+.bj-hack-btn.glitch:hover:not(:disabled) {
+    position: relative;
+    isolation: isolate;
+    --accent-button-color: #a78bfa;
+}
+
+:is(
+    .ms-carousel-arrow:hover,
+    .ms-zoom-btn:hover
+) {
+    position: relative;
+    isolation: isolate;
+    --accent-button-color: var(--primary);
+}
+
+:is(
+    .game-pause-btn.paused,
+    .notes-btn2.primary,
+    .bj-bet-btn.chip-10,
+    .bj-bet-btn.chip-50,
+    .bj-bet-btn.chip-100,
+    .bj-bet-btn.chip-200,
+    .bj-action-bet-btn.deal,
+    .bj-reg-submit,
+    .deal-btn,
+    .snake-restart-btn,
+    .g2048-btn,
+    .ms-btn,
+    .game-overlay-btn,
+    .ms-hack-btn.active,
+    .ms-nav-btn,
+    .ms-tool-toggle-btn.active-dig,
+    .ms-tool-toggle-btn.active-flag,
+    .ms-diff-btn.selected,
+    .game-confirm-quit-btn,
+    .bj-hack-btn.peek:hover:not(:disabled),
+    .bj-hack-btn.glitch:hover:not(:disabled),
+    .ms-carousel-arrow:hover,
+    .ms-zoom-btn:hover
+)::after {
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    border: 1px solid var(--accent-button-color);
+    border-radius: inherit;
+    box-shadow: 0 0 10px var(--accent-button-color);
+    content: '';
+    opacity: 0.07;
+    pointer-events: none;
+    animation: accent-button-breathe 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :is(
+        .game-pause-btn.paused,
+        .notes-btn2.primary,
+        .bj-bet-btn.chip-10,
+        .bj-bet-btn.chip-50,
+        .bj-bet-btn.chip-100,
+        .bj-bet-btn.chip-200,
+        .bj-action-bet-btn.deal,
+        .bj-reg-submit,
+        .deal-btn,
+        .snake-restart-btn,
+        .g2048-btn,
+        .ms-btn,
+        .game-overlay-btn,
+        .ms-hack-btn.active,
+        .ms-nav-btn,
+        .ms-tool-toggle-btn.active-dig,
+        .ms-tool-toggle-btn.active-flag,
+        .ms-diff-btn.selected,
+        .game-confirm-quit-btn,
+        .bj-hack-btn.peek:hover:not(:disabled),
+        .bj-hack-btn.glitch:hover:not(:disabled),
+        .ms-carousel-arrow:hover,
+        .ms-zoom-btn:hover
+    )::after {
+        animation: none;
+        transform: none;
+    }
+}

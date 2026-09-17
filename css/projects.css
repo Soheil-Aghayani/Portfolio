@@ -1410,6 +1410,63 @@ iframe {
 .music-wave span:nth-child(3) { height: 16px; }
 .music-wave span:nth-child(4) { height: 10px; }
 
+/* Restrained synthwave glow for controls that carry an accent color. */
+@keyframes accent-button-breathe {
+    0%,
+    100% {
+        opacity: 0.07;
+        transform: scale(0.99);
+    }
+
+    50% {
+        opacity: 0.18;
+        transform: scale(1.012);
+    }
+}
+
+.filter-btn.active,
+.details-btn,
+.device-btn.active {
+    position: relative;
+    isolation: isolate;
+    --accent-button-color: var(--primary);
+}
+
+.music-toggle-btn.playing {
+    isolation: isolate;
+    --accent-button-color: var(--primary);
+}
+
+.details-btn {
+    --accent-button-color: var(--hover-color);
+}
+
+.filter-btn.active::after,
+.details-btn::after,
+.device-btn.active::after,
+.music-toggle-btn.playing::after {
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    border: 1px solid var(--accent-button-color);
+    border-radius: inherit;
+    box-shadow: 0 0 10px var(--accent-button-color);
+    content: '';
+    opacity: 0.07;
+    pointer-events: none;
+    animation: accent-button-breathe 5.5s ease-in-out infinite;
+}
+
+.music-toggle-btn.playing {
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 14px var(--primary-glow);
+}
+
+.music-toggle-btn.playing .music-wave span {
+    box-shadow: 0 0 8px var(--primary), 0 0 13px var(--primary-glow);
+}
+
 @media (max-width: 1080px) {
     .header-content {
         grid-template-columns: 1fr;
@@ -1593,6 +1650,14 @@ iframe {
     .project-card:focus-within,
     .back-btn:hover,
     .music-toggle-btn:hover {
+        transform: none;
+    }
+
+    .filter-btn.active::after,
+    .details-btn::after,
+    .device-btn.active::after,
+    .music-toggle-btn.playing::after {
+        animation: none;
         transform: none;
     }
 }

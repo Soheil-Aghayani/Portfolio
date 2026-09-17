@@ -797,6 +797,8 @@
     function setPlayingState(play) {
         isPlaying = play;
         sessionStorage.setItem('music_playing', play ? 'true' : 'false');
+        btn.setAttribute('aria-pressed', String(play));
+        btn.title = play ? 'Pause Background Music' : 'Play Background Music';
         if (play) {
             btn.classList.add('playing');
             muteIcon.style.display = 'none';

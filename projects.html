@@ -76,7 +76,7 @@
     <script defer src="js/icons.js?v=4.5"></script>
     <script defer src="js/site-config.js?v=1.0"></script>
     <script defer src="js/analytics.js?v=1.0"></script>
-    <link rel="stylesheet" href="css/projects.css?v=1.5" />
+    <link rel="stylesheet" href="css/projects.css?v=1.6" />
 </head>
 <body>
 
@@ -1013,7 +1013,7 @@
     </script>
 
     <!-- FLOATING MUSIC TOGGLE BUTTON -->
-    <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle background music" title="Toggle background music">
+    <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle background music" aria-pressed="false" title="Play background music">
         <div class="music-mute-icon" id="musicMuteIcon">
             <span class="svg-icon-slot" data-icon="ui/music-off-round" aria-hidden="true"></span>
         </div>
@@ -1031,6 +1031,7 @@
             const muteIcon = document.getElementById('musicMuteIcon');
             const wave = document.getElementById('musicWave');
             if (!btn) return;
+            const spans = wave.querySelectorAll('span');
 
             const tracks = [
                 "assets/audio/warm-cup-of-coffee.mp3",
@@ -1045,6 +1046,7 @@
             audio.preload = 'none';
             let audioLoaded = false;
             let isPlaying = false;
+            let animFrameId = null;
 
             function loadAudio() {
                 if (!audioLoaded) {
@@ -1059,16 +1061,47 @@
             function setPlaying(play) {
                 isPlaying = play;
                 sessionStorage.setItem('music_playing', play ? 'true' : 'false');
+                btn.classList.toggle('playing', play);
+                btn.setAttribute('aria-pressed', String(play));
+                btn.title = play ? 'Pause background music' : 'Play background music';
                 if (play) {
                     const player = loadAudio();
                     muteIcon.style.display = 'none';
                     wave.style.display = 'flex';
+                    startVisualizer();
                     player.play().catch(() => setPlaying(false));
                 } else {
                     muteIcon.style.display = 'flex';
                     wave.style.display = 'none';
+                    stopVisualizer();
                     audio.pause();
                 }
+            }
+
+            function updateVisualizer() {
+                if (!isPlaying) return;
+
+                // Keep the project page lively even when Web Audio analysis is unavailable.
+                spans.forEach((span) => {
+                    const scale = 0.2 + Math.random() * 0.8;
+                    span.style.transform = `scaleY(${scale})`;
+                });
+                animFrameId = requestAnimationFrame(updateVisualizer);
+            }
+
+            function startVisualizer() {
+                if (animFrameId) cancelAnimationFrame(animFrameId);
+                animFrameId = requestAnimationFrame(updateVisualizer);
+            }
+
+            function stopVisualizer() {
+                if (animFrameId) {
+                    cancelAnimationFrame(animFrameId);
+                    animFrameId = null;
+                }
+                spans.forEach((span) => {
+                    span.style.transform = 'scaleY(0.2)';
+                });
             }
 
             btn.addEventListener('click', () => setPlaying(!isPlaying));

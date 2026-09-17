@@ -1322,6 +1322,49 @@
                 min-width: 0;
             }
         }
+
+        /* Keep fixed actions out of the publication gutter on tablets and small laptops. */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .social-dock {
+                display: none !important;
+            }
+
+            .mobile-socials {
+                display: flex !important;
+                gap: 25px;
+                margin-top: 20px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mobile-social-icon {
+                color: var(--text-muted);
+                opacity: 0.8;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-social-icon svg {
+                width: 21px;
+                height: 21px;
+            }
+
+            .share-widget {
+                left: auto !important;
+                right: calc(20px + (48px + 16px) * 2) !important;
+                bottom: 20px !important;
+            }
+
+            .music-toggle-btn {
+                left: auto !important;
+                right: calc(20px + 48px + 16px) !important;
+                bottom: 20px !important;
+            }
+
+            .theme-switcher {
+                right: 20px !important;
+                bottom: 20px !important;
+            }
+        }
     
 
         html { scroll-behavior: smooth; }
@@ -1335,6 +1378,90 @@
 
 
 
+</style>
+<style>
+    /* Restrained synthwave glow for controls that carry an accent color. */
+    @keyframes accent-button-breathe {
+        0%,
+        100% {
+            opacity: 0.07;
+            transform: scale(0.99);
+        }
+
+        50% {
+            opacity: 0.18;
+            transform: scale(1.012);
+        }
+    }
+
+    .theme-btn.trigger,
+    .theme-dot.active,
+    .fc-btn:hover,
+    .pub-filter-btn.active,
+    .load-more-btn.all-loaded,
+    .btn-verify,
+    .notes-btn2.primary {
+        position: relative;
+        isolation: isolate;
+        --accent-button-color: var(--primary);
+    }
+
+    .music-toggle-btn.playing {
+        isolation: isolate;
+        --accent-button-color: var(--primary);
+    }
+
+    .theme-dot.active {
+        --accent-button-color: var(--dot-color);
+    }
+
+    .btn-verify {
+        --accent-button-color: var(--secondary);
+    }
+
+    .theme-btn.trigger::after,
+    .theme-dot.active::after,
+    .fc-btn:hover::after,
+    .pub-filter-btn.active::after,
+    .load-more-btn.all-loaded::after,
+    .btn-verify::after,
+    .notes-btn2.primary::after,
+    .music-toggle-btn.playing::after {
+        position: absolute;
+        inset: -1px;
+        z-index: 0;
+        border: 1px solid var(--accent-button-color);
+        border-radius: inherit;
+        box-shadow: 0 0 10px var(--accent-button-color);
+        content: '';
+        opacity: 0.07;
+        pointer-events: none;
+        animation: accent-button-breathe 5.5s ease-in-out infinite;
+    }
+
+    .music-toggle-btn.playing {
+        color: var(--primary);
+        border-color: var(--primary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 14px var(--primary-glow);
+    }
+
+    .music-toggle-btn.playing .music-wave span {
+        box-shadow: 0 0 8px var(--primary), 0 0 13px var(--primary-glow);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .theme-btn.trigger::after,
+        .theme-dot.active::after,
+        .fc-btn:hover::after,
+        .pub-filter-btn.active::after,
+        .load-more-btn.all-loaded::after,
+        .btn-verify::after,
+        .notes-btn2.primary::after,
+        .music-toggle-btn.playing::after {
+            animation: none;
+            transform: none;
+        }
+    }
 </style>
 </head>
 <body>
@@ -4187,7 +4314,7 @@
 </div>
 
 <!-- Minimalist Lo-Fi Music Widget -->
-<button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Background Music" title="Play Background Music">
+<button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Background Music" aria-pressed="false" title="Play Background Music">
     <div class="music-mute-icon" id="musicMuteIcon">
         <span class="svg-icon-slot" data-icon="ui/music-off-round" aria-hidden="true"></span>
     </div>
