@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build:project-icons": "node tools/assets/build-project-icons.js"
   },
   "dependencies": {
     "playwright": "^1.59.1"

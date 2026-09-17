@@ -52,15 +52,17 @@
           "@type": "ItemList",
           "@id": "https://soheil-aghayani.github.io/projects.html#project-list",
           "name": "Soheil Aghayani web projects",
-          "numberOfItems": 7,
+          "numberOfItems": 9,
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Egg Timer", "url": "https://soheil-aghayani.github.io/egg-timer/" },
             { "@type": "ListItem", "position": 2, "name": "Design Suite", "url": "https://soheil-aghayani.github.io/Design-Suite/" },
             { "@type": "ListItem", "position": 3, "name": "Food Recipe", "url": "https://soheil-aghayani.github.io/food-recipe/" },
-            { "@type": "ListItem", "position": 4, "name": "Iriswa", "url": "https://soheil-aghayani.github.io/iriswa/" },
+            { "@type": "ListItem", "position": 4, "name": "Deutschly", "url": "https://soheil-aghayani.github.io/Deutschly/" },
             { "@type": "ListItem", "position": 5, "name": "Pahlavan", "url": "https://soheil-aghayani.github.io/pahlavan/" },
-            { "@type": "ListItem", "position": 6, "name": "NCBI Tool", "url": "https://soheil-aghayani.github.io/ncbi/" },
-            { "@type": "ListItem", "position": 7, "name": "Laboratory Rules", "url": "https://soheil-aghayani.github.io/Laboratory-Rules/" }
+            { "@type": "ListItem", "position": 6, "name": "ScholarPulse", "url": "https://soheil-aghayani.github.io/ScholarPulse/" },
+            { "@type": "ListItem", "position": 7, "name": "Laboratory Rules", "url": "https://soheil-aghayani.github.io/Laboratory-Rules/" },
+            { "@type": "ListItem", "position": 8, "name": "Coffpen", "url": "https://soheil-aghayani.github.io/Coffpen/" },
+            { "@type": "ListItem", "position": 9, "name": "Dodge Game", "url": "https://github.com/Soheil-Aghayani/dodge-game" }
           ]
         }
       ]
@@ -71,817 +73,10 @@
     <link rel="shortcut icon" href="favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/brand/favicon-180.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script defer src="js/icons.js?v=4.3"></script>
+    <script defer src="js/icons.js?v=4.5"></script>
     <script defer src="js/site-config.js?v=1.0"></script>
     <script defer src="js/analytics.js?v=1.0"></script>
-        <style>
-        @font-face {
-            font-family: 'Outfit Stable';
-            font-style: normal;
-            font-weight: 300 800;
-            font-display: optional;
-            src: url('https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtq.woff2') format('woff2');
-        }
-
-        :root {
-            --bg-dark: #070b13;
-            --card-bg: rgba(15, 23, 42, 0.45);
-            --primary: #2dd4bf;
-            --primary-glow: rgba(45, 212, 191, 0.25);
-            --favorite: #fbbf24;
-            --favorite-glow: rgba(251, 191, 36, 0.25);
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --theme-color: #2dd4bf;
-            --theme-glow: rgba(45, 212, 191, 0.25);
-            --icon-stroke-width: 1.65;
-        }
-
-        .svg-icon-slot {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 0;
-            vertical-align: middle;
-            min-width: 1.15em;
-            min-height: 1.15em;
-        }
-
-        /* Projects is a standalone page, so keep the shared sprite sizing local. */
-        .svg-icon {
-            width: 1.15em;
-            height: 1.15em;
-            display: inline-block;
-            vertical-align: -0.15em;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: var(--icon-stroke-width);
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            flex-shrink: 0;
-        }
-
-        .project-card.theme-amber { --hover-color: #fbbf24; --hover-glow: rgba(251, 191, 36, 0.25); }
-        .project-card.theme-coral { --hover-color: #ff5e62; --hover-glow: rgba(255, 94, 98, 0.25); }
-        .project-card.theme-pink { --hover-color: #ec4899; --hover-glow: rgba(236, 72, 153, 0.25); }
-        .project-card.theme-purple { --hover-color: #8b5cf6; --hover-glow: rgba(139, 92, 246, 0.25); }
-        .project-card.theme-emerald { --hover-color: #10b981; --hover-glow: rgba(16, 185, 129, 0.25); }
-        .project-card.theme-cyan { --hover-color: #06b6d4; --hover-glow: rgba(6, 182, 212, 0.25); }
-        .project-card.theme-red { --hover-color: #ef4444; --hover-glow: rgba(239, 68, 68, 0.25); }
-        .drawer-notes-italic { font-style: italic; }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit Stable', 'Outfit', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-x: clip;
-            position: relative;
-            transition: background-color 0.5s ease;
-        }
-
-        /* UNIVERSAL CUSTOM SCROLLBARS */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); border-radius: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--primary, #2dd4bf); border-radius: 6px; box-shadow: 0 0 8px var(--primary-glow, rgba(45, 212, 191, 0.4)); }
-        ::-webkit-scrollbar-thumb:hover { background: #60a5fa; }
-        @supports (scrollbar-width: thin) {
-            * { scrollbar-width: thin; scrollbar-color: var(--primary, #2dd4bf) rgba(15, 23, 42, 0.6); }
-        }
-
-        /* Interactive Grid Background */
-        .grid-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Ambient background glow */
-        .ambient-glow {
-            position: fixed;
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--theme-glow) 0%, rgba(0,0,0,0) 70%);
-            top: -300px;
-            left: -200px;
-            pointer-events: none;
-            z-index: 0;
-            transition: background 0.8s ease;
-        }
-
-        .ambient-glow-2 {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(96, 165, 250, 0.04) 0%, rgba(0,0,0,0) 75%);
-            bottom: -200px;
-            right: -150px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px 80px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header Styles */
-        header {
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .back-btn {
-            align-self: flex-start;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-            transform: translateX(-4px);
-        }
-
-        .header-content h1 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .page-title-icon {
-            width: 0.9em;
-            height: 0.9em;
-            flex: 0 0 auto;
-            color: var(--primary);
-            background: none;
-            -webkit-text-fill-color: var(--primary);
-        }
-
-        .header-content p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-
-        /* Filter Toolbar */
-        .toolbar {
-            background: rgba(15, 23, 42, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-            padding: 16px 24px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .search-wrapper input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #fff;
-            padding: 12px 16px 12px 42px;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.25s ease;
-        }
-
-        .search-wrapper input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 12px var(--primary-glow);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 1.25rem;
-        }
-
-        .filter-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-            padding: 8px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.25s ease;
-        }
-
-        .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* Grid Layout */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
-        }
-
-        /* Project Card Styles */
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--hover-color, rgba(45, 212, 191, 0.3));
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--hover-glow, var(--primary-glow));
-        }
-
-        /* Favorite tag styling */
-        .project-card.favorite {
-            border-color: rgba(251, 191, 36, 0.15);
-        }
-
-        .badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #000;
-            font-weight: 800;
-            font-size: 0.75rem;
-            padding: 6px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
-            z-index: 2;
-            animation: pulse-glow 2s infinite;
-        }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4); }
-            50% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.7); }
-            100% { box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4); }
-        }
-
-        /* Banner/Preview Image area */
-        .card-preview {
-            height: 180px;
-            width: 100%;
-            background: #0b0f19;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Custom SVGs as previews */
-        .preview-svg {
-            width: 100%;
-            height: 100%;
-            opacity: 0.7;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .preview-svg {
-            transform: scale(1.08);
-            opacity: 0.95;
-        }
-
-        /* Card Content */
-        .card-body {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .project-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .project-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        /* Tags list */
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 400;
-        }
-
-        /* Action Buttons Row */
-        .action-row {
-            display: grid;
-            grid-template-columns: 1fr 100px;
-            gap: 10px;
-        }
-        .split-launch {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
-        .action-btn-card {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #fff;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .action-btn-card.details-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        .project-card:hover .action-btn-card.details-btn {
-            background: var(--hover-color, var(--primary));
-            color: #000;
-            border-color: var(--hover-color, var(--primary));
-            box-shadow: 0 0 15px var(--hover-glow, var(--primary-glow));
-        }
-        .split-launch .action-btn-card {
-            padding: 0;
-        }
-        .split-launch .action-btn-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: var(--hover-color, var(--primary));
-        }
-
-        /* Live Preview Overlay Styles */
-        .preview-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(4, 6, 10, 0.85);
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .preview-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        .preview-container {
-            width: 92%; height: 88%;
-            background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .preview-overlay.active .preview-container {
-            transform: scale(1);
-        }
-        .preview-header {
-            background: rgba(15, 23, 42, 0.7);
-            padding: 16px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .preview-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: -0.3px;
-        }
-        .device-controls, .header-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .device-btn, .action-btn-top {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-            width: 42px; height: 42px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .device-btn:hover, .action-btn-top:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
-        .device-btn.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            box-shadow: 0 0 12px var(--primary-glow);
-        }
-        .action-btn-top.close-btn:hover {
-            background: #ef4444;
-            color: #fff;
-            border-color: #ef4444;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
-        }
-        .iframe-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #05080e;
-            position: relative;
-            padding: 24px;
-            overflow: auto;
-        }
-        iframe {
-            width: 100%; height: 100%;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: #fff;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        /* Device view size configurations */
-        .iframe-wrapper.desktop iframe {
-            width: 100%; height: 100%;
-        }
-        .iframe-wrapper.tablet iframe {
-            width: 768px; height: 1024px;
-            max-width: 100%; max-height: 100%;
-        }
-        .iframe-wrapper.mobile iframe {
-            width: 375px; height: 740px;
-            max-width: 100%; max-height: 100%;
-        }
-
-        /* --- DETAILS DRAWER SIDE SHEET --- */
-        .drawer-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(4, 6, 10, 0.5);
-            -webkit-backdrop-filter: blur(6px);
-            backdrop-filter: blur(6px);
-            z-index: 1040;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .drawer-overlay.active {
-            display: block;
-            opacity: 1;
-        }
-        .details-drawer {
-            position: fixed;
-            top: 0; right: -460px;
-            width: 450px; height: 100vh;
-            background: rgba(11, 15, 25, 0.8);
-            -webkit-backdrop-filter: blur(30px);
-            backdrop-filter: blur(30px);
-            border-left: 1px solid rgba(255, 255, 255, 0.08);
-            z-index: 1050;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.5);
-            transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .details-drawer.active {
-            right: 0;
-        }
-        .drawer-header {
-            padding: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .drawer-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        .drawer-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            transition: all 0.25s ease;
-        }
-        .drawer-close:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
-        .drawer-body {
-            padding: 24px;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-        .drawer-section-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-        .drawer-desc {
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-        .drawer-tech-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .drawer-tech-pill {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: #fff;
-        }
-        .drawer-feature-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .drawer-feature-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-        .drawer-feature-list li::before {
-            content: none;
-        }
-        .drawer-feature-icon {
-            width: 1.1rem;
-            height: 1.1rem;
-            margin-top: 0.2em;
-            color: var(--primary);
-            flex: 0 0 auto;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 100px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 30px;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: underline;
-            text-underline-offset: 0.18em;
-            transition: color 0.2s ease;
-        }
-
-        footer a:hover {
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .toolbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .device-controls {
-                display: none;
-            }
-            .details-drawer {
-                width: 100%;
-                right: -100%;
-            }
-        }
-
-        .header-actions-main {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .sound-panel {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 6px 12px;
-            border-radius: 12px;
-        }
-        .sound-toggle-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s ease;
-        }
-        .sound-toggle-btn:hover {
-            color: #fff;
-        }
-        .volume-slider {
-            width: 70px;
-            height: 4px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            outline: none;
-        }
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 12px; height: 12px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-            box-shadow: 0 0 6px var(--primary-glow);
-            transition: transform 0.1s ease;
-        }
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        @media (max-width: 480px) {
-            .header-content h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        /* Floating Music Toggle Button */
-        .music-toggle-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 99;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(15,23,42,0.8);
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-        #musicMuteIcon {
-            font-size: 1.2rem;
-        }
-        #musicWave {
-            display: none;
-            gap: 2px;
-            align-items: flex-end;
-            height: 14px;
-        }
-        #musicWave span {
-            width: 2px;
-            background: var(--primary);
-            display: inline-block;
-        }
-        #musicWave span:nth-child(1) { height: 100%; }
-        #musicWave span:nth-child(2) { height: 60%; }
-        #musicWave span:nth-child(3) { height: 80%; }
-    </style>
+    <link rel="stylesheet" href="css/projects.css?v=1.5" />
 </head>
 <body>
 
@@ -890,60 +85,77 @@
     <div class="ambient-glow-2"></div>
 
     <div class="container">
-        <header>
+        <header class="site-header">
             <div class="header-actions-main">
                 <a href="index.html" class="back-btn">
                     <span class="svg-icon-slot" data-icon="states/go-back" aria-hidden="true"></span>
                     Back to OS Desktop
                 </a>
-                <div class="sound-panel">
-                    <button class="sound-toggle-btn" id="soundToggle" type="button" aria-label="Toggle sound effects" title="Toggle Sound FX">
-                        <span class="svg-icon-slot" data-icon="ui/sound-volume-1" id="soundIcon" aria-hidden="true"></span>
-                    </button>
-                    <input type="range" min="0" max="1" step="0.1" value="0.3" id="volumeSlider" class="volume-slider" aria-label="Adjust sound effects volume" title="Adjust Volume">
-                </div>
             </div>
             <div class="header-content">
-                <h1><span class="svg-icon-slot page-title-icon" data-icon="brand/favicon" aria-hidden="true"></span><span>Web Projects Showcase</span></h1>
-                <p>Research questions → useful systems → interfaces worth exploring.</p>
+                <div>
+                    <div class="header-eyebrow">Project index <span class="eyebrow-id">SA / 2026</span></div>
+                    <h1>Projects with a <span class="title-accent">point of view.</span></h1>
+                    <p>A working index of interactive tools, design experiments, and science-focused interfaces. Built to be explored, not just displayed.</p>
+                </div>
+                <div class="hero-stats" aria-label="Project collection summary">
+                    <div class="hero-stat"><strong>09</strong><span>projects</span></div>
+                    <div class="hero-stat"><strong>04</strong><span>directions</span></div>
+                    <div class="hero-stat"><strong>01</strong><span>desktop build</span></div>
+                </div>
             </div>
         </header>
 
-        <!-- Filter & Search Toolbar -->
-        <section class="toolbar">
-            <div class="search-wrapper">
-                <span class="svg-icon-slot search-icon" data-icon="ui/search" aria-hidden="true"></span>
-                <input type="text" id="searchInput" aria-label="Search projects" placeholder="Search projects by name, tags, or description...">
+        <section class="toolbar" aria-label="Project filters">
+            <div class="toolbar-main">
+                <div class="search-wrapper">
+                    <label class="sr-only" for="searchInput">Search projects</label>
+                    <span class="svg-icon-slot search-icon" data-icon="ui/search" aria-hidden="true"></span>
+                    <input type="search" id="searchInput" autocomplete="off" placeholder="Search by name, technology, or focus...">
+                </div>
+                <p class="results-summary" id="resultsSummary" role="status" aria-live="polite"><strong id="resultCount">09</strong> projects</p>
             </div>
-            <div class="filter-options">
-                <button class="filter-btn active" data-filter="all"><span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span>All</button>
-                <button class="filter-btn" data-filter="tools"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span>Tools</button>
-                <button class="filter-btn" data-filter="designs"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>Designs</button>
-                <button class="filter-btn" data-filter="science"><span class="svg-icon-slot" data-icon="ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution" aria-hidden="true"></span>Science</button>
+            <div class="filter-options" role="group" aria-label="Filter projects by category">
+                <span class="filter-label">Filter by</span>
+                <button class="filter-btn active" data-filter="all" type="button" aria-pressed="true"><span class="svg-icon-slot" data-icon="ui/filter" aria-hidden="true"></span>All</button>
+                <button class="filter-btn" data-filter="tools" type="button" aria-pressed="false"><span class="svg-icon-slot" data-icon="ui/terminal" aria-hidden="true"></span>Tools</button>
+                <button class="filter-btn" data-filter="designs" type="button" aria-pressed="false"><span class="svg-icon-slot" data-icon="ui/palette-broken" aria-hidden="true"></span>Design</button>
+                <button class="filter-btn" data-filter="science" type="button" aria-pressed="false"><span class="svg-icon-slot" data-icon="ui/ecology-science-erlenmeyer-flask-experiment-lab-flask-science-chemistry-solution" aria-hidden="true"></span>Science</button>
+                <button class="filter-btn" data-filter="writing" type="button" aria-pressed="false"><span class="svg-icon-slot" data-icon="ui/journal" aria-hidden="true"></span>Writing</button>
             </div>
         </section>
 
-        <main class="projects-grid" id="projectsGrid">
+        <main>
+            <div class="collection-heading">
+                <div>
+                    <p class="collection-kicker">Selected work</p>
+                    <h2>Built for curiosity, utility, and repeat use.</h2>
+                </div>
+                <p>Some projects solve a small everyday problem. Others turn research and visual thinking into something people can interact with.</p>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
             
-            <!-- EGG TIMER (Favorite) -->
-            <div class="project-card favorite theme-amber" data-category="tools" data-glow="#fbbf24">
-                <div class="badge">FAVORITE</div>
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="40" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
-                        <circle cx="50" cy="50" r="32" fill="url(#eggGrad)"/>
-                        <path d="M50 25 V50 H65" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-                        <circle cx="50" cy="50" r="3" fill="#000"/>
-                        <defs>
-                            <linearGradient id="eggGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#fffbeb"/>
-                                <stop offset="100%" stop-color="#f59e0b"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <!-- EGG TIMER -->
+            <article class="project-card theme-amber" data-category="tools" data-glow="#fbbf24" data-project-index="01">
+                <div class="card-topline">
+                    <span class="project-index">01</span>
+                    <span class="project-kind">Tools</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/egg-timer.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/egg-timer.webp" alt="Egg Timer app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Web Audio / timer</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Egg Timer</h2>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Focus tool</span><h3 class="project-title">Egg Timer</h3></div>
+                        <span class="project-year">01</span>
+                    </div>
                     <p class="project-desc">A highly polished, interactive timer tool featuring customizable durations, responsive audio alerts, and sleek progress visualizations.</p>
                     <div class="project-tags">
                         <span class="tag">HTML5</span>
@@ -963,31 +175,28 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- DESIGN SUITE (Favorite) -->
-            <div class="project-card favorite theme-coral" data-category="tools" data-glow="#ff5e62">
-                <div class="badge">FAVORITE</div>
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="20" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="1" opacity="0.15" stroke-dasharray="2 2"/>
-                        <line x1="50" y1="20" x2="50" y2="80" stroke="#fff" stroke-width="1" opacity="0.15" stroke-dasharray="2 2"/>
-                        <circle cx="50" cy="50" r="22" stroke="url(#designGrad)" stroke-width="2"/>
-                        <rect x="47" y="25" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
-                        <rect x="47" y="69" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
-                        <rect x="25" y="47" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
-                        <rect x="69" y="47" width="6" height="6" fill="#fff" stroke="url(#designGrad)" stroke-width="1.5"/>
-                        <path d="M50 50 L65 65 L58 68 L55 75 Z" fill="#fff"/>
-                        <defs>
-                            <linearGradient id="designGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#ff5e62"/>
-                                <stop offset="100%" stop-color="#ff9966"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <!-- DESIGN SUITE -->
+            <article class="project-card featured favorite theme-coral" data-category="tools" data-glow="#ff5e62" data-project-index="02">
+                <div class="card-topline">
+                    <span class="project-index">02</span>
+                    <span class="project-kind">Tools</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/design-suite.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/design-suite.webp" alt="Design Suite app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">SVG / workspace</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Design Suite</h2>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Featured build</span><h3 class="project-title">Design Suite</h3></div>
+                        <span class="project-year">02</span>
+                    </div>
                     <p class="project-desc">A premium, unified visual workspace offering advanced vector generators, flowchart builders, equations plotter, gauge designers, and a suite of custom tools.</p>
                     <div class="project-tags">
                         <span class="tag">Workspace Hub</span>
@@ -1007,25 +216,28 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- FOOD RECIPE -->
-            <div class="project-card theme-pink" data-category="designs" data-glow="#ec4899">
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="20" y="20" width="60" height="60" rx="10" fill="url(#foodGrad)"/>
-                        <circle cx="50" cy="45" r="15" fill="#fff" opacity="0.2"/>
-                        <path d="M40 70 H60 M45 62 H55" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="foodGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#ec4899"/>
-                                <stop offset="100%" stop-color="#f43f5e"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <article class="project-card theme-pink" data-category="designs" data-glow="#ec4899" data-project-index="03">
+                <div class="card-topline">
+                    <span class="project-index">03</span>
+                    <span class="project-kind">Design</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/food-recipe.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/food-recipe.webp" alt="Food Recipe app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Recipes / responsive</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Food Recipe</h2>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Interface study</span><h3 class="project-title">Food Recipe</h3></div>
+                        <span class="project-year">03</span>
+                    </div>
                     <p class="project-desc">An interactive culinary companion displaying rich ingredients, cooking instructions, and recipe suggestions with filtering tools.</p>
                     <div class="project-tags">
                         <span class="tag">Responsive Grid</span>
@@ -1044,60 +256,69 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- IRISWA -->
-            <div class="project-card theme-purple" data-category="designs" data-glow="#8b5cf6">
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="30" fill="url(#irisGrad)"/>
-                        <path d="M50 30 C60 40 60 60 50 70 C40 60 40 40 50 30 Z" fill="#fff" opacity="0.3"/>
-                        <defs>
-                            <linearGradient id="irisGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#3b82f6"/>
-                                <stop offset="100%" stop-color="#8b5cf6"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <!-- DEUTSCHLY -->
+            <article class="project-card theme-purple" data-category="tools" data-glow="#635bff" data-project-index="04">
+                <div class="card-topline">
+                    <span class="project-index">04</span>
+                    <span class="project-kind">Tools</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/deutschly.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/deutschly.webp" alt="Deutschly German flashcard app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">German / flashcards</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Iriswa</h2>
-                    <p class="project-desc">A premium website application designed with a sleek user interface, containing fluid interactions and modern components.</p>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Learning system</span><h3 class="project-title">Deutschly</h3></div>
+                        <span class="project-year">04</span>
+                    </div>
+                    <p class="project-desc">A focused German flashcard PWA for Menschen A1.1 with adaptive review, practice drills, personal word banks, and cross-device sync.</p>
                     <div class="project-tags">
-                        <span class="tag">Modern UI</span>
-                        <span class="tag">Flexbox</span>
-                        <span class="tag">Interactive</span>
+                        <span class="tag">German A1.1</span>
+                        <span class="tag">PWA</span>
+                        <span class="tag">Adaptive Review</span>
+                        <span class="tag">Local-first</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="iriswa"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
+                        <button class="action-btn-card details-btn" data-id="deutschly"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/iriswa/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Iriswa" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/Deutschly/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch Deutschly" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/iriswa/" data-title="Iriswa" aria-label="Preview Iriswa" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Deutschly/" data-title="Deutschly" aria-label="Preview Deutschly" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- PAHLAVAN -->
-            <div class="project-card theme-emerald" data-category="designs" data-glow="#10b981">
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="25" y="25" width="50" height="50" rx="25" fill="url(#pahlavanGrad)"/>
-                        <path d="M40 50 L48 58 L62 44" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <defs>
-                            <linearGradient id="pahlavanGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#10b981"/>
-                                <stop offset="100%" stop-color="#059669"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <article class="project-card theme-emerald" data-category="designs" data-glow="#10b981" data-project-index="05">
+                <div class="card-topline">
+                    <span class="project-index">05</span>
+                    <span class="project-kind">Design</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/pahlavan.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/pahlavan.webp" alt="Pahlavan app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Landing / conversion</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Pahlavan</h2>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Launch surface</span><h3 class="project-title">Pahlavan</h3></div>
+                        <span class="project-year">05</span>
+                    </div>
                     <p class="project-desc">A professional project website featuring clean structural design and styled landing sections optimized for conversion.</p>
                     <div class="project-tags">
                         <span class="tag">Landing Page</span>
@@ -1116,62 +337,69 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- NCBI -->
-            <div class="project-card theme-cyan" data-category="science" data-glow="#06b6d4">
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M30 30 Q50 50 70 30 M30 70 Q50 50 70 70" stroke="url(#ncbiGrad)" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="40" y1="36" x2="40" y2="64" stroke="#fff" stroke-width="2" opacity="0.3"/>
-                        <line x1="50" y1="50" x2="50" y2="50" stroke="#fff" stroke-width="2" opacity="0.3"/>
-                        <line x1="60" y1="36" x2="60" y2="64" stroke="#fff" stroke-width="2" opacity="0.3"/>
-                        <defs>
-                            <linearGradient id="ncbiGrad" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stop-color="#06b6d4"/>
-                                <stop offset="100%" stop-color="#3b82f6"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <!-- SCHOLARPULSE -->
+            <article class="project-card theme-cyan" data-category="science" data-glow="#06b6d4" data-project-index="06">
+                <div class="card-topline">
+                    <span class="project-index">06</span>
+                    <span class="project-kind">Science</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/scholarpulse.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/scholarpulse.webp" alt="ScholarPulse academic research app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Scholar / research toolkit</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">NCBI Tool</h2>
-                    <p class="project-desc">A bioinformatic utility interface mimicking or connecting scientific query tools for biological sequence retrieval.</p>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Research workspace</span><h3 class="project-title">ScholarPulse</h3></div>
+                        <span class="project-year">06</span>
+                    </div>
+                    <p class="project-desc">An academic research toolkit for scholar search, profile discovery, citation formatting, bibliometrics, and offline exports.</p>
                     <div class="project-tags">
-                        <span class="tag">Bioinformatics</span>
-                        <span class="tag">Data Tables</span>
-                        <span class="tag">Search Tools</span>
+                        <span class="tag">Scholar Search</span>
+                        <span class="tag">Citations</span>
+                        <span class="tag">Bibliometrics</span>
+                        <span class="tag">Offline Tools</span>
                     </div>
                     <div class="action-row">
-                        <button class="action-btn-card details-btn" data-id="ncbi"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
+                        <button class="action-btn-card details-btn" data-id="scholarpulse"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
                         <div class="split-launch">
-                            <a href="https://soheil-aghayani.github.io/ncbi/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch NCBI Tool" title="Launch Website">
+                            <a href="https://soheil-aghayani.github.io/ScholarPulse/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Launch ScholarPulse" title="Launch Website">
                                 <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
                             </a>
-                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/ncbi/" data-title="NCBI Tool" aria-label="Preview NCBI Tool" title="Live Preview">
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/ScholarPulse/" data-title="ScholarPulse" aria-label="Preview ScholarPulse" title="Live Preview">
                                 <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- LABORATORY RULES -->
-            <div class="project-card theme-red" data-category="science" data-glow="#ef4444">
-                <div class="card-preview">
-                    <svg class="preview-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 20 L80 75 H20 Z" fill="url(#labGrad)"/>
-                        <path d="M50 40 V58 M50 66 H50.01" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="labGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#f59e0b"/>
-                                <stop offset="100%" stop-color="#ef4444"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+            <article class="project-card theme-red" data-category="science" data-glow="#ef4444" data-project-index="07">
+                <div class="card-topline">
+                    <span class="project-index">07</span>
+                    <span class="project-kind">Science</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/laboratory-rules.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/laboratory-rules.webp" alt="Laboratory Rules app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Safety / reference</span>
                 </div>
                 <div class="card-body">
-                    <h2 class="project-title">Laboratory Rules</h2>
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Reference system</span><h3 class="project-title">Laboratory Rules</h3></div>
+                        <span class="project-year">07</span>
+                    </div>
                     <p class="project-desc">A guidelines resource platform presenting standard safety laboratory practices and regulations in an clean layout.</p>
                     <div class="project-tags">
                         <span class="tag">Guidelines</span>
@@ -1190,28 +418,137 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
+            <!-- COFFPEN -->
+            <article class="project-card theme-amber" data-category="writing" data-glow="#f59e0b" data-project-index="08">
+                <div class="card-topline">
+                    <span class="project-index">08</span>
+                    <span class="project-kind">Writing</span>
+                    <span class="project-status">Live</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/coffpen.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/coffpen.webp" alt="Coffpen app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Publishing / static</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Independent publication</span><h3 class="project-title">Coffpen</h3></div>
+                        <span class="project-year">08</span>
+                    </div>
+                    <p class="project-desc">An independent Persian writing platform for short stories, serial fiction, and personal notes, published as a fast static site.</p>
+                    <div class="project-tags">
+                        <span class="tag">Writing Platform</span>
+                        <span class="tag">GitHub Pages</span>
+                        <span class="tag">Static Site</span>
+                    </div>
+                    <div class="action-row">
+                        <button class="action-btn-card details-btn" data-id="coffpen"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
+                        <div class="split-launch">
+                            <a href="https://soheil-aghayani.github.io/Coffpen/" target="_blank" rel="noopener noreferrer" class="action-btn-card launch-btn" aria-label="Open Coffpen" title="Open Coffpen">
+                                <span class="svg-icon-slot" data-icon="states/external-link-rounded" aria-hidden="true"></span>
+                            </a>
+                            <button class="action-btn-card preview-btn" data-url="https://soheil-aghayani.github.io/Coffpen/" data-title="Coffpen" aria-label="Preview Coffpen" title="Live Preview">
+                                <span class="svg-icon-slot" data-icon="ui/eye" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- DODGE GAME -->
+            <article class="project-card theme-ember" data-category="tools" data-glow="#ffb454" data-project-index="09">
+                <div class="card-topline">
+                    <span class="project-index">09</span>
+                    <span class="project-kind">Desktop</span>
+                    <span class="project-status">Repository</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/dodge-game.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/dodge-game.webp" alt="Dodge Game pixel-art app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">PyQt5 / survival arcade</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Desktop game</span><h3 class="project-title">Dodge Game</h3></div>
+                        <span class="project-year">09</span>
+                    </div>
+                    <p class="project-desc">Ashfall Embers Trial is a PyQt5 arcade survival game about dodging falling blocks, hazards, and abnormal events.</p>
+                    <div class="project-tags">
+                        <span class="tag">PyQt5</span>
+                        <span class="tag">Arcade Survival</span>
+                        <span class="tag">Pixel Art</span>
+                        <span class="tag">Desktop Game</span>
+                    </div>
+                    <div class="action-row">
+                        <button class="action-btn-card details-btn" data-id="dodge-game"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
+                        <a href="https://github.com/Soheil-Aghayani/dodge-game" target="_blank" rel="noopener noreferrer" class="action-btn-card repo-link" aria-label="Open Dodge Game repository" title="View source repository">
+                            <span class="svg-icon-slot" data-icon="brand/github" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            </div>
+            <section class="empty-state" id="emptyState" hidden aria-live="polite">
+                <span class="svg-icon-slot" data-icon="ui/search" aria-hidden="true"></span>
+                <h3>No projects match that search.</h3>
+                <p>Try a different term or reset the current filter.</p>
+                <button class="reset-btn" id="clearFilters" type="button">Reset project index</button>
+            </section>
         </main>
 
-        <footer>
-            <p>Copyright 2026 <a href="index.html"><span class="svg-icon-slot" data-icon="brand/favicon" aria-hidden="true"></span>Soheil Aghayani</a>. Built for speed, elegance, and sustainability.</p>
+        <footer class="projects-footer">
+            <div class="projects-footer-firefly projects-footer-firefly-1" aria-hidden="true"></div>
+            <div class="projects-footer-firefly projects-footer-firefly-2" aria-hidden="true"></div>
+            <div class="projects-footer-firefly projects-footer-firefly-3" aria-hidden="true"></div>
+            <div class="projects-footer-floor" aria-hidden="true"></div>
+
+            <div class="projects-footer-content">
+                <div class="projects-footer-brand">
+                    <h2>Soheil Aghayani</h2>
+                    <p class="projects-footer-tagline">Coding for a cleaner planet.<br>Merging environmental engineering with advanced logic.</p>
+                </div>
+
+                <div class="projects-footer-info">
+                    <div class="projects-eco-badge">
+                        <span class="svg-icon-slot" data-icon="ui/leaf" aria-hidden="true"></span>
+                        <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
+                    </div>
+                    <p class="projects-footer-note">Nine projects. One evolving workspace.</p>
+
+                    <nav class="projects-footer-links" aria-label="Project index links">
+                        <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer"><span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>LinkedIn</a>
+                        <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer"><span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>Telegram</a>
+                        <a href="mailto:soheil.aghayani@ut.ac.ir"><span class="svg-icon-slot" data-icon="ui/mail" aria-hidden="true"></span>Email</a>
+                    </nav>
+                </div>
+            </div>
+
+            <p class="projects-copyright"><span class="projects-shimmer-text">Copyright 2026 Soheil Aghayani. Built for speed, elegance, and sustainability.</span></p>
         </footer>
     </div>
 
     <!-- Live Preview Simulator Modal -->
-    <div id="previewOverlay" class="preview-overlay">
+    <div id="previewOverlay" class="preview-overlay" role="dialog" aria-modal="true" aria-labelledby="previewTitle" aria-hidden="true">
         <div class="preview-container">
             <div class="preview-header">
                 <span id="previewTitle" class="preview-title">Project Live Preview</span>
                 <div class="device-controls">
-                    <button class="device-btn active" data-device="desktop" type="button" aria-label="Preview on desktop" title="Desktop view">
+                    <button class="device-btn active" data-device="desktop" type="button" aria-label="Preview on desktop" aria-pressed="true" title="Desktop view">
                         <span class="svg-icon-slot" data-icon="states/conference" aria-hidden="true"></span>
                     </button>
-                    <button class="device-btn" data-device="tablet" type="button" aria-label="Preview on tablet" title="Tablet view">
+                    <button class="device-btn" data-device="tablet" type="button" aria-label="Preview on tablet" aria-pressed="false" title="Tablet view">
                         <span class="svg-icon-slot" data-icon="ui/tablet" aria-hidden="true"></span>
                     </button>
-                    <button class="device-btn" data-device="mobile" type="button" aria-label="Preview on mobile" title="Mobile view">
+                    <button class="device-btn" data-device="mobile" type="button" aria-label="Preview on mobile" aria-pressed="false" title="Mobile view">
                         <span class="svg-icon-slot" data-icon="ui/smartphone" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -1225,17 +562,17 @@
                 </div>
             </div>
             <div class="iframe-wrapper desktop" id="iframeWrapper">
-                <iframe id="previewIframe" src="" frameborder="0"></iframe>
+                <iframe id="previewIframe" src="" title="Project live preview" loading="lazy"></iframe>
             </div>
         </div>
     </div>
 
     <!-- Details Slide-out Drawer Side Sheet -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
-    <div class="details-drawer" id="detailsDrawer">
+    <div class="details-drawer" id="detailsDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
         <div class="drawer-header">
-            <span class="drawer-title" id="drawerTitle">Project Details</span>
-            <button class="drawer-close" id="closeDrawerBtn" aria-label="Close panel">
+            <h2 class="drawer-title" id="drawerTitle">Project Details</h2>
+            <button class="drawer-close" id="closeDrawerBtn" type="button" aria-label="Close project details">
                 <span class="svg-icon-slot" data-icon="ui/close-rounded" aria-hidden="true"></span>
             </button>
         </div>
@@ -1264,115 +601,7 @@
     </div>
 
     <script>
-        // --- 0. RETRO SYNTHESIZER SOUND EFFECTS CONTROLLER ---
-        let soundVolume = parseFloat(localStorage.getItem('projects_volume') ?? '0.3');
-        let soundEnabled = localStorage.getItem('projects_sound_enabled') !== 'false';
-
-        const soundToggle = document.getElementById('soundToggle');
-        const soundIcon = document.getElementById('soundIcon');
-        const volumeSlider = document.getElementById('volumeSlider');
-
-        function playSynthSound(type) {
-            if (!soundEnabled || soundVolume <= 0) return;
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const now = ctx.currentTime;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                gain.gain.setValueAtTime(0, now);
-
-                if (type === 'hover') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(320, now);
-                    osc.frequency.exponentialRampToValueAtTime(450, now + 0.05);
-                    gain.gain.linearRampToValueAtTime(soundVolume * 0.12, now + 0.01);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-                    osc.start(now);
-                    osc.stop(now + 0.06);
-                } else if (type === 'click') {
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(550, now);
-                    osc.frequency.setValueAtTime(800, now + 0.04);
-                    gain.gain.linearRampToValueAtTime(soundVolume * 0.2, now + 0.01);
-                    gain.gain.setValueAtTime(soundVolume * 0.2, now + 0.04);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                    osc.start(now);
-                    osc.stop(now + 0.11);
-                } else if (type === 'open') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(220, now);
-                    osc.frequency.exponentialRampToValueAtTime(600, now + 0.18);
-                    gain.gain.linearRampToValueAtTime(soundVolume * 0.18, now + 0.04);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-                    osc.start(now);
-                    osc.stop(now + 0.19);
-                } else if (type === 'close') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(600, now);
-                    osc.frequency.exponentialRampToValueAtTime(220, now + 0.14);
-                    gain.gain.linearRampToValueAtTime(soundVolume * 0.18, now + 0.04);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-                    osc.start(now);
-                    osc.stop(now + 0.15);
-                }
-            } catch(e) {}
-        }
-
-        function updateSoundUI() {
-            if (volumeSlider) volumeSlider.value = soundVolume;
-            if (soundIcon) {
-                if (!soundEnabled || soundVolume === 0) {
-                    soundIcon.innerHTML = window.IconRegistry
-                        ? window.IconRegistry.svg('ui/sound-minus', { className: 'projects-sound-icon', label: 'Sound muted' })
-                        : '';
-                    soundIcon.style.color = '#ef4444';
-                } else if (soundVolume <= 0.3) {
-                    soundIcon.innerHTML = window.IconRegistry
-                        ? window.IconRegistry.svg('ui/sound-off-2', { className: 'projects-sound-icon', label: 'Low volume' })
-                        : '';
-                    soundIcon.style.color = 'var(--primary)';
-                } else if (soundVolume <= 0.8) {
-                    soundIcon.innerHTML = window.IconRegistry
-                        ? window.IconRegistry.svg('ui/sound-volume-1', { className: 'projects-sound-icon', label: 'Medium volume' })
-                        : '';
-                    soundIcon.style.color = 'var(--primary)';
-                } else {
-                    soundIcon.innerHTML = window.IconRegistry
-                        ? window.IconRegistry.svg('ui/sound-volume-2', { className: 'projects-sound-icon', label: 'High volume' })
-                        : '';
-                    soundIcon.style.color = 'var(--primary)';
-                }
-            }
-        }
-
-        if (soundToggle) {
-            soundToggle.addEventListener('click', () => {
-                soundEnabled = !soundEnabled;
-                localStorage.setItem('projects_sound_enabled', soundEnabled);
-                updateSoundUI();
-                playSynthSound('click');
-            });
-        }
-
-        if (volumeSlider) {
-            volumeSlider.addEventListener('input', (e) => {
-                soundVolume = parseFloat(e.target.value);
-                localStorage.setItem('projects_volume', soundVolume);
-                if (soundVolume > 0 && !soundEnabled) {
-                    soundEnabled = true;
-                    localStorage.setItem('projects_sound_enabled', true);
-                }
-                updateSoundUI();
-            });
-        }
-
-        updateSoundUI();
-        document.addEventListener('DOMContentLoaded', updateSoundUI, { once: true });
-
-        // --- 1. THEME SYNCHRONIZATION FROM OS DESKTOP ---
+        // --- 0. THEME SYNCHRONIZATION FROM OS DESKTOP ---
         const root = document.documentElement;
         const desktopThemes = {
             teal: { primary: '#2dd4bf', glow: 'rgba(45, 212, 191, 0.25)', bg: '#090d16' },
@@ -1395,11 +624,10 @@
 
         // Auto Matrix falling code rain in projects background!
         let matrixActive = false;
-        let matrixInterval = null;
         let matrixCanvas = null;
 
         function startMatrixRain() {
-            if (matrixActive) return;
+            if (matrixActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             matrixActive = true;
             matrixCanvas = document.createElement('canvas');
             matrixCanvas.style.position = 'fixed';
@@ -1423,14 +651,23 @@
 
             const chars = "01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
             const fontSize = 14;
-            const columns = Math.floor(W / fontSize) + 1;
-            const drops = Array(columns).fill(1);
+            let drops = [];
 
-            let animId = null;
+            function resizeMatrix() {
+                const previousDrops = drops;
+                W = matrixCanvas.width = window.innerWidth;
+                H = matrixCanvas.height = window.innerHeight;
+                const columns = Math.floor(W / fontSize) + 1;
+                drops = Array.from({ length: columns }, (_, index) => previousDrops[index] || Math.random() * -20);
+            }
+
+            resizeMatrix();
+
+            let matrixFrame = null;
             let lastDrawTime = 0;
             function draw(timestamp) {
                 if (document.hidden) {
-                    animId = requestAnimationFrame(draw);
+                    matrixFrame = null;
                     return;
                 }
                 if (!timestamp || timestamp - lastDrawTime > 33) {
@@ -1454,9 +691,14 @@
                         drops[i]++;
                     }
                 }
-                animId = requestAnimationFrame(draw);
+                matrixFrame = requestAnimationFrame(draw);
             }
-            animId = requestAnimationFrame(draw);
+            matrixFrame = requestAnimationFrame(draw);
+
+            window.addEventListener('resize', resizeMatrix, { passive: true });
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && matrixActive && !matrixFrame) matrixFrame = requestAnimationFrame(draw);
+            });
         }
 
         if (activeThemeName === 'matrix') {
@@ -1468,44 +710,63 @@
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-card');
+        const resultCount = document.getElementById('resultCount');
+        const emptyState = document.getElementById('emptyState');
+        const clearFilters = document.getElementById('clearFilters');
 
         function filterProjects() {
             const query = searchInput.value.toLowerCase().trim();
-            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            const activeButton = document.querySelector('.filter-btn.active');
+            const activeFilter = activeButton ? activeButton.dataset.filter : 'all';
+            let visibleCount = 0;
 
             cards.forEach(card => {
-                const title = card.querySelector('.project-title').textContent.toLowerCase();
-                const desc = card.querySelector('.project-desc').textContent.toLowerCase();
-                const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase());
+                const searchableText = card.textContent.toLowerCase();
                 const category = card.dataset.category;
 
-                const matchesSearch = title.includes(query) || desc.includes(query) || tags.some(tag => tag.includes(query));
+                const matchesSearch = !query || searchableText.includes(query);
                 const matchesCategory = activeFilter === 'all' || category === activeFilter;
+                const isVisible = matchesSearch && matchesCategory;
 
-                if (matchesSearch && matchesCategory) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.classList.toggle('is-hidden', !isVisible);
+                card.setAttribute('aria-hidden', String(!isVisible));
+                if (isVisible) visibleCount += 1;
             });
+
+            resultCount.textContent = String(visibleCount).padStart(2, '0');
+            emptyState.hidden = visibleCount !== 0;
         }
 
         searchInput.addEventListener('input', filterProjects);
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                playSynthSound('click');
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                filterBtns.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
                 filterProjects();
             });
         });
 
+        clearFilters.addEventListener('click', () => {
+            searchInput.value = '';
+            const allButton = document.querySelector('[data-filter="all"]');
+            filterBtns.forEach(btn => {
+                const isAll = btn === allButton;
+                btn.classList.toggle('active', isAll);
+                btn.setAttribute('aria-pressed', String(isAll));
+            });
+            filterProjects();
+            searchInput.focus();
+        });
+
+        filterProjects();
+
 
         // --- 3. DYNAMIC BACKGROUND GLOW COLOR SHIFT ---
         const ambientGlow = document.getElementById('ambientGlow');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                playSynthSound('hover');
+        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (canHover) cards.forEach(card => {
+            card.addEventListener('pointerenter', () => {
                 const glowColor = card.dataset.glow || '#2dd4bf';
                 const r = parseInt(glowColor.substring(1,3), 16);
                 const g = parseInt(glowColor.substring(3,5), 16);
@@ -1513,7 +774,7 @@
                 ambientGlow.style.background = `radial-gradient(circle, rgba(${r}, ${g}, ${b}, 0.22) 0%, rgba(0,0,0,0) 70%)`;
             });
 
-            card.addEventListener('mouseleave', () => {
+            card.addEventListener('pointerleave', () => {
                 ambientGlow.style.background = `radial-gradient(circle, var(--theme-glow) 0%, rgba(0,0,0,0) 70%)`;
             });
         });
@@ -1556,16 +817,16 @@
                 ],
                 notes: 'Developed to showcase responsive grid structures and state preservation. The layout dynamically balances recipe cards depending on screen real estate, yielding a seamless browsing experience on mobile devices.'
             },
-            'iriswa': {
-                title: 'Iriswa Portal',
-                overview: 'A premium showcase platform presenting design portfolios and commercial services, utilizing neon layout backdrops and parallax grid structures.',
-                tech: ['CSS Custom variables', 'Intersection Observer API', 'Parallax Scrolling effects', 'Mobile Touch Slider'],
+            'deutschly': {
+                title: 'Deutschly',
+                overview: 'A focused German flashcard PWA for Menschen A1.1 with adaptive review, practice drills, personal word banks, and cross-device sync.',
+                tech: ['React', 'Progressive Web App', 'Adaptive Review', 'Local-first Storage', 'Cross-device Sync'],
                 features: [
-                    'Smooth parallax backdrop elements scrolling independently of cards.',
-                    'Intersection observer hooks to slide elements into view as page scroll occurs.',
-                    'Custom responsive cards with interactive glow indicators on hover.'
+                    'Adaptive review sessions that turn recall history into a focused daily learning loop.',
+                    'Practice drills, personal word banks, and achievement feedback for Menschen A1.1 vocabulary.',
+                    'Progressive web app behavior with a local-first path for learning on phone and desktop.'
                 ],
-                notes: 'Focuses heavily on styling aesthetics, proving how simple, clean layout libraries and custom CSS variables can emulate complex front-end frameworks like React or Tailwind.'
+                notes: 'Deutschly is the German-learning project in the collection. Its visual system stays focused and calm so the learning loop, rather than decoration, carries the experience.'
             },
             'pahlavan': {
                 title: 'Pahlavan Landing',
@@ -1578,16 +839,16 @@
                 ],
                 notes: 'Built with conversion optimization principles in mind. Style sheets are minimized and loaded inline to reduce initial rendering blocks, creating zero-latency interaction delays.'
             },
-            'ncbi': {
-                title: 'NCBI Bioinformatics Tool',
-                overview: 'A scientific helper tool, designed to search and validate biological data queries and sequence structures with immediate validation.',
-                tech: ['Tabular Data Grids', 'RegEx sequence validators', 'FASTA query parsers', 'CSV exporters'],
+            'scholarpulse': {
+                title: 'ScholarPulse',
+                overview: 'An academic research toolkit for scholar search, Google Scholar profiles, citation formatting, bibliometrics, and offline exports.',
+                tech: ['React', 'Scholar Search Workflows', 'Citation Formatting', 'Bibliometrics', 'Offline HTML Parser'],
                 features: [
-                    'Interactive tabular database lookup with columns sorting.',
-                    'Client-side sequence validators that check FASTA and DNA/RNA structures.',
-                    'File downloader exporting table queries into clean CSV formats.'
+                    'Search workflows for scholars, institutions, and research fields with spelling-tolerant matching.',
+                    'Citation and reference formatting designed for quick reuse across academic writing tasks.',
+                    'Local parsing and export paths that keep research tooling useful without requiring an API key.'
                 ],
-                notes: 'Designed to mimic bioinformatics query desks. It includes sequence mapping checkers that parse biological string files locally before forwarding database requests, preventing invalid search operations.'
+                notes: 'ScholarPulse turns the repetitive parts of academic discovery into a single focused workspace, with clear paths from search to usable references.'
             },
             'lab-rules': {
                 title: 'Laboratory Safety Rules',
@@ -1599,6 +860,28 @@
                     'High contrast themes optimized for readability in laboratory screen environments.'
                 ],
                 notes: 'Engineered as a lightweight safety handbook. Employs semantic accessibility standards, making critical hazard guidelines accessible to all users under diverse settings.'
+            },
+            'coffpen': {
+                title: 'Coffpen',
+                overview: 'An independent Persian writing platform for short stories, serial fiction, and personal notes, delivered as a focused static site on GitHub Pages.',
+                tech: ['Static HTML', 'GitHub Pages', 'Jekyll tooling', 'SEO metadata'],
+                features: [
+                    'Dedicated reading experiences for stories, series, archives, and author pages.',
+                    'Static publishing architecture with generated feeds, sitemaps, and machine-readable metadata.',
+                    'A separate Persian publication identity that stays independent from this English portfolio.'
+                ],
+                notes: 'Coffpen is published at soheil-aghayani.github.io/Coffpen/ and maintained in the Coffpen repository.'
+            },
+            'dodge-game': {
+                title: 'Dodge Game',
+                overview: 'Ashfall Embers Trial is a PyQt5 arcade survival game about dodging falling blocks, hazards, and abnormal events.',
+                tech: ['Python', 'PyQt5', 'Pixel Art', 'Arcade Game Loop', 'Desktop Packaging'],
+                features: [
+                    'Survival runs built around readable hazards, falling blocks, and escalating abnormal events.',
+                    'A custom pixel-art visual language for the player, environments, obstacles, and effects.',
+                    'Desktop-first interaction with a compact PyQt5 game shell and local assets.'
+                ],
+                notes: 'Dodge Game is represented honestly as a desktop repository rather than a fake web preview. The card uses the project artwork as its visual entry point and links directly to the source.'
             }
         };
 
@@ -1611,20 +894,19 @@
         const drawerNotes = document.getElementById('drawerNotes');
         const closeDrawerBtn = document.getElementById('closeDrawerBtn');
         const detailsBtns = document.querySelectorAll('.details-btn');
+        let drawerReturnFocus = null;
 
         detailsBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                playSynthSound('open');
                 const projectId = btn.dataset.id;
                 const data = projectDetails[projectId];
                 if (!data) return;
+                drawerReturnFocus = btn;
 
-                // Populate drawer
                 drawerTitle.textContent = data.title;
                 drawerOverview.textContent = data.overview;
                 drawerNotes.textContent = data.notes;
 
-                // Tech stack pills
                 drawerTech.innerHTML = '';
                 data.tech.forEach(t => {
                     const pill = document.createElement('span');
@@ -1644,23 +926,23 @@
                     li.append(icon, document.createTextNode(f));
                     drawerFeatures.appendChild(li);
                 });
+                window.IconRegistry?.hydrate(drawerFeatures);
 
-                // Open drawer
-                drawerOverlay.style.display = 'block';
-                setTimeout(() => {
-                    drawerOverlay.classList.add('active');
-                    detailsDrawer.classList.add('active');
-                }, 10);
+                drawerOverlay.classList.add('active');
+                detailsDrawer.classList.add('active');
+                detailsDrawer.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                requestAnimationFrame(() => closeDrawerBtn.focus());
             });
         });
 
         function closeDrawer() {
-            playSynthSound('close');
+            if (!detailsDrawer.classList.contains('active')) return;
             drawerOverlay.classList.remove('active');
             detailsDrawer.classList.remove('active');
-            setTimeout(() => {
-                drawerOverlay.style.display = 'none';
-            }, 300);
+            detailsDrawer.setAttribute('aria-hidden', 'true');
+            if (!previewOverlay?.classList.contains('active')) document.body.classList.remove('modal-open');
+            drawerReturnFocus?.focus();
         }
 
         closeDrawerBtn.addEventListener('click', closeDrawer);
@@ -1676,31 +958,32 @@
         const closePreviewBtn = document.getElementById('closePreviewBtn');
         const deviceBtns = document.querySelectorAll('.device-btn');
         const iframeWrapper = document.getElementById('iframeWrapper');
+        let previewReturnFocus = null;
 
         previewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                playSynthSound('open');
                 const url = btn.dataset.url;
                 const title = btn.dataset.title;
+                previewReturnFocus = btn;
 
                 previewIframe.src = url;
                 previewTitle.textContent = `${title} - Live Preview`;
                 previewExternalLink.href = url;
 
-                previewOverlay.style.display = 'flex';
-                setTimeout(() => {
-                    previewOverlay.classList.add('active');
-                }, 10);
+                previewOverlay.classList.add('active');
+                previewOverlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                requestAnimationFrame(() => closePreviewBtn.focus());
             });
         });
 
         function closePreview() {
-            playSynthSound('close');
+            if (!previewOverlay.classList.contains('active')) return;
             previewOverlay.classList.remove('active');
-            setTimeout(() => {
-                previewOverlay.style.display = 'none';
-                previewIframe.src = '';
-            }, 300);
+            previewOverlay.setAttribute('aria-hidden', 'true');
+            previewIframe.src = '';
+            if (!detailsDrawer.classList.contains('active')) document.body.classList.remove('modal-open');
+            previewReturnFocus?.focus();
         }
 
         closePreviewBtn.addEventListener('click', closePreview);
@@ -1710,20 +993,32 @@
 
         deviceBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                playSynthSound('click');
                 deviceBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                deviceBtns.forEach(deviceBtn => deviceBtn.setAttribute('aria-pressed', String(deviceBtn === btn)));
 
                 const device = btn.dataset.device;
                 iframeWrapper.className = `iframe-wrapper ${device}`;
             });
         });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            if (detailsDrawer.classList.contains('active')) {
+                closeDrawer();
+            } else if (previewOverlay.classList.contains('active')) {
+                closePreview();
+            }
+        });
     </script>
 
     <!-- FLOATING MUSIC TOGGLE BUTTON -->
-    <button class="music-toggle-btn" id="musicToggleBtn" type="button" aria-label="Toggle background music" title="Toggle background music">
-        <span class="svg-icon-slot" data-icon="ui/music-off-round" id="musicMuteIcon" aria-hidden="true"></span>
-        <div id="musicWave">
+    <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle background music" title="Toggle background music">
+        <div class="music-mute-icon" id="musicMuteIcon">
+            <span class="svg-icon-slot" data-icon="ui/music-off-round" aria-hidden="true"></span>
+        </div>
+        <div class="music-wave" id="musicWave">
+            <span></span>
             <span></span>
             <span></span>
             <span></span>

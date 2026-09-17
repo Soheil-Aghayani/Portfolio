@@ -129,9 +129,13 @@ js/
   games/                    Lazy-loaded game modules
 assets/
   icons/                    Canonical SVGs, generated sprite, and manifest
-  images/                   Portfolio, game, and miner artwork
+  images/                   Portfolio, project, game, and miner artwork
+    projects/               Local project artwork and Big Sur-style WebP icons
+      icons/                One square WebP app icon per showcased project
+      previews/             Preserved full-width project captures
   audio/                    Local audio tracks
 tools/assets/               Repeatable asset and sprite tooling
+  build-project-icons.js    Rebuilds the local Big Sur-style project WebPs
 server.js                   Small local development server
 ```
 
@@ -144,11 +148,19 @@ Icons are part of the product surface, not a runtime dependency fetched from a f
 - `assets/icons/manifest.json` records paths, source categories, and duplicate decisions.
 - `js/icons.js` exposes the shared `IconRegistry` for static and dynamically-created UI.
 - UI icon fonts, pictographic emoji, and runtime external SVG downloads are not used.
+- `file://` previews switch to direct local SVG images because browsers block cross-file sprite fragments; hosted pages keep the sprite path.
+- Project artwork is local and recorded in `assets/images/manifest.json`. The index uses square Big Sur-style WebP icons from `assets/images/projects/icons/`; source captures are preserved under `assets/images/projects/previews/` for future detail views.
 
 After changing a canonical icon, rebuild the sprite from the repository root:
 
 ```powershell
 node tools/assets/build-icon-sprite.js
+```
+
+Rebuild the project artwork after changing a source icon or preview:
+
+```powershell
+npm run build:project-icons
 ```
 
 Read [ICON_DECISIONS.md](ICON_DECISIONS.md) for the visual and licensing decisions behind the asset system.

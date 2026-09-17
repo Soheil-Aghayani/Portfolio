@@ -636,7 +636,7 @@
     if (!overlay) return;
 
     const SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    const CHEAT_ICON = 'states/hacker';
+    const CHEAT_ICON = 'states/hacker-outline';
     let pos = 0;
 
     const isTyping = (e) => {

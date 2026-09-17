@@ -75,15 +75,29 @@ export class GameLauncher {
     render() {
         this.container.innerHTML = `
             <div class="app-body">
-                <div id="gameMenu" class="game-grid">
-                    ${this.games.map(g => `
-                        <div class="game-icon" data-id="${g.id}" role="button" tabindex="0" aria-label="Launch ${g.name}">
+                <div class="game-menu">
+                    <div class="game-menu-header">
+                        <div class="game-menu-copy">
+                            <span class="game-menu-kicker">LOCAL ARCADE / READY</span>
+                            <h2>Choose your next run</h2>
+                            <p>Seven focused worlds. No downloads, no distractions.</p>
+                        </div>
+                        <div class="game-menu-count" aria-label="${this.games.length} games available">
+                            <strong>${String(this.games.length).padStart(2, '0')}</strong>
+                            <span>ARCADES</span>
+                        </div>
+                    </div>
+                    <div id="gameMenu" class="game-grid">
+                    ${this.games.map((g, index) => `
+                        <div class="game-icon" data-id="${g.id}" data-index="${String(index + 1).padStart(2, '0')}" role="button" tabindex="0" aria-label="Launch ${g.name}">
+                            <span class="game-icon-index" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
                             <div class="game-icon-img">
-                            <img src="${g.img}" alt="${g.name}" loading="lazy" decoding="async" draggable="false" />
+                            <img src="${g.img}" alt="${g.name}" loading="eager" decoding="async" draggable="false" />
                             </div>
                             <span class="game-icon-name">${g.name}</span>
                         </div>
                     `).join('')}
+                    </div>
                 </div>
                 <div id="gameStage" class="game-container" style="display:none;"></div>
             </div>
@@ -106,13 +120,8 @@ export class GameLauncher {
             });
         });
 
-        // Paint the menu first, then warm the small game modules in idle time.
-        const warmAllGames = () => this.games.forEach(game => preloadGame(game.id).catch(() => {}));
-        if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(warmAllGames, { timeout: 1200 });
-        } else {
-            window.setTimeout(warmAllGames, 250);
-        }
+        // Do not preload every game on menu open. Pointer/focus warming keeps
+        // the selected game responsive without creating a multi-module burst.
     }
 
     async launch(id) {

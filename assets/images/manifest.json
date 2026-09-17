@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "runtime": "local project artwork; no remote image dependency",
+  "records": [
+    {
+      "key": "projects/icons/egg-timer",
+      "path": "assets/images/projects/icons/egg-timer.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/time.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/design-suite",
+      "path": "assets/images/projects/icons/design-suite.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/outline-pan-tool.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/food-recipe",
+      "path": "assets/images/projects/icons/food-recipe.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/leaf.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/deutschly",
+      "path": "assets/images/projects/icons/deutschly.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/language.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/pahlavan",
+      "path": "assets/images/projects/icons/pahlavan.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/states/verified.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/scholarpulse",
+      "path": "assets/images/projects/icons/scholarpulse.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/journal.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/laboratory-rules",
+      "path": "assets/images/projects/icons/laboratory-rules.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/states/warning.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/coffpen",
+      "path": "assets/images/projects/icons/coffpen.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-svg",
+      "sourcePath": "assets/icons/ui/journal.svg",
+      "duplicateDecision": "new-generated-webp; canonical-svg-preserved",
+      "license": "derived from the local canonical icon; no external runtime dependency"
+    },
+    {
+      "key": "projects/icons/dodge-game",
+      "path": "assets/images/projects/icons/dodge-game.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-project-preview",
+      "sourcePath": "assets/images/projects/previews/dodge-game.webp",
+      "sourceUrl": "https://github.com/Soheil-Aghayani/dodge-game/blob/main/Dodge.png",
+      "duplicateDecision": "new-generated-webp; preview-source-preserved",
+      "license": "project-owned source; verify repository license before redistribution"
+    },
+    {
+      "key": "projects/previews/deutschly",
+      "path": "assets/images/projects/previews/deutschly.webp",
+      "sourceCategory": "project-preview",
+      "source": "captured-from-owned-public-project",
+      "sourceUrl": "https://soheil-aghayani.github.io/Deutschly/",
+      "duplicateDecision": "canonical-preview-moved; preserved for future detail views",
+      "license": "project-owned source; verify repository license before redistribution"
+    },
+    {
+      "key": "projects/previews/scholarpulse",
+      "path": "assets/images/projects/previews/scholarpulse.webp",
+      "sourceCategory": "project-preview",
+      "source": "captured-from-owned-public-project",
+      "sourceUrl": "https://soheil-aghayani.github.io/ScholarPulse/",
+      "duplicateDecision": "canonical-preview-moved; preserved for future detail views",
+      "license": "project-owned source; verify repository license before redistribution"
+    },
+    {
+      "key": "projects/previews/dodge-game",
+      "path": "assets/images/projects/previews/dodge-game.webp",
+      "sourceCategory": "project-preview",
+      "source": "canonical-artwork-from-owned-public-repository",
+      "sourceUrl": "https://github.com/Soheil-Aghayani/dodge-game/blob/main/Dodge.png",
+      "duplicateDecision": "canonical-preview-moved; preserved for future detail views",
+      "license": "project-owned source; verify repository license before redistribution"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ const initApp = () => {
 
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'css/os.css?v=2.3';
+        link.href = 'css/os.css?v=2.4';
         link.dataset.osStyles = 'true';
         osStylesPromise = new Promise((resolve, reject) => {
             link.onload = () => resolve(link);
@@ -110,7 +110,7 @@ const initApp = () => {
     let launcherPromise;
     const ensureGameLauncher = () => {
         if (!launcherPromise) {
-            launcherPromise = import('./games/launcher.js?v=9.1')
+            launcherPromise = import('./games/launcher.js?v=9.2')
                 .then(({ GameLauncher }) => {
                     const launcher = new GameLauncher('appBody');
                     window.gameLauncherInstance = launcher;

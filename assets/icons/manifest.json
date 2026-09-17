@@ -742,6 +742,17 @@
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
     },
     {
+      "key": "states/hacker-outline",
+      "path": "assets/icons/states/hacker-outline.svg",
+      "spriteId": "states-hacker-outline",
+      "sourceCategory": "states",
+      "source": "canonical-local-svg",
+      "sourceIcon": "states/hacker-outline",
+      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
+      "license": "unverified-local-svg-source",
+      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
+    },
+    {
       "key": "states/heart-bold",
       "path": "assets/icons/states/heart-bold.svg",
       "spriteId": "states-heart-bold",

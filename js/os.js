@@ -102,6 +102,9 @@ class WindowManager {
         document.body.style.overflow = 'hidden'; // Lock scroll
         document.body.style.overscrollBehavior = 'none';
         document.documentElement.style.overscrollBehavior = 'none';
+        window.dispatchEvent(new CustomEvent('os-visibilitychange', {
+            detail: { active: true, app: id }
+        }));
 
         if (app.options.onOpen) app.options.onOpen(...args);
     }
@@ -132,6 +135,10 @@ class WindowManager {
             document.body.style.overscrollBehavior = '';
             document.documentElement.style.overscrollBehavior = '';
         }
+
+        window.dispatchEvent(new CustomEvent('os-visibilitychange', {
+            detail: { active: anyOpen, app: id }
+        }));
 
         // Restore focus
         if (app.previousFocus) {

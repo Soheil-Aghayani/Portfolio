@@ -3,7 +3,8 @@
 
     // Bump this whenever the generated sprite changes so browsers do not keep
     // serving an older icon set from GitHub Pages' cache.
-    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.2-dvd';
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.4-file-fallback';
+    const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
 
     function escapeAttribute(value) {
         return String(value == null ? '' : value)
@@ -22,9 +23,39 @@
             .replace(/[^a-z0-9_-]/gi, '-');
     }
 
+    function normalizeAssetPath(name) {
+        const segments = String(name || '')
+            .trim()
+            .replace(/\\/g, '/')
+            .replace(/\.svg$/i, '')
+            .split('/')
+            .filter(Boolean);
+
+        if (!segments.length || !segments.every(segment => /^[a-z0-9_-]+$/i.test(segment))) return '';
+        return segments.join('/');
+    }
+
+    function buildDirectImage(name, options = {}, id) {
+        const assetPath = normalizeAssetPath(name);
+        if (!assetPath) return '';
+
+        const className = ['svg-icon', options.className || ''].filter(Boolean).join(' ');
+        const size = options.size ? ` width="${escapeAttribute(options.size)}" height="${escapeAttribute(options.size)}"` : '';
+        const label = options.label
+            ? ` role="img" aria-label="${escapeAttribute(options.label)}" alt="${escapeAttribute(options.label)}"`
+            : ' aria-hidden="true" alt=""';
+        const assetUrl = new URL(`assets/icons/${assetPath}.svg`, document.baseURI).href;
+
+        // External SVG fragments are blocked from file:// pages. A direct local
+        // image keeps offline previews usable without changing the deployed path.
+        return `<img class="${escapeAttribute(className)} icon-file-fallback" data-icon-name="${escapeAttribute(id)}" src="${escapeAttribute(assetUrl)}"${size}${label} decoding="async">`;
+    }
+
     function buildSvg(name, options = {}) {
         const id = normalizeName(name);
         if (!id) return '';
+
+        if (IS_FILE_PROTOCOL) return buildDirectImage(name, options, id);
 
         const className = ['svg-icon', options.className || ''].filter(Boolean).join(' ');
         const size = options.size ? ` width="${escapeAttribute(options.size)}" height="${escapeAttribute(options.size)}"` : '';

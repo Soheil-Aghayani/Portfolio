@@ -120,6 +120,10 @@
             stroke-linejoin: round;
             flex-shrink: 0;
         }
+        .icon-file-fallback {
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
         .svg-icon-slot {
             display: inline-flex;
             align-items: center;
@@ -1438,6 +1442,13 @@
     }
     .aurora-blob { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.5; animation: floatBlob 10s infinite alternate; }
     html:not(.landing-effects-ready) .aurora-blob { animation-play-state: paused; filter: none; opacity: 0.16; }
+    html.os-active .aurora-blob,
+    html.os-active .t-card.float,
+    html.os-active .hello-world::before,
+    html.os-active .hello-world::after {
+        animation-play-state: paused;
+    }
+    html.os-active #particleCanvas { visibility: hidden; }
     .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent 70%); animation-delay: 0s; }
     .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary), transparent 70%); animation-delay: -5s; }
     .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.3; animation: floatBlob 15s infinite alternate-reverse; }
@@ -1595,13 +1606,13 @@
 
     <div class="social-dock">
         <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="dock-link linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-linkedin-circle"></use></svg>
+            <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
         </a>
         <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="dock-link telegram" title="Telegram" aria-label="Telegram Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-telegram"></use></svg>
+            <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
         </a>
         <a href="https://github.com/Soheil-Aghayani" target="_blank" rel="noopener noreferrer" class="dock-link github" title="GitHub" aria-label="GitHub Profile">
-            <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-github"></use></svg>
+            <span class="svg-icon-slot" data-icon="brand/github" aria-hidden="true"></span>
         </a>
     </div>
 
@@ -1621,17 +1632,17 @@
 
         <div class="hero-actions-container">
             <a href="#contact" class="btn-hero-primary" id="getInTouchBtn">
-                Get in Touch <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#ui-mail"></use></svg>
+                Get in Touch <span class="svg-icon-slot" data-icon="ui/mail" aria-hidden="true"></span>
             </a>
             <div class="mobile-socials">
                 <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer" class="mobile-social-icon linkedin" aria-label="LinkedIn Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-linkedin-circle"></use></svg>
+                    <span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>
                 </a>
                 <a href="https://t.me/AgSeyl" target="_blank" rel="noopener noreferrer" class="mobile-social-icon telegram" aria-label="Telegram Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-telegram"></use></svg>
+                    <span class="svg-icon-slot" data-icon="brand/telegram" aria-hidden="true"></span>
                 </a>
                 <a href="https://github.com/Soheil-Aghayani" target="_blank" rel="noopener noreferrer" class="mobile-social-icon github" aria-label="GitHub Profile">
-                    <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#brand-github"></use></svg>
+                    <span class="svg-icon-slot" data-icon="brand/github" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
@@ -1639,7 +1650,7 @@
 
     <a href="#education" class="scroll-down" aria-label="Scroll to Explore">
         <span>Scroll to Explore</span>
-        <svg class="svg-icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg?v=3.2-dvd#games-shared-arrow-down"></use></svg>
+        <span class="svg-icon-slot" data-icon="games/shared/arrow-down" aria-hidden="true"></span>
     </a>
 
     <script>
@@ -4190,9 +4201,9 @@
 
 <script defer src="js/site-config.js?v=1.0"></script>
 <script defer src="js/analytics.js?v=1.0"></script>
-<script defer src="js/icons.js?v=4.3"></script>
-<script defer src="js/os.js?v=2.3"></script>
-<script type="module" src="js/app.js?v=2.4"></script>
+<script defer src="js/icons.js?v=4.5"></script>
+<script defer src="js/os.js?v=2.4"></script>
+<script type="module" src="js/app.js?v=2.5"></script>
 
 <script>
 (function initParticles() {
@@ -4274,21 +4285,30 @@
     }
 
     let lastParticleFrameTime = 0;
+    let lastParticlePaintTime = 0;
     let particleAnimationId = null;
     let pausedForScreensaver = false;
+    let pausedForOs = false;
+    const MIN_PARTICLE_FRAME_MS = 1000 / 30;
 
     function tick(timestamp) {
         particleAnimationId = null;
-        if (document.hidden || pausedForScreensaver) {
+        if (document.hidden || pausedForScreensaver || pausedForOs) {
             lastParticleFrameTime = 0;
+            lastParticlePaintTime = 0;
             return;
         }
 
         const now = Number.isFinite(timestamp) ? timestamp : performance.now();
+        if (lastParticlePaintTime && now - lastParticlePaintTime < MIN_PARTICLE_FRAME_MS) {
+            particleAnimationId = requestAnimationFrame(tick);
+            return;
+        }
         const frameScale = lastParticleFrameTime
             ? Math.min(2.5, Math.max(0.5, (now - lastParticleFrameTime) / 16.6667))
             : 1;
         lastParticleFrameTime = now;
+        lastParticlePaintTime = now;
 
         if (isMatrixTheme) {
             if (matrixDrops.length === 0) initMatrixDrops();
@@ -4374,7 +4394,7 @@
     }
 
     function scheduleParticleFrame() {
-        if (particlesStarted && !particleAnimationId && !document.hidden && !pausedForScreensaver) {
+        if (particlesStarted && !particleAnimationId && !document.hidden && !pausedForScreensaver && !pausedForOs) {
             particleAnimationId = requestAnimationFrame(tick);
         }
     }
@@ -4382,6 +4402,11 @@
     window.addEventListener('screensaver-visibilitychange', (event) => {
         pausedForScreensaver = Boolean(event.detail && event.detail.active);
         if (!pausedForScreensaver) scheduleParticleFrame();
+    });
+
+    window.addEventListener('os-visibilitychange', (event) => {
+        pausedForOs = Boolean(event.detail && event.detail.active);
+        if (!pausedForOs) scheduleParticleFrame();
     });
 
     document.addEventListener('visibilitychange', scheduleParticleFrame);
@@ -4443,16 +4468,19 @@
 
 
 <script type="module">
-    // Screensaver and cheat code effects are loaded on idle, or on demand by the terminal.
+    // Keep the first landing interaction quiet; terminal commands still load
+    // the effects immediately through ensureLandingEffects().
     const loadLandingEffects = () => {
-        if (!window.__landingEffectsPromise) window.__landingEffectsPromise = import('./js/landing-effects.js?v=1.0');
+        if (!window.__landingEffectsPromise) window.__landingEffectsPromise = import('./js/landing-effects.js?v=1.1');
         return window.__landingEffectsPromise;
     };
     window.ensureLandingEffects = loadLandingEffects;
     const scheduleLandingEffects = () => {
         const load = () => loadLandingEffects().catch(error => console.error('Landing effects failed to load:', error));
-        if ('requestIdleCallback' in window) window.requestIdleCallback(load, { timeout: 1600 });
-        else setTimeout(load, 0);
+        window.setTimeout(() => {
+            if ('requestIdleCallback' in window) window.requestIdleCallback(load, { timeout: 1000 });
+            else setTimeout(load, 0);
+        }, 2200);
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scheduleLandingEffects, { once: true });
     else scheduleLandingEffects();

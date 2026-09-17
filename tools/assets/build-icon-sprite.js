@@ -79,6 +79,7 @@ const iconSources = [
     ['states/flowchart-outline-sharp', 'presentation-graph-linear'],
     ['states/go-back', 'alt-arrow-left-line-duotone'],
     ['states/hacker', 'programming-linear'],
+    ['states/hacker-outline', 'programming-linear'],
     ['states/heart-bold', 'heart-bold'],
     ['states/security-check', 'shield-check-outline'],
     ['states/verified', 'verified-check-linear'],
