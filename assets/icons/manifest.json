@@ -544,6 +544,17 @@
       "externalLicense": "license metadata was not included with the local source; verify before redistribution"
     },
     {
+      "key": "ui/monitor-linear",
+      "path": "assets/icons/ui/monitor-linear.svg",
+      "spriteId": "ui-monitor-linear",
+      "sourceCategory": "ui",
+      "source": "canonical-local-svg",
+      "sourceIcon": "ui/monitor-linear",
+      "duplicateDecision": "canonical-local-svg-preserved-and-used-for-sprite",
+      "license": "unverified-local-svg-source",
+      "externalLicense": "license metadata was not included with the local source; verify before redistribution"
+    },
+    {
       "key": "ui/sound-volume-2",
       "path": "assets/icons/ui/sound-volume-2.svg",
       "spriteId": "ui-sound-volume-2",

@@ -60,6 +60,7 @@ const iconSources = [
     ['ui/eye', 'eye-linear'],
     ['ui/smartphone', 'gameboy-outline'],
     ['ui/tablet', 'tablet-linear'],
+    ['ui/monitor-linear', 'monitor-linear'],
     ['ui/sound-volume-2', 'music-library-2-bold'],
     ['ui/sound-volume-1', 'music-library-2-linear'],
     ['ui/sound-off-2', 'muted-linear'],
