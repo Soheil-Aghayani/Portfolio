@@ -52,7 +52,7 @@
           "@type": "ItemList",
           "@id": "https://soheil-aghayani.github.io/projects.html#project-list",
           "name": "Soheil Aghayani web projects",
-          "numberOfItems": 9,
+          "numberOfItems": 10,
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Egg Timer", "url": "https://soheil-aghayani.github.io/egg-timer/" },
             { "@type": "ListItem", "position": 2, "name": "Design Suite", "url": "https://soheil-aghayani.github.io/Design-Suite/" },
@@ -60,9 +60,10 @@
             { "@type": "ListItem", "position": 4, "name": "Deutschly", "url": "https://soheil-aghayani.github.io/Deutschly/" },
             { "@type": "ListItem", "position": 5, "name": "Pahlavan", "url": "https://soheil-aghayani.github.io/pahlavan/" },
             { "@type": "ListItem", "position": 6, "name": "ScholarPulse", "url": "https://soheil-aghayani.github.io/ScholarPulse/" },
-            { "@type": "ListItem", "position": 7, "name": "Laboratory Rules", "url": "https://soheil-aghayani.github.io/Laboratory-Rules/" },
-            { "@type": "ListItem", "position": 8, "name": "Coffpen", "url": "https://soheil-aghayani.github.io/Coffpen/" },
-            { "@type": "ListItem", "position": 9, "name": "Dodge Game", "url": "https://github.com/Soheil-Aghayani/dodge-game" }
+            { "@type": "ListItem", "position": 7, "name": "CivilicaPulse", "url": "https://github.com/Soheil-Aghayani/CivilicaPulse" },
+            { "@type": "ListItem", "position": 8, "name": "Laboratory Rules", "url": "https://soheil-aghayani.github.io/Laboratory-Rules/" },
+            { "@type": "ListItem", "position": 9, "name": "Coffpen", "url": "https://soheil-aghayani.github.io/Coffpen/" },
+            { "@type": "ListItem", "position": 10, "name": "Dodge Game", "url": "https://github.com/Soheil-Aghayani/dodge-game" }
           ]
         }
       ]
@@ -99,7 +100,7 @@
                     <p>A working index of interactive tools, design experiments, and science-focused interfaces. Built to be explored, not just displayed.</p>
                 </div>
                 <div class="hero-stats" aria-label="Project collection summary">
-                    <div class="hero-stat"><strong>09</strong><span>projects</span></div>
+                    <div class="hero-stat"><strong>10</strong><span>projects</span></div>
                     <div class="hero-stat"><strong>04</strong><span>directions</span></div>
                     <div class="hero-stat"><strong>01</strong><span>desktop build</span></div>
                 </div>
@@ -113,7 +114,7 @@
                     <span class="svg-icon-slot search-icon" data-icon="ui/search" aria-hidden="true"></span>
                     <input type="search" id="searchInput" autocomplete="off" placeholder="Search by name, technology, or focus...">
                 </div>
-                <p class="results-summary" id="resultsSummary" role="status" aria-live="polite"><strong id="resultCount">09</strong> projects</p>
+                <p class="results-summary" id="resultsSummary" role="status" aria-live="polite"><strong id="resultCount">10</strong> projects</p>
             </div>
             <div class="filter-options" role="group" aria-label="Filter projects by category">
                 <span class="filter-label">Filter by</span>
@@ -380,10 +381,46 @@
                 </div>
             </article>
 
-            <!-- LABORATORY RULES -->
-            <article class="project-card theme-red" data-category="science" data-glow="#ef4444" data-project-index="07">
+            <!-- CIVILICAPULSE -->
+            <article class="project-card theme-cyan" data-category="science" data-glow="#2563eb" data-project-index="07">
                 <div class="card-topline">
                     <span class="project-index">07</span>
+                    <span class="project-kind">Research</span>
+                    <span class="project-status">Repository</span>
+                </div>
+                <div class="card-preview project-icon-preview">
+                    <span class="preview-orbit" aria-hidden="true"></span>
+                    <picture class="project-icon-picture">
+                        <source srcset="assets/images/projects/icons/civilicapulse.webp" type="image/webp">
+                        <img class="project-icon-image" src="assets/images/projects/icons/civilicapulse.webp" alt="CivilicaPulse Persian research export app icon" width="512" height="512" loading="eager" decoding="async">
+                    </picture>
+                    <span class="preview-caption">Persian research / Word export</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-heading">
+                        <div><span class="project-kicker">Academic extraction tool</span><h3 class="project-title">CivilicaPulse</h3></div>
+                        <span class="project-year">07</span>
+                    </div>
+                    <p class="project-desc">A Persian RTL tool for selecting a Civilica researcher’s publications and exporting structured references to Word.</p>
+                    <div class="project-tags">
+                        <span class="tag">Civilica</span>
+                        <span class="tag">RTL Word</span>
+                        <span class="tag">Citations</span>
+                        <span class="tag">Flask</span>
+                    </div>
+                    <div class="action-row">
+                        <button class="action-btn-card details-btn" data-id="civilicapulse"><span class="svg-icon-slot" data-icon="ui/info-svgrepo-com" aria-hidden="true"></span>Details</button>
+                        <a href="https://github.com/Soheil-Aghayani/CivilicaPulse" target="_blank" rel="noopener noreferrer" class="action-btn-card repo-link" aria-label="Open CivilicaPulse repository" title="View source repository">
+                            <span class="svg-icon-slot" data-icon="brand/github" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- LABORATORY RULES -->
+            <article class="project-card theme-red" data-category="science" data-glow="#ef4444" data-project-index="08">
+                <div class="card-topline">
+                    <span class="project-index">08</span>
                     <span class="project-kind">Science</span>
                     <span class="project-status">Live</span>
                 </div>
@@ -398,7 +435,7 @@
                 <div class="card-body">
                     <div class="card-heading">
                         <div><span class="project-kicker">Reference system</span><h3 class="project-title">Laboratory Rules</h3></div>
-                        <span class="project-year">07</span>
+                        <span class="project-year">08</span>
                     </div>
                     <p class="project-desc">A guidelines resource platform presenting standard safety laboratory practices and regulations in an clean layout.</p>
                     <div class="project-tags">
@@ -421,9 +458,9 @@
             </article>
 
             <!-- COFFPEN -->
-            <article class="project-card theme-amber" data-category="writing" data-glow="#f59e0b" data-project-index="08">
+            <article class="project-card theme-amber" data-category="writing" data-glow="#f59e0b" data-project-index="09">
                 <div class="card-topline">
-                    <span class="project-index">08</span>
+                    <span class="project-index">09</span>
                     <span class="project-kind">Writing</span>
                     <span class="project-status">Live</span>
                 </div>
@@ -438,7 +475,7 @@
                 <div class="card-body">
                     <div class="card-heading">
                         <div><span class="project-kicker">Independent publication</span><h3 class="project-title">Coffpen</h3></div>
-                        <span class="project-year">08</span>
+                        <span class="project-year">09</span>
                     </div>
                     <p class="project-desc">An independent Persian writing platform for short stories, serial fiction, and personal notes, published as a fast static site.</p>
                     <div class="project-tags">
@@ -461,9 +498,9 @@
             </article>
 
             <!-- DODGE GAME -->
-            <article class="project-card theme-ember" data-category="tools" data-glow="#ffb454" data-project-index="09">
+            <article class="project-card theme-ember" data-category="tools" data-glow="#ffb454" data-project-index="10">
                 <div class="card-topline">
-                    <span class="project-index">09</span>
+                    <span class="project-index">10</span>
                     <span class="project-kind">Desktop</span>
                     <span class="project-status">Repository</span>
                 </div>
@@ -478,7 +515,7 @@
                 <div class="card-body">
                     <div class="card-heading">
                         <div><span class="project-kicker">Desktop game</span><h3 class="project-title">Dodge Game</h3></div>
-                        <span class="project-year">09</span>
+                        <span class="project-year">10</span>
                     </div>
                     <p class="project-desc">Ashfall Embers Trial is a PyQt5 arcade survival game about dodging falling blocks, hazards, and abnormal events.</p>
                     <div class="project-tags">
@@ -522,7 +559,7 @@
                         <span class="svg-icon-slot" data-icon="ui/leaf" aria-hidden="true"></span>
                         <span>Digital View: Saves 8-12g CO₂e vs. Printing</span>
                     </div>
-                    <p class="projects-footer-note">Nine projects. One evolving workspace.</p>
+                    <p class="projects-footer-note">Ten projects. One evolving workspace.</p>
 
                     <nav class="projects-footer-links" aria-label="Project index links">
                         <a href="https://www.linkedin.com/in/agseyl/" target="_blank" rel="noopener noreferrer"><span class="svg-icon-slot" data-icon="brand/linkedin-circle" aria-hidden="true"></span>LinkedIn</a>
@@ -849,6 +886,17 @@
                     'Local parsing and export paths that keep research tooling useful without requiring an API key.'
                 ],
                 notes: 'ScholarPulse turns the repetitive parts of academic discovery into a single focused workspace, with clear paths from search to usable references.'
+            },
+            'civilicapulse': {
+                title: 'CivilicaPulse',
+                overview: 'A Persian RTL research tool for selecting a Civilica researcher’s publications and exporting structured references to Word.',
+                tech: ['Python', 'Flask', 'Persian RTL UI', 'Citation Formatting', 'Word Export'],
+                features: [
+                    'Extracts public researcher publication metadata and keeps the workflow focused on selection and export.',
+                    'Supports APA 7th, Vancouver, IEEE, Harvard, Chicago, MLA 9th, and BibTeX formats.',
+                    'Produces right-to-left Word-compatible output with configurable Civilica links and a local HTML fallback.'
+                ],
+                notes: 'CivilicaPulse is maintained as a separate Persian project from ScholarPulse. It is designed for low-volume research use and does not bypass Civilica access controls.'
             },
             'lab-rules': {
                 title: 'Laboratory Safety Rules',

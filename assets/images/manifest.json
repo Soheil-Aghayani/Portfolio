@@ -57,6 +57,16 @@
       "license": "derived from the local canonical icon; no external runtime dependency"
     },
     {
+      "key": "projects/icons/civilicapulse",
+      "path": "assets/images/projects/icons/civilicapulse.webp",
+      "sourceCategory": "project-icon",
+      "source": "generated-bigsur-composition-from-local-project-artwork",
+      "sourcePath": "assets/images/projects/source-icons/civilicapulse.webp",
+      "sourceUrl": "https://github.com/Soheil-Aghayani/CivilicaPulse",
+      "duplicateDecision": "new-generated-webp; source artwork preserved",
+      "license": "project-owned source; verify repository license before redistribution"
+    },
+    {
       "key": "projects/icons/laboratory-rules",
       "path": "assets/images/projects/icons/laboratory-rules.webp",
       "sourceCategory": "project-icon",
@@ -100,6 +110,15 @@
       "source": "captured-from-owned-public-project",
       "sourceUrl": "https://soheil-aghayani.github.io/ScholarPulse/",
       "duplicateDecision": "canonical-preview-moved; preserved for future detail views",
+      "license": "project-owned source; verify repository license before redistribution"
+    },
+    {
+      "key": "projects/previews/civilicapulse",
+      "path": "assets/images/projects/previews/civilicapulse.webp",
+      "sourceCategory": "project-preview",
+      "source": "captured-from-owned-local-project",
+      "sourceUrl": "https://github.com/Soheil-Aghayani/CivilicaPulse",
+      "duplicateDecision": "project mark preserved as temporary preview artwork",
       "license": "project-owned source; verify repository license before redistribution"
     },
     {

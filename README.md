@@ -61,6 +61,14 @@ research + software + visual systems
 | Notes app | Browser-local notes with terminal listing and JSON export |
 | Game Center | Seven canvas-based games inside a macOS-inspired window |
 
+### CivilicaPulse
+
+[CivilicaPulse](https://github.com/Soheil-Aghayani/CivilicaPulse) is maintained as a separate
+Persian research project. It turns a public Civilica researcher publication list into selected,
+right-to-left Word references with multiple citation styles. The project is linked from the
+[project index](https://soheil-aghayani.github.io/projects.html) without merging its backend
+or documentation into this portfolio repository.
+
 ## Interactive systems
 
 ### Terminal
@@ -132,6 +140,7 @@ assets/
   images/                   Portfolio, project, game, and miner artwork
     projects/               Local project artwork and Big Sur-style WebP icons
       icons/                One square WebP app icon per showcased project
+      source-icons/         Project-owned source artwork used by the icon pipeline
       previews/             Preserved full-width project captures
   audio/                    Local audio tracks
 tools/assets/               Repeatable asset and sprite tooling

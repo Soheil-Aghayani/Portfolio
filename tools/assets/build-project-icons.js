@@ -12,6 +12,7 @@ const PROJECTS = [
     { name: 'deutschly', source: 'assets/icons/ui/language.svg', colors: ['#c4b5fd', '#635bff', '#312e81'], kind: 'glyph' },
     { name: 'pahlavan', source: 'assets/icons/states/verified.svg', colors: ['#6ee7b7', '#059669', '#064e3b'], kind: 'glyph' },
     { name: 'scholarpulse', source: 'assets/icons/ui/journal.svg', colors: ['#a5f3fc', '#06b6d4', '#164e63'], kind: 'glyph' },
+    { name: 'civilicapulse', source: 'assets/images/projects/source-icons/civilicapulse.webp', colors: ['#bfdbfe', '#3b82f6', '#1e3a8a'], kind: 'image' },
     { name: 'laboratory-rules', source: 'assets/icons/states/warning.svg', colors: ['#fecaca', '#ef4444', '#7f1d1d'], kind: 'glyph' },
     { name: 'coffpen', source: 'assets/icons/ui/journal.svg', colors: ['#fde68a', '#f59e0b', '#78350f'], kind: 'glyph' },
     { name: 'dodge-game', source: 'assets/images/projects/previews/dodge-game.webp', colors: ['#fed7aa', '#f97316', '#451a03'], kind: 'image' }
