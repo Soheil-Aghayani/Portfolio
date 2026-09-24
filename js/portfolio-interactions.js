@@ -178,6 +178,63 @@
             !document.documentElement.classList.contains('screensaver-active');
     }
 
+    const MIN_FLOWCHART_SCALE = 0.15;
+    const MAX_FLOWCHART_SCALE = 4.5;
+
+    function getCanvasPoint(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = rect.width ? canvas.width / rect.width : 1;
+        const scaleY = rect.height ? canvas.height / rect.height : 1;
+
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY
+        };
+    }
+
+    function getPanBounds(scale) {
+        const imageWidth = img.naturalWidth || img.width;
+        const imageHeight = img.naturalHeight || img.height;
+        const renderedWidth = imageWidth * scale;
+        const renderedHeight = imageHeight * scale;
+
+        // Keep the image covering the viewport when it is larger; otherwise keep
+        // it centered so dragging cannot expose an unbounded empty canvas.
+        const x = renderedWidth >= canvas.width
+            ? { min: canvas.width - renderedWidth, max: 0 }
+            : { min: (canvas.width - renderedWidth) / 2, max: (canvas.width - renderedWidth) / 2 };
+        const y = renderedHeight >= canvas.height
+            ? { min: canvas.height - renderedHeight, max: 0 }
+            : { min: (canvas.height - renderedHeight) / 2, max: (canvas.height - renderedHeight) / 2 };
+
+        return { x, y };
+    }
+
+    function clampPosition(x, y, scale) {
+        if (!imgLoaded || !canvas.width || !canvas.height) return { x, y };
+
+        const bounds = getPanBounds(scale);
+        return {
+            x: Math.min(bounds.x.max, Math.max(bounds.x.min, x)),
+            y: Math.min(bounds.y.max, Math.max(bounds.y.min, y))
+        };
+    }
+
+    function setTargetTransform(x, y, scale = targetTransform.scale) {
+        const boundedScale = Math.min(MAX_FLOWCHART_SCALE, Math.max(MIN_FLOWCHART_SCALE, scale));
+        const boundedPosition = clampPosition(x, y, boundedScale);
+
+        targetTransform.scale = boundedScale;
+        targetTransform.x = boundedPosition.x;
+        targetTransform.y = boundedPosition.y;
+    }
+
+    function clampTransform(state) {
+        const boundedPosition = clampPosition(state.x, state.y, state.scale);
+        state.x = boundedPosition.x;
+        state.y = boundedPosition.y;
+    }
+
     function stopAnimationLoop() {
         if (animationFrameId) {
             cancelAnimationFrame(animationFrameId);
@@ -196,6 +253,7 @@
                 transform.x += (targetTransform.x - transform.x) * 0.15;
                 transform.y += (targetTransform.y - transform.y) * 0.15;
                 transform.scale += (targetTransform.scale - transform.scale) * 0.15;
+                clampTransform(transform);
                 draw();
             }
             animationFrameId = requestAnimationFrame(update);
@@ -224,14 +282,13 @@
         const targetX = (canvas.width - img.width * finalScale) / 2;
         const targetY = (canvas.height - img.height * finalScale) / 2;
 
-        targetTransform.scale = finalScale;
-        targetTransform.x = targetX;
-        targetTransform.y = targetY;
+        setTargetTransform(targetX, targetY, finalScale);
 
         if (instant) {
             transform.scale = finalScale;
-            transform.x = targetX;
-            transform.y = targetY;
+            const boundedPosition = clampPosition(targetX, targetY, finalScale);
+            transform.x = boundedPosition.x;
+            transform.y = boundedPosition.y;
             draw();
         }
     }
@@ -260,6 +317,11 @@
         const parentWidth = viewer.parentElement.clientWidth - 40;
         canvas.width = parentWidth;
         canvas.height = Math.min(480, window.innerHeight * 0.6);
+
+        if (imgLoaded) {
+            setTargetTransform(targetTransform.x, targetTransform.y);
+            clampTransform(transform);
+        }
     }
 
     window.addEventListener('resize', () => {
@@ -283,15 +345,16 @@
         if (isBlurred) return;
         e.preventDefault();
         isDragging = true;
-        dragStart.x = e.clientX - targetTransform.x;
-        dragStart.y = e.clientY - targetTransform.y;
+        const point = getCanvasPoint(e.clientX, e.clientY);
+        dragStart.x = point.x - targetTransform.x;
+        dragStart.y = point.y - targetTransform.y;
     });
 
     window.addEventListener('mousemove', (e) => {
         if (!isDragging || isBlurred) return;
         e.preventDefault();
-        targetTransform.x = e.clientX - dragStart.x;
-        targetTransform.y = e.clientY - dragStart.y;
+        const point = getCanvasPoint(e.clientX, e.clientY);
+        setTargetTransform(point.x - dragStart.x, point.y - dragStart.y);
     });
 
     window.addEventListener('mouseup', () => { isDragging = false; });
@@ -300,8 +363,9 @@
         if (isBlurred) return;
         if (e.touches.length === 1) {
             isDragging = true;
-            dragStart.x = e.touches[0].clientX - targetTransform.x;
-            dragStart.y = e.touches[0].clientY - targetTransform.y;
+            const point = getCanvasPoint(e.touches[0].clientX, e.touches[0].clientY);
+            dragStart.x = point.x - targetTransform.x;
+            dragStart.y = point.y - targetTransform.y;
         } else if (e.touches.length === 2) {
             isDragging = false;
             initialPinchDist = Math.hypot(
@@ -310,9 +374,12 @@
             );
             initialScale = targetTransform.scale;
             
-            const rect = canvas.getBoundingClientRect();
-            pinchCenter.x = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
-            pinchCenter.y = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
+            const point = getCanvasPoint(
+                (e.touches[0].clientX + e.touches[1].clientX) / 2,
+                (e.touches[0].clientY + e.touches[1].clientY) / 2
+            );
+            pinchCenter.x = point.x;
+            pinchCenter.y = point.y;
         }
     });
 
@@ -320,8 +387,8 @@
         if (isBlurred) return;
         if (e.touches.length === 1 && isDragging) {
             e.preventDefault();
-            targetTransform.x = e.touches[0].clientX - dragStart.x;
-            targetTransform.y = e.touches[0].clientY - dragStart.y;
+            const point = getCanvasPoint(e.touches[0].clientX, e.touches[0].clientY);
+            setTargetTransform(point.x - dragStart.x, point.y - dragStart.y);
         } else if (e.touches.length === 2 && initialPinchDist > 0) {
             e.preventDefault(); // Stop mobile from zooming the entire page
             const currentDist = Math.hypot(
@@ -329,11 +396,11 @@
                 e.touches[0].clientY - e.touches[1].clientY
             );
             const zoomFactor = currentDist / initialPinchDist;
-            const targetScale = Math.min(Math.max(initialScale * zoomFactor, 0.15), 4.5);
+            const targetScale = Math.min(Math.max(initialScale * zoomFactor, MIN_FLOWCHART_SCALE), MAX_FLOWCHART_SCALE);
             
-            targetTransform.x = pinchCenter.x - (pinchCenter.x - targetTransform.x) * (targetScale / targetTransform.scale);
-            targetTransform.y = pinchCenter.y - (pinchCenter.y - targetTransform.y) * (targetScale / targetTransform.scale);
-            targetTransform.scale = targetScale;
+            const nextX = pinchCenter.x - (pinchCenter.x - targetTransform.x) * (targetScale / targetTransform.scale);
+            const nextY = pinchCenter.y - (pinchCenter.y - targetTransform.y) * (targetScale / targetTransform.scale);
+            setTargetTransform(nextX, nextY, targetScale);
         }
     }, { passive: false });
 
@@ -348,16 +415,15 @@
         if (isBlurred) return;
         e.preventDefault();
         const zoomIntensity = 0.08;
-        const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-        const mouseY = e.clientY - canvas.getBoundingClientRect().top;
+        const point = getCanvasPoint(e.clientX, e.clientY);
         const wheel = e.deltaY < 0 ? 1 : -1;
         const zoomFactor = Math.exp(wheel * zoomIntensity);
         
-        const targetScale = Math.min(Math.max(targetTransform.scale * zoomFactor, 0.15), 4.5);
+        const targetScale = Math.min(Math.max(targetTransform.scale * zoomFactor, MIN_FLOWCHART_SCALE), MAX_FLOWCHART_SCALE);
         
-        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
-        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
-        targetTransform.scale = targetScale;
+        const nextX = point.x - (point.x - targetTransform.x) * (targetScale / targetTransform.scale);
+        const nextY = point.y - (point.y - targetTransform.y) * (targetScale / targetTransform.scale);
+        setTargetTransform(nextX, nextY, targetScale);
     }, { passive: false });
 
     canvas.addEventListener('dblclick', () => {
@@ -369,20 +435,20 @@
         if (isBlurred) return;
         const mouseX = canvas.width / 2;
         const mouseY = canvas.height / 2;
-        const targetScale = Math.min(targetTransform.scale * 1.3, 4.5);
-        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
-        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
-        targetTransform.scale = targetScale;
+        const targetScale = Math.min(targetTransform.scale * 1.3, MAX_FLOWCHART_SCALE);
+        const nextX = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
+        const nextY = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
+        setTargetTransform(nextX, nextY, targetScale);
     });
 
     zoomOut.addEventListener('click', () => {
         if (isBlurred) return;
         const mouseX = canvas.width / 2;
         const mouseY = canvas.height / 2;
-        const targetScale = Math.max(targetTransform.scale / 1.3, 0.15);
-        targetTransform.x = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
-        targetTransform.y = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
-        targetTransform.scale = targetScale;
+        const targetScale = Math.max(targetTransform.scale / 1.3, MIN_FLOWCHART_SCALE);
+        const nextX = mouseX - (mouseX - targetTransform.x) * (targetScale / targetTransform.scale);
+        const nextY = mouseY - (mouseY - targetTransform.y) * (targetScale / targetTransform.scale);
+        setTargetTransform(nextX, nextY, targetScale);
     });
 
     reset.addEventListener('click', () => {

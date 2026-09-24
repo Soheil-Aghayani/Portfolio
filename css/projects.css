@@ -650,7 +650,6 @@ header {
     content: '';
 }
 
-.project-card:hover,
 .project-card:focus-within {
     border-color: var(--hover-color);
     box-shadow: 0 1.2rem 2.8rem rgba(0, 0, 0, 0.3), 0 0 1.6rem var(--hover-glow);
@@ -823,14 +822,12 @@ header {
     text-transform: uppercase;
 }
 
-.project-card:hover .preview-orbit,
 .project-card:focus-within .preview-orbit {
     border-color: var(--hover-color);
     transform: rotate(12deg) skewX(-15deg) scale(1.06);
     opacity: 1;
 }
 
-.project-card:hover .project-icon-picture,
 .project-card:focus-within .project-icon-picture {
     transform: rotate(0) translateY(-0.55rem) scale(1.06);
     filter: drop-shadow(0 1.35rem 1.65rem rgba(0, 0, 0, 0.42)) drop-shadow(0 0 1.6rem var(--hover-glow));
@@ -1119,12 +1116,6 @@ header {
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.projects-eco-badge:hover {
-    background: rgba(45, 212, 191, 0.1);
-    box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
-    transform: translateY(-2px);
 }
 
 .projects-eco-badge .svg-icon {
@@ -1783,7 +1774,6 @@ iframe {
         transition-duration: 0.01ms !important;
     }
 
-    .project-card:hover,
     .project-card:focus-within,
     .back-btn:hover,
     .music-toggle-btn:hover {

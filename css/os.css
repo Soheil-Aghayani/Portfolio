@@ -1008,10 +1008,9 @@ html.os-active, body.os-active {
 .bj-cards .bj-card:not(:first-child) {
     margin-left: -18px;
 }
-.bj-card:hover {
-    z-index: 10;
-    transform: translateY(-6px) scale(1.06);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 10px var(--suit-color);
+.bj-chip:hover {
+    transform: rotateX(25deg) translateY(-4px) scale(1.1);
+    z-index: 100 !important;
 }
 .bj-card-corner {
     position: absolute;
@@ -1292,11 +1291,6 @@ html.os-active, body.os-active {
     box-shadow: 0 0 6px rgba(52, 211, 153, 0.2);
     min-width: 14px;
 }
-.bj-chip:hover {
-    transform: rotateX(25deg) translateY(-4px) scale(1.1);
-    z-index: 100 !important;
-}
-
 /* Sweep animations for chips removal */
 .bj-chips-stack-3d.sweep-loss .bj-chip {
     animation: bj-chip-sweep-up 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
