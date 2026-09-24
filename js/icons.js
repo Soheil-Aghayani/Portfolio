@@ -3,7 +3,7 @@
 
     // Bump this whenever the generated sprite changes so browsers do not keep
     // serving an older icon set from GitHub Pages' cache.
-    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.5-monitor-icon';
+    const SPRITE_URL = 'assets/icons/sprite.svg?v=3.6-light-ui-icons';
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
 
     function escapeAttribute(value) {

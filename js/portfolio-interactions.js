@@ -468,7 +468,7 @@
     }
 
     const EASTER_EGG_REACTIONS = [
-        { icon: 'states/hacker', title: 'Look at you! You sneaky hacker...', sub: '(Focus this window to unmask the secret blueprint)' },
+        { icon: 'states/hacker-outline', title: 'Look at you! You sneaky hacker...', sub: '(Focus this window to unmask the secret blueprint)' },
         { icon: 'states/vpn', title: 'Neo, is that you? The Matrix has you...', sub: '(Click back into this window to take the red pill)' },
         { icon: 'states/security-check', title: 'Access Denied: Mainframe is watching you!', sub: '(Focus window to resume top-secret operation)' },
         { icon: 'states/external-link-rounded', title: 'Unauthorized tab switching detected!', sub: '(Return to base to decrypt the master diagram)' },
