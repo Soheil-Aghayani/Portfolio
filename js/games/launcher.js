@@ -143,7 +143,7 @@ export class GameLauncher {
         }
 
         const stage = this.container.querySelector('#gameStage');
-        const menu = this.container.querySelector('#gameMenu');
+        const menu = this.container.querySelector('.game-menu');
 
         // Hide Menu, Show Stage
         menu.style.display = 'none';
@@ -779,9 +779,9 @@ export class GameLauncher {
         if (pauseBtn) pauseBtn.style.display = 'none';
 
         const stage = this.container.querySelector('#gameStage');
-        const menu = this.container.querySelector('#gameMenu');
+        const menu = this.container.querySelector('.game-menu');
         stage.style.display = 'none';
-        menu.style.display = 'grid';
+        menu.style.display = 'flex';
 
         if (this.lastFocusedGameIcon) {
             this.lastFocusedGameIcon.focus();
