@@ -7,7 +7,15 @@ const initApp = () => {
         if (osStylesPromise) return osStylesPromise;
 
         const existing = document.querySelector('link[data-os-styles]');
-        if (existing) return Promise.resolve(existing);
+        if (existing) {
+            if (existing.sheet) return Promise.resolve(existing);
+
+            osStylesPromise = new Promise((resolve, reject) => {
+                existing.addEventListener('load', () => resolve(existing), { once: true });
+                existing.addEventListener('error', reject, { once: true });
+            });
+            return osStylesPromise;
+        }
 
         const link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -110,7 +118,7 @@ const initApp = () => {
     let launcherPromise;
     const ensureGameLauncher = () => {
         if (!launcherPromise) {
-            launcherPromise = import('./games/launcher.js?v=9.2')
+            launcherPromise = import('./games/launcher.js?v=9.3')
                 .then(({ GameLauncher }) => {
                     const launcher = new GameLauncher('appBody');
                     window.gameLauncherInstance = launcher;
